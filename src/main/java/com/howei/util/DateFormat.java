@@ -84,10 +84,39 @@ public class DateFormat {
         }
     }
 
+    /**
+     * 获取格式：yyyy-MM-dd
+     * @return
+     */
     public static String getYMD(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String created=sdf.format(new Date());
         return created;
     }
 
+
+    public static String getBothDate(String beginTime,String endTime)throws ParseException{
+        long nd = 1000 * 24 * 60 * 60;
+        long nh = 1000 * 60 * 60;
+        long nm = 1000 * 60;
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long bt=sdf.parse(beginTime).getTime();
+        long et=sdf.parse(endTime).getTime();
+        long diff=(et-bt);
+        // 计算差多少天
+        long day = diff / nd;
+        // 计算差多少小时
+        long hour = diff % nd / nh;
+        // 计算差多少分钟
+        long min = diff % nd % nh / nm;
+        String result="";
+        if(day<1&&hour>1){
+            result=hour + "时" + min + "分钟";
+        }else if(day<1&&hour<1){
+            result=min + "分钟";
+        }else{
+            result=day + "天" + hour + "时" + min + "分钟";
+        }
+        return result;
+    }
 }

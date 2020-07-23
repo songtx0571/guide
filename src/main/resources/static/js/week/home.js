@@ -1,11 +1,46 @@
 window.onload = function() {
+    var websocket = null;
+    //浏览器是否支持
+    if ('WebSocket' in window) {
+
+        // 上面我们给webSocket定位的路径
+        websocket = new WebSocket('ws://localhost:8080/webSocket');
+    } else {
+        alert("error");
+        alert('该浏览器不支持websocket!');
+    }
+    //建立连接
+    websocket.onopen = function (event) {
+        console.log('建立连接');
+    }
+    //关闭连接
+    websocket.onclose = function (event) {
+        console.log('连接关闭');
+    }
+    //消息来的时候的事件
+    websocket.onmessage = function (event) {
+        // 这里event.data就是我们从后台推送过来的消息
+        console.log('收到消息:' + event.data);
+        // 在这里我们可以在页面中放置一个音乐，例如“您有新的订单了！”这样的提示音
+        //document.getElementById("newOrderMp3").play();
+    }
+
+    //发生错误时
+    websocket.onerror = function () {
+        alert('websocket通信发生错误！');
+    }
+    //窗口关闭时，Websocket关闭
+    window.onbeforeunload = function () {
+        websocket.close();
+    }
+
     jQuery("#nav").accordion({ //初始化accordion
         fillSpace:true,
         fit:true,
         border:false,
         animate:true,
     });
-    $.post("/guide/getMenu", { "parent": "0" }, //获取第一层目录
+    $.post("guide/getMenu", { "parent": "0" }, //获取第一层目录
         function (data) {
             $.each(data, function (i, e) {//循环创建手风琴的项
                 var id = e.id;

@@ -365,11 +365,6 @@ public class StaffController {
             int postId=postPerator.getId();//当前员工模板Id
             WorkPerator workPerator=workPeratorService.selWorkperator(String.valueOf(id));//获取管理员模板的信息
             if(workPerator!=null){
-                map.clear();
-                map.put("parent",workPerator.getId());
-                map.put("page",0);
-                map.put("pageSize",10000);
-                List<WorkPerator> list=workPeratorService.getTemplateChildList(map);
                 //返回设备名称
                 map.clear();
                 map.put("parent",id);

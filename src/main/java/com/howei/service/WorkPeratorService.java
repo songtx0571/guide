@@ -44,4 +44,5 @@ public interface WorkPeratorService {
 
     int selAllCount(Map<String,Object> map);
 
+    List<Map> getTemplateMap(Map map);
 }

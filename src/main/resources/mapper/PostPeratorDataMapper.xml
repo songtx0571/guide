@@ -65,4 +65,7 @@
         </if>
     </select>
 
+    <select id="selPostPerDataById" parameterType="java.lang.String" resultType="java.util.HashMap">
+        select * from postPerator_data where postPeratorId=#{postPeratorld}
+    </select>
 </mapper>

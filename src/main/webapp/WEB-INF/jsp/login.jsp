@@ -18,7 +18,8 @@
             width: 1920px;
             height: 971px;
             background: url("img/loginA.png") no-repeat;
-            backgroud-size: 1920px 971px;
+            /*backgroud-size: 1920px 971px;*/
+            backgroud-size: 100%;
         }
 
         .white_content {

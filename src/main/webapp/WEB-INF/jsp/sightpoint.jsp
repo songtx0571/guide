@@ -76,10 +76,18 @@
         </tr>
         </thead>
     </table>
-    <div id="pointBar" style="height: 100px;text-align: center;line-height: 100px;background-color: #00bbee;border-radius: 8px;" onclick="openSightPoint()">
-        <span style="font-size: 20px;text-align: center;">
-            <a href="javascript:openSightPoint()" style="text-decoration: none;color: #222222"><strong>创建</strong></a>
-        </span>
+    <%--<div id="pointBar" style="height: 100px;text-align: center;line-height: 100px;background-color: #00bbee;border-radius: 8px;" onclick="openSightPoint()">--%>
+        <%--<span style="font-size: 20px;text-align: center;">--%>
+            <%--<a href="javascript:openSightPoint()" style="text-decoration: none;color: #222222"><strong>创建</strong></a>--%>
+        <%--</span>--%>
+    <%--</div>--%>
+
+    <div id="pointBar" style="width: 100%;height: 100px;text-align: center;padding: 25px 0px; box-sizing: border-box;">
+        <div style="width: 70%;height: 50px;background-color: #00bbee;border-radius: 8px;line-height: 50px;margin-left: 15%;" onclick="openSightPoint()">
+            <span style="font-size: 20px;text-align: center;">
+                <a href="javascript:openSightPoint()" style="text-decoration: none;color: #fff"><strong>创建</strong></a>
+            </span>
+        </div>
     </div>
 </body>
 </html>
