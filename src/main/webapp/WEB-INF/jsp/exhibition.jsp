@@ -34,9 +34,6 @@
         display: inline-block;
         border-radius: 50%;
     }
-    /*.datagrid-body .datagrid-btable tr .datagrid-cell a{*/
-        /*color: #fff;*/
-    /*}*/
 </style>
 <script type="text/javascript">
     function openWorkPerator(){
@@ -152,19 +149,10 @@
         </thead>
     </table>
     <div id="bar" style="height: 100px;text-align: center;line-height: 100px;">
-        <%--<div onclick="javascript:searchWorkPerator()" style="width: 10%;float: left;height: 100px;line-height: 100px;background-color: #00ee00;border-radius: 8px;display: inline-block">--%>
-            <%--&lt;%&ndash;<img src="../img/sousuo.png" width="100px" height="100px"/>&ndash;%&gt;--%>
-            <%--<img src="../../img/sousuo.png" width="100px" height="100px"/>--%>
-        <%--</div>--%>
         <div onclick="javascript:searchWorkPerator()" class="searchWorkPerator">
             <%--<img src="../img/sousuo.png" width="100px" height="100px"/>--%>
             <img src="../../img/sousuo.png" style="width: 100px;height: 100px;"/>
         </div>
-        <%--<div onclick="javascript:openWorkPerator()" style="width:90%;height: 100px;text-align: center;line-height: 100px;float: right;background-color: #00bbee;border-radius: 8px;display: inline-block">--%>
-            <%--<span style="font-size: 20px;text-align: center;">--%>
-                <%--<a href="javascript:openWorkPerator()" style="text-decoration: none;color: #222222"><strong>创建</strong></a>--%>
-            <%--</span>--%>
-        <%--</div>--%>
         <div onclick="javascript:openWorkPerator()" class="createWorkPerator">
             <span style="font-size: 20px;text-align: center;">
                 <a href="javascript:openWorkPerator()" style="text-decoration: none;color: #222222"><strong>创建</strong></a>

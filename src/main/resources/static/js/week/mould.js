@@ -67,10 +67,46 @@ function searchByWorkPer() {
                 var diachronic=mouldData.diachronic;//历时
                 html+='<tr id="tr'+id+'"><td id="'+id+'"><a href="javascript:openPostPerData('+id+')" class="a">'+status+'</a></td><td>'+startTime+'</td><td>'+endTime+'</td><td>'+diachronic+
                     '</td><td>'+userName+'</td><td>'+count+'</td><td>'+AIcount+'</td></tr>';
+                console.log(html);
             }
             $("#mouldTable").html(html);
         }
     });
+    // 显示查询的模板
+    // $('#mouldTable').datagrid({
+    //     url: '/guide/mould/getMouldList',
+    //     method: 'get',
+    //     title: '查询模板',
+    //     //width: 'auto',
+    //     height: 600,
+    //     //fitColumns: true,//自适应列
+    //     loadMsg: '正在加载信息...',
+    //     pagination: true,//允许分页
+    //     //singleSelect: true,//单行选中。
+    //     pageSize: 10,
+    //     pageNumber: 1,
+    //     pageList: [10, 15, 20, 30, 50],
+    //     queryParams: { 'depart':depart,'Template':Template }, //往后台传参数用的。
+    //     columns: [[
+    //         {field: 'id', title: '编号', width: 30, align: 'center'},
+    //         {field: 'status', title: '状态', width: 30, align: 'center'},
+    //         {field: 'startTime', title: '开始时间', width: 30, align: 'center'},
+    //         {field: 'endTime', title: '结束时间', width: 30, align: 'center'},
+    //         {field: 'diachronic', title: '历时', width: 30, align: 'center'},
+    //         {field: 'userName', title: '巡检人', width: 30, align: 'center'},
+    //         {field: 'count', title: '人工巡检数', width: 30, align: 'center'},
+    //         {field: 'AIcount', title: 'AI巡检数', width: 30, align: 'center'},
+    //     ]],
+    //     onClickRow: function(rowIndex, rowData){
+    //         $('#mouldTable').datagrid('clearSelections');
+    //     },
+    //     onLoadSuccess: function (data) {
+    //         if (data.total == 0) {
+    //
+    //         }
+    //         else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
+    //     },
+    // });
 }
 
 /**

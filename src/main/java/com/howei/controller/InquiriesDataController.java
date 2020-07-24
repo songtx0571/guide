@@ -6,6 +6,8 @@ import com.howei.pojo.PostPeratorData;
 import com.howei.pojo.Users;
 import com.howei.service.PostPeratorDataService;
 import com.howei.service.UserService;
+import com.howei.util.EasyuiResult;
+import com.howei.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,15 +49,23 @@ public class InquiriesDataController {
      */
     @RequestMapping("/getInquiriesData")
     @ResponseBody
-    public List<InquiriesData> getInquiriesData(HttpServletRequest request){
+    public EasyuiResult getInquiriesData(HttpServletRequest request){
         String name=request.getParameter("name");
         String depart=request.getParameter("departName");
+        String rows=request.getParameter("rows");
+        String page=request.getParameter("page");
+        int offset=Page.getOffSet(page,rows);
+        EasyuiResult easyuiResult=new EasyuiResult();
         List<InquiriesData> result=new ArrayList<>();
         if(name!=null&&!name.equals("")){
             Map map2=new HashMap();
             map2.put("equipment",name);
             map2.put("projectDepartment",depart);
             List<Map> list=postPeratorDataService.selTypeByName(map2);
+            map2.put("page",offset);
+            map2.put("pageSize",rows);
+            List<Map> list2=postPeratorDataService.selTypeByName(map2);
+            easyuiResult.setTotal(list.size());
             InquiriesData inquiriesData;
             for(int i=0;i<list.size();i++){
                 inquiriesData=new InquiriesData();
@@ -86,6 +96,7 @@ public class InquiriesDataController {
                 result.add(inquiriesData);
             }
         }
-        return result;
+        easyuiResult.setRows(result);
+        return easyuiResult;
     }
 }

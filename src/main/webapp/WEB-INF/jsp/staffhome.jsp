@@ -20,22 +20,10 @@
     <%@ include file="keyboard.jsp"%>
 </head>
 <style>
-    /*body {*/
-        /*margin: 0;*/
-        /*width: 1200px;*/
-        /*height: 1920px;*/
-    /*}*/
     body {
         margin: 0;
         width: 100%;
     }
-
-    /*.headerDiv{*/
-        /*width: 1200px;*/
-        /*height: 200px;*/
-        /*line-height: 200px;*/
-        /*padding: 10px;*/
-    /*}*/
     .headerDiv{
         width: 100%;
         height: 90px;
@@ -49,33 +37,28 @@
     .headerDiv div{
         width: 25%;
     }
-
-    .bodyDiv{
-        /*width: 1200px;*/
+    .headerDiv2{
         width: 100%;
-        /*height: 1270px;*/
+        height: 90px;
+        line-height: 90px;
+    }
+    .headerDiv2 div{
+        width: 100%;
+    }
+    .bodyDiv{
+        width: 100%;
         height: 1000px;
         padding: 10px 10px 10px 10px;
         overflow-x: hidden;
         overflow-y: scroll;
     }
-
     .bodyDiv1{
-        /*width: 1200px;*/
         width: 100%;
         height: 1423px;
         padding: 10px 10px 10px 10px;
         overflow-x: hidden;
         overflow-y: scroll;
     }
-
-    /*.headerBody{*/
-        /*height: 190px;*/
-        /*display: inline-block;*/
-        /*font-size: 50px;*/
-        /*line-height: 190px;*/
-        /*text-align: center;*/
-    /*}*/
     .headerBody{
         height: 90px;
         display: inline-block;
@@ -86,61 +69,28 @@
     hr{
         margin: 0;
     }
-
-
     .bodyDiv::-webkit-scrollbar {
         display: none;
     }
-
     .bodyDiv1::-webkit-scrollbar {
         display: none;
     }
-    /*.foodDiv{*/
-        /*width: 1200px;*/
-        /*height: 170px;*/
-        /*padding: 10px;*/
-    /*}*/
     .foodDiv{
-        /*width: 1200px;*/
         width: 100%;
         height: 70px;
         margin: 20px 0px;
     }
-
     .foodBody{
         text-align: center;
         display: inline-block;
-        /*width: 700px;*/
         height: 140px;
         line-height: 140px;
         font-size: 30px;
     }
-
-    /*div,span{*/
-        /*font-size: 40px;*/
-    /*}*/
     div,span{
         font-size: 25px;
         color: #0E2D5F;
     }
-
-    /*.Task{*/
-        /*width: 1100px;*/
-        /*height: 150px;*/
-        /*line-height: 150px;*/
-        /*background-color: #00bbee;*/
-        /*border-radius: 10px;*/
-        /*margin: 40px;*/
-    /*}*/
-
-    /*.TaskBody{*/
-        /*width: 350px;*/
-        /*height: 150px;*/
-        /*line-height: 150px;*/
-        /*text-align: center;*/
-        /*display: inline-block;*/
-        /*font-size: 30px;*/
-    /*}*/
     .Task{
         width: 93%;
         height: 80px;
@@ -160,7 +110,6 @@
          font-size: 20px;
          float: left;
      }
-
     .foodDiv img{
         width: 70px;
         height: 70px;
@@ -178,17 +127,6 @@
         margin-right: 40px;
         float: right;
     }
-
-
-
-    /*.bodyHead{*/
-        /*text-align: center;*/
-        /*line-height: 130px;*/
-        /*width: 390px;*/
-        /*height: 130px;*/
-        /*display: inline-block;*/
-        /*margin: 0px;*/
-    /*}*/
     .bodyHead{
         text-align: center;
         line-height: 80px;
@@ -197,22 +135,17 @@
         display: inline-block;
         font-size: 25px;
     }
-
     tr{
         height: 100px;
         line-height: 100px;
         text-align: center;
     }
-
     tr td{
         height: 100px;
         width: 300px;
         text-align: center;
         line-height: 100px;
     }
-    /*.green{*/
-        /*color: #00ee00;*/
-    /*}*/
     .green{
         color: #30a881db;
     }
@@ -220,30 +153,20 @@
         color: #c62828;
     }
 </style>
-<script type="text/javascript">
 
-</script>
 <body>
     <%--头部--%>
     <div class="headerDiv">
-        <%--<div style="width: 100px;height: 100px;display: inline-block;margin-left: 35px" onclick="init()"><img src="img/h6.png" alt=""></div>--%>
-        <%--<div class="headerBody" style="width: 400px;font-size: 40px" id="patrolTask">请选择任务</div>--%>
-        <%--<div class="headerBody" style="width: 250px;font-size: 40px" id="userName"></div>--%>
-        <%--<div class="headerBody" style="width: 300px;font-size: 30px" id="dateTime"></div>--%>
-        <%--<div id="postId" style="display: none"></div>--%>
         <div style="width: 100px;height: 70px;display: inline-block;margin-left: 35px" onclick="init()"><img src="img/h6.png" alt=""></div>
         <div class="headerBody" id="patrolTask">请选择任务</div>
         <div class="headerBody" id="userName"></div>
         <div class="headerBody" id="dateTime"></div>
+    </div>
+    <div class="headerDiv2" id="headerDiv2">
         <div id="postId" style="display: none"></div>
     </div>
     <hr>
     <%--内容头部--%>
-    <%--<div style="width: 1200px;height: 130px;" id="bodyHeader">--%>
-        <%--<div class="bodyHead">巡检任务</div>--%>
-        <%--<div class="bodyHead">周期</div>--%>
-        <%--<div class="bodyHead">倒计时</div>--%>
-    <%--</div>--%>
     <div style="width: 100%;height: 80px;" id="bodyHeader">
         <div class="bodyHead">巡检任务</div>
         <div class="bodyHead">周期</div>
@@ -252,7 +175,6 @@
     <hr>
     <%--内容首页--%>
     <div class="bodyDiv" id="bodyDiv">
-
     </div>
     <div class="bodyDiv1 table-responsive" id="bodyDiv2">
         <table class="table " style="font-size: 30px">
@@ -263,26 +185,26 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-
             </tbody>
         </table>
     </div>
     <hr>
     <%--尾部--%>
     <div class="foodDiv">
-        <%--<div style="width: 200px;height: 140px;display: inline-block;float: left;" onclick="Back();">--%>
-            <%--<img src="img/zuo.png" alt="">--%>
-        <%--</div>--%>
-        <div class="footInlnDiv" onclick="Back()">
+        <div class="footInlnDiv" id="footLeftBtn" style="display: none;" onclick="Back()">
             <img src="img/zuo.png" alt="">
         </div>
         <div class="foodBody" id="foodBody"></div>
-        <%--<div style="width: 200px;height: 140px;display: inline-block;float: right" onclick="Forward()">--%>
-            <%--<img src="img/you.png" alt="">--%>
-        <%--</div>--%>
         <div  class="footInlnDiv footInlnDiv_R" onclick="Forward()">
             <img src="img/you.png" alt="">
         </div>
     </div>
+    <script type="text/javascript">
+        $("#headerDiv2").css("height", "0px");
+        $("#bodyDiv").click(function () {
+            $("#headerDiv2").css("height", "90px");
+            $("#footLeftBtn").css("display", "block");
+        })
+    </script>
 </body>
 </html>

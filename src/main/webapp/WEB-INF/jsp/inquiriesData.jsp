@@ -10,52 +10,10 @@
     <script type="text/javascript" src="../js/week/inquiriesData.js?version=1.0"></script>
 </head>
 <style type="text/css">
-    /*.bodyHeader{*/
-        /*width: 100%;*/
-        /*height: 10%;*/
-        /*background-color: #F0F8FF;*/
-    /*}*/
-    /*.bodyContent{*/
-        /*width: 100%;*/
-        /*height: 90%;*/
-        /*overflow-x: auto;*/
-        /*overflow-y: scroll;*/
-    /*}*/
-    /*.bodyContent::-webkit-scrollbar {*/
-        /*display: none;*/
-    /*}*/
-    /*.bodyContentHead{*/
-        /*margin: 10px;*/
-        /*text-align: center;*/
-    /*}*/
-    /*ul{*/
-        /*margin: 0px 0px 0px 0px;*/
-        /*padding: 20px 0px 0px 0px;*/
-        /*width: 100%;*/
-        /*height: 80%;*/
-        /*background-color: #F0F8FF;*/
-        /*list-style-type: none;*/
-    /*}*/
-    /*li{*/
-        /*height: 100%;*/
-        /*float: left;*/
-        /*margin-left: 40px;*/
-    /*}*/
-    /*.inquiresTable{*/
-        /*margin:auto;*/
-        /*border: 1px solid #00bbee;*/
-        /*border-collapse:collapse*/
-    /*}*/
-    /*tr,td{*/
-        /*height: 40px;*/
-        /*width: 120px;*/
-        /*border: 1px solid #00bbee;*/
-        /*text-align: center;*/
-    /*}*/
-
     .bodyHeader{
         width: 100%;
         height: 150px;
+        background: linear-gradient(#E0ECFF, #fff);
     }
     .bodyContent{
         width: 100%;
@@ -67,6 +25,7 @@
         display: none;
     }
     .bodyContentHead{
+        width: 95%;
         margin: 10px;
         text-align: center;
     }
@@ -79,7 +38,7 @@
         height: 150px;
     }
     li{
-        width: 45%;
+        width: 46%;
         height: 60%;
         float: left;
         margin-right: 4%;
@@ -91,20 +50,25 @@
     li div{
         width: 100%;
         height: 100%;
-        float: left;
     }
     .inquiresTable{
-        margin:auto;
+        margin:0 auto;
         border: 1px solid #00bbee;
         border-collapse:collapse;
         outline: none;
     }
-    tr,td{
-        height: 40px;
-        width: 120px;
-        border: 1px solid #00bbee;
-        text-align: center;
+    .panel-body{
+        height: 80%;
     }
+    .datagrid-view{
+        height: 80%;
+    }
+    /*tr,td{*/
+        /*height: 40px;*/
+        /*width: 120px;*/
+        /*border: 1px solid #00bbee;*/
+        /*text-align: center;*/
+    /*}*/
 </style>
 <script type="text/javascript">
 
@@ -123,7 +87,7 @@
             <li>
                 <div>
                     <span class="liTxt">系统号</span>
-                    <span style="display: inline-block;width: 10px;float: left;height: 10px;"></span>
+                    <span style="display: inline-block;width: 27px;float: left;height: 10px;"></span>
                     <select id="sysName" class="easyui-combobox" data-options="prompt:'请选择系统号',required:true" style="width:250px;height: 40px;line-height: 40px"></select>
                 </div>
             </li>
@@ -135,6 +99,13 @@
                 </div>
             </li>
             <li>
+                <div>
+                    <span class="liTxt">测点类型</span>
+                    <span style="display: inline-block;width: 10px;float: left;height: 10px;"></span>
+                    <select id="measuringType" class="easyui-combobox" data-options="prompt:'请选择测点类型',required:true" style="width:250px;height: 40px;line-height: 40px"></select>
+                </div>
+            </li>
+            <li style="width: 92%;text-align: center;">
                 <div id="search" style="height: 40px;width: 80px;border-radius: 5px;background-color: #00bbee;line-height: 40px;" onclick="javascript:searchByEqu()" class="easyui-linkbutton" plain="true">
                     <a href="javascript:void(0)" id="btn-save" style="text-decoration: none;color: #222222">确定</a>
                 </div>
@@ -145,8 +116,12 @@
     <div class="bodyContent">
         <div id="bodyContentHead" class="bodyContentHead">
             <div style="margin: 25px;color: #c62828"><span>测点数据列表</span></div>
-            <table id="inquiresTable" class="inquiresTable">
+            <%--<table id="inquiresTable" class="inquiresTable">--%>
 
+            <%--</table>--%>
+            <table id="inquiresTable" class="easyui-datagrid inquiresTable" title="数据列表"
+                   fitColumns="true" pagination="true" rownumbers="true"
+                   fit="true" >
             </table>
         </div>
     </div>

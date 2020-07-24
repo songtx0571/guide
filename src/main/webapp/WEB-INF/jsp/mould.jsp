@@ -7,73 +7,13 @@
     <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
     <link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css" />
     <link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css" />
-    <script type="text/javascript" src="../js/week/mould.js?version=1.0"></script>
+    <script type="text/javascript" src="../js/week/mould.js?version=1.02"></script>
 </head>
 <style type="text/css">
-    /*.bodyHeader{*/
-        /*width: 100%;*/
-        /*height: 10%;*/
-        /*background-color: #F0F8FF;*/
-    /*}*/
-    /*.bodyContent{*/
-        /*width: 100%;*/
-        /*height: 90%;*/
-        /*overflow-x: auto;*/
-        /*overflow-y: scroll;*/
-    /*}*/
-    /*.bodyContent::-webkit-scrollbar {*/
-        /*display: none;*/
-    /*}*/
-    /*.bodyContentHead{*/
-        /*margin: 10px;*/
-        /*text-align: center;*/
-    /*}*/
-    /*.postPerData{*/
-        /*overflow-x: auto;*/
-        /*overflow-y: scroll;*/
-    /*}*/
-    /*.postPerData::-webkit-scrollbar {*/
-        /*display: none;*/
-    /*}*/
-    /*ul{*/
-        /*margin: 0px 0px 0px 0px;*/
-        /*padding: 20px 0px 0px 0px;*/
-        /*width: 100%;*/
-        /*height: 80%;*/
-        /*background-color: #F0F8FF;*/
-        /*list-style-type: none;*/
-    /*}*/
-    /*li{*/
-        /*height: 100%;*/
-        /*float: left;*/
-        /*margin-left: 40px;*/
-    /*}*/
-    /*.mouldTable{*/
-        /*margin:auto;*/
-        /*border: 1px solid #00bbee;*/
-        /*border-collapse:collapse*/
-    /*}*/
-    /*tr,td{*/
-        /*height: 40px;*/
-        /*width: 120px;*/
-        /*border: 1px solid #00bbee;*/
-        /*text-align: center;*/
-    /*}*/
-    /*.a{*/
-        /*text-decoration:none;*/
-    /*}*/
-    /*.postPerDataTable{*/
-        /*margin:auto;*/
-        /*border: 1px solid #00bbee;*/
-        /*border-collapse:collapse*/
-    /*}*/
-    /*.background_color{*/
-        /*background-color: #F2F2F2;*/
-    /*}*/
-
     .bodyHeader{
         width: 100%;
         height: 150px;
+        background: linear-gradient(#E0ECFF, #fff);
     }
     .bodyContent{
         width: 100%;
@@ -85,6 +25,7 @@
         display: none;
     }
     .bodyContentHead{
+        height: 90%;
         margin: 10px;
         text-align: center;
     }
@@ -108,8 +49,6 @@
         height: 50%;
         float: left;
         margin-right: 4%;
-        /*display: flex;*/
-        /*justify-content: space-between;*/
     }
     li div{
         width: 100%;
@@ -124,12 +63,6 @@
         border: 1px solid #00bbee;
         border-collapse:collapse
     }
-    tr,td{
-        height: 40px;
-        width: 120px;
-        border: 1px solid #00bbee;
-        text-align: center;
-    }
     .a{
         text-decoration:none;
     }
@@ -140,6 +73,9 @@
     }
     .background_color{
         background-color: #F2F2F2;
+    }
+    .panel-header{
+        width: 100%;
     }
 </style>
 <script type="text/javascript">
@@ -173,8 +109,9 @@
     <%--内容主体--%>
     <div class="bodyContent">
         <div id="bodyContentHead" class="bodyContentHead">
-            <table id="mouldTable" class="mouldTable">
-
+            <table id="mouldTable" class="easyui-datagrid " title="模板列表"
+               fitColumns="true" pagination="true" rownumbers="true"
+               fit="true" >
             </table>
         </div>
     </div>

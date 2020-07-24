@@ -13,15 +13,12 @@
             width: 1920px;
             height: 971px;
         }
-
         .whole {
             width: 1920px;
             height: 971px;
             background: url("img/loginA.png") no-repeat;
-            /*backgroud-size: 1920px 971px;*/
             backgroud-size: 100%;
         }
-
         .white_content {
             position: absolute;
             top: 232px;
@@ -33,12 +30,10 @@
             border-radius: 4px;
             padding: 20px;
         }
-
         * {
             padding: 0px;
             margin: 0px;
         }
-
         #tab {
             width: 320px;
             padding: 5px;
@@ -46,7 +41,6 @@
             margin: 100px 50px;
             text-align: center;
         }
-
         #tab ul {
             list-style: none;
             height: 30px;
@@ -54,7 +48,6 @@
             margin: 0 auto;
             margin-left: 10px;
         }
-
         #tab ul li {
             background: #FFF;
             cursor: pointer;
@@ -69,11 +62,9 @@
             marigin: 20px;
             font-family: "华文黑体";
         }
-
         #tab ul li.on {
             border-bottom: 2px solid #4A4A4A;
         }
-
         #tab div {
             height: 400px;
             width: 300px;
@@ -81,13 +72,11 @@
             border-top: none;
             padding: 10px;
         }
-
         #loginlist {
             line-height: 70px;
             font-family: "华文黑体";
             font-size: 24px;
         }
-
         .set {
             background: white;
             border-radius: 4px;
@@ -109,7 +98,6 @@
             outline: 0; /*去掉默认谷歌点击input边框显示蓝色  */
             background: #fff; /*input内背景为白色*/
         }
-
         .button {
             display: inline-block;
             background: #44ACFF;
@@ -122,7 +110,6 @@
             outline: none;
             cursor: pointer;
         }
-
         .button:active {
             background-color: #E27635;
             border-color: #E27635;

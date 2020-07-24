@@ -47,7 +47,7 @@ function searchByWorkPer() {
         $('#Template').focus;
         return;
     }
-    //请求后台数据
+    /*//请求后台数据
     $.ajax({
         type:"post",
         url:"/guide/mould/getMouldList",//请求后台数据
@@ -70,6 +70,41 @@ function searchByWorkPer() {
             }
             $("#mouldTable").html(html);
         }
+    });*/
+    // 显示查询的模板
+    $('#mouldTable').datagrid({
+        url: '/guide/mould/getMouldList',
+        method: 'get',
+        title: '查询模板',
+        //width: 'auto',
+        height: 600,
+        //fitColumns: true,//自适应列
+        loadMsg: '正在加载信息...',
+        pagination: true,//允许分页
+        //singleSelect: true,//单行选中。
+        pageSize: 10,
+        pageNumber: 1,
+        //pageList: [10, 15, 20, 30, 50],
+        queryParams: { 'depart':depart,'Template':Template }, //往后台传参数用的。
+        columns: [[
+            {field: 'id', title: '编号', width: 30, align: 'center',height: 10},
+            {field: 'status', title: '状态', width: 30, align: 'center',height: 10},
+            {field: 'startTime', title: '开始时间', width: 30, align: 'center',height: 10},
+            {field: 'endTime', title: '结束时间', width: 30, align: 'center',height: 10},
+            {field: 'diachronic', title: '历时', width: 30, align: 'center',height: 10},
+            {field: 'userName', title: '巡检人', width: 30, align: 'center',height: 10},
+            {field: 'count', title: '人工巡检数', width: 30, align: 'center',height: 10},
+            {field: 'AIcount', title: 'AI巡检数', width: 30, align: 'center',height: 10}
+        ]],
+        onClickRow: function(rowIndex, rowData){
+            $('#mouldTable').datagrid('clearSelections');
+        },
+        onLoadSuccess: function (data) {
+            if (data.total == 0) {
+
+            }
+            else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
+        },
     });
 }
 

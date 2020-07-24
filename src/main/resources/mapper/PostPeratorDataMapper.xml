@@ -48,6 +48,9 @@
             and pd.equipment=#{equipment}
         </if>
         ORDER BY measuringType
+        <if test="page!=null and pageSize!=null">
+            limit ${page},${pageSize}
+        </if>
     </select>
 
     <select id="selByName" parameterType="java.util.HashMap" resultMap="postDataMap" resultType="com.howei.pojo.PostPeratorData">
