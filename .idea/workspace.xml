@@ -5,14 +5,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/com/howei/service/PostPeratorService.java" line="32" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2b732dd-75f9-488f-bee8-be343311c674" name="Default" comment="运行引导系统测试版1.0.0.RELEASE">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/MouldController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MouldController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/mould.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/mould.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/mould.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/mould.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/mould.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/mould.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="c2b732dd-75f9-488f-bee8-be343311c674" name="Default" comment="运行引导系统测试版1.0.0.RELEASE" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/mould.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="88">
-              <caret line="27" column="20" lean-forward="true" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+              <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
               <folding>
                 <element signature="n#style#0;n#li#2;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#li#2;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -97,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="157">
-              <caret line="42" column="20" lean-forward="true" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+              <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -118,7 +111,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/mould.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
-              <caret line="67" column="53" lean-forward="true" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="53" />
+              <caret line="67" column="53" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -297,11 +290,6 @@
             <path>
               <item name="guide" type="b2602c69:ProjectViewProjectNode" />
               <item name="guide" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="guide" type="b2602c69:ProjectViewProjectNode" />
@@ -559,7 +547,7 @@
       <workItem from="1595378805413" duration="9351000" />
       <workItem from="1595462794563" duration="10001000" />
       <workItem from="1595551115687" duration="8637000" />
-      <workItem from="1595577006403" duration="1323000" />
+      <workItem from="1595577006403" duration="1650000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -572,11 +560,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="448620000" />
+    <option name="totallyTimeSpent" value="448947000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="735" extended-state="7" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -971,14 +958,14 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/mould.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
-          <caret line="67" column="53" lean-forward="true" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="53" />
+          <caret line="67" column="53" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/mould.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
-          <caret line="27" column="20" lean-forward="true" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#li#2;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#li#2;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -996,7 +983,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
-          <caret line="42" column="20" lean-forward="true" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+          <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
