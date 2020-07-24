@@ -7,13 +7,21 @@
     <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
     <link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css" />
     <link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css" />
+<<<<<<< HEAD
     <script type="text/javascript" src="../js/week/mould.js?version=1.02"></script>
+=======
+    <script type="text/javascript" src="../js/week/mould.js?version=1.0"></script>
+>>>>>>> 10860ec213a7cb7111899de9d16999bc38ae4c99
 </head>
 <style type="text/css">
     .bodyHeader{
         width: 100%;
         height: 10%;
+<<<<<<< HEAD
         background: linear-gradient(#E0ECFF, #fff);
+=======
+        background-color: #F0F8FF;
+>>>>>>> 10860ec213a7cb7111899de9d16999bc38ae4c99
     }
     .bodyContent{
         width: 100%;
@@ -57,11 +65,27 @@
     li div .liTxt{
         float: left;
         margin-top: 10px;
+        padding: 20px 0px 0px 0px;
+        width: 100%;
+        height: 80%;
+        background-color: #F0F8FF;
+        list-style-type: none;
+    }
+    li{
+        height: 100%;
+        float: left;
+        margin-left: 40px;
     }
     .mouldTable{
         margin:auto;
         border: 1px solid #00bbee;
         border-collapse:collapse
+    }
+    tr,td{
+        height: 40px;
+        width: 120px;
+        border: 1px solid #00bbee;
+        text-align: center;
     }
     .a{
         text-decoration:none;
@@ -94,13 +118,12 @@
             </li>
             <li>
                 <div>
-
                     <span class="liTxt">巡检模板</span>
                     <span style="display: inline-block;width: 10px;float: left;height: 10px;"></span>
                     <select id="Template" class="easyui-combobox" data-options="prompt:'请选择模板',required:true" style="width:250px;height: 40px;line-height: 40px"></select>
                 </div>
             </li>
-            <li style="width: 100%;text-align: center">
+            <li>
                 <div id="search" style="height: 40px;width: 80px;border-radius: 5px;background-color: #00bbee;line-height: 40px;" onclick="javascript:searchByWorkPer()" class="easyui-linkbutton" plain="true">
                     <a href="javascript:void(0)" id="btn-save" style="text-decoration: none;color: #222222">确定</a>
                 </div>

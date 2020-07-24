@@ -61,18 +61,18 @@ function searchByWorkPer() {
         pageSize: 10,
         pageNumber: 1,
         //pageList: [10, 15, 20, 30, 50],
-        queryParams: { 'depart':depart,'Template':Template }, //往后台传参数用的。
+        queryParams: {'depart': depart, 'Template': Template}, //往后台传参数用的。
         columns: [[
-            {field: 'id', title: '编号', width: 30, align: 'center',height: 10},
-            {field: 'status', title: '状态', width: 30, align: 'center',height: 10},
-            {field: 'startTime', title: '开始时间', width: 30, align: 'center',height: 10},
-            {field: 'endTime', title: '结束时间', width: 30, align: 'center',height: 10},
-            {field: 'diachronic', title: '历时', width: 30, align: 'center',height: 10},
-            {field: 'userName', title: '巡检人', width: 30, align: 'center',height: 10},
-            {field: 'count', title: '人工巡检数', width: 30, align: 'center',height: 10},
-            {field: 'AIcount', title: 'AI巡检数', width: 30, align: 'center',height: 10}
+            {field: 'id', title: '编号', width: 30, align: 'center', height: 10},
+            {field: 'status', title: '状态', width: 30, align: 'center', height: 10},
+            {field: 'startTime', title: '开始时间', width: 30, align: 'center', height: 10},
+            {field: 'endTime', title: '结束时间', width: 30, align: 'center', height: 10},
+            {field: 'diachronic', title: '历时', width: 30, align: 'center', height: 10},
+            {field: 'userName', title: '巡检人', width: 30, align: 'center', height: 10},
+            {field: 'count', title: '人工巡检数', width: 30, align: 'center', height: 10},
+            {field: 'AIcount', title: 'AI巡检数', width: 30, align: 'center', height: 10}
         ]],
-        onClickRow: function(rowIndex, rowData){
+        onClickRow: function (rowIndex, rowData) {
             $('#mouldTable').datagrid('clearSelections');
         },
         onLoadSuccess: function (data) {
@@ -80,7 +80,7 @@ function searchByWorkPer() {
 
             }
             else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
-        },
+        }
     });
 }
 

@@ -47,6 +47,7 @@ function searchByWorkPer() {
         $('#Template').focus;
         return;
     }
+<<<<<<< HEAD
     // 显示查询的模板
     $('#mouldTable').datagrid({
         url: '/guide/mould/getMouldList',
@@ -81,6 +82,31 @@ function searchByWorkPer() {
             }
             else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
         },
+=======
+    //请求后台数据
+    $.ajax({
+        type:"post",
+        url:"/guide/mould/getMouldList",//请求后台数据
+        dataType:"json",
+        data: {'depart':depart,'Template':Template},
+        success:function(json){
+            var html='<tr><td></td><td>开始时间</td><td>结束时间</td><td>历时</td><td>巡检人</td><td>人工巡检数</td><td>AI巡检数</td></tr>';
+            for(var i=0;i<json.length;i++){
+                var mouldData=json[i];
+                var id=mouldData.id;//员工模板id
+                var startTime=mouldData.startTime;//开始时间
+                var endTime=mouldData.endTime;//结束时间
+                var count=mouldData.count;//人工巡检数
+                var AIcount=mouldData.AIcount;//人工巡检数
+                var status=mouldData.status;//状态
+                var userName=mouldData.userName;//巡检人
+                var diachronic=mouldData.diachronic;//历时
+                html+='<tr id="tr'+id+'"><td id="'+id+'"><a href="javascript:openPostPerData('+id+')" class="a">'+status+'</a></td><td>'+startTime+'</td><td>'+endTime+'</td><td>'+diachronic+
+                    '</td><td>'+userName+'</td><td>'+count+'</td><td>'+AIcount+'</td></tr>';
+            }
+            $("#mouldTable").html(html);
+        }
+>>>>>>> 10860ec213a7cb7111899de9d16999bc38ae4c99
     });
 }
 
