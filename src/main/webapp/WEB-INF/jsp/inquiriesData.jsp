@@ -17,7 +17,7 @@
     }
     .bodyContent{
         width: 100%;
-        height: 90%;
+        height: 100%;
         overflow-x: auto;
         overflow-y: scroll;
     }
@@ -26,7 +26,7 @@
     }
     .bodyContentHead{
         width: 95%;
-        margin: 10px;
+        height: 60%;
         text-align: center;
     }
     ul{
@@ -39,7 +39,7 @@
     }
     li{
         width: 46%;
-        height: 60%;
+        height: 45%;
         float: left;
         margin-right: 4%;
     }
@@ -58,10 +58,10 @@
         outline: none;
     }
     .panel-body{
-        height: 80%;
+        height: 60%;
     }
     .datagrid-view{
-        height: 80%;
+        height: 60%;
     }
     /*tr,td{*/
         /*height: 40px;*/
@@ -115,7 +115,7 @@
     <%--内容主体--%>
     <div class="bodyContent">
         <div id="bodyContentHead" class="bodyContentHead">
-            <div style="margin: 25px;color: #c62828"><span>测点数据列表</span></div>
+            <div style="margin: 5px;color: #c62828"><span>测点数据列表</span></div>
             <%--<table id="inquiresTable" class="inquiresTable">--%>
 
             <%--</table>--%>

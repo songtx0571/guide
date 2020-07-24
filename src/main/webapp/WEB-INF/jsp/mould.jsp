@@ -12,7 +12,7 @@
 <style type="text/css">
     .bodyHeader{
         width: 100%;
-        height: 150px;
+        height: 10%;
         background: linear-gradient(#E0ECFF, #fff);
     }
     .bodyContent{
@@ -25,7 +25,7 @@
         display: none;
     }
     .bodyContentHead{
-        height: 90%;
+        height: 80%;
         margin: 10px;
         text-align: center;
     }
@@ -94,12 +94,13 @@
             </li>
             <li>
                 <div>
+
                     <span class="liTxt">巡检模板</span>
                     <span style="display: inline-block;width: 10px;float: left;height: 10px;"></span>
                     <select id="Template" class="easyui-combobox" data-options="prompt:'请选择模板',required:true" style="width:250px;height: 40px;line-height: 40px"></select>
                 </div>
             </li>
-            <li style="width: 100%;text-align: center;">
+            <li style="width: 100%;text-align: center">
                 <div id="search" style="height: 40px;width: 80px;border-radius: 5px;background-color: #00bbee;line-height: 40px;" onclick="javascript:searchByWorkPer()" class="easyui-linkbutton" plain="true">
                     <a href="javascript:void(0)" id="btn-save" style="text-decoration: none;color: #222222">确定</a>
                 </div>
