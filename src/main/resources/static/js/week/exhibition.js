@@ -32,16 +32,16 @@ $(function(){
                     var action="";
                     if(row.status=='1'){//启用状态
                         action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00ee00;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
-                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>\
-                    <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
+                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
+                        //<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
                     }else if(row.status=='2'){//暂停状态
                         action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
-                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00ee00;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>\
-                    <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
+                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00ee00;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
+                        //<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
                     }else {//已删除
                         action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
-                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>\
-                    <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
+                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
+                        //<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
                     }
                     return action;
                 }
@@ -69,18 +69,14 @@ $(function(){
         url:"/guide/template/getDepartmentList",
         dataType:"json",
         success:function(json){
-            $('#department').combotree({
-                valueField: "id", //Value字段
-                textField: "text", //Text字段
-                multiple: true,
+            $("#department").combobox({//往下拉框塞值
                 data:json,
+                valueField:"id",//value值
+                textField:"text",//文本值
+                panelHeight:"auto"
             });
         }
     });
-    /*$("#searchOk").linkbutton({ iconCls: 'icon-search', plain: true })
-        .click(function () {
-            $('#dg').datagrid({ queryParams: search() });//点击搜索
-        });*/
 });
 
 function openExhibitopn(id){
@@ -91,11 +87,11 @@ function openExhibitopn(id){
         dataType:"json",
         async: false,
         success:function(json){
-            $('#department').combotree({
-                valueField: "id", //Value字段
-                textField: "text", //Text字段
-                multiple: true,
+            $("#department").combobox({//往下拉框塞值
                 data:json,
+                valueField:"id",//value值
+                textField:"text",//文本值
+                panelHeight:"auto"
             });
         }
     });
@@ -167,7 +163,18 @@ function EditStatus(id,status){
 
 //跳转创建路线页面
 function openWorkPerator2(id) {
-    var jq = top.jQuery;
+    var text="编辑模板-"+id;
+    if (parent.$('#tabs').tabs('exists',text)){
+        parent.$('#tabs').tabs('select', text);
+    }else {
+        var content = '<iframe width="100%" height="100%" frameborder="0" src="/guide/template/toTemplateChild?temid='+id+'" style="width:100%;height:100%;margin:0px 0px;"></iframe>';
+        parent.$('#tabs').tabs('add',{
+            title:text,
+            content:content,
+            closable:true
+        });
+    }
+    /*var jq = top.jQuery;
     var text="编辑模板-"+id;
     if (jq("#tabs").tabs('exists', text)){
         jq("#tabs").tabs('select', text);
@@ -178,5 +185,5 @@ function openWorkPerator2(id) {
             content:content,
             closable:true
         });
-    }
+    }*/
 }

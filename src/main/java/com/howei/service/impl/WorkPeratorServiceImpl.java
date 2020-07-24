@@ -84,4 +84,9 @@ public class WorkPeratorServiceImpl implements WorkPeratorService {
     public int getTemplateChildListCount(Map map) {
         return workPeratorMapper.getTemplateChildListCount(map);
     }
+
+    @Override
+    public List<Map> getTemplateMap(Map map) {
+        return workPeratorMapper.getTemplateMap(map);
+    }
 }

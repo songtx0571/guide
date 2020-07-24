@@ -14,8 +14,8 @@ $(function(){
         pageList: [10, 15, 20, 30, 50],
         queryParams: { mold: '1' }, //往后台传参数用的。
         columns: [[
-            {field: 'id', title: '编号', width: 20, align: 'center',height: 10},
-            {field: 'type', title: '类型', width: 20,align: 'center',height: 10,},
+            {field: 'id', title: '编号', width: 20, align: 'center',height: 10,hidden:true},
+            {field: 'type', title: '类型', width: 20,align: 'center',height: 10,hidden:true},
             {field: 'nuit', title: '名称', width: 30,align: 'center',height: 10},
             {field: 'edit', title: '操作', width: 20, align: 'center',height: 10,
                 formatter: function (value, row, index) {
@@ -35,7 +35,7 @@ $(function(){
             else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
         },
     });
-    //动态赋值
+    /*//动态赋值
     $('#type').combobox({
         onChange: function () {
             var type= $('#type').combobox('getValue');
@@ -55,23 +55,8 @@ $(function(){
                 });
             }
         }
-    });
+    });*/
 });
-
-function ComboDataLoader(param, success, error) {
-    var q = param.q;
-    if (q == undefined || q == "" || q == null)
-        return false;
-    $.ajax({
-        url: "/guide/unit/getUnitLike",
-        type: "post",
-        data: { 'q': q,},
-        dataType: "json",
-        success: function (data) {
-            success(data);
-        },
-    });
-}
 
 /**
  * 打开编辑弹窗
@@ -87,8 +72,6 @@ function updUnit(id) {
         success: function (data) {
             if(data!=null&&data!=''){
                 $("#nuit").textbox('setValue',data.nuit);
-                $("#type").combobox({disabled: true});//设置下拉为只读
-                $("#type").combobox('setValue',data.type);
                 $("#unitId").val(data.id);
             }
         }
@@ -96,7 +79,7 @@ function updUnit(id) {
     addunitWin=$('#unitWin').window({
         title:'新建',
         height: 300,
-        width: 850,
+        width: 400,
         closed: true,
         minimizable:false,
         maximizable:false,

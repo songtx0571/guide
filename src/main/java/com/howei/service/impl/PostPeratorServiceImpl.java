@@ -44,4 +44,9 @@ public class PostPeratorServiceImpl implements PostPeratorService {
     public PostPerator getLastPerator1(Map<String, Object> map) {
         return postperatorMapper.getLastPerator1(map);
     }
+
+    @Override
+    public List<PostPerator> getMouldList(Map map) {
+        return postperatorMapper.getMouldList(map);
+    }
 }

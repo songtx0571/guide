@@ -37,4 +37,6 @@ public interface WorkPeratorMapper {
     int selAllCount(Map<String,Object> map);
 
     int getTemplateChildListCount(Map map);
+
+    List<Map> getTemplateMap(Map map);
 }

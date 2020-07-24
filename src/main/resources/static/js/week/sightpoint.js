@@ -14,7 +14,7 @@ $(function(){
         pageList: [10, 15, 20, 30, 50],
         queryParams: { mold: '2' }, //往后台传参数用的。
         columns: [[
-            {field: 'id', title: '编号', width: 20, align: 'center',height: 10},
+            {field: 'id', title: '编号', width: 20, align: 'center',height: 10,hidden:true},
             {field: 'type', title: '类型', width: 20,align: 'center',height: 10,hidden:true},
             {field: 'nuit', title: '名称', width: 30,align: 'center',height: 10},
             {field: 'edit', title: '操作', width: 20, align: 'center',height: 10,
@@ -26,7 +26,7 @@ $(function(){
             },
         ]],
         onClickRow: function(rowIndex, rowData){
-            $('#unit').datagrid('clearSelections');
+            $('#sightpoint').datagrid('clearSelections');
         },
         onLoadSuccess: function (data) {
             if (data.total == 0) {
@@ -37,7 +37,7 @@ $(function(){
     });
 });
 
-function ComboDataLoader(param, success, error) {
+/*function ComboDataLoader(param, success, error) {
     var q = param.q;
     if (q == undefined || q == "" || q == null)
         return false;
@@ -50,7 +50,7 @@ function ComboDataLoader(param, success, error) {
             success(data);
         },
     });
-}
+}*/
 
 /**
  * 打开编辑弹窗
@@ -66,8 +66,6 @@ function updPoint(id) {
         success: function (data) {
             if(data!=null&&data!=''){
                 $("#nuit").textbox('setValue',data.nuit);
-                //$("#type").combobox({disabled: true});//设置下拉为只读
-                //$("#type").combobox('setValue',data.type);
                 $("#pointId").val(data.id);
             }
         }
@@ -75,7 +73,7 @@ function updPoint(id) {
     addPointWin=$('#pointWin').window({
         title:'新建',
         height: 300,
-        width: 850,
+        width: 400,
         closed: true,
         minimizable:false,
         maximizable:false,

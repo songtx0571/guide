@@ -23,4 +23,6 @@ public interface PostPeratorDataService {
     List<Map> selTypeByName(Map map);
 
     List<PostPeratorData> selByName(Map m);
+
+    List<PostPeratorData> selPostPerDataById(String postPeratorId);
 }

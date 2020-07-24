@@ -52,4 +52,14 @@
         ORDER BY inspectionEndTheoryTime DESC
         LIMIT 0,1
     </select>
+
+    <select id="getMouldList" parameterType="java.util.HashMap" resultType="com.howei.pojo.PostPerator" resultMap="postMap">
+        select * from postPerator where 1=1
+        <if test="depart!=null and depart!=''">
+            and department=#{depart}
+        </if>
+        <if test="Template!=null and Template!=''">
+            and peratorId=#{Template}
+        </if>
+    </select>
 </mapper>

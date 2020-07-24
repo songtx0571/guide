@@ -42,4 +42,11 @@ public interface PostPeratorService {
      * @return
      */
     PostPerator getLastPerator1(Map<String,Object> map);
+
+    /**
+     * 获取员工模板数据
+     * @param map
+     * @return
+     */
+    List<PostPerator> getMouldList(Map map);
 }

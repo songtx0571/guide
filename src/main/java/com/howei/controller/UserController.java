@@ -7,6 +7,7 @@ import com.howei.pojo.Users;
 import com.howei.service.MenuService;
 import com.howei.service.PermissionService;
 import com.howei.service.UserService;
+import com.howei.util.WebSocket;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,4 +163,9 @@ public class UserController {
         List<Menu> result=menuService.getMenuTree(map);
         return result;
     }
+    /*public String getMenuTree(){
+        WebSocket webSocket=new WebSocket();
+        webSocket.sendMessage("有新的订单");
+        return "发送成功";
+    }*/
 }

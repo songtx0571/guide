@@ -4,6 +4,7 @@ import com.howei.pojo.PostPerator;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -31,4 +32,6 @@ public interface PostperatorMapper {
     PostPerator selLatest(Map map);
 
     PostPerator getLastPerator1(Map<String,Object> map);
+
+    List<PostPerator> getMouldList(Map map);
 }

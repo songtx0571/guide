@@ -3,19 +3,19 @@
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <head>
     <meta name="viewport" content="width=1200,height=1660,maximum-scale=1,user-scalable=no">
-    <script type="text/javascript" src="../guide/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
     <%--easyui--%>
-    <script type="text/javascript" src="../guide/js/easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="../guide/js/easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../guide/js/easyui/locale/easyui-lang-zh_CN.js"></script>
-    <link rel="stylesheet" type="text/css" href="../guide/js/easyui/themes/icon.css" />
-    <link rel="stylesheet" type="text/css" href="../guide/js/easyui/themes/default/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="../guide/js/icon/iconfont.css">
+    <script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../js/icon/iconfont.css">
     <%--bootstrap--%>
-    <script src="../guide/js/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../guide/js/bootstrap/css/bootstrap.min.css">
+    <script src="../js/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap/css/bootstrap.min.css">
     <%--js--%>
-    <script type="text/javascript" src="../guide/js/week/staffhome.js?vresion=1.02"></script>
+    <script type="text/javascript" src="../js/week/staffhome.js?vresion=1.02"></script>
     <%--jsp--%>
     <%@ include file="keyboard.jsp"%>
 </head>

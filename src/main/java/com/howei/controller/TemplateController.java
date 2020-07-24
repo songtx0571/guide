@@ -246,6 +246,7 @@ public class TemplateController {
             int offset=Page.getOffSet(page,rows);
             Map map=new HashMap();
             map.put("parent",parentId);
+            map.put("admin","true");
             int count=workPeratorService.getTemplateChildListCount(map);
             map.put("page",offset);
             map.put("pageSize",rows);
@@ -562,6 +563,31 @@ public class TemplateController {
         EasyuiResult result=new EasyuiResult();
         result.setTotal(count);
         result.setRows(list);
+        return result;
+    }
+
+    /**
+     * 下拉属性:任务名称
+     * @return
+     */
+    @RequestMapping("/getTemplateMap")
+    @ResponseBody
+    public List<Map<String,Object>> getTemplateMap(){
+        List<Map<String,Object>> result=new ArrayList<>();
+        Map map=new HashMap();
+        map.put("name","patrolTask");
+        map.put("status","1");
+        map.put("parent","0");
+        List<Map> list=workPeratorService.getTemplateMap(map);
+        if(list!=null){
+            for(int i=0;i<list.size();i++){
+                Map<String,Object> map1=list.get(i);
+                Map<String,Object> listMap= new HashMap<>();
+                listMap.put("id",map1.get("id"));
+                listMap.put("text",map1.get("patrolTask"));
+                result.add(listMap);
+            }
+        }
         return result;
     }
 }

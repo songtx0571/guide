@@ -23,6 +23,10 @@
         <result column="parent" property="parent"></result>
         <result column="projectDepartment" property="projectDepartment"></result>
     </resultMap>
+    
+    <sql id="sql_param">
+        id,patrolTask
+    </sql>
 
     <select id="selByUser" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">
       select * from workPerator where parent='0'
@@ -62,11 +66,18 @@
     </delete>
 
     <select id="getTemplateChildList" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">
-        select * from workPerator where parent=#{parent} order by priority limit ${page},${pageSize}
+        select * from workPerator where parent=#{parent}
+        <if test="admin==null or admin==''">
+            and status='1'
+        </if>
+        order by priority limit ${page},${pageSize}
     </select>
 
     <select id="getTemplateChildListCount" resultType="int" parameterType="java.util.HashMap">
         select count(*) from workPerator where parent=#{parent}
+        <if test="admin==null or admin==''">
+            and status='1'
+        </if>
     </select>
 
     <update id="updWorkperator" parameterType="com.howei.pojo.WorkPerator" keyProperty="id" useGeneratedKeys="true">
@@ -131,7 +142,7 @@
     </select>
 
     <select id="selByParam" resultType="java.util.HashMap" parameterType="java.lang.String">
-        select equipment from workPerator where 1=1 and
+        select equipment from workPerator where 1=1 and status='1' and
         <if test="parent!=null and parent!=''">
             parent=#{parent}
         </if>
@@ -139,5 +150,18 @@
             equipment=#{equipment}
         </if>
         group by equipment
+    </select>
+
+    <select id="getTemplateMap" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select
+        <include refid="sql_param"/>
+        from workPerator where 1=1
+        <if test="status!=null and status!=''">
+          and status=#{status}
+        </if>
+        <if test="parent!=null and parent!=''">
+          and parent=#{parent}
+        </if>
+
     </select>
 </mapper>

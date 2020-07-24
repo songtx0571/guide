@@ -15,7 +15,7 @@
     </resultMap>
 
     <select id="getMenuTree" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="menuMap">
-      select * from menu where parent=#{parentId} and active='true'
+      select * from menu where parent=#{parentId} and active='true' and template='1'
       <if test="isAdmin=='false'">
           and code=2
       </if>

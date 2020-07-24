@@ -40,4 +40,9 @@ public class PostPeratorDataServiceImpl implements PostPeratorDataService {
     public List<PostPeratorData> selByName(Map m) {
         return postperatorDataMapper.selByName(m);
     }
+
+    @Override
+    public List<PostPeratorData> selPostPerDataById(String postPeratorId) {
+        return postperatorDataMapper.selPostPerDataById(postPeratorId);
+    }
 }

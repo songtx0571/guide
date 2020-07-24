@@ -1,4 +1,4 @@
-window.onload = function() {
+$(function(){
     //初始化表格:隐藏
     $("#bodyDiv2").hide();
     //加载用户数据/任务数据
@@ -22,7 +22,7 @@ window.onload = function() {
                     html=html+'<div id="'+result.id+'" class="Task" onclick="crePost('+result.id+')">'+
                         '<div class="TaskBody">'+patrolTask+'</div>' +
                         '<div class="TaskBody" id="cycle'+i+'">'+result.cycle+'</div>' +
-                        '<div class="TaskBody" id="nextTime'+i+'">0.00</div>' +
+                        '<div class="TaskBody green" id="nextTime'+i+'">可执行</div>' +
                         '<div id="inspectionEndTime'+i+'" style="display: none">'+result.inspectionEndTime+'</div>'+
                         '</div>';
                 }
@@ -32,7 +32,7 @@ window.onload = function() {
     });
     getDate();
     setInterval(getDate, 1000);
-}
+});
 //倒计时
 function tow(n) {
     return n >= 0 && n < 10 ? '0' + n : '' + n;
@@ -49,20 +49,25 @@ function getDate() {
             var oDate = new Date(inspectionEndTime);//获取日期对象
             var oldTime = oDate.getTime();//现在距离实际完成的毫秒数
             var t=oldTime+cycle*60*60*1000;
-            var newDate = new Date(t);
-            oDate=new Date();
+            var newDate = new Date(t);//理论开始时间
+            oDate=new Date();//当前时间
             oldTime = oDate.getTime();
             var newTime = newDate.getTime();//下一周期的毫秒数
-            var second = Math.floor((newTime - oldTime) / 1000);//未来时间距离现在的秒数
-            var day = Math.floor(second / 86400);//整数部分代表的是天；一天有24*60*60=86400秒 ；
-            second = second % 86400;//余数代表剩下的秒数；
-            var hour = Math.floor(second / 3600);//整数部分代表小时；
-            second %= 3600; //余数代表剩下的秒数；
-            var minute = Math.floor(second / 60);
-            second %= 60;
-            var str=tow(day)+"天"+tow(hour)+"时"+tow(minute)+"分"+tow(second)+"秒";
-            //console.log(str);
-            $("#nextTime"+i).html(str);
+            if(oldTime>newTime){
+                $("#nextTime"+i).addClass("green");
+                $("#nextTime"+i).html("可执行");
+            }else{
+                var second = Math.floor((newTime - oldTime) / 1000);//未来时间距离现在的秒数
+                var day = Math.floor(second / 86400);//整数部分代表的是天；一天有24*60*60=86400秒 ；
+                second = second % 86400;//余数代表剩下的秒数；
+                var hour = Math.floor(second / 3600);//整数部分代表小时；
+                second %= 3600; //余数代表剩下的秒数；
+                var minute = Math.floor(second / 60);
+                second %= 60;
+                var str=tow(day)+"天"+tow(hour)+"时"+tow(minute)+"分"+tow(second)+"秒";
+                $("#nextTime"+i).addClass("red");
+                $("#nextTime"+i).html(str);
+            }
         }
     }
 }
@@ -131,7 +136,6 @@ function crePostData(data) {
             if(i==0){
                 equipmento=equipment;
                 html+='<div id="equipment'+i+'" style="font-size: 40px;display: inline-block;">'+equipment+'</div>';
-
             }else{
                 html+='<div id="equipment'+i+'" style="font-size: 40px;display: none">'+equipment+'</div>';
             }
@@ -146,14 +150,15 @@ function crePostData(data) {
             function (data) {
                 for(var i=0;i<data.length;i++){
                     var info=data[i];
-                    var measuringType=info.measuringType;
+                    var unit=info.unit;
+                    var measuringType=info.measuringType+"/"+info.unit;
                     var postDataId=info.id;
                     var value=info.measuringTypeData;
                     if(value==null||value==''){
                         value="";
                     }
                     text+='<tr><td colspan="2"><span>'+measuringType+'</span></td>\
-                                <td colspan="2"><input type="text" id="'+postDataId+'"  value="'+value+'" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
+                                <td colspan="2"><input type="text" id="post'+postDataId+'" name="'+unit+'" readonly onclick="xfjianpan(this.id,this.name)" value="'+value+'" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
                                 </td></tr>';
                 }
                 $("#tbody").html(text);
@@ -234,14 +239,15 @@ function Forward(){
                         $("#tbody").html();
                         for(var i=0;i<data.length;i++){
                             var info=data[i];
-                            var measuringType=info.measuringType;
+                            var unit=info.unit;
+                            var measuringType=info.measuringType+"/"+info.unit;
                             var postDataId=info.id;
                             var value=info.measuringTypeData;
                             if(value==null||value==''){
                                 value="";
                             }
                             text+='<tr><td colspan="2"><span>'+measuringType+'</span></td>\
-                                <td colspan="2"><input type="text" id="'+postDataId+'" value="'+value+'" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
+                                <td colspan="2"><input type="text" id="post'+postDataId+'" name="'+unit+'" readonly onclick="xfjianpan(this.id,this.name)" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
                                 </td></tr>';
                         }
                         $("#tbody").html(text);
@@ -285,17 +291,18 @@ function  Back() {
             $("#tbody").html();
             for(var i=0;i<data.length;i++){
                 var info=data[i];
-                var measuringType=info.measuringType;
+                var unit=info.unit;
+                var measuringType=info.measuringType+"/"+info.unit;
                 var postDataId=info.id;
                 text+='<tr><td colspan="2"><span>'+measuringType+'</span></td>\
-                                <td colspan="2"><input type="text" id="'+postDataId+'" value="'+info.measuringTypeData+'" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
+                                <td colspan="2"><input type="text" id="post'+postDataId+'" readonly onclick="xfjianpan(this.id,this.unit)" value="'+info.measuringTypeData+'" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
                                 </td></tr>';
             }
             $("#tbody").html(text);
         }
     });
 }
-
+var index=0;
 function init() {
     //表格:隐藏
     $("#bodyDiv2").fadeOut("fast");
@@ -323,7 +330,7 @@ function init() {
                     html=html+'<div id="'+result.id+'" class="Task" onclick="crePost('+result.id+')">'+
                         '<div class="TaskBody">'+patrolTask+'</div>' +
                         '<div class="TaskBody" id="cycle'+i+'">'+result.cycle+'</div>' +
-                        '<div class="TaskBody" id="nextTime'+i+'">0.00</div>' +
+                        '<div class="TaskBody green" id="nextTime'+i+'">可执行</div>' +
                         '<div id="inspectionEndTime'+i+'" style="display: none">'+result.inspectionEndTime+'</div>'+
                         '</div>';
                 }
@@ -333,6 +340,10 @@ function init() {
     });
     $("#foodBody").html("");
     $("#patrolTask").html("请选择任务");
+    if(index==1){
+
+    }
+    index=1;
     getDate();
     setInterval(getDate, 1000);
 }

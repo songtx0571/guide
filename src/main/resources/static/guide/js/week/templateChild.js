@@ -19,6 +19,22 @@ $(function(){
             {field: 'equipment', title: '设备名称', width: 30},
             {field: 'measuringType', title: '测点类型', width: 30, align: 'center'},
             {field: 'unit', title: '单位', width: 30, align: 'center'},
+            {field: 'status', title: '状态', width: 30, align: 'center',
+                formatter: function (value, row, index) {
+                    var action="";
+                    if(row.status=='1'){//启用状态
+                        action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00ee00;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
+                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
+                    }else if(row.status=='2'){//暂停状态
+                        action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
+                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00ee00;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
+                    }else {
+                        action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
+                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
+                    }
+                    return action;
+                }
+            },
             {field: 'edit', title: '操作', width: 40, align: 'center',
                 formatter: function (value, row, index) {
                     var action="";
@@ -95,6 +111,21 @@ $(function(){
         }
     });
 });
+
+//修改路线状态
+function EditStatus(id,status){
+    $.ajax({
+        url: '/guide/template/updStatus',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        data:{'id':id,'status':status},
+        success: function (data) {
+            $.messager.alert("提示",data[0]);
+            $('#tempChild').datagrid('reload');//刷新页面数据
+        },
+    });
+}
 
 //修改执行循序
 function EditPriority(id){
