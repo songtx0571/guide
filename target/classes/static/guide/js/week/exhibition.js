@@ -174,16 +174,4 @@ function openWorkPerator2(id) {
             closable:true
         });
     }
-    /*var jq = top.jQuery;
-    var text="编辑模板-"+id;
-    if (jq("#tabs").tabs('exists', text)){
-        jq("#tabs").tabs('select', text);
-    } else {
-        var content = '<iframe width="100%" height="100%" frameborder="0" src="/guide/template/toTemplateChild?temid='+id+'" style="width:100%;height:100%;margin:0px 0px;"></iframe>';
-        jq("#tabs").tabs('add',{
-            title:text,
-            content:content,
-            closable:true
-        });
-    }*/
 }
