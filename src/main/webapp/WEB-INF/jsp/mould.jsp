@@ -25,7 +25,8 @@
         display: none;
     }
     .bodyContentHead{
-        margin: 10px;
+        height: 90%;
+        /*margin: 10px;*/
         text-align: center;
     }
     .postPerData{
@@ -97,19 +98,30 @@
             </li>
         </ul>
     </div>
+    <%--<table id="mouldTable" class="easyui-datagrid" title="模板列表"
+           fitColumns="true" pagination="true" rownumbers="true"
+           fit="true">
+
+    </table>--%>
     <%--内容主体--%>
     <div class="bodyContent">
         <div id="bodyContentHead" class="bodyContentHead">
-            <table id="mouldTable" class="mouldTable">
+            <table id="mouldTable" class="easyui-datagrid" title="模板列表"
+                   fitColumns="true" pagination="true" rownumbers="true"
+                   fit="true">
 
             </table>
+            <%--<table id="mouldTable" class="mouldTable">
+
+            </table>--%>
+
         </div>
     </div>
     <%--员工数据弹窗--%>
-    <div id="postPerData" class="postPerData" style="padding: 30px 30px 30px 30px;" hidden>
+    <%--<div id="postPerData" class="postPerData" style="padding: 30px 30px 30px 30px;" hidden>
         <table class="postPerDataTable" id="postPerDataTable">
 
         </table>
-    </div>
+    </div>--%>
 </body>
 </html>
