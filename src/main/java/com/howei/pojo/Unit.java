@@ -10,6 +10,10 @@ public class Unit {
     private String type;//类型:
     private String english;//拼音
     private Integer mold;//区分测点与单位 1:单位 2:测点
+    private int department;//项目部
+
+    //虚字段
+    private String departmentName;//项目部
 
     public int getId() {
         return id;
@@ -57,5 +61,21 @@ public class Unit {
 
     public void setMold(Integer mold) {
         this.mold = mold;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }

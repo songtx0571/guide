@@ -24,11 +24,11 @@ public interface EquipmentService {
 
     void delEquipment(int i);
 
-    List<Equipment> getSysNameList();
+    List<Equipment> getSysNameList(int department);
 
-    List<Equipment> getEquNameList();
+    List<Equipment> getEquNameList(int department);
 
     int getEquipmentListCount(Map<String,Object> map);
 
-    List<Equipment> getEquMap(String type);
+    List<Equipment> getEquMap(Map map);
 }

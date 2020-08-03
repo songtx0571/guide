@@ -6,22 +6,39 @@
         <result column="id" property="id"></result>
         <result column="type" property="type"></result>
         <result column="name" property="name"></result>
+        <result column="department" property="department"></result>
     </resultMap>
 
     <select id="getEquipmentList" resultType="java.util.HashMap" resultMap="equipMap">
-      select * from equipment where type=#{type} limit ${page},${pageSize}
+      select * from equipment where type=#{type}
+       <if test="department!=null and department!=''">
+           and department=#{department}
+       </if>
+       limit ${page},${pageSize}
     </select>
 
     <select id="getEquipmentListCount" resultType="int">
       select count(*) from equipment where type=#{type}
+        <if test="department!=null and department!=''">
+            and department=#{department}
+        </if>
     </select>
 
     <insert id="addEquipment" parameterType="com.howei.pojo.Equipment" keyProperty="id" useGeneratedKeys="true">
-      insert into equipment(name,type) values(#{name},#{type})
+      insert into equipment(name,type,department) values(#{name},#{type},#{department})
     </insert>
 
     <select id="findEquipment" parameterType="java.util.HashMap" resultType="int">
-        select count(*) from equipment where name=#{name} and type=#{type}
+        select count(*) from equipment where 1=1
+          <if test="name!=null and name!=''">
+              and name=#{name}
+          </if>
+          <if test="type!=null and type!=''">
+              and type=#{type}
+          </if>
+          <if test="depart!=null and depart!=''">
+              and department=#{depart}
+          </if>
     </select>
 
     <select id="findEquipmentById" parameterType="int" resultType="com.howei.pojo.Equipment" resultMap="equipMap">
@@ -36,18 +53,27 @@
         delete from equipment where id=#{id}
     </delete>
 
-    <select id="getSysNameList" resultType="java.util.HashMap" resultMap="equipMap">
+    <select id="getSysNameList" parameterType="int" resultType="java.util.HashMap" resultMap="equipMap">
         select * from equipment where type='1'
+        <if test="department!=null and department!=''">
+          and department=#{department}
+        </if>
     </select>
 
-    <select id="getEquNameList" resultType="java.util.HashMap" resultMap="equipMap">
+    <select id="getEquNameList" parameterType="int" resultType="java.util.HashMap" resultMap="equipMap">
         select * from equipment where type='2'
+        <if test="department!=null and department!=''">
+            and department=#{department}
+        </if>
     </select>
 
     <select id="getEquMap" resultMap="equipMap" resultType="com.howei.pojo.Equipment" parameterType="java.lang.String">
         select * from equipment where 1=1
         <if test="type!=null and type!=''">
             and type=#{type}
+        </if>
+        <if test="department!=null and department!=''">
+            and department=#{department}
         </if>
     </select>
 

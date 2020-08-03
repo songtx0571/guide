@@ -59,6 +59,7 @@ $(function(){
     $.ajax({
         type:"post",
         url:"/guide/template/getSysNameList",//获取系统号
+        data: {'temid':temid},
         dataType:"json",
         success:function(json){
             $("#sysName").combobox({
@@ -72,6 +73,7 @@ $(function(){
     $.ajax({
         type:"post",
         url:"/guide/template/getEquNameList",//获取设备名
+        data: {'temid':temid},
         dataType:"json",
         success:function(json){
             $("#equName").combobox({//往下拉框塞值
@@ -85,7 +87,7 @@ $(function(){
     $.ajax({
         type:"post",
         url:"/guide/template/getSightType",//获取测点类型
-        data: {'type':'2'},
+        data: {'type':'2','temid':temid},
         dataType:"json",
         success:function(json){
             $("#sightType").combobox({
@@ -99,7 +101,7 @@ $(function(){
     $.ajax({
         type:"post",
         url:"/guide/template/getSightType",//获取
-        data: {'type':'1'},
+        data: {'type':'1','temid':temid},
         dataType:"json",
         success:function(json){
             $("#unitType").combobox({

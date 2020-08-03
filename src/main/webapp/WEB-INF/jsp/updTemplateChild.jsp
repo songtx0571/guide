@@ -22,7 +22,7 @@
                     </select>
                 </td>
             </tr>
-            <tr style="height: 10px"></tr>
+            <tr style="height: 5px"></tr>
             <tr>
                 <td style="float: right">测点类型&nbsp;&nbsp;</td>
                 <td>
@@ -33,6 +33,7 @@
                     </select>
                 </td>
             </tr>
+            <tr style="height: 5px"></tr>
         </table>
         <div style="text-align: center; padding: 5px;height: 80px;line-height: 80px">
             <div id="save" style="height: 40px;width: 80px;border-radius: 5px;background-color: #00bbee;display: inline-block;line-height: 40px;" onclick="saveAddData()">

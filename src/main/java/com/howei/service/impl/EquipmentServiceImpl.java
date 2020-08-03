@@ -46,13 +46,13 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<Equipment> getSysNameList() {
-        return equipmentMapper.getSysNameList();
+    public List<Equipment> getSysNameList(int department) {
+        return equipmentMapper.getSysNameList(department);
     }
 
     @Override
-    public List<Equipment> getEquNameList() {
-        return equipmentMapper.getEquNameList();
+    public List<Equipment> getEquNameList(int department) {
+        return equipmentMapper.getEquNameList(department);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<Equipment> getEquMap(String type) {
-        return equipmentMapper.getEquMap(type);
+    public List<Equipment> getEquMap(Map map) {
+        return equipmentMapper.getEquMap(map);
     }
 }

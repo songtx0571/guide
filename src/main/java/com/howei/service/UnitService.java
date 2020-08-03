@@ -28,8 +28,8 @@ public interface UnitService {
 
     /**
      * 获取测点类型
-     * @param i
+     * @param map
      * @return
      */
-    List<Unit> getUnityMap(int i);
+    List<Unit> getUnityMap(Map map);
 }

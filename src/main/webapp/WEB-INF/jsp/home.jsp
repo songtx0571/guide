@@ -43,7 +43,6 @@
                     <th field="aiNumber" width='10' resizable='false' data-options="editor:'text'">ai巡检数量</th>
                     <th field="planTime" width='10' resizable='false' data-options="editor:'text'">计划时间</th>
                     <th field="cycle" width='10' resizable='false' data-options="editor:'text'">周期</th>
-
                 </tr>
                 </thead>
             </table>

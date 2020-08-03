@@ -6,6 +6,8 @@ import com.howei.pojo.PostPeratorData;
 import com.howei.pojo.Users;
 import com.howei.service.PostPeratorDataService;
 import com.howei.service.UserService;
+import com.howei.util.EasyuiResult;
+import com.howei.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,45 +49,66 @@ public class InquiriesDataController {
      */
     @RequestMapping("/getInquiriesData")
     @ResponseBody
-    public List<InquiriesData> getInquiriesData(HttpServletRequest request){
+    public EasyuiResult getInquiriesData(HttpServletRequest request){
         String name=request.getParameter("name");
         String depart=request.getParameter("departName");
-        List<InquiriesData> result=new ArrayList<>();
-        if(name!=null&&!name.equals("")){
-            Map map2=new HashMap();
-            map2.put("equipment",name);
-            map2.put("projectDepartment",depart);
-            List<Map> list=postPeratorDataService.selTypeByName(map2);
-            InquiriesData inquiriesData;
+        String measuringType=request.getParameter("measuringType");
+        String rows=request.getParameter("rows");
+        String page=request.getParameter("page");
+        int offset=Page.getOffSet(page,rows);
+        EasyuiResult easyuiResult=new EasyuiResult();
+        List<PostPeratorData> list=new ArrayList<>();
+        int count=0;
+        if(name!=null&&!name.equals("")) {
+            Map map = new HashMap();
+            map.put("equipment", name);
+            map.put("measuringType", measuringType);
+            map.put("projectDepartment", depart);
+            list = postPeratorDataService.selByName(map);
+            count = list.size();
+            list.clear();
+            map.put("page", offset);
+            map.put("pageSize", rows);
+            list = postPeratorDataService.selByName(map);
             for(int i=0;i<list.size();i++){
-                inquiriesData=new InquiriesData();
-                Map map=list.get(i);
-                String measuringType=(String)map.get("measuringType");
-                Map m=new HashMap();
-                m.put("equipment",name);
-                m.put("measuringType",measuringType);
-                m.put("projectDepartment",depart);
-                List<PostPeratorData> postPeratorDataList=postPeratorDataService.selByName(m);
-                List<InquiriesDataV> inquiriesDataVList=new ArrayList<>();
-                for(int k=0;k<postPeratorDataList.size();k++){
-                    PostPeratorData postPeratorData= postPeratorDataList.get(k);
-                    InquiriesDataV inquiriesDataV=new InquiriesDataV();
-                    inquiriesDataV.setDateTime(postPeratorData.getCreated());//时间
-                    inquiriesDataV.setData(postPeratorData.getMeasuringTypeData());//测点类型
-                    inquiriesDataV.setUnit(postPeratorData.getUnit());//单位
-                    Users user=userService.findById(postPeratorData.getCreatedBy()+"");
-                    if(user!=null){
-                        inquiriesDataV.setCreatedBy(user.getName());
-                    }else{
-                        inquiriesDataV.setCreatedBy("");
-                    }
-                    inquiriesDataVList.add(inquiriesDataV);
+                PostPeratorData postPeratorData=list.get(i);
+                Users user=userService.findById(postPeratorData.getCreatedBy()+"");
+                if(user!=null){
+                    postPeratorData.setCreatedByName(user.getName());
+                }else{
+                    postPeratorData.setCreatedByName("");
                 }
-                inquiriesData.setDataName(measuringType);
-                inquiriesData.setDataType(inquiriesDataVList);
-                result.add(inquiriesData);
             }
+        }
+        easyuiResult.setRows(list);
+        easyuiResult.setTotal(count);
+        return easyuiResult;
+    }
+
+    /**
+     * 获取员工模板执行的测点类型数据
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getUnityMap")
+    @ResponseBody
+    public List<Map<String,Object>> getUnityMap(HttpServletRequest request){
+        List<Map<String,Object>> result=new ArrayList<>();
+        String depart=request.getParameter("departName");//项目
+        String equipment=request.getParameter("name");//系统名+设备名
+        Map map=new HashMap();
+        map.put("department",depart);
+        map.put("equipment",equipment);
+        List<Map> list=postPeratorDataService.getUnityMap(map);
+        for (int i=0;i<list.size();i++){
+            Map<String,Object> mapStr=new HashMap<>();
+            Map object=list.get(i);
+            String text=(String)object.get("measuringType");
+            mapStr.put("id",i);
+            mapStr.put("text",text);
+            result.add(mapStr);
         }
         return result;
     }
+
 }

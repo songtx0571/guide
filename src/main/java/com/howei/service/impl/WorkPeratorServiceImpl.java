@@ -89,4 +89,14 @@ public class WorkPeratorServiceImpl implements WorkPeratorService {
     public List<Map> getTemplateMap(Map map) {
         return workPeratorMapper.getTemplateMap(map);
     }
+
+    @Override
+    public List<WorkPerator> selByMap(Map map) {
+        return workPeratorMapper.selByMap(map);
+    }
+
+    @Override
+    public WorkPerator getLastTemplateChildByPriority(Map map) {
+        return workPeratorMapper.getLastTemplateChildByPriority(map);
+    }
 }

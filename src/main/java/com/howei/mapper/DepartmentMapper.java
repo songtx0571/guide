@@ -12,4 +12,8 @@ public interface DepartmentMapper {
      * @return
      */
     List<Department> getDepList();
+
+    Department selById(int id);
+
+    Department selByMapParam(Object departmentName);
 }

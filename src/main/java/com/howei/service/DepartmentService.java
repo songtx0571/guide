@@ -10,4 +10,8 @@ public interface DepartmentService {
      * @return
      */
     List<Department> getDepList();
+
+    Department selById(int department);
+
+    Department selByMapParam(Object departmentName);
 }

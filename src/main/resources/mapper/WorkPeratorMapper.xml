@@ -73,6 +73,11 @@
         order by priority limit ${page},${pageSize}
     </select>
 
+    <select id="getLastTemplateChildByPriority" parameterType="java.util.HashMap" resultType="com.howei.pojo.WorkPerator" >
+        select * from workPerator where parent=#{parent}
+        order by priority desc limit ${page},${pageSize}
+    </select>
+
     <select id="getTemplateChildListCount" resultType="int" parameterType="java.util.HashMap">
         select count(*) from workPerator where parent=#{parent}
         <if test="admin==null or admin==''">
@@ -157,11 +162,23 @@
         <include refid="sql_param"/>
         from workPerator where 1=1
         <if test="status!=null and status!=''">
-          and status=#{status}
+            and status=#{status}
         </if>
         <if test="parent!=null and parent!=''">
-          and parent=#{parent}
+            and parent=#{parent}
         </if>
+        <if test="depart!=null and depart!=''">
+            and projectDepartment=#{depart}
+        </if>
+    </select>
 
+    <select id="selByMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">
+        select * from workPerator where 1=1
+        <if test="projectDepartment!=null and projectDepartment!=''">
+            and projectDepartment=#{projectDepartment}
+        </if>
+        <if test="patrolTask!=null and patrolTask!=''">
+            and patrolTask=#{patrolTask}
+        </if>
     </select>
 </mapper>

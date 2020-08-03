@@ -13,11 +13,10 @@
             <tr>
                 <td>名称</td>
                 <td><input class="easyui-textbox"id="nuit" name="nuit" data-options="prompt:'请输入名称',required:true" style="width:250px;"/></td>
-                <%--<td width="100px"></td>
-                <td style="float: right">类型&nbsp;&nbsp;</td>
-                <td>
-                    <input class="easyui-textbox" style="width:250px;" value="测点" readonly/>
-                </td>--%>
+            </tr>
+            <tr>
+                <td>部门</td>
+                <td><select id="departName" class="easyui-combobox" data-options="prompt:'请选择部门',required:true" style="width:250px;"></select></td>
             </tr>
         </table>
         <div style="text-align: center; padding: 5px;height: 80px;line-height: 80px">

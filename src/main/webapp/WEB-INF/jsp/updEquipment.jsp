@@ -18,13 +18,10 @@
                 <td>
                     <input class="easyui-textbox" style="width:250px;" value="设备" readonly/>
                 </td>
-                <%--<td>
-                    <select class="easyui-combobox" id="type" name="type" data-options="required:true,prompt:'请选择类型',editable:false,width:'250px'">
-                        <option value="0" selected>请选择</option>
-                        <option value="1">系统号</option>
-                        <option value="2">设备名称</option>
-                    </select>
-                </td>--%>
+            </tr>
+            <tr>
+                <td>部门</td>
+                <td><select id="departName" class="easyui-combobox" data-options="prompt:'请选择部门',required:true" style="width:250px;"></select></td>
             </tr>
         </table>
         <div style="text-align: center; padding: 5px;height: 80px;line-height: 80px">

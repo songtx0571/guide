@@ -12,7 +12,28 @@
     <%@ include file="searchWorkPerator.jsp"%>
 </head>
 <style type="text/css">
-
+    .createWorkPerator{
+        width: 70%;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        float: right;
+        background-color: #00bbee;
+        border-radius: 8px;
+        display: inline-block;
+        margin-right: 10%;
+        margin-top: 25px;
+    }
+    .createWorkPerator a strong{
+        color: #fff;
+    }
+    .searchWorkPerator{
+        width: 100px;
+        float: left;
+        height: 100px;
+        display: inline-block;
+        border-radius: 50%;
+    }
 </style>
 <script type="text/javascript">
     function openWorkPerator(){
@@ -46,28 +67,39 @@
         var dep=department+"";
         if(cycle=='0'){
             $.messager.alert("提示","周期为必填！");
-        }else if(department==''){
+            return;
+        }if(department==''){
             $.messager.alert("提示","部门为必选！");
-        }else{
-            $.ajax({
-                url: '/guide/template/addWorkPerator',
-                type: 'GET',
-                dataType: 'json',
-                async: false,
-                data:{'workId':workId,'planTime':planTime,'patrolTask':patrolTask,'cycle':cycle,'department':dep},
-                beforeSend:function(){
-                    $("#save").hidden;//隐藏提交按钮
-                },
-                success: function (data) {
-                    if(data[0]=='success'){
-                        $.messager.alert("提示","操作成功！");
-                        $("#save").show();
-                        addDataWin.window('close');
-                        $('#bg').datagrid('reload');
-                    }
-                },
-            });
+            return;
         }
+        $.ajax({
+            url: '/guide/template/addWorkPerator',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data:{'workId':workId,'planTime':planTime,
+                'patrolTask':patrolTask,'cycle':cycle,
+                'department':dep,},
+            beforeSend:function(){
+                $("#save").hidden;//隐藏提交按钮
+            },
+            success: function (data) {
+                if(data[0]=='success'){
+                    $.messager.alert("提示","操作成功！");
+                    $("#save").show();
+                    addDataWin.window('close');
+                    $('#bg').datagrid('reload');
+                }else if(data[0]=='error'){
+                    $.messager.alert("提示","操作失败！请联系技术人员！");
+                    $("#save").show();
+                    addDataWin.window('close');
+                }else if(data[0]=='patrolTaskError'){
+                    $.messager.alert("提示","此部门下已存在同名模板!");
+                    addDataWin.window('close');
+                    $('#bg').datagrid('reload');
+                }
+            },
+        });
     }
     //打开搜索框
     function searchWorkPerator() {
@@ -128,11 +160,10 @@
         </thead>
     </table>
     <div id="bar" style="height: 100px;text-align: center;line-height: 100px;">
-        <div onclick="javascript:searchWorkPerator()" style="width: 10%;float: left;height: 100px;line-height: 100px;background-color: #00ee00;border-radius: 8px;display: inline-block">
-            <%--<img src="../img/sousuo.png" width="100px" height="100px"/>--%>
-            <img src="../../img/sousuo.png" width="100px" height="100px"/>
+        <div onclick="javascript:searchWorkPerator()" class="searchWorkPerator">
+            <img src="../../img/sousuo.png" style="width: 100px;height: 100px;"/>
         </div>
-        <div onclick="javascript:openWorkPerator()" style="width:90%;height: 100px;text-align: center;line-height: 100px;float: right;background-color: #00bbee;border-radius: 8px;display: inline-block">
+        <div onclick="javascript:openWorkPerator()" class="createWorkPerator">
             <span style="font-size: 20px;text-align: center;">
                 <a href="javascript:openWorkPerator()" style="text-decoration: none;color: #222222"><strong>创建</strong></a>
             </span>

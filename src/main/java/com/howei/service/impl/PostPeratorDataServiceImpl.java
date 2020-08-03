@@ -42,7 +42,12 @@ public class PostPeratorDataServiceImpl implements PostPeratorDataService {
     }
 
     @Override
-    public List<PostPeratorData> selPostPerDataById(String postPeratorId) {
-        return postperatorDataMapper.selPostPerDataById(postPeratorId);
+    public List<PostPeratorData> selPostPerDataById(Map map) {
+        return postperatorDataMapper.selPostPerDataById(map);
+    }
+
+    @Override
+    public List<Map> getUnityMap(Map map) {
+        return postperatorDataMapper.getUnityMap(map);
     }
 }

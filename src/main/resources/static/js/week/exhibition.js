@@ -107,10 +107,8 @@ function openExhibitopn(id){
             $('#patrolTask').textbox("setValue",data.patrolTask);
             $('#planTime').textbox("setValue",data.planTime);
             $("#workId").val(data.id);
-            var strs= new Array();
             var department=data.projectDepartment;//部门
-            strs=department.split(",");
-            $("#department").combotree("setValues",strs);
+            $("#department").combobox("setValue",department);
         },
     });
     addDataWin=$('#workPerator').window({
@@ -174,16 +172,4 @@ function openWorkPerator2(id) {
             closable:true
         });
     }
-    /*var jq = top.jQuery;
-    var text="编辑模板-"+id;
-    if (jq("#tabs").tabs('exists', text)){
-        jq("#tabs").tabs('select', text);
-    } else {
-        var content = '<iframe width="100%" height="100%" frameborder="0" src="/guide/template/toTemplateChild?temid='+id+'" style="width:100%;height:100%;margin:0px 0px;"></iframe>';
-        jq("#tabs").tabs('add',{
-            title:text,
-            content:content,
-            closable:true
-        });
-    }*/
 }

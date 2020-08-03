@@ -15,16 +15,8 @@ $(function(){
         queryParams: { type: '1' }, //往后台传参数用的。
         columns: [[
             {field: 'id', title: '编号', align: 'center', hidden:true},
-            /*{field: 'type', title: '类型', height: 10,
-                formatter: function (value, row, index) {
-                    if(row.type=='1'){
-                        return "系统号";
-                    }else if(row.type=='2'){
-                        return "设备名称";
-                    }
-                }
-            },*/
             {field: 'name', title: '名称', width: 30,align: 'center',height: 10},
+            {field: 'departmentName', title: '部门', width: 30,align: 'center',height: 10},
             {field: 'edit', title: '操作', width: 10, align: 'center',height: 10,
                 formatter: function (value, row, index) {
                     var html="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block' onclick='updSystem("+row.id+")'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'>编辑</a></div>\
@@ -59,13 +51,11 @@ function updSystem(id) {
         success: function (data) {
             if(data!=null&&data!=''){
                 $("#name").textbox('setValue',data.name);
-                /*$("#type").combobox({disabled: true});//设置下拉为只读
-                $("#type").combobox('setValue',data.type);*/
+                $("#departName").textbox('setValue',data.departmentName);
                 $("#SystemId").val(data.id);
             }
         }
     });
-    alert("1");
     addSystem=$('#system').window({
         title:'新建',
         height: 300,

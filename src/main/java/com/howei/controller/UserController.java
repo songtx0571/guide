@@ -146,6 +146,8 @@ public class UserController {
         Integer userId=(Integer)session.getAttribute("userId");
         String parentId=request.getParameter("parent");
         List<Permission> list=permissionService.selByUserId(userId);
+        WebSocket webSocket=new WebSocket();
+        webSocket.sendMessage("发送信息");
         String isAdmin="";
         if(list!=null&&list.size()>0){
             Permission permission=list.get(0);
@@ -163,9 +165,4 @@ public class UserController {
         List<Menu> result=menuService.getMenuTree(map);
         return result;
     }
-    /*public String getMenuTree(){
-        WebSocket webSocket=new WebSocket();
-        webSocket.sendMessage("有新的订单");
-        return "发送成功";
-    }*/
 }

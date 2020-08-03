@@ -10,23 +10,27 @@ $(function(){
                 textField: "text", //Text字段
                 panelHeight:"300",
                 data:json,
+                onChange:function(newValue,oldValue){
+                    var departName= $('#depart').combobox('getValue');
+                    //获取系统号
+                    $.ajax({
+                        type:"post",
+                        url:"/guide/template/getTemplateMap",//请求后台数据
+                        data: {'depart':departName},
+                        dataType:"json",
+                        success:function(json){
+                            $("#Template").combobox({//往下拉框塞值
+                                data:json,
+                                valueField:"id",//value值
+                                textField:"text",//文本值
+                                panelHeight:"300"
+                            });
+                            var data = $('#Template').combobox('getData');
+                            $('#Template').combobox('select',data[0].id);
+                        }
+                    });
+                }
             });
-        }
-    });
-    //获取系统号
-    $.ajax({
-        type:"post",
-        url:"/guide/template/getTemplateMap",//请求后台数据
-        dataType:"json",
-        success:function(json){
-            $("#Template").combobox({//往下拉框塞值
-                data:json,
-                valueField:"id",//value值
-                textField:"text",//文本值
-                panelHeight:"300"
-            });
-            var data = $('#Template').combobox('getData');
-            $('#Template').combobox('select',data[0].id);
         }
     });
 });
@@ -47,30 +51,40 @@ function searchByWorkPer() {
         $('#Template').focus;
         return;
     }
-    //请求后台数据
-    $.ajax({
-        type:"post",
-        url:"/guide/mould/getMouldList",//请求后台数据
-        dataType:"json",
-        data: {'depart':depart,'Template':Template},
-        success:function(json){
-            var html='<tr><td></td><td>开始时间</td><td>结束时间</td><td>历时</td><td>巡检人</td><td>人工巡检数</td><td>AI巡检数</td></tr>';
-            for(var i=0;i<json.length;i++){
-                var mouldData=json[i];
-                var id=mouldData.id;//员工模板id
-                var startTime=mouldData.startTime;//开始时间
-                var endTime=mouldData.endTime;//结束时间
-                var count=mouldData.count;//人工巡检数
-                var AIcount=mouldData.AIcount;//人工巡检数
-                var status=mouldData.status;//状态
-                var userName=mouldData.userName;//巡检人
-                var diachronic=mouldData.diachronic;//历时
-                html+='<tr id="tr'+id+'"><td id="'+id+'"><a href="javascript:openPostPerData('+id+')" class="a">'+status+'</a></td><td>'+startTime+'</td><td>'+endTime+'</td><td>'+diachronic+
-                    '</td><td>'+userName+'</td><td>'+count+'</td><td>'+AIcount+'</td></tr>';
+    // 显示查询的模板
+    $('#mouldTable').datagrid({
+        url: '/guide/mould/getMouldList',
+        method: 'get',
+        title: '查询模板',
+        //width: 'auto',
+        height: 600,
+        //fitColumns: true,//自适应列
+        loadMsg: '正在加载信息...',
+        pagination: true,//允许分页
+        //singleSelect: true,//单行选中。
+        pageSize: 10,
+        pageNumber: 1,
+        //pageList: [10, 15, 20, 30, 50],
+        queryParams: { 'depart':depart,'Template':Template }, //往后台传参数用的。
+        columns: [[
+            {field: 'id', title: '编号', width: 30, align: 'center',height: 10},
+            {field: 'status', title: '状态', width: 30, align: 'center',height: 10},
+            {field: 'startTime', title: '开始时间', width: 30, align: 'center',height: 10},
+            {field: 'endTime', title: '结束时间', width: 30, align: 'center',height: 10},
+            {field: 'diachronic', title: '历时', width: 30, align: 'center',height: 10},
+            {field: 'userName', title: '巡检人', width: 30, align: 'center',height: 10},
+            {field: 'count', title: '人工巡检数', width: 30, align: 'center',height: 10},
+            {field: 'AIcount', title: 'AI巡检数', width: 30, align: 'center',height: 10}
+        ]],
+        onClickRow: function(rowIndex, rowData){
+            $('#mouldTable').datagrid('clearSelections');
+        },
+        onLoadSuccess: function (data) {
+            if (data.total == 0) {
+
             }
-            $("#mouldTable").html(html);
-        }
-    });
+            else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
+        },
 }
 
 /**

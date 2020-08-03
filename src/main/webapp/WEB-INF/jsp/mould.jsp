@@ -7,13 +7,15 @@
     <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
     <link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css" />
     <link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css" />
-    <script type="text/javascript" src="../js/week/mould.js?version=1.0"></script>
+
+    <script type="text/javascript" src="../js/week/mould.js?version=1.02"></script>
+
 </head>
 <style type="text/css">
     .bodyHeader{
         width: 100%;
         height: 10%;
-        background-color: #F0F8FF;
+        background: linear-gradient(#E0ECFF, #fff);
     }
     .bodyContent{
         width: 100%;
@@ -26,7 +28,7 @@
     }
     .bodyContentHead{
         height: 90%;
-        /*margin: 10px;*/
+        margin: 10px;
         text-align: center;
     }
     .postPerData{
@@ -38,27 +40,30 @@
     }
     ul{
         margin: 0px 0px 0px 0px;
-        padding: 20px 0px 0px 0px;
+        padding: 20px 20px;
+        box-sizing: border-box;
         width: 100%;
-        height: 80%;
-        background-color: #F0F8FF;
         list-style-type: none;
+        height: 150px;
     }
     li{
-        height: 100%;
+        width: 46%;
+        height: 50%;
         float: left;
-        margin-left: 40px;
+        margin-right: 4%;
+    }
+    li div{
+        width: 100%;
+        height: 100%;
+    }
+    li div .liTxt{
+        float: left;
+        margin-top: 10px;
     }
     .mouldTable{
         margin:auto;
         border: 1px solid #00bbee;
         border-collapse:collapse
-    }
-    tr,td{
-        height: 40px;
-        width: 120px;
-        border: 1px solid #00bbee;
-        text-align: center;
     }
     .a{
         text-decoration:none;
@@ -71,6 +76,13 @@
     .background_color{
         background-color: #F2F2F2;
     }
+    .panel-header{
+        width: 100%;
+    }
+    tr, td {
+        border: 1px solid #00bbee;
+        text-align: center;
+    }
 </style>
 <script type="text/javascript">
 
@@ -81,28 +93,25 @@
         <ul>
             <li>
                 <div>
-                    <span>部门</span>&nbsp;&nbsp;
+                    <span class="liTxt">部门</span>
+                    <span style="display: inline-block;width: 10px;float: left;height: 10px;"></span>
                     <select id="depart" class="easyui-combobox" data-options="prompt:'请选择部门',required:true" style="width:250px;height: 40px;line-height: 40px"></select>
                 </div>
             </li>
             <li>
                 <div>
-                    <span>巡检模板</span>&nbsp;&nbsp;
+                    <span class="liTxt">巡检模板</span>
+                    <span style="display: inline-block;width: 10px;float: left;height: 10px;"></span>
                     <select id="Template" class="easyui-combobox" data-options="prompt:'请选择模板',required:true" style="width:250px;height: 40px;line-height: 40px"></select>
                 </div>
             </li>
-            <li>
+            <li style="width: 100%;text-align: center">
                 <div id="search" style="height: 40px;width: 80px;border-radius: 5px;background-color: #00bbee;line-height: 40px;" onclick="javascript:searchByWorkPer()" class="easyui-linkbutton" plain="true">
                     <a href="javascript:void(0)" id="btn-save" style="text-decoration: none;color: #222222">确定</a>
                 </div>
             </li>
         </ul>
     </div>
-    <%--<table id="mouldTable" class="easyui-datagrid" title="模板列表"
-           fitColumns="true" pagination="true" rownumbers="true"
-           fit="true">
-
-    </table>--%>
     <%--内容主体--%>
     <div class="bodyContent">
         <div id="bodyContentHead" class="bodyContentHead">
@@ -111,17 +120,7 @@
                    fit="true">
 
             </table>
-            <%--<table id="mouldTable" class="mouldTable">
-
-            </table>--%>
-
         </div>
     </div>
-    <%--员工数据弹窗--%>
-    <%--<div id="postPerData" class="postPerData" style="padding: 30px 30px 30px 30px;" hidden>
-        <table class="postPerDataTable" id="postPerDataTable">
-
-        </table>
-    </div>--%>
 </body>
 </html>

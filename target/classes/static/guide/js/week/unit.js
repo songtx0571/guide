@@ -17,6 +17,7 @@ $(function(){
             {field: 'id', title: '编号', width: 20, align: 'center',height: 10,hidden:true},
             {field: 'type', title: '类型', width: 20,align: 'center',height: 10,hidden:true},
             {field: 'nuit', title: '名称', width: 30,align: 'center',height: 10},
+            {field: 'departmentName', title: '部门', width: 30,align: 'center',height: 10},
             {field: 'edit', title: '操作', width: 20, align: 'center',height: 10,
                 formatter: function (value, row, index) {
                     var html="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block' onclick='updUnit("+row.id+")'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'>编辑</a></div>\
@@ -35,27 +36,6 @@ $(function(){
             else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
         },
     });
-    /*//动态赋值
-    $('#type').combobox({
-        onChange: function () {
-            var type= $('#type').combobox('getValue');
-            if(type.trim()==''){
-                $.ajax({
-                    type:"post",
-                    url:"/guide/unit/getUnitMap",//请求后台数据
-                    dataType:"json",
-                    success:function(json){
-                        $("#type").combobox({//往下拉框塞值
-                            data:json,
-                            valueField:"id",//value值
-                            textField:"type",//文本值
-                            panelHeight:"auto"
-                        })
-                    }
-                });
-            }
-        }
-    });*/
 });
 
 /**
@@ -72,6 +52,7 @@ function updUnit(id) {
         success: function (data) {
             if(data!=null&&data!=''){
                 $("#nuit").textbox('setValue',data.nuit);
+                $("#departName").textbox('setValue',data.departmentName);
                 $("#unitId").val(data.id);
             }
         }

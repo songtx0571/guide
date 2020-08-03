@@ -37,26 +37,12 @@ $(function(){
     });
 });
 
-/*function ComboDataLoader(param, success, error) {
-    var q = param.q;
-    if (q == undefined || q == "" || q == null)
-        return false;
-    $.ajax({
-        url: "/guide/unit/getUnitLike",
-        type: "post",
-        data: { 'q': q,},
-        dataType: "json",
-        success: function (data) {
-            success(data);
-        },
-    });
-}*/
-
 /**
  * 打开编辑弹窗
  * @param id
  */
 function updPoint(id) {
+
     $.ajax({
         url: '/guide/unit/findUnit',
         type: 'GET',

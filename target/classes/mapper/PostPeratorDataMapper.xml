@@ -37,35 +37,45 @@
         update postPerator_data set measuringTypeData=#{measuringTypeData} where id=#{id}
     </update>
 
-    <select id="selTypeByName" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select DISTINCT pd.measuringType from postPerator_data pd
+    <select id="selByName" parameterType="java.util.HashMap" resultMap="postDataMap" resultType="com.howei.pojo.PostPeratorData">
+        select pd.* from postPerator_data pd
         left join postPerator p on p.id=pd.postPeratorId
-        where pd.measuringTypeData is not null
+        where 1=1
         <if test="projectDepartment!=null and projectDepartment!=''">
             and p.department=#{projectDepartment}
         </if>
         <if test="equipment!=null and equipment!=''">
             and pd.equipment=#{equipment}
         </if>
-        ORDER BY measuringType
+        <if test="measuringType!=null and measuringType!=''">
+            and pd.measuringType=#{measuringType}
+        </if>
+        ORDER BY pd.created desc,pd.createdBy,pd.measuringType
+        <if test="page!=null and pageSize!=null">
+            limit ${page},${pageSize}
+        </if>
     </select>
 
-    <select id="selByName" parameterType="java.util.HashMap" resultMap="postDataMap" resultType="com.howei.pojo.PostPeratorData">
-        select pd.* from postPerator_data pd
+    <select id="selPostPerDataById" parameterType="java.util.HashMap" resultMap="postDataMap">
+        select * from postPerator_data where 1=1
+        <if test="postPeratorId!=null and postPeratorId!=''">
+           and postPeratorId=#{postPeratorId}
+        </if>
+        order by equipment
+        <if test="page!=null and pageSize!=null">
+            limit ${page},${pageSize}
+        </if>
+    </select>
+
+    <select id="getUnityMap" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select distinct pd.measuringType from postPerator_data pd
         left join postPerator p on p.id=pd.postPeratorId
-        where pd.measuringTypeData is not null
-        <if test="projectDepartment!=null and projectDepartment!=''">
-            and p.department=#{projectDepartment}
+        where 1=1
+        <if test="department!=null and department!=''">
+            and p.department=#{department}
         </if>
         <if test="equipment!=null and equipment!=''">
-            and equipment=#{equipment}
+            and pd.equipment=#{equipment}
         </if>
-        <if test="measuringType!=null and measuringType!=''">
-            and measuringType=#{measuringType}
-        </if>
-    </select>
-
-    <select id="selPostPerDataById" parameterType="java.lang.String" resultType="java.util.HashMap">
-        select * from postPerator_data where postPeratorId=#{postPeratorld}
     </select>
 </mapper>

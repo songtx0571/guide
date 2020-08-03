@@ -9,16 +9,50 @@
     <link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css" />
     <script type="text/javascript" src="../js/week/equipment.js?version=1.03"></script>
     <%@ include file="updEquipment.jsp"%>
+    <%@ include file="searchWorkPerator.jsp"%>
 </head>
 <style type="text/css">
-
+    .searchEquipment{
+        width: 100px;
+        float: left;
+        height: 100px;
+        display: inline-block;
+        border-radius: 50%;
+    }
+    .createEquipment{
+        width: 70%;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        float: right;
+        background-color: #00bbee;
+        border-radius: 8px;
+        display: inline-block;
+        margin-right: 10%;
+        margin-top: 25px;
+    }
+    .createEquipment a strong{
+        color: #fff;
+    }
 </style>
 <script type="text/javascript">
     function openEquipment(){
         $("#name").textbox('setValue','');
-        //$("#type").combobox({disabled: false});
-        //$('#type').combobox('setValue','0');
         $('#EquipId').val('');
+        //获取部门信息
+        $.ajax({
+            type:"post",
+            url:"/guide/template/getDepartmentList",
+            dataType:"json",
+            success:function(json){
+                $('#departName').combobox({
+                    valueField: "id", //Value字段
+                    textField: "text", //Text字段
+                    panelHeight:"300",
+                    data:json,
+                });
+            }
+        });
         addEquipment=$('#equipment').window({
             title:'新建',
             height: 300,
@@ -39,26 +73,73 @@
         var name=$("#name").textbox('getValue');
         var type= '2';//1：系统；2：设备
         var _id=$('#EquipId').val();
+        var depart=$("#departName").textbox('getValue');
         if(name==''){
             $.messager.alert("提示","名称为必填！");
-        }else{
-            $.ajax({
-                url: '/guide/equipment/addEquipment',
-                type: 'GET',
-                dataType: 'json',
-                async: false,
-                data:{'name':name,'type':type,'id':_id},
-                beforeSend:function(){
-                    $("#save").hidden;//隐藏提交按钮
-                },
-                success: function (data) {
-                    $.messager.alert("提示",data[0]);
-                    $("#save").show();//提交按钮
-                    addEquipment.window('close');
-                    $('#equip').datagrid('reload');//刷新页面数据
-                },
-            });
+            return;
         }
+        if(depart==''){
+            $.messager.alert("提示","部门为必选！");
+            return;
+        }
+        $.ajax({
+            url: '/guide/equipment/addEquipment',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data:{'name':name,'type':type,'id':_id,'depart':depart},
+            beforeSend:function(){
+                $("#save").hidden;//隐藏提交按钮
+            },
+            success: function (data) {
+                $.messager.alert("提示",data[0]);
+                $("#save").show();//提交按钮
+                addEquipment.window('close');
+                $('#equip').datagrid('reload');//刷新页面数据
+            },
+        });
+    }
+
+    //打开搜索框
+    function searchEquipment() {
+        //获取部门信息
+        $.ajax({
+            type:"post",
+            url:"/guide/template/getDepartmentList",
+            dataType:"json",
+            success:function(json){
+                $("#depart").combobox({//往下拉框塞值
+                    data:json,
+                    valueField:"id",//value值
+                    textField:"text",//文本值
+                    panelHeight:"auto"
+                });
+            }
+        });
+
+        search=$('#search').window({
+            title:'模板查询',
+            height: 300,
+            width: 450,
+            closed: true,
+            minimizable:false,
+            maximizable:false,
+            collapsible:false,
+            cache:false,
+            shadow:true
+        });
+        search.window('open');
+    }
+    function searchWork() {
+        var department=$("#depart").combotree('getValue');
+        var dep=department+"";
+        $('#equip').datagrid('load',{
+            department:dep,
+            type:'2'
+        });
+    }
+    function closeSearch() {
+        search.window('close');
     }
 </script>
 <body class="easyui-layout">
@@ -73,10 +154,15 @@
         </tr>
         </thead>
     </table>
-    <div id="equiBar" style="height: 100px;text-align: center;line-height: 100px;background-color: #00bbee;border-radius: 8px;" onclick="openEquipment()">
-        <span style="font-size: 20px;text-align: center;">
-            <a href="javascript:openEquipment()" style="text-decoration: none;color: #222222"><strong>创建</strong></a>
-        </span>
+    <div id="equiBar" style="height: 100px;text-align: center;line-height: 100px;">
+        <div onclick="javascript:searchEquipment()" class="searchEquipment">
+            <img src="../../img/sousuo.png" style="width: 100px;height: 100px;"/>
+        </div>
+        <div onclick="javascript:openEquipment()" class="createEquipment">
+            <span style="font-size: 20px;text-align: center;">
+                <a href="javascript:openEquipment()" style="text-decoration: none;color: #222222"><strong>创建</strong></a>
+            </span>
+        </div>
     </div>
 </body>
 </html>

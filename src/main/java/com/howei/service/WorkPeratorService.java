@@ -45,4 +45,9 @@ public interface WorkPeratorService {
     int selAllCount(Map<String,Object> map);
 
     List<Map> getTemplateMap(Map map);
+
+    List<WorkPerator> selByMap(Map map);
+
+
+    WorkPerator getLastTemplateChildByPriority(Map map);
 }

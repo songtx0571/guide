@@ -10,4 +10,15 @@
       select * from department where type='1'
     </select>
 
+    <select id="selById" parameterType="int" resultMap="depMap">
+        select * from department where id=#{id}
+    </select>
+
+    <select id="selByMapParam" parameterType="java.util.HashMap" resultType="com.howei.pojo.Department">
+        select * from department where 1=1 and type='1'
+        <if test="departmentName!=null and departmentName!=''">
+            and departmentName=#{departmentName}
+        </if>
+    </select>
+
 </mapper>

@@ -30,5 +30,5 @@ public interface UnitMapper {
 
     int getUnitListCount(Map map);
 
-    List<Unit> getUnityMap(@Param("mold") int i);
+    List<Unit> getUnityMap(Map map);
 }

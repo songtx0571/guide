@@ -1,6 +1,8 @@
 package com.howei.controller;
 
+import com.howei.pojo.Department;
 import com.howei.pojo.Equipment;
+import com.howei.service.DepartmentService;
 import com.howei.service.EquipmentService;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
@@ -19,6 +21,9 @@ public class EquipmentController {
 
     @Autowired
     EquipmentService equipmentService;
+
+    @Autowired
+    DepartmentService departmentService;
     /**
      * 跳转设备页面
      * @return
@@ -49,13 +54,21 @@ public class EquipmentController {
         String page=request.getParameter("page");
         String rows=request.getParameter("rows");
         String type=request.getParameter("type");
+        String depar=request.getParameter("department");
         int offset=Page.getOffSet(page,rows);
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("type",type);
+        if(depar!=null&&!depar.equals("")){
+            map.put("department",depar);
+        }
         int count=equipmentService.getEquipmentListCount(map);
         map.put("page",offset);
         map.put("pageSize",rows);
         List<Equipment> result=equipmentService.getEquipmentList(map);
+        for(Equipment equipment : result){
+            Department department=departmentService.selById(equipment.getDepartment());
+            equipment.setDepartmentName(department.getDepartmentName());
+        }
         EasyuiResult easy=new EasyuiResult();
         easy.setTotal(count);
         easy.setRows(result);
@@ -71,7 +84,13 @@ public class EquipmentController {
     public List<Map<String,Object>> getEquMap(HttpServletRequest request){
         List<Map<String,Object>> list=new ArrayList<>();
         String type=request.getParameter("type");
-        List<Equipment> equ=equipmentService.getEquMap(type);
+        String department=request.getParameter("departName");
+        Map souMap=new HashMap();
+        if(department!=null&&!department.equals("")){
+            souMap.put("department",department);
+        }
+        souMap.put("type",type);
+        List<Equipment> equ=equipmentService.getEquMap(souMap);
         if(equ!=null){
             for(int i=0;i<equ.size();i++){
                 Equipment equipment=equ.get(i);
@@ -95,13 +114,30 @@ public class EquipmentController {
         List<String> list=new ArrayList<String>();
         String name=request.getParameter("name");
         String type=request.getParameter("type");
+        String depart=request.getParameter("depart");
         String id=request.getParameter("id");
         int index=0;
         String result="";
         Map map=new HashMap();
-        map.put("name",name);
-        map.put("type",Integer.parseInt(type));
-        if(id!=null&&id!=""){
+        if(id!=null&&id!=""){//修改
+            //判断系统表中是否存在此名称
+            map.put("name",name);
+            map.put("type",Integer.parseInt(type));
+            if(depart!=null){
+                Map map1=new HashMap();
+                map1.put("departmentName",depart);
+                Department department=departmentService.selByMapParam(map1);
+                if(department!=null){
+                    map.put("depart",department.getId());
+                }
+            }
+            index=equipmentService.findEquipment(map);
+            if(index>0){
+                result="系统中已存在此名称";
+                list.add(result);
+                return list;
+            }
+            //修改
             map.put("id",id);
             index=equipmentService.updEquipment(map);
             if(index>0){
@@ -109,16 +145,22 @@ public class EquipmentController {
             }else{
                 result="操作失败,请联系技术人员";
             }
-        }else{
+        }else{//添加
+            //判断系统表中是否存在此名称
+            map.put("name",name);
+            map.put("type",Integer.parseInt(type));
+            map.put("depart",depart);
             index=equipmentService.findEquipment(map);
             if(index>0){
                 result="系统中已存在此名称";
                 list.add(result);
                 return list;
             }
+            //添加
             Equipment equipment=new Equipment();
             equipment.setName(name);
             equipment.setType(Integer.parseInt(type));
+            equipment.setDepartment(Integer.parseInt(depart));
             int key=equipmentService.addEquipment(equipment);
             if(key>0){
                 result="添加成功";
@@ -141,6 +183,8 @@ public class EquipmentController {
         String id=request.getParameter("id");
         if(id!=null){
             Equipment equipment=equipmentService.findEquipmentById(Integer.parseInt(id));
+            Department department=departmentService.selById(equipment.getDepartment());
+            equipment.setDepartmentName(department.getDepartmentName());
             return equipment;
         }else{
             return null;

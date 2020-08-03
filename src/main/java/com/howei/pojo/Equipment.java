@@ -7,6 +7,9 @@ public class Equipment {
     private int id;
     private String name;
     private int type;//类型:1为系统号;2为设备
+    private int department;//项目部
+    //虚字段
+    private String departmentName;//项目部
 
     public int getId() {
         return id;
@@ -30,5 +33,21 @@ public class Equipment {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }

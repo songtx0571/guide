@@ -66,7 +66,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public List<Unit> getUnityMap(int i) {
-        return unitMapper.getUnityMap(i);
+    public List<Unit> getUnityMap(Map map) {
+        return unitMapper.getUnityMap(map);
     }
 }

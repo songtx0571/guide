@@ -39,4 +39,8 @@ public interface WorkPeratorMapper {
     int getTemplateChildListCount(Map map);
 
     List<Map> getTemplateMap(Map map);
+
+    List<WorkPerator> selByMap(Map map);
+
+    WorkPerator getLastTemplateChildByPriority(Map map);
 }

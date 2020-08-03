@@ -107,10 +107,8 @@ function openExhibitopn(id){
             $('#patrolTask').textbox("setValue",data.patrolTask);
             $('#planTime').textbox("setValue",data.planTime);
             $("#workId").val(data.id);
-            var strs= new Array();
             var department=data.projectDepartment;//部门
-            strs=department.split(",");
-            $("#department").combotree("setValues",strs);
+            $("#department").combobox("setValue",department);
         },
     });
     addDataWin=$('#workPerator').window({

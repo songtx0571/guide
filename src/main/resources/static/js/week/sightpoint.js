@@ -17,6 +17,7 @@ $(function(){
             {field: 'id', title: '编号', width: 20, align: 'center',height: 10,hidden:true},
             {field: 'type', title: '类型', width: 20,align: 'center',height: 10,hidden:true},
             {field: 'nuit', title: '名称', width: 30,align: 'center',height: 10},
+            {field: 'departmentName', title: '部门', width: 30,align: 'center',height: 10},
             {field: 'edit', title: '操作', width: 20, align: 'center',height: 10,
                 formatter: function (value, row, index) {
                     var html="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block' onclick='updPoint("+row.id+")'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'>编辑</a></div>\
@@ -37,21 +38,6 @@ $(function(){
     });
 });
 
-/*function ComboDataLoader(param, success, error) {
-    var q = param.q;
-    if (q == undefined || q == "" || q == null)
-        return false;
-    $.ajax({
-        url: "/guide/unit/getUnitLike",
-        type: "post",
-        data: { 'q': q,},
-        dataType: "json",
-        success: function (data) {
-            success(data);
-        },
-    });
-}*/
-
 /**
  * 打开编辑弹窗
  * @param id
@@ -66,6 +52,7 @@ function updPoint(id) {
         success: function (data) {
             if(data!=null&&data!=''){
                 $("#nuit").textbox('setValue',data.nuit);
+                $("#departName").textbox('setValue',data.departmentName);
                 $("#pointId").val(data.id);
             }
         }

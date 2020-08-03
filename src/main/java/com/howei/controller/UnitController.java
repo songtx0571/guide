@@ -1,7 +1,9 @@
 package com.howei.controller;
 
+import com.howei.pojo.Department;
 import com.howei.pojo.Equipment;
 import com.howei.pojo.Unit;
+import com.howei.service.DepartmentService;
 import com.howei.service.UnitService;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
@@ -24,6 +26,9 @@ public class UnitController {
 
     @Autowired
     UnitService unitService;
+
+    @Autowired
+    DepartmentService departmentService;
 
     /**
      * 跳转单位页面
@@ -54,13 +59,21 @@ public class UnitController {
         String page=request.getParameter("page");
         String rows=request.getParameter("rows");
         String mold=request.getParameter("mold");
+        String depart=request.getParameter("department");
         int offset=Page.getOffSet(page,rows);
         Map map=new HashMap();
         map.put("mold",mold);
+        if(depart!=null&&!depart.equals("")){
+            map.put("department",depart);
+        }
         int count=unitService.getUnitListCount(map);
         map.put("page",offset);
         map.put("pageSize",rows);
         List<Unit> unit=unitService.getUnitList(map);
+        for(Unit unit1 : unit){
+            Department department=departmentService.selById(unit1.getDepartment());
+            unit1.setDepartmentName(department.getDepartmentName());
+        }
         EasyuiResult easy=new EasyuiResult();
         easy.setTotal(count);
         easy.setRows(unit);
@@ -78,6 +91,8 @@ public class UnitController {
         String id=request.getParameter("id");
         if(id!=null){
             Unit unit=unitService.findUnitById(Integer.parseInt(id));
+            Department department=departmentService.selById(unit.getDepartment());
+            unit.setDepartmentName(department.getDepartmentName());
             return unit;
         }
         return null;
@@ -96,18 +111,27 @@ public class UnitController {
         String type=request.getParameter("type");
         String id=request.getParameter("id");
         String mold=request.getParameter("mold");
+        String depart=request.getParameter("depart");
         int index=0;
         String result="";
         Map map=new HashMap();
-        map.put("nuit",nuit);
-        map.put("type",type);
-        index=unitService.findUnit(map);
-        if(index>0){
-            result="系统中已存在此名称";
-            list.add(result);
-            return list;
-        }
-        if(id!=null&&id!=""){
+        if(id!=null&&id!=""){//修改
+            map.put("nuit",nuit);
+            map.put("type",type);
+            if(depart!=null){
+                Map map1=new HashMap();
+                map1.put("departmentName",depart);
+                Department department=departmentService.selByMapParam(map1);
+                if(department!=null){
+                    map.put("depart",department.getId());
+                }
+            }
+            index=unitService.findUnit(map);
+            if(index>0){
+                result="系统中已存在此名称";
+                list.add(result);
+                return list;
+            }
             map.put("id",id);
             index=unitService.updUnit(map);
             if(index>0){
@@ -115,7 +139,16 @@ public class UnitController {
             }else{
                 result="操作失败,请联系技术人员";
             }
-        }else{
+        }else{//添加
+            map.put("nuit",nuit);
+            map.put("type",type);
+            map.put("depart",depart);
+            index=unitService.findUnit(map);
+            if(index>0){
+                result="系统中已存在此名称";
+                list.add(result);
+                return list;
+            }
             Unit unit=new Unit();
             unit.setNuit(nuit);
             unit.setType(type);
@@ -123,6 +156,7 @@ public class UnitController {
             unit.setMold(Integer.parseInt(mold));
             String english=PinYin.ToPinyin(type);
             unit.setEnglish(english);
+            unit.setDepartment(Integer.parseInt(depart));
             int key=unitService.addUnit(unit);
             if(key>0){
                 result="添加成功";
@@ -205,4 +239,32 @@ public class UnitController {
         }
         return  list;
     }
+
+    /**
+     * 下拉框属性
+     * 获取测点类型
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getUnityMap")
+    @ResponseBody
+    public List<Map<String,Object>> getUnityMap(HttpServletRequest request){
+        String mold=request.getParameter("mold");
+        String departName=request.getParameter("departName");
+        String name=request.getParameter("name");
+        List<Map<String,Object>> result=new ArrayList<>();
+        Map map1=new HashMap();
+        map1.put("type",mold);
+        List<Unit> list=unitService.getUnityMap(map1);
+        for(int i=0;i<list.size();i++){
+            Map map=new HashMap();
+            Unit unit=list.get(i);
+            String unitName=unit.getNuit();
+            map.put("id",i);
+            map.put("text",unitName);
+            result.add(map);
+        }
+        return result;
+    }
+
 }

@@ -18,4 +18,14 @@ public class DepartmentServiceImpl  implements DepartmentService {
     public List<Department> getDepList() {
         return departmentMapper.getDepList();
     }
+
+    @Override
+    public Department selById(int id) {
+        return departmentMapper.selById(id);
+    }
+
+    @Override
+    public Department selByMapParam(Object departmentName) {
+        return departmentMapper.selByMapParam(departmentName);
+    }
 }

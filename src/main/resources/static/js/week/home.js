@@ -19,10 +19,7 @@ window.onload = function() {
     }
     //消息来的时候的事件
     websocket.onmessage = function (event) {
-        // 这里event.data就是我们从后台推送过来的消息
         console.log('收到消息:' + event.data);
-        // 在这里我们可以在页面中放置一个音乐，例如“您有新的订单了！”这样的提示音
-        //document.getElementById("newOrderMp3").play();
     }
 
     //发生错误时

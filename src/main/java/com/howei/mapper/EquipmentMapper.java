@@ -22,11 +22,11 @@ public interface EquipmentMapper {
 
     void delEquipment(int id);
 
-    List<Equipment> getSysNameList();
+    List<Equipment> getSysNameList(@Param("department") int department);
 
-    List<Equipment> getEquNameList();
+    List<Equipment> getEquNameList(@Param("department") int department);
 
     int getEquipmentListCount(Map<String,Object> map);
 
-    List<Equipment> getEquMap(@Param("type") String type);
+    List<Equipment> getEquMap(Map map);
 }

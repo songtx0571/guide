@@ -63,24 +63,8 @@ public class TemplateController {
         String total=workPeratorService.selByUserCount(map);
         for (WorkPerator work:list){
             String dep=work.getProjectDepartment();//项目
-            if(dep!=null&&!dep.equals("")){
-                String[] depStr=dep.split(",");
-                String departmentName="";
-                for(String depName:depStr){
-                    if(depName.equals("1")){
-                        departmentName+="[嘉爱斯]";
-                    }else if(depName.equals("2")){
-                        departmentName+="[泰爱斯]";
-                    }else if(depName.equals("3")){
-                        departmentName+="[浦江]";
-                    }else if(depName.equals("4")){
-                        departmentName+="[临江]";
-                    }
-                }
-                work.setDepartmentName(departmentName);
-            }else{
-                work.setDepartmentName("");
-            }
+            Department depart=departmentService.selById(Integer.parseInt(dep));
+            work.setDepartmentName(depart.getDepartmentName());
             int id=work.getId();
             map.clear();
             map.put("page",0);
@@ -110,12 +94,29 @@ public class TemplateController {
         String cycle=request.getParameter("cycle");//周期
         List<String> list=new ArrayList<String>();
         String result="";
+        Map map=new HashMap();
+        map.put("patrolTask",patrolTask);
+        map.put("projectDepartment",department);
+        List<WorkPerator> list1=workPeratorService.selByMap(map);
         //修改
         if(workId!=null&&!workId.equals("")){
+            //判断是否有同名
+            if(list1!=null&&list1.size()>0){
+                WorkPerator workPerator=list1.get(0);
+                Integer id=workPerator.getId();
+                if(id==Integer.parseInt(workId)){
+
+                }else{
+                    result="patrolTaskError";
+                    list.add(result);
+                    return list;
+                }
+            }
             WorkPerator workPerator=workPeratorService.selWorkperator(workId);
             if(workPerator!=null){
                 workPerator.setPlanTime(planTime);
                 workPerator.setCycle(cycle);
+                workPerator.setPatrolTask(patrolTask);
             }
             int index=workPeratorService.updWorkperator(workPerator);
             if(index>0){
@@ -124,6 +125,11 @@ public class TemplateController {
                 result="error";
             }
         }else{
+            if(list1!=null&&list1.size()>0){
+                result="patrolTaskError";
+                list.add(result);
+                return list;
+            }
             Date now = new Date();
             String created=DateFormat.getYMDHMS(now);
             WorkPerator work=new WorkPerator();
@@ -264,16 +270,21 @@ public class TemplateController {
      */
     @RequestMapping("/getSysNameList")
     @ResponseBody
-    public List<Map<String,Object>> getSysNameList(){
+    public List<Map<String,Object>> getSysNameList(HttpServletRequest request){
         List<Map<String,Object>> list=new ArrayList<>();
-        List<Equipment> eqList=equipmentService.getSysNameList();
-        if(eqList!=null){
-            for(int i=0;i<eqList.size();i++){
-                Equipment equipment=eqList.get(i);
-                Map<String,Object> map=new HashMap<>();
-                map.put("id",equipment.getId());
-                map.put("name",equipment.getName());
-                list.add(map);
+        String postPeratorId=request.getParameter("temid");
+        WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
+        if(workPerator!=null){
+           String department= workPerator.getProjectDepartment();
+            List<Equipment> eqList=equipmentService.getSysNameList(Integer.parseInt(department));
+            if(eqList!=null){
+                for(int i=0;i<eqList.size();i++){
+                    Equipment equipment=eqList.get(i);
+                    Map<String,Object> map=new HashMap<>();
+                    map.put("id",equipment.getId());
+                    map.put("name",equipment.getName());
+                    list.add(map);
+                }
             }
         }
         return list;
@@ -285,16 +296,21 @@ public class TemplateController {
      */
     @RequestMapping("/getEquNameList")
     @ResponseBody
-    public List<Map<String,Object>> getEquNameList(){
+    public List<Map<String,Object>> getEquNameList(HttpServletRequest request){
         List<Map<String,Object>> list=new ArrayList<>();
-        List<Equipment> eqList=equipmentService.getEquNameList();
-        if(eqList!=null){
-            for(int i=0;i<eqList.size();i++){
-                Equipment equipment=eqList.get(i);
-                Map<String,Object> map=new HashMap<>();
-                map.put("id",equipment.getId());
-                map.put("name",equipment.getName());
-                list.add(map);
+        String postPeratorId=request.getParameter("temid");
+        WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
+        if(workPerator!=null) {
+            String department = workPerator.getProjectDepartment();
+            List<Equipment> eqList=equipmentService.getEquNameList(Integer.parseInt(department));
+            if(eqList!=null){
+                for(int i=0;i<eqList.size();i++){
+                    Equipment equipment=eqList.get(i);
+                    Map<String,Object> map=new HashMap<>();
+                    map.put("id",equipment.getId());
+                    map.put("name",equipment.getName());
+                    list.add(map);
+                }
             }
         }
         return list;
@@ -308,13 +324,20 @@ public class TemplateController {
     @ResponseBody
     public List<Map<String,Object>> getSightType(HttpServletRequest request){
         String type=request.getParameter("type");
+        String postPeratorId=request.getParameter("temid");
         List<Map<String,Object>> list=new ArrayList<>();
         List<Unit> unitList=new ArrayList<>();
-        if(type.equals("1")){
-            unitList=unitService.getUnityMap(1);
-        }else if(type.equals("2")){
-            unitList=unitService.getUnityMap(2);
+        WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
+        Map map1=new HashMap();
+        if(workPerator!=null) {
+            map1.put("department",workPerator.getProjectDepartment());
         }
+        if(type.equals("1")){
+            map1.put("type",'1');
+        }else if(type.equals("2")){
+            map1.put("type",'2');
+        }
+        unitList=unitService.getUnityMap(map1);
         if(unitList!=null){
             for(int i=0;i<unitList.size();i++){
                 Unit unit=unitList.get(i);
@@ -368,11 +391,11 @@ public class TemplateController {
         if(temChildId.equals("")){//添加
             Map map=new HashMap();
             map.put("page",0);
-            map.put("pageSize",10000);
+            map.put("pageSize",1);
             map.put("parent",workId);
-            List<WorkPerator> list1=workPeratorService.getTemplateChildList(map);
-            if(list1!=null&&list1.size()>0){
-                work.setPriority(list1.size()+1);//设置执行循序
+            WorkPerator WorkPerator=workPeratorService.getLastTemplateChildByPriority(map);
+            if(WorkPerator!=null){
+                work.setPriority(WorkPerator.getPriority()+1);//设置执行顺序
             }else{
                 work.setPriority(1);//设置执行循序
             }
@@ -435,20 +458,21 @@ public class TemplateController {
                 map.put("page",0);
                 map.put("pageSize",10000);
                 map.put("parent",parent);
+                map.put("admin","12");
                 List<WorkPerator> list1=workPeratorService.getTemplateChildList(map);//查询此模板下的所有路线
                 if(list1!=null){
                     if(list1.size()!=0){
                         for(WorkPerator work:list1){
                             if(work.getPriority()+1==priority){
                                 work.setPriority(work.getPriority()+1);
-                                workPerator.setPriority(priority-1);
                                 workPeratorService.updWorkperator(work);
-                                workPeratorService.updWorkperator(workPerator);
-                                list.add("success");
                             }
                         }
+                        list.add("success");
                     }
                 }
+                workPerator.setPriority(priority-1);
+                workPeratorService.updWorkperator(workPerator);
             }else{
                 list.add("");
             }
@@ -478,6 +502,7 @@ public class TemplateController {
             map.put("page",0);
             map.put("pageSize",10000);
             map.put("parent",parent);
+            map.put("admin","12");
             List<WorkPerator> list1=workPeratorService.getTemplateChildList(map);//查询此模板下的所有路线
             if(list1!=null){
                 if(list1.size()!=0){
@@ -572,12 +597,16 @@ public class TemplateController {
      */
     @RequestMapping("/getTemplateMap")
     @ResponseBody
-    public List<Map<String,Object>> getTemplateMap(){
+    public List<Map<String,Object>> getTemplateMap(HttpServletRequest request){
+        String depart=request.getParameter("depart");
         List<Map<String,Object>> result=new ArrayList<>();
         Map map=new HashMap();
         map.put("name","patrolTask");
         map.put("status","1");
         map.put("parent","0");
+        if(depart!=null&&!depart.equals("")){
+            map.put("depart",depart);
+        }
         List<Map> list=workPeratorService.getTemplateMap(map);
         if(list!=null){
             for(int i=0;i<list.size();i++){
