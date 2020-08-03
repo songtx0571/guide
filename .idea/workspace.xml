@@ -6,121 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2b732dd-75f9-488f-bee8-be343311c674" name="Default" comment="运行引导系统测试版1.0.0.RELEASE">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/mouldChild.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/mouldChild.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/EquipmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/InquiriesDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/InquiriesDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/MouldController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MouldController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/DepartmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/DepartmentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/PostperatorDataMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/PostperatorDataMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/UnitMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/UnitMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/WorkPeratorMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/WorkPeratorMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Equipment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/PostPeratorData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/PostPeratorData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Unit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/DepartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/DepartmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/EquipmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/EquipmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/PostPeratorDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/PostPeratorDataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/UnitService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/UnitService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/WorkPeratorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/WorkPeratorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/DepartmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/DepartmentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/PostPeratorDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/PostPeratorDataServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/UnitServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/UnitServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/WorkPeratorServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/WorkPeratorServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/DepartmentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/DepartmentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/PostPeratorDataMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/PostPeratorDataMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UnitMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UnitMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/equipment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/equipment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/exhibition.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/exhibition.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/inquiriesData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/inquiriesData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/mould.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/mould.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/sightpoint.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/sightpoint.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/system.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/system.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/templateChild.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/templateChild.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/unit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/unit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/equipment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/equipment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/exhibition.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/exhibition.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/inquiriesData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/inquiriesData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/mould.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/mould.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/sightpoint.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/sightpoint.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/staffhome.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/staffhome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/system.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/system.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/templateChild.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/templateChild.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/week/unit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/week/unit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/equipment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/equipment.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/exhibition.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/exhibition.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/home.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/mould.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/mould.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/postlogin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/postlogin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sightpoint.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sightpoint.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/system.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/system.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/templateChild.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/templateChild.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/unit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/unit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updEquipment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updEquipment.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updSightPoint.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updSightPoint.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updSystem.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updSystem.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updTemplateChild.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updTemplateChild.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updUnit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/updUnit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/controller/EquipmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/controller/EquipmentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/controller/InquiriesDataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/controller/InquiriesDataController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/controller/MouldController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/controller/MouldController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/controller/TemplateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/controller/TemplateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/controller/UnitController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/controller/UnitController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/mapper/DepartmentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/mapper/DepartmentMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/mapper/EquipmentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/mapper/EquipmentMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/mapper/PostperatorDataMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/mapper/PostperatorDataMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/mapper/UnitMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/mapper/UnitMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/mapper/WorkPeratorMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/mapper/WorkPeratorMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/pojo/Equipment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/pojo/Equipment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/pojo/PostPeratorData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/pojo/PostPeratorData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/pojo/Unit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/pojo/Unit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/DepartmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/DepartmentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/EquipmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/EquipmentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/PostPeratorDataService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/PostPeratorDataService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/UnitService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/UnitService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/WorkPeratorService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/WorkPeratorService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/impl/DepartmentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/impl/DepartmentServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/impl/EquipmentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/impl/EquipmentServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/impl/PostPeratorDataServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/impl/PostPeratorDataServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/impl/UnitServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/impl/UnitServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/howei/service/impl/WorkPeratorServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/howei/service/impl/WorkPeratorServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/DepartmentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/DepartmentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/EquipmentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/EquipmentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/PostPeratorDataMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/PostPeratorDataMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/UnitMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/UnitMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/WorkPeratorMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/WorkPeratorMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/equipment.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/equipment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/exhibition.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/exhibition.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/inquiriesData.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/inquiriesData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/mould.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/mould.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/sightpoint.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/sightpoint.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/system.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/system.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/templateChild.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/templateChild.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/guide/js/week/unit.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/guide/js/week/unit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/equipment.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/equipment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/exhibition.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/exhibition.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/inquiriesData.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/inquiriesData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/mould.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/mould.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/sightpoint.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/sightpoint.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/staffhome.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/staffhome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/system.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/system.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/templateChild.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/templateChild.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/week/unit.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/week/unit.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -135,29 +21,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TemplateController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TemplateController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="177" column="33" lean-forward="true" selection-start-line="177" selection-start-column="33" selection-end-line="177" selection-end-column="33" />
+            <state relative-caret-position="594">
+              <caret line="191" column="18" selection-start-line="191" selection-start-column="18" selection-end-line="191" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WorkPeratorMapper.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WorkPeratorMapper.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2619">
-              <caret line="97" column="14" selection-start-line="97" selection-start-column="14" selection-end-line="97" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+            <state relative-caret-position="538">
+              <caret line="93" column="53" lean-forward="true" selection-start-line="93" selection-start-column="53" selection-end-line="93" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -379,6 +256,11 @@
             <path>
               <item name="guide" type="b2602c69:ProjectViewProjectNode" />
               <item name="guide" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guide" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -578,7 +460,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="MyBatisLogPluginindexNum" value="5299" />
+    <property name="MyBatisLogPluginindexNum" value="5368" />
     <property name="MyBatisLogPluginparameters" value="Parameters:" />
     <property name="MyBatisLogPluginpreparing" value="Preparing:" />
     <property name="MyBatisLogPluginrunning" value="true" />
@@ -748,7 +630,7 @@
       <workItem from="1596244550244" duration="2363000" />
       <workItem from="1596370682547" duration="1263000" />
       <workItem from="1596414419777" duration="1219000" />
-      <workItem from="1596417265558" duration="27000" />
+      <workItem from="1596417265558" duration="1438000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -761,15 +643,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="532447000" />
+    <option name="totallyTimeSpent" value="533858000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1456" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="5" weight="0.541329" />
+      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.2472178" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="MyBatis Log" order="11" weight="0.32955405" />
       <window_info id="Capture Tool" order="4" />
@@ -780,22 +661,22 @@
       <window_info id="UI Designer" order="3" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.2441421" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32728648" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32930514" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="12" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23694779" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23658352" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49723756" visible="true" weight="0.20508744" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49723756" visible="true" weight="0.20508744" />
       <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="5" sideWeight="0.50276244" side_tool="true" weight="0.2386059" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32728648" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -850,7 +731,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/lookupTemplate.jsp" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/lookupTemplate.js" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/system.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1179,20 +1059,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2619">
-          <caret line="97" column="14" selection-start-line="97" selection-start-column="14" selection-end-line="97" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/week/templateChild.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3645">
@@ -1216,8 +1082,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="177" column="33" lean-forward="true" selection-start-line="177" selection-start-column="33" selection-end-line="177" selection-end-column="33" />
+        <state relative-caret-position="594">
+          <caret line="191" column="18" selection-start-line="191" selection-start-column="18" selection-end-line="191" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6237" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="93" column="53" lean-forward="true" selection-start-line="93" selection-start-column="53" selection-end-line="93" selection-end-column="53" />
         </state>
       </provider>
     </entry>
