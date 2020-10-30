@@ -32,4 +32,6 @@ public interface UsersMapper{
     Users getUserRolesByName(@Param("userNumber") String userNumber);
 
     Users loginUserNumber(@Param("userNumber") String userNumber);
+    
+    String getNameByUserName(@Param("userNumber") String userNumber);
 }

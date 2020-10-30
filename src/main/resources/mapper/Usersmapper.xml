@@ -47,4 +47,8 @@
             and u.userNumber=#{userNumber}
         </if>
     </select>
+    
+    <select id="getNameByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT `name` FROM users WHERE UPPER(userNumber) = UPPER(#{userNumber})
+	</select>
 </mapper>
