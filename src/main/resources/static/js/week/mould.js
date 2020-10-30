@@ -64,7 +64,7 @@ function searchByWorkPer() {
         //singleSelect: true,//单行选中。
         pageSize: 10,
         pageNumber: 1,
-        //pageList: [10, 15, 20, 30, 50],
+        pageList: [10, 15, 20, 30, 50],
         queryParams: { 'depart':depart,'Template':Template }, //往后台传参数用的。
         columns: [[
             {field: 'id', title: '编号', width: 30, align: 'center',height: 10},

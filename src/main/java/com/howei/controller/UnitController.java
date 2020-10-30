@@ -1,8 +1,10 @@
 package com.howei.controller;
 
+import com.howei.pojo.Company;
 import com.howei.pojo.Department;
 import com.howei.pojo.Equipment;
 import com.howei.pojo.Unit;
+import com.howei.service.CompanyService;
 import com.howei.service.DepartmentService;
 import com.howei.service.UnitService;
 import com.howei.util.EasyuiResult;
@@ -10,6 +12,7 @@ import com.howei.util.Page;
 import com.howei.util.PinYin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8080","http://192.168.1.27:8848"},allowCredentials = "true")
 @RequestMapping("/guide/unit")
 //@RequestMapping("/unit")
 public class UnitController {
@@ -29,6 +33,9 @@ public class UnitController {
 
     @Autowired
     DepartmentService departmentService;
+
+    @Autowired
+    CompanyService companyService;
 
     /**
      * 跳转单位页面
@@ -71,8 +78,8 @@ public class UnitController {
         map.put("pageSize",rows);
         List<Unit> unit=unitService.getUnitList(map);
         for(Unit unit1 : unit){
-            Department department=departmentService.selById(unit1.getDepartment());
-            unit1.setDepartmentName(department.getDepartmentName());
+            Company company=companyService.getCompanyById(String.valueOf(unit1.getDepartment()));
+            unit1.setDepartmentName(company.getName());
         }
         EasyuiResult easy=new EasyuiResult();
         easy.setTotal(count);
@@ -91,8 +98,8 @@ public class UnitController {
         String id=request.getParameter("id");
         if(id!=null){
             Unit unit=unitService.findUnitById(Integer.parseInt(id));
-            Department department=departmentService.selById(unit.getDepartment());
-            unit.setDepartmentName(department.getDepartmentName());
+            Company company=companyService.getCompanyById(unit.getDepartment()+"");
+            unit.setDepartmentName(company.getName());
             return unit;
         }
         return null;

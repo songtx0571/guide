@@ -1,29 +1,41 @@
 package com.howei.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.howei.pojo.Menu;
 import com.howei.pojo.Permission;
 import com.howei.pojo.Users;
 import com.howei.service.MenuService;
 import com.howei.service.PermissionService;
 import com.howei.service.UserService;
+import com.howei.util.MD5;
 import com.howei.util.WebSocket;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+//@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8082","http://192.168.1.27:8848"},allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -35,133 +47,79 @@ public class UserController {
     @Autowired
     PermissionService permissionService;
 
+    /*存入session里的用户名称*/
+    public static final String SESSION_USER = "sessionUser";
+    public ObjectMapper jsonTranster = new ObjectMapper();
+
+    public Users getPrincipal(){
+        Subject subject=SecurityUtils.getSubject();
+        Users users=(Users)subject.getPrincipal();
+        return users;
+    }
+
     @RequestMapping("/")
-    public String login(HttpSession session,HttpServletRequest request){
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-        OperatingSystem os = userAgent.getOperatingSystem();
-        int index=os.toString().toLowerCase().indexOf("window");
-        index=-1;
-        if(session.getAttribute("userId")!=null){
-            Integer userId=(Integer) session.getAttribute("userId");
-            List<Permission> list=permissionService.selByUserId(userId);
-            boolean isAdmin=false;
-            if(list!=null&&list.size()>0){
-                Permission permission=list.get(0);
-                if(list.size()==2){
-                    isAdmin=true;
-                }else if((list.size()==1)&&(permission.getId()==68)){
-                    isAdmin=true;
-                }else{
-                    isAdmin=false;
-                }
-            }
-            if((index!=-1&&!isAdmin)||isAdmin){//员工登录windows
-                return "home";
-            }else if(index==-1){//员工登录linux系统
-                return "staffhome";
-            }
-            //return "keyboard";
+    public String login(){
+        Users users=this.getPrincipal();
+        if(users!=null){
+            return "home";
         }
         return "redirect:/login";
     }
 
     @RequestMapping("/login")
-    public String index(HttpSession session,HttpServletRequest request){
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-        OperatingSystem os = userAgent.getOperatingSystem();
-        int index=os.toString().toLowerCase().indexOf("window");
-        index=-1;
-        if(session.getAttribute("userId")!=null){
-            Integer userId=(Integer) session.getAttribute("userId");
-            List<Permission> list=permissionService.selByUserId(userId);
-            boolean isAdmin=false;
-            if(list!=null&&list.size()>0){
-                Permission permission=list.get(0);
-                if(list.size()==2){
-                    isAdmin=true;
-                }else if((list.size()==1)&&(permission.getId()==68)){
-                    isAdmin=true;
-                }else{
-                    isAdmin=false;
-                }
-            }
-            if((index!=-1&&!isAdmin)||isAdmin){//员工登录windows
-                return "home";
-            }else if(index==-1){//员工登录linux系统
-                return "staffhome";
-            }
-            //return "keyboard";
+    public String index(){
+        Users users=this.getPrincipal();
+        if(users!=null){
+            return "home";
         }
-        if(index!=-1){
-            return "login";
-        }else{
-            return "postlogin";
+        return "login";
+    }
+
+    /**
+     * 系统登出
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String logOut(){
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
+            subject.logout();
+            return "redirect:login";
         }
+        return "login";
     }
 
     @RequestMapping(value = "/loginPage", method = {RequestMethod.POST, RequestMethod.GET})
-    public String loginadmin(HttpServletRequest request, HttpSession session) {
-        String UserName = request.getParameter("UserName");
-        String Password = request.getParameter("Password");
-        Users users = userService.findUser(UserName, Password);
-        //获取浏览器操作系统
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-        OperatingSystem os = userAgent.getOperatingSystem();
-        int index=os.toString().toLowerCase().indexOf("window");
-        index=-1;
-        if (users!=null) {
-            Integer userId=users.getId();
-            List<Permission> list=permissionService.selByUserId(userId);
-            boolean isAdmin=false;
-            if(list!=null&&list.size()>0){
-                Permission permission=list.get(0);
-                if(list.size()==2){
-                    isAdmin=true;
-                }else if((list.size()==1)&&(permission.getId()==68)){
-                    isAdmin=true;
-                }else{
-                    isAdmin=false;
-                }
-            }
-            session.setAttribute("userId", users.getId());//编号
-            session.setAttribute("roleId", users.getRoleId());//角色id
-            session.setAttribute("projectId", users.getProjectId());//项目部id
-            session.setAttribute("userName",users.getName());//当前用户名
-            if((index!=-1&&!isAdmin)||isAdmin){//员工登录windows
-                return "home";
-            }else if(index==-1){//员工登录linux系统
-                return "staffhome";
-            }else{
-                return "home";
-            }
-            //return "keyboard";
-        } else {
-            return "redirect:/login";
+    public String loginadmin(HttpServletRequest request) {
+        String username = request.getParameter("userNumber").toUpperCase();
+        String password = request.getParameter("password");
+        MD5 md5=new MD5();
+        try {
+            password=md5.EncoderByMd5(password);
+            Subject subject=SecurityUtils.getSubject();
+            UsernamePasswordToken upt = new UsernamePasswordToken(username,password);
+            subject.login(upt);
+            Session session = subject.getSession();
+            Users user = userService.loginUserNumber(username);
+            user.setPassword("");
+            session.setAttribute(SESSION_USER, user);
+            return "home";
+        } catch (UnknownAccountException e) {
+            return "login";
+        } catch (IncorrectCredentialsException e){
+            return "login";
+        } catch (Exception e){
+
         }
+        return "login";
     }
 
     @RequestMapping("/guide/getMenu")
     @ResponseBody
-    public List<Menu> getMenuTree(HttpSession session,HttpServletRequest request){
-        Integer userId=(Integer)session.getAttribute("userId");
+    public List<Menu> getMenuTree(HttpServletRequest request){
         String parentId=request.getParameter("parent");
-        List<Permission> list=permissionService.selByUserId(userId);
-        WebSocket webSocket=new WebSocket();
-        webSocket.sendMessage("发送信息");
-        String isAdmin="";
-        if(list!=null&&list.size()>0){
-            Permission permission=list.get(0);
-            if(list.size()==2){
-                isAdmin="true";
-            }else if((list.size()==1)&&(permission.getId()==68)){
-                isAdmin="true";
-            }else{
-                isAdmin="false";
-            }
-        }
         Map map=new HashMap();
         map.put("parentId",parentId);
-        map.put("isAdmin",isAdmin);
         List<Menu> result=menuService.getMenuTree(map);
         return result;
     }

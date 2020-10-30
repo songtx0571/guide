@@ -50,4 +50,9 @@ public class PostPeratorDataServiceImpl implements PostPeratorDataService {
     public List<Map> getUnityMap(Map map) {
         return postperatorDataMapper.getUnityMap(map);
     }
+
+    @Override
+    public PostPeratorData selById(int id) {
+        return postperatorDataMapper.selById(id);
+    }
 }

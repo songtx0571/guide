@@ -23,4 +23,6 @@ public interface PostperatorDataMapper {
     List<PostPeratorData> selPostPerDataById(Map map);
 
     List<Map> getUnityMap(Map map);
+
+    PostPeratorData selById(int id);
 }

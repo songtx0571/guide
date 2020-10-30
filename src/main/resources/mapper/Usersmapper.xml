@@ -3,20 +3,28 @@
 <mapper namespace="com.howei.mapper.UsersMapper" >
 
     <resultMap id="userMap" type="com.howei.pojo.Users">
-        <result column="Id" property="Id"></result>
-        <result column="Name" property="Name"></result>
-        <result column="UserName" property="UserName"></result>
-        <result column="Password" property="Password"></result>
-        <result column="Permissions" property="Permissions"></result>
-        <result column="projectId" property="projectId"></result>
-        <result column="roleId" property="roleId"></result>
-        <result column="Sex" property="Sex"></result>
-        <result column="Phone" property="Phone"></result>
-        <result column="EMail" property="EMail"></result>
+        <result column="id" property="id"></result>
+        <result column="userName" property="userName"></result>
+        <result column="password" property="password"></result>
+        <result column="employeeId" property="employeeId"></result>
+        <result column="state" property="state"></result>
+        <result column="sex" property="sex"></result>
+        <result column="phone" property="phone"></result>
+        <result column="email" property="email"></result>
+        <result column="companyId" property="companyId"></result>
+        <result column="departmentId" property="departmentId"></result>
+        <result column="postId" property="postId"></result>
+        <result column="userNumber" property="userNumber"></result>
+        <result column="manager" property="manager"></result>
+        <result column="entryDate" property="entryDate"></result>
     </resultMap>
 
     <select id="findUser" resultType="com.howei.pojo.Users" parameterType="java.lang.String" resultMap="userMap">
         select * from users where UserName=#{param1} and Password=#{param2}
+    </select>
+
+    <select id="loginUserNumber" resultType="com.howei.pojo.Users" parameterType="java.lang.String">
+        select * from users where userNumber=#{userNumber}
     </select>
 
     <select id="getPermission" resultType="java.lang.String" parameterType="int">
@@ -28,5 +36,15 @@
 
     <select id="findById" resultMap="userMap" resultType="com.howei.pojo.Users" parameterType="java.lang.String">
         select * from users where id=#{id}
+    </select>
+
+    <select id="getUserRolesByName" resultMap="userMap" parameterType="java.lang.String">
+        select u.*,r.id rid,r.roleName,r.description,r.englishName from users u
+        left join user_role ur on ur.userId=u.id
+        left join role r on r.id=ur.roleId
+        where 1=1
+        <if test="userNumber!=null and userNumber!=''">
+            and u.userNumber=#{userNumber}
+        </if>
     </select>
 </mapper>

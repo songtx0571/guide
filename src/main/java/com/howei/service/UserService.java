@@ -20,4 +20,8 @@ public interface UserService {
     public String getPermission(int roleId);
 
     Users findById(String id);
+
+    Users getUserRolesByName(String userNumber);
+
+    Users loginUserNumber(String userNumber);
 }

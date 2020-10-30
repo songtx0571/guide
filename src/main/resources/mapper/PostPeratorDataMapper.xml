@@ -78,4 +78,8 @@
             and pd.equipment=#{equipment}
         </if>
     </select>
+    
+    <select id="selById" parameterType="int" resultMap="postDataMap">
+        select * from postPerator_data where id=#{id}
+    </select>
 </mapper>

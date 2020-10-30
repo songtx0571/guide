@@ -1,19 +1,18 @@
 package com.howei.controller;
 
-import com.howei.pojo.Department;
-import com.howei.pojo.Equipment;
-import com.howei.pojo.Unit;
-import com.howei.pojo.WorkPerator;
-import com.howei.service.DepartmentService;
-import com.howei.service.EquipmentService;
-import com.howei.service.UnitService;
-import com.howei.service.WorkPeratorService;
+import com.alibaba.fastjson.JSON;
+import com.howei.pojo.*;
+import com.howei.service.*;
 import com.howei.util.DateFormat;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
+import com.howei.util.Type;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
+@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8080","http://192.168.1.27:8848"},allowCredentials = "true")
 @RequestMapping("/guide/template")
 //@RequestMapping("/template")
 public class TemplateController {
@@ -39,6 +39,19 @@ public class TemplateController {
     @Autowired
     DepartmentService departmentService;
 
+    @Autowired
+    CompanyService companyService;
+
+    /**
+     * 获取当前用户登录信息
+     * @return
+     */
+    public Users getPrincipal(){
+        Subject subject=SecurityUtils.getSubject();
+        Users users=(Users)subject.getPrincipal();
+        return users;
+    }
+
     /**
      * 查询
      * @param session
@@ -47,7 +60,7 @@ public class TemplateController {
     @RequestMapping("/getTemplate")
     @ResponseBody
     public EasyuiResult getTemplate(HttpSession session,HttpServletRequest request){
-        Integer userId=(Integer) session.getAttribute("userId");
+        Users users=this.getPrincipal();
         String page=request.getParameter("page");
         String rows=request.getParameter("rows");
         String department=request.getParameter("department");
@@ -55,7 +68,9 @@ public class TemplateController {
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("page",offset);
         map.put("pageSize",rows);
-        map.put("userId",userId);
+        if(users!=null){
+            map.put("userId",users.getId());
+        }
         if(department!=null&&!department.equals("")){
             map.put("department",department);
         }
@@ -63,8 +78,8 @@ public class TemplateController {
         String total=workPeratorService.selByUserCount(map);
         for (WorkPerator work:list){
             String dep=work.getProjectDepartment();//项目
-            Department depart=departmentService.selById(Integer.parseInt(dep));
-            work.setDepartmentName(depart.getDepartmentName());
+            Company company=companyService.getCompanyById(dep);
+            work.setDepartmentName(company.getName());
             int id=work.getId();
             map.clear();
             map.put("page",0);
@@ -86,7 +101,7 @@ public class TemplateController {
     @RequestMapping("/addWorkPerator")
     @ResponseBody
     public List<String> addWorkPerator(HttpSession session,HttpServletRequest request){
-        Integer userId=(Integer) session.getAttribute("userId");//当前登陆人id
+        Users users=this.getPrincipal();//当前登陆人id
         String workId=request.getParameter("workId");//模板id
         String planTime=request.getParameter("planTime");//计划时间
         String patrolTask=request.getParameter("patrolTask");
@@ -133,10 +148,12 @@ public class TemplateController {
             Date now = new Date();
             String created=DateFormat.getYMDHMS(now);
             WorkPerator work=new WorkPerator();
-            work.setUserId(userId);
+            if(users!=null){
+                work.setUserId(users.getId());
+                work.setCreatedBy(users.getId());
+            }
             work.setAiNumber(0);
             work.setCreated(created);
-            work.setCreatedBy(userId);
             work.setCycle(cycle);
             work.setParent(0);
             work.setStatus(0);
@@ -169,12 +186,14 @@ public class TemplateController {
     public List<String> updStatus(HttpSession session,HttpServletRequest request){
         String workPeratorId= request.getParameter("id");
         String status=request.getParameter("status");
-        Integer updatedBy=(Integer)session.getAttribute("userId");
+        Users users=this.getPrincipal();
         String updated=DateFormat.getYMDHMS(new Date());
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("id",Integer.parseInt(workPeratorId));
         map.put("updated",updated);
-        map.put("updatedBy",updatedBy);
+        if(users!=null){
+            map.put("updatedBy",users.getId());
+        }
         map.put("status",status);
         int index=0;
         String result="";
@@ -385,7 +404,7 @@ public class TemplateController {
         String unitType=request.getParameter("unitType");
         String workId=request.getParameter("workId");//模板id
         String temChildId=request.getParameter("temChildId");//路线id
-        Integer userId=(Integer) session.getAttribute("userId");//登录人id
+        Users users=this.getPrincipal();
         String result="";
         WorkPerator work=new WorkPerator();
         if(temChildId.equals("")){//添加
@@ -401,16 +420,18 @@ public class TemplateController {
             }
             work.setAiNumber(0);
             work.setCreated(DateFormat.getYMDHMS(new Date()));
-            work.setCreatedBy(userId);
             work.setCycle("");
             work.setParent(Integer.parseInt(workId));
             work.setPatrolTask("");
             work.setPlanTime("");
             work.setStatus(0);
-            work.setUserId(userId);
             work.setEquipment(sysName+","+equName);
             work.setMeasuringType(sightType);
             work.setUnit(unitType);
+            if(users!=null){
+                work.setUserId(users.getId());
+                work.setCreatedBy(users.getId());
+            }
             int index=workPeratorService.addWorkPerator(work);
             if(index>0){
                 result="success";
@@ -548,16 +569,12 @@ public class TemplateController {
      */
     @RequestMapping("/getDepartmentList")
     @ResponseBody
-    public List<Map<String,Object>> getDepartmentList(){
-        List<Map<String,Object>> list=new ArrayList<>();
-        List<Department> departmentList=departmentService.getDepList();
-        for(Department department:departmentList){
-            Map<String,Object> map=new HashMap<>();
-            map.put("id",department.getId());
-            map.put("text",department.getDepartmentName());
-            list.add(map);
+    public String getDepartmentList(){
+        List<Map<String,String>> list=companyService.getDepartmentList("1");
+        if(list!=null&&list.size()>0){
+            return JSON.toJSONString(list);
         }
-        return list;
+        return JSON.toJSONString(Type.CANCEL);
     }
 
     /**

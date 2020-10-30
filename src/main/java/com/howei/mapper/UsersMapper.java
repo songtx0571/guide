@@ -28,4 +28,8 @@ public interface UsersMapper{
      * @return
      */
     Users findById(@Param("id") String id);
+
+    Users getUserRolesByName(@Param("userNumber") String userNumber);
+
+    Users loginUserNumber(@Param("userNumber") String userNumber);
 }

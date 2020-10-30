@@ -10,6 +10,7 @@ import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +24,7 @@ import java.util.Map;
  * 查询数据
  */
 @Controller
+@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8080","http://192.168.1.27:8848"},allowCredentials = "true")
 @RequestMapping("/guide/inquiries")
 //@RequestMapping("/inquiries")
 public class InquiriesDataController {
@@ -74,7 +76,7 @@ public class InquiriesDataController {
                 PostPeratorData postPeratorData=list.get(i);
                 Users user=userService.findById(postPeratorData.getCreatedBy()+"");
                 if(user!=null){
-                    postPeratorData.setCreatedByName(user.getName());
+                    //postPeratorData.setCreatedByName(user.getName());
                 }else{
                     postPeratorData.setCreatedByName("");
                 }

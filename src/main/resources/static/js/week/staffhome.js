@@ -86,7 +86,6 @@ function crePost(id){
         async: true,
         success: function(data){
             var info=data[0].result;
-            console.log(123)
             //判断是否打开最近的任务
             if(info=='open'){
                 $.ajax({

@@ -1,13 +1,14 @@
 window.onload = function() {
-    var websocket = null;
+    /*var websocket = null;
     //浏览器是否支持
     if ('WebSocket' in window) {
 
         // 上面我们给webSocket定位的路径
-        websocket = new WebSocket('ws://localhost:8080/webSocket');
+        websocket = new WebSocket('ws://192.168.1.210:80/guide/webSocket');
+        //websocket = new WebSocket('ws://localhost:8080/webSocket');
+        //websocket = new WebSocket('ws://192.168.1.137:8080/webSocket');
     } else {
-        alert("error");
-        alert('该浏览器不支持websocket!');
+        $.messager.alert("提示","该浏览器不支持websocket!");
     }
     //建立连接
     websocket.onopen = function (event) {
@@ -19,20 +20,18 @@ window.onload = function() {
     }
     //消息来的时候的事件
     websocket.onmessage = function (event) {
-        // 这里event.data就是我们从后台推送过来的消息
+        $.messager.alert("提示",event.data);
         console.log('收到消息:' + event.data);
-        // 在这里我们可以在页面中放置一个音乐，例如“您有新的订单了！”这样的提示音
-        //document.getElementById("newOrderMp3").play();
     }
 
     //发生错误时
     websocket.onerror = function () {
-        alert('websocket通信发生错误！');
+        $.messager.alert("","websocket通信发生错误！");
     }
     //窗口关闭时，Websocket关闭
     window.onbeforeunload = function () {
         websocket.close();
-    }
+    }*/
 
     jQuery("#nav").accordion({ //初始化accordion
         fillSpace:true,

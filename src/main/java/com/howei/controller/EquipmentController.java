@@ -1,19 +1,23 @@
 package com.howei.controller;
 
+import com.howei.pojo.Company;
 import com.howei.pojo.Department;
 import com.howei.pojo.Equipment;
+import com.howei.service.CompanyService;
 import com.howei.service.DepartmentService;
 import com.howei.service.EquipmentService;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8080","http://192.168.1.27:8848"},allowCredentials = "true")
 @Controller
 @RequestMapping("/guide/equipment")
 //@RequestMapping("/equipment")
@@ -21,6 +25,9 @@ public class EquipmentController {
 
     @Autowired
     EquipmentService equipmentService;
+
+    @Autowired
+    CompanyService companyService;
 
     @Autowired
     DepartmentService departmentService;
@@ -45,7 +52,7 @@ public class EquipmentController {
     }
 
     /**
-     * 获取设备列表
+     * 创建设备:获取设备列表
      * @return
      */
     @RequestMapping("/getEquipmentList")
@@ -61,16 +68,16 @@ public class EquipmentController {
         if(depar!=null&&!depar.equals("")){
             map.put("department",depar);
         }
-        int count=equipmentService.getEquipmentListCount(map);
+        List<Equipment> total=equipmentService.getEquipmentList(map);
         map.put("page",offset);
         map.put("pageSize",rows);
         List<Equipment> result=equipmentService.getEquipmentList(map);
         for(Equipment equipment : result){
-            Department department=departmentService.selById(equipment.getDepartment());
-            equipment.setDepartmentName(department.getDepartmentName());
+            Company company =companyService.getCompanyById(String.valueOf(equipment.getDepartment()));
+            equipment.setDepartmentName(company.getName());
         }
         EasyuiResult easy=new EasyuiResult();
-        easy.setTotal(count);
+        easy.setTotal(total.size());
         easy.setRows(result);
         return easy;
     }
@@ -183,8 +190,8 @@ public class EquipmentController {
         String id=request.getParameter("id");
         if(id!=null){
             Equipment equipment=equipmentService.findEquipmentById(Integer.parseInt(id));
-            Department department=departmentService.selById(equipment.getDepartment());
-            equipment.setDepartmentName(department.getDepartmentName());
+            Company company=companyService.getCompanyById(equipment.getDepartment()+"");
+            equipment.setDepartmentName(company.getName());
             return equipment;
         }else{
             return null;

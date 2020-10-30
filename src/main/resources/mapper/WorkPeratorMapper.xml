@@ -33,6 +33,7 @@
       <if test="department!=null and department!=''">
           and FIND_IN_SET(#{department},projectDepartment)
       </if>
+      order by status
       limit ${page},${pageSize}
     </select>
 
@@ -109,41 +110,10 @@
         select * from workPerator
         where parent='0' and status='1'
         <if test="userId==null or userId==''">
-            and(
-            <trim suffixOverrides="or">
-                <if test="param1!=null and param1!=''">
-                    FIND_IN_SET(#{param1},projectDepartment) or
-                </if>
-                <if test="param2!=null and param2!=''">
-                    FIND_IN_SET(#{param2},projectDepartment) or
-                </if>
-                <if test="param3!=null and param3!=''">
-                    FIND_IN_SET(#{param3},projectDepartment) or
-                </if>
-                <if test="param4!=null and param4!=''">
-                    FIND_IN_SET(#{param4},projectDepartment) or
-                </if>
-            </trim>
-            )
+            <if test="param1!=null and param1!=''">
+                and FIND_IN_SET(#{param1},projectDepartment)
+            </if>
         </if>
-    </select>
-
-    <select id="selAllCount" resultType="int" parameterType="java.util.HashMap">
-        select count(*) from workPerator
-        where parent='0' and status='1'  and (
-        <if test="param1!=null and param1!=''">
-            FIND_IN_SET(#{param1},projectDepartment) or
-        </if>
-        <if test="param2!=null and param2!=''">
-            FIND_IN_SET(#{param2},projectDepartment) or
-        </if>
-        <if test="param3!=null and param3!=''">
-            FIND_IN_SET(#{param3},projectDepartment) or
-        </if>
-        <if test="param4!=null and param4!=''">
-            FIND_IN_SET(#{param4},projectDepartment) or
-        </if>
-        1>2)
     </select>
 
     <select id="selByParam" resultType="java.util.HashMap" parameterType="java.lang.String">
