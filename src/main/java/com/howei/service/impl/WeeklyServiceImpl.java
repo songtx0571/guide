@@ -175,9 +175,9 @@ public class WeeklyServiceImpl implements WeeklyService {
 
     @Override
     public Project[] getProject1(String userName) {
-        String projectId = weeklymapper.getProjectId(userName);
-        String[] projectIds = projectId.split(",");
-        return weeklymapper.getProject1(projectIds);
+        //String projectId = weeklymapper.getProjectId(userName);
+        //String[] projectIds = projectId.split(",");
+        return weeklymapper.getProject1();
     }
 
     @Override

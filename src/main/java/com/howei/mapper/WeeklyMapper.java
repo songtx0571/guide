@@ -34,7 +34,7 @@ public interface WeeklyMapper {
 
     Project[] getProject2(@Param("userNumber") String userNumber);
 
-    Project[] getProject1(@Param("projectId") String[] projectId);
+    Project[] getProject1();
 
     String getProjectId(@Param("userNumber") String userNumber);
 
