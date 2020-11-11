@@ -169,7 +169,7 @@ public class WeeklyServiceImpl implements WeeklyService {
 
     @Override
     public Project[] getProject2(String userName) {
-        return weeklymapper.getProject2(userName);
+        return weeklymapper.getProject1();
     }
 
 
