@@ -1,0 +1,91 @@
+td{
+	text-align: center;
+}
+select::-ms-expand { display: none; }
+select{
+	border-radius: 2px;
+	margin: 0 6px;
+	font-family:'Hiragino Sans GB W3';
+	font-size: 14px;
+	height: 24px;
+	appearance:none;
+  	-moz-appearance:none;
+  	-webkit-appearance:none;
+
+  	/*在选择框的最右侧中间显示小箭头图片*/
+  	background:url("../img/week/select.png") ;
+	background-position:97% 50%;
+	background-size:12px 12px;
+	background-repeat:no-repeat;
+  	background-color:#fff;
+  	padding: 1px;
+  	padding-right: 15px;
+  	padding-left: 5px;
+}
+.span{
+	margin:0;
+	height:24px;
+	font-family:'Hiragino Sans GB W3';
+	font-size: 16px;
+	padding: 2px;
+} 
+div{
+	text-align: center;
+}
+h3{
+	width:20%; 
+	margin:1em auto;
+	border:0.05em solid rgba(0,0,0,0.3); 
+	border-radius: 5px;
+	padding: 5px;
+	background: #eee;
+}
+#query{
+	background:url("../img/week/query.png");
+	background-color: #f1701a;
+	background-size:14px 14px;
+	background-position:90% 50%;
+	background-repeat:no-repeat;
+	height: 24px;
+	width: 60px;
+	font-size:14px;
+	border-radius: 3px;
+	color: #fff;
+	text-align: left;
+	padding-left: 5px;
+	padding-right: 0;
+	vertical-align:middle;
+	border:none;
+	outline:none;
+}
+#query:HOVER{
+	background-color: #008eff
+}
+
+.btn-primary{
+	color: #FFF;
+	background-color: #008eff;
+	border: 0px;
+}
+.btn-primary:HOVER{
+	background-color: #3ab3dd; 
+}
+
+.btn-danger{
+	color:#FFF;
+	background-color: #f1701a;
+	border: 0px;
+}
+.btn-danger:HOVER{
+	background-color: #f7931e;
+}
+#btn1{
+	text-align: center;
+	width: 80px;
+	height: 30px;
+	margin-left:10px;
+	font-size: 14px;
+}
+.Wdate{
+	width: 100px;
+}

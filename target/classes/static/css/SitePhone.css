@@ -1,0 +1,154 @@
+*{
+    font-family: "Hiragino Sans GB W3";
+	padding:0;
+	margin:0;
+}
+
+
+.ul-1{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient( rgba(255,255,255,1) 39px, rgba(255,255,255,0) 39px);
+    background-repeat: repeat;
+    background-size: 100% 78px;
+}
+.treeView a {
+    text-decoration:none;
+    display:inline-block;
+    width:100%;
+}
+
+li {
+    color:#2c2c2c;
+    line-height: 38px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-left: 14px;
+    list-style: none;
+    overflow: hidden;
+}
+.whiteColor{
+    color:#fff;
+}
+.whiteColor:hover{
+     color:#fff;
+ }
+li:hover,a:hover {
+    color: rgb(0,160,233);
+}
+
+.selected-node {
+    background-color: rgb(0,160,233);
+    color: #fff;
+}
+.whiteBkg {
+    background-color: white;
+    color: #2c2c2c;
+}
+
+.ul-2,.ul-3,.ul-4{
+        display:none;
+    }
+.ul-2>.li a {
+    padding-left: 14px;
+}
+.ul-3 >.li a {
+    padding-left: 28px;
+}
+.ul-4 >.li a {
+    padding-left: 42px;
+}
+.contentView-narrow {
+    transition-duration:200ms;
+    position: relative;
+    margin-left:8%;
+    border:none;
+    width:92%;
+}
+.contentViewPhone-narrow {
+    transition-duration:200ms;
+    position: relative;
+    margin-left: 200px;
+    border:none;
+    max-width: 1722px;
+}
+.contentViewPhone-width {
+    transition-duration:200ms;
+    position: relative;
+    margin-left: 0px;
+    border:none;
+    max-width: 1886px;
+}
+.contentView-width {
+    transition-duration:200ms;
+    position: relative;
+    margin-left: 28px;
+    border:none;
+    max-width: 1886px;
+}
+
+.wrap-alarmInfoTable {
+    margin:0 auto;
+    margin-left:-100px;
+    width:100%;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+table thead th {
+  cursor: default;
+}
+
+table thead th.sortable {
+  cursor: pointer;
+}
+
+.relative {
+  position: relative;
+}
+
+.relative .popover {
+  width: 200px;
+}
+
+.pagination-sm {
+  margin: 0;
+}
+
+.global-search {
+  margin-bottom: 20px;
+}
+
+.xx-dialog .modal-dialog {
+    width :90%;
+    min-width: 800px;
+}
+
+.hide{
+    display:none;
+}
+.icon{
+    width:9px;
+    height:9px;
+    transform:translateX(-6px)
+}

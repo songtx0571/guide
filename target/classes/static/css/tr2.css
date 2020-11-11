@@ -1,0 +1,9 @@
+tr:NTH-CHILD(odd) {
+	background: #FFF;
+}
+tr:NTH-CHILD(even) {
+	background: rgb(249,249,249);
+}
+#th1{
+	background: #FFF;
+	}

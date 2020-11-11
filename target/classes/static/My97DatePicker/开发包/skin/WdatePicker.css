@@ -1,0 +1,11 @@
+.Wdate{
+	border:#ccc 1px solid;
+	height:20px;
+	background:#E6E6E6 url(calendar.png) no-repeat right;
+}
+.Wdate::-ms-clear{display:none;}
+
+.WdateFmtErr{
+	font-weight:bold;
+	color:red;
+}

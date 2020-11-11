@@ -102,10 +102,10 @@ public class ShiroConfig {
      * @return
      */
     @Bean(name="securityManager")
-    public DefaultWebSecurityManager securityManager(LoginRealm userRealm, RedisSessionDao redisSessionDao) {
+    public DefaultWebSecurityManager securityManager(LoginRealm userRealm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(userRealm);
-        manager.setSessionManager(defaultWebSessionManager(redisSessionDao));
+//        manager.setSessionManager(defaultWebSessionManager(redisSessionDao));
         return manager;
     }
 

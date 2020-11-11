@@ -59,11 +59,11 @@ public class UserController {
 
     @RequestMapping("/")
     public String login(){
-        Users users=this.getPrincipal();
-        if(users!=null){
+//        Users users=this.getPrincipal();
+//        if(users!=null){
             return "home";
-        }
-        return "redirect:/login";
+//        }
+//        return "redirect:/login";
     }
 
     @RequestMapping("/login")
@@ -103,15 +103,14 @@ public class UserController {
             Users user = userService.loginUserNumber(username);
             user.setPassword("");
             session.setAttribute(SESSION_USER, user);
-            return "home";
         } catch (UnknownAccountException e) {
             return "login";
         } catch (IncorrectCredentialsException e){
             return "login";
         } catch (Exception e){
-
+            return "login";
         }
-        return "login";
+        return "home";
     }
 
     @RequestMapping("/guide/getMenu")

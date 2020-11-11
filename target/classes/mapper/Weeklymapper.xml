@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.howei.mapper.WeeklyMapper" >
+	
+	<select id='getWeeklys' resultType="com.howei.pojo.Weekly">
+		SELECT a.id id ,b.id weekId,a.type,IFNULL(a.content1,0) content1,IFNULL(a.content2,0) content2,
+		IFNULL(a.content3,0) content3,IFNULL(a.content4,0) content4,IFNULL(a.content5,0) content5,
+		IFNULL(a.content6,0) content6 FROM weekly_content a 
+		LEFT JOIN weekly b ON b.id = a.week_id 
+		WHERE b.`year` =#{year} AND b.`week` = #{week} AND b.type = #{type} AND b.project_id = #{project}
+	
+	</select>
+	
+	<select id='getWeeklysByWeekId' resultType="com.howei.pojo.Weekly">
+		SELECT id ,week_id weekId,type,IFNULL(content1,0) content1,IFNULL(content2,0) content2,
+		IFNULL(content3,0) content3,IFNULL(content4,0) content4,IFNULL(content5,0) content5,
+		IFNULL(content6,0) content6 FROM weekly_content 
+		WHERE week_id = #{weekId}
+	</select>
+	
+	<select id="getWeekly"  resultType="com.howei.pojo.Weekly">
+		SELECT id ,week_id weekId,type,IFNULL(content1,0) content1,IFNULL(content2,0) content2,
+		IFNULL(content3,0) content3,IFNULL(content4,0) content4,IFNULL(content5,0) content5,
+		IFNULL(content6,0) content6 FROM weekly_content 
+		WHERE id = #{id}
+	</select>
+
+	<select id="getWeek" resultType="com.howei.pojo.Week">
+		SELECT  id,`name`,project_id projectId,`year`,`week`,`type`,IFNULL(fill_in,"") fillIn,IFNULL(auditor,"") auditor  from weekly WHERE `year` = #{year}
+		AND `week` = #{week} AND type = #{type} AND project_id = #{project}
+	</select>
+	<select id="getWeekById" resultType="com.howei.pojo.Week">
+		SELECT  id,`name`,project_id projectId,`year`,`week`,`type`,IFNULL(fill_in,"") fillIn,IFNULL(auditor,"") auditor  
+		from weekly WHERE id = #{id}
+	</select>
+	<select id="getWeeks" resultType="com.howei.pojo.Week">
+		SELECT  id,`name`,project_id projectId,`year`,`week`,`type`,IFNULL(fill_in,"") fillIn,IFNULL(auditor,"") auditor  
+		from weekly where project_id = #{project}
+	</select>
+
+
+	<select id="getProject"  resultType="com.howei.pojo.Project">
+		select id, ProjectTeam projectTeam from Project
+	</select>
+
+	<select id="getProject2"  resultType="com.howei.pojo.Project">
+		select a.id, a.ProjectTeam projectTeam from Project a join (select userNumber,projectId from users where userNumber=#{param1}) b on find_in_set(a.id,b.projectId)
+	</select>
+
+
+	<select id="getProject1" resultType="com.howei.pojo.Project">
+		select id, ProjectTeam projectTeam from Project where id in 
+		<foreach collection="projectId" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</select>
+	
+	<select id="getProjectId" resultType="java.lang.String" >
+		SELECT projectId FROM users WHERE userNumber = #{userNumber}
+	</select>
+	
+	
+	<insert id="insertWeekly" parameterType="com.howei.pojo.Weekly">
+		INSERT ignore INTO weekly_content(week_id,type,content1,content2,content3,content4,content5,content6)
+		VALUES(#{weekly.weekId},#{weekly.type},#{weekly.content1},#{weekly.content2},
+		#{weekly.content3},#{weekly.content4},#{weekly.content5},#{weekly.content6})
+	</insert>
+	
+	<update id="updateWeekly" parameterType="com.howei.pojo.Weekly">
+		UPDATE weekly_content SET content1 = #{weekly.content1},content2 = #{weekly.content2},
+		content3 = #{weekly.content3},content4 = #{weekly.content4},
+		content5 = #{weekly.content5},content6 = #{weekly.content6} 
+		 WHERE id = #{weekly.id};
+	
+	</update>
+	
+	<insert id="insertWeek" parameterType="com.howei.pojo.Week">
+		INSERT ignore INTO weekly(week,project_id,type,year,name,fill_in,auditor)
+		VALUES(#{week.week},#{week.projectId},#{week.type},#{week.year},#{week.name},#{week.fillIn},#{week.auditor})
+	</insert>
+	
+	<update id="updateWeek" parameterType="com.howei.pojo.Week">
+		UPDATE weekly SET name = #{week.name},fill_in = #{week.fillIn},
+		auditor = #{week.auditor} WHERE id = #{week.id}
+	</update>
+	
+	<delete id='delWeek'>
+		delete from weekly_content where id = #{id}
+	</delete>
+	
+	
+	
+	<insert id="insertWeekByFillIn"  parameterType="com.howei.pojo.Week">
+		INSERT ignore INTO weekly(week,project_id,type,year,fill_in)
+		VALUES(#{week.week},#{week.projectId},#{week.type},#{week.year},#{week.fillIn})
+	</insert>
+	
+	<update id="addFillIn"  parameterType="com.howei.pojo.Week">
+		UPDATE weekly SET fill_in = #{week.fillIn} WHERE id = #{week.id}
+	</update>
+	
+	<insert id="insertWeekByAuditor"  parameterType="com.howei.pojo.Week">
+		INSERT ignore INTO weekly(week,project_id,type,year,auditor)
+		VALUES(#{week.week},#{week.projectId},#{week.type},#{week.year},#{week.fillIn})
+	</insert>
+	
+	<update id="addAuditor"  parameterType="com.howei.pojo.Week">
+		UPDATE weekly SET auditor = #{week.fillIn} WHERE id = #{week.id}
+	</update>
+	
+
+</mapper>
