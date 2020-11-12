@@ -19,23 +19,23 @@
 	
 	<select id="getScrDaily" resultType="com.howei.pojo.ScrDaily">
 		SELECT id,`datetime`,project_id projectId,`group`,`type`,IFNULL(traders,"") traders,IFNULL(successor,"") successor,IFNULL(recorder,"") recorder,other
-		,(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',','))  ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ) AS tradersName, 
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ) AS successorName,
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ) AS recorderName
+		,(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',','))  ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ) AS tradersName, 
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ) AS successorName,
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ) AS recorderName
 		FROM scrdaily s WHERE datetime = #{datetime} AND type = #{type} AND project_id = #{project} AND other = #{other}
 	</select>
 	
 	<select id="getScrDailyById" resultType="com.howei.pojo.ScrDaily">
 		SELECT id,`datetime`,project_id projectId,`group`,`type`,IFNULL(traders,"") traders,IFNULL(successor,"") successor,IFNULL(recorder,"") recorder,other,
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ) AS tradersName, 
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ) AS successorName,
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ) AS recorderName FROM scrdaily s WHERE id = #{id}
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ) AS tradersName, 
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ) AS successorName,
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ) AS recorderName FROM scrdaily s WHERE id = #{id}
 	</select>
 	
 	<select id="getScrDailys" resultType="com.howei.pojo.ScrDaily">
 		SELECT id,`datetime`,project_id projectId,`group`,`type`,IFNULL(traders,"") traders,IFNULL(successor,"") successor,other,
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',','))  ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ) AS tradersName, 
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',','))  ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ) AS successorName  
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',','))  ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ) AS tradersName, 
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',','))  ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ) AS successorName  
 		FROM scrdaily s where project_id = #{project} AND other = #{other}
 	</select>
 	
@@ -59,8 +59,8 @@
 	
 	<select id="getScrDaily1"  parameterType="com.howei.pojo.ScrDaily" resultType="com.howei.pojo.ScrDaily">
 		SELECT id,`datetime`,project_id projectId,`group`,`type`,traders,successor,other,
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',','))) AS tradersName, 
-		(SELECT GROUP_CONCAT(c.name ORDER BY c.name) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',','))) AS successorName  
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',','))) AS tradersName, 
+		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',','))) AS successorName  
 		FROM scrdaily s  
 		WHERE datetime = #{scrDaily.datetime} AND `group` = #{scrDaily.group}
 		AND type = #{scrDaily.type} AND project_id = #{scrDaily.projectId} AND other = #{scrDaily.other}

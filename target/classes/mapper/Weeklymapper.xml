@@ -49,10 +49,7 @@
 
 
 	<select id="getProject1" resultType="com.howei.pojo.Project">
-		select id, ProjectTeam projectTeam from Project where id in 
-		<foreach collection="projectId" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+		select id, ProjectTeam projectTeam from Project
 	</select>
 	
 	<select id="getProjectId" resultType="java.lang.String" >

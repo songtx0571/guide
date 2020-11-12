@@ -49,6 +49,6 @@
     </select>
     
     <select id="getNameByUserName" parameterType="java.lang.String" resultType="java.lang.String">
-		SELECT `nameName` FROM users WHERE UPPER(userNumber) = UPPER(#{userNumber})
+		SELECT `userName` FROM users WHERE UPPER(userNumber) = UPPER(#{userNumber})
 	</select>
 </mapper>
