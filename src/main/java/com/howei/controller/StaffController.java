@@ -43,6 +43,12 @@ public class StaffController {
     @Autowired
     PermissionService permissionService;
 
+    @Autowired
+    DepartmentService departmentService;
+
+    @Autowired
+    AiConfigurationDataService aiConfigurationDataService;
+
     public String userName;//当前登录人
     public String equipment;//设备名称
     public String patrolTask;//任务名称
@@ -105,7 +111,8 @@ public class StaffController {
      */
     @RequestMapping("/init")
     @ResponseBody
-    public List<Object> init(){
+    public List<Object> init(HttpServletRequest request){
+        String departmentId=request.getParameter("departmentId");
         Users user=this.getPrincipal();
         Integer projectId=null;
         Map<String,Object> map=new HashMap<>();
@@ -121,35 +128,22 @@ public class StaffController {
             userName=users.getUserName();
             dateTime=DateFormat.getYMD();
         }
-        //获取当前用户的角色
-        Subject subject=SecurityUtils.getSubject();
-        boolean bool=subject.isPermitted("运行专工");//管理员
-        if(bool){
-            map.put("userId",userId);
+        if(departmentId==null||departmentId.equals("")){
+            map.put("departmentId",projectId);
         }else{
-            map.put("param1",projectId);
+            map.put("departmentId",departmentId);
         }
-        //List<Permission> permissionList=permissionService.selByUserId(userId);
-        /*if(permissionList!=null&&permissionList.size()>0){
-            Permission permission=permissionList.get(0);
-            if((permissionList.size()==2)||(permissionList.size()==1)&&(permission.getId()==68)){
-                map.put("userId",userId);
-            }else{
-                map.put("param1",projectId);
-            }
-        }*/
+
         //获取模板信息
         List<WorkPerator> list=workPeratorService.selAll(map);
         List<Object> result=new ArrayList<>();
         for (WorkPerator work:list){
             Map<String,Object> mapRes=new HashMap<>();
             mapRes.put("id",work.getId());
-            System.out.println(work.getId());
             mapRes.put("patrolTask",work.getPatrolTask());
             mapRes.put("cycle",work.getCycle());
             map.clear();
             map.put("peratorId",work.getId());
-            //map.put("postPeratorId",userId);
             PostPerator postPerator=postPeratorService.getLastPerator1(map);
             if(postPerator!=null){
                 if(postPerator.getInspectionEndTime()==null||postPerator.getInspectionEndTime().equals("")){
@@ -280,12 +274,12 @@ public class StaffController {
         if(postPerator!=null){
             int peratorId=postPerator.getPeratorId();//管理员模板Id
             WorkPerator workPerator=workPeratorService.selWorkperator(String.valueOf(peratorId));//获取管理员模板的信息
-            System.out.println(workPerator.getEquipment());
             if(workPerator!=null){
                 Map map=new HashMap();
                 map.put("parent",workPerator.getId());
                 map.put("page",0);
                 map.put("pageSize",10000);
+                map.put("state","true");
                 List<WorkPerator> list=workPeratorService.getTemplateChildList(map);
                 int count=list.size();//管理员模板的子任务列表
                 for(int i=0;i<count;i++){
@@ -317,13 +311,12 @@ public class StaffController {
 
     /**
      * 查询
-     * @param session
      * @param request
      * @return
      */
     @RequestMapping("/getPostChildList")
     @ResponseBody
-    public List<PostPeratorData> getPostChildList(HttpSession session, HttpServletRequest request){
+    public List<PostPeratorData> getPostChildList(HttpServletRequest request){
         List<PostPeratorData> list=new ArrayList<>();
         String postId=request.getParameter("postId");//员工模板id
         String equipmento=request.getParameter("equipmento");//设备名称
@@ -332,24 +325,21 @@ public class StaffController {
             map.put("equipment",equipmento);
             map.put("postPeratorId",postId);
             list=postPeratorDataService.selByEquipment(map);
-            //向动态区域发送内容
-            WebSocket webSocket=new WebSocket();
-            Map<String,Object> webSocketInfo=new HashMap<>();
-            Users users=this.getPrincipal();
-            Users user=null;
-            if(users!=null){
-                user=userService.findById(users.getId()+"");
+            if(list!=null){
+                for (PostPeratorData postPeratorData:list) {
+                    if(postPeratorData.getMeasuringType().contains("AI")){
+                        map.clear();
+                        PostPerator postPerator=postPeratorService.selById(Integer.parseInt(postId));
+                        map.put("projectDepartment",postPerator.getDepartment());
+                        map.put("equipment",postPeratorData.getEquipment());
+                        map.put("measuringType",postPeratorData.getMeasuringType());
+                        AiConfigurationData aiConfigurationData=aiConfigurationDataService.getLastAiConfigureData(map);
+                        if(aiConfigurationData!=null){
+                            postPeratorData.setMeasuringTypeData(aiConfigurationData.getData());
+                        }
+                    }
+                }
             }
-            if(user!=null){
-                //错误
-                webSocketInfo.put("userName",user.getUserName());
-            }else{
-                webSocketInfo.put("userName","未知");
-            }
-            webSocketInfo.put("equipmentName",equipmento);
-            webSocketInfo.put("status","start");
-            webSocketInfo.put("type","guide");
-            webSocket.sendMessage(JSON.toJSONString(webSocketInfo));
         }
         return list;
     }
@@ -365,7 +355,7 @@ public class StaffController {
         List<String> result=new ArrayList<>();
         String str=request.getParameter("strData");
         String postId=request.getParameter("postId");
-        Users users=this.getPrincipal();
+        //Users users=this.getPrincipal();
         if(str!=null&&!str.equals("")){
             String[] strData=str.split(",");
             String id="";
@@ -380,30 +370,10 @@ public class StaffController {
                 postPeratorDataService.updPostData(map);
                 result.add("success");
             }
-            //向动态区域发送内容
-            WebSocket webSocket=new WebSocket();
-            Map<String,Object> webSocketInfo=new HashMap<>();
-            Users user=null;
-            if(users!=null){
-                user=userService.findById(users.getId()+"");
-            }
-            if(user!=null){
-                //错误
-                webSocketInfo.put("userName",user.getUserName());
-            }else{
-                webSocketInfo.put("userName","未知");
-            }
-            PostPeratorData post=postPeratorDataService.selById(Integer.parseInt(id));
-            if(post!=null){
-                webSocketInfo.put("equipmentName",post.getEquipment());
-            }else{
-                webSocketInfo.put("equipmentName","未知");
-            }
-            webSocketInfo.put("status","end");
-            webSocketInfo.put("type","guide");
-            webSocket.sendMessage(JSON.toJSONString(webSocketInfo));
         }
+        //此次巡检执行结束
         if(postId!=null&&!postId.equals("")){
+            //修改结束时间
             Map map=new HashMap();
             map.put("id",postId);
             map.put("inspectionEndTime",DateFormat.getYMDHMS(new Date()));
@@ -444,6 +414,26 @@ public class StaffController {
                 map1.put("patrolTask",workPerator.getPatrolTask());
                 result.add(map1);
                 return result;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 获取部门下拉框
+     * @return
+     */
+    @RequestMapping("/getDepMap")
+    @ResponseBody
+    public List<Map<String,String>> getDepMap(){
+        List<Company> list=departmentService.getDepMap();
+        List<Map<String,String>> result=new ArrayList<>();
+        if(list!=null){
+            for (Company company:list) {
+                Map<String,String> map=new HashMap<>();
+                map.put("id",company.getId()+"");
+                map.put("text",company.getName());
+                result.add(map);
             }
         }
         return result;

@@ -1,10 +1,42 @@
 $(function(){
     //初始化表格:隐藏
     $("#bodyDiv2").hide();
+    showDepartment();
     //加载用户数据/任务数据
+    showInit("");
+    getDate();
+    setInterval(getDate, 1000);
+});
+// 显示部门
+function showDepartment() {
+    layui.use(['form'], function(){
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: "/guide/staff/getDepMap",
+            dataType: "json",
+            success: function(data){
+                $("#departmentList").empty();
+                var option="<option value='' >请选择部门名称</option>";
+                for (var i = 0; i < data.length; i ++) {
+                    option += "<option value='"+data[i].id+"'>"+data[i].text+"</option>";
+                }
+
+                $('#departmentList').append(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(departmentList)', function(data){
+            showInit(data.value);
+        });
+    });
+}
+//加载任务内容
+function showInit(departmentId) {
     $.ajax({
         type: "GET",
         url: "/guide/staff/init",
+        data: {departmentId:departmentId},
         dataType: "json",
         async: true,
         success: function(data){
@@ -30,9 +62,7 @@ $(function(){
             $('#bodyDiv').html(html);
         }
     });
-    getDate();
-    setInterval(getDate, 1000);
-});
+}
 //倒计时
 function tow(n) {
     return n >= 0 && n < 10 ? '0' + n : '' + n;
@@ -77,6 +107,8 @@ var record='equipment0';
  * 创建员工执行任务
  */
 function crePost(id){
+    $("#patrolTask").css("display","revert");
+    $("#department").css("display","none");
     //创建员工空数据
     $.ajax({
         type: "POST",
@@ -100,7 +132,10 @@ function crePost(id){
                     }
                 });
             }else if(info=='console'){
-                $.messager.alert("提示","请等候下一周期到来");
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    layer.alert("请等候下一周期到来");
+                });
                 return;
             }else{
                 if(data!=''&&data!=null){
@@ -113,13 +148,14 @@ function crePost(id){
 
 function crePostData(data) {
     //隐藏首页及标签
-    $("#bodyDiv2").fadeIn("fast");
-    $("#bodyDiv").fadeOut("fast");
-    $("#bodyHeader").fadeOut("fast");
+    $("#bodyDiv2").show();
+    $("#bodyDiv").hide();
+    $("#bodyHeader").hide();
     $("#tbody").html('');
     var html='';
     var equipmento='';
     var postId='';//员工模板id
+    console.log(data)
     //尾部设备名称
     for(var i=0;i<data.length;i++){
         var info=data[i];
@@ -135,9 +171,9 @@ function crePostData(data) {
         if(equipment!=''&&equipment!=null){
             if(i==0){
                 equipmento=equipment;
-                html+='<div id="equipment'+i+'" style="font-size: 40px;display: inline-block;">'+equipment+'</div>';
+                html+='<div id="equipment'+i+'" style="font-size: 30px;display: inline-block;">'+equipment+'</div>';
             }else{
-                html+='<div id="equipment'+i+'" style="font-size: 40px;display: none">'+equipment+'</div>';
+                html+='<div id="equipment'+i+'" style="font-size: 30px;display: none">'+equipment+'</div>';
             }
         }
     }
@@ -158,7 +194,7 @@ function crePostData(data) {
                         value="";
                     }
                     text+='<tr><td colspan="2"><span>'+measuringType+'</span></td>\
-                                <td colspan="2"><input type="text" id="post'+postDataId+'" name="'+unit+'" readonly onclick="xfjianpan(this.id,this.name)" value="'+value+'" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
+                                <td colspan="2"><input type="text" id="post'+postDataId+'" name="'+unit+'" readonly onclick="xfjianpan(this.id,this.name)" value="'+value+'" class="div1TableInp" placeholder="请输入...">\
                                 </td></tr>';
                 }
                 $("#tbody").html(text);
@@ -171,7 +207,7 @@ function crePostData(data) {
  * @constructor
  */
 function Forward(){
-    var list=document.getElementsByTagName("input");
+    var list=document.getElementsByClassName("div1TableInp");
     var strData= new Array(list.length);
     var postId=$("#postId").html();//员工模板id
     //对表单中所有的input进行遍历
@@ -180,7 +216,10 @@ function Forward(){
         if(list[i].type=="text")
         {
             if(list[i].value.trim()==''){
-                $.messager.alert("提示","请确认填写完整!");
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    layer.alert("请确认填写完整!");
+                });
                 return;
             }
             strData[i]=list[i].id+":"+list[i].value;
@@ -198,7 +237,10 @@ function Forward(){
             if(data[0]=='success'){
 
             }else{
-                $.messager.alert("提示","操作失败!请联系技术人员");
+                layui.use('layer', function() {
+                    var layer = layui.layer;
+                    layer.alert("操作失败!请联系技术人员");
+                })
                 return;
             }
             //判断提交次数，展示设备数据
@@ -211,7 +253,10 @@ function Forward(){
                     {"postId":postId},
                     function (data) {
                         record='equipment0';
-                        $.messager.alert("提示","任务完成");
+                        layui.use('layer', function() {
+                            var layer = layui.layer;
+                            layer.alert("任务完成");
+                        })
                         init();
                     }
                 );
@@ -247,7 +292,7 @@ function Forward(){
                                 value="";
                             }
                             text+='<tr><td colspan="2"><span>'+measuringType+'</span></td>\
-                                <td colspan="2"><input type="text" id="post'+postDataId+'" name="'+unit+'" readonly onclick="xfjianpan(this.id,this.name)" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
+                                <td colspan="2"><input type="text" id="post'+postDataId+'" name="'+unit+'" readonly onclick="xfjianpan(this.id,this.name)"  value="'+value+'" class="div1TableInp" placeholder="请输入...">\
                                 </td></tr>';
                         }
                         $("#tbody").html(text);
@@ -295,7 +340,7 @@ function  Back() {
                 var measuringType=info.measuringType+"/"+info.unit;
                 var postDataId=info.id;
                 text+='<tr><td colspan="2"><span>'+measuringType+'</span></td>\
-                                <td colspan="2"><input type="text" id="post'+postDataId+'" readonly onclick="xfjianpan(this.id,this.unit)" value="'+info.measuringTypeData+'" class="form-control" style="height: 80px;font-size: 30px;" placeholder="请输入...">\
+                                <td colspan="2"><input type="text" id="post'+postDataId+'" readonly onclick="xfjianpan(this.id,this.unit)" value="'+info.measuringTypeData+'"  class="div1TableInp" placeholder="请输入...">\
                                 </td></tr>';
             }
             $("#tbody").html(text);
@@ -305,10 +350,13 @@ function  Back() {
 var index=0;
 function init() {
     //表格:隐藏
-    $("#bodyDiv2").fadeOut("fast");
+    $("#bodyDiv2").hide();
+    $("#patrolTask").css("display","none");
     //主页面显示
-    $('#bodyDiv').fadeIn("fast");
-    $("#bodyHeader").fadeIn("fast");
+    $('#department').css("display","revert");
+    $('#bodyDiv').show();
+    $("#bodyHeader").show();
+    $("#jianpan").css("display","none");
     //加载用户数据/任务数据
     $.ajax({
         type: "GET",
@@ -340,16 +388,7 @@ function init() {
     });
     $("#foodBody").html("");
     $("#patrolTask").html("请选择任务");
-    if(index==1){
-
-    }
     index=1;
     getDate();
     setInterval(getDate, 1000);
 }
-
-
-
-
-
-

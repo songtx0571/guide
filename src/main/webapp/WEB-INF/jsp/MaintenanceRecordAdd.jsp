@@ -16,8 +16,8 @@
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'type' th:value="${type}" style="display: none;"/>
-		<input type="text" id = 'maintenanceId' th:value="${maintenanceId}" style="display: none;"/>
+		<input type="text" id = 'type' value="${param.type}" style="display: none;"/>
+		<input type="text" id = 'maintenanceId' value="${param.maintenanceId}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>内容</th>

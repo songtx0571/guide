@@ -10,6 +10,7 @@ import com.howei.service.UnitService;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
 import com.howei.util.PinYin;
+import com.howei.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,29 +63,29 @@ public class UnitController {
      */
     @RequestMapping("/getUnitList")
     @ResponseBody
-    public EasyuiResult getUnitList(HttpServletRequest request){
+    public Result getUnitList(HttpServletRequest request){
         String page=request.getParameter("page");
-        String rows=request.getParameter("rows");
+        String limit=request.getParameter("limit");
+        int rows=Page.getOffSet(page,limit);
         String mold=request.getParameter("mold");
         String depart=request.getParameter("department");
-        int offset=Page.getOffSet(page,rows);
         Map map=new HashMap();
         map.put("mold",mold);
         if(depart!=null&&!depart.equals("")){
             map.put("department",depart);
         }
         int count=unitService.getUnitListCount(map);
-        map.put("page",offset);
-        map.put("pageSize",rows);
+        map.put("pageSize",limit);
+        map.put("page",rows);
         List<Unit> unit=unitService.getUnitList(map);
         for(Unit unit1 : unit){
             Company company=companyService.getCompanyById(String.valueOf(unit1.getDepartment()));
             unit1.setDepartmentName(company.getName());
         }
-        EasyuiResult easy=new EasyuiResult();
-        easy.setTotal(count);
-        easy.setRows(unit);
-        return easy;
+        Result result=new Result();
+        result.setCount(count);
+        result.setData(unit);
+        return result;
     }
 
     /**
@@ -119,6 +120,7 @@ public class UnitController {
         String id=request.getParameter("id");
         String mold=request.getParameter("mold");
         String depart=request.getParameter("depart");
+        String bothType=request.getParameter("bothType");//1:人工；2:ai
         int index=0;
         String result="";
         Map map=new HashMap();
@@ -164,6 +166,7 @@ public class UnitController {
             String english=PinYin.ToPinyin(type);
             unit.setEnglish(english);
             unit.setDepartment(Integer.parseInt(depart));
+            unit.setBothType(Integer.parseInt(bothType));
             int key=unitService.addUnit(unit);
             if(key>0){
                 result="添加成功";

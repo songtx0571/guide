@@ -2,12 +2,6 @@
 <html>
 <head>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
-    <link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css" />
-    <link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="../js/icon/iconfont.css">
     <style type="text/css">
         * { margin: 0; padding: 0; }
         ::-ms-clear {
@@ -16,23 +10,65 @@
         ::-ms-reveal {
             display: none;
         }
-        body { font-family: 微软雅黑; width: 100%; height: 100%; }
-        .title { font-family: 微软雅黑; color: #3090e7; position: relative; font-size: 1.4em; width: 100%; text-align: center;display: inline-block }
-        .title div{
+        body {
+            font-family: 微软雅黑;
+            width: 100%;
+            height: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        #jianpan {
+            position: fixed;
+            background: #ffffff;
+            border-radius: 5px;
+            bottom: 0px;
+            right: 10px;
+            z-index: 9999;
+            width: calc(100% - 20px);
+            height: 400px;
+            display: none;
+            overflow: hidden;
+            -user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        #jianpan .title {
+            width: 99.85%;
+            height: 100px;
+            font-size: 30px;
+            padding: 0;
+            cursor: move;
+            line-height: 100px;
+            color: #000;
+            border: 1px solid #dcdddd;
+        }
+        #jianpan  .title div{
             display: inline;
         }
-        .title span {display: inline-block; margin: 0 10px 5px;color: #00BBFF; }
-        #jianpan { position: absolute; background: #ffffff; border-radius: 5px; bottom: 0px; z-index: 9999; width: 99.9%; height: 40%; display: none; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.5); -user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-        #jianpan .title { width: 100%; height: 10%;border-bottom: 1px solid #dcdddd; padding: 0; cursor: move; font-size: 1em;color: #00bbee }
-        #jianpan .jianpan_hide { width: 40px; float: right; }
-        #xfjp { width: 100%; height: 90%; }
-        #shift { font-size: 0.8em; }
-        .jianpan { color: #dcdddd; }
-        .jianpan td { color: #333333; width: 10%; text-align: center; font-size: 2em; border-bottom: 1px solid #dcdddd; border-left: 1px solid #dcdddd;border-radius: 8px }
-        .jianpan tr td:first-child { border-left: none; }
-        .jianpan tr:last-child td { border-bottom: none; }
-        table tr td:hover{
-            background-color: #00bbee;
+        #jianpan #t1:hover,#jianpan #t1:hover{
+            cursor: pointer;
+        }
+        #jianpan  .title .jianpan_hide {
+            width: 36px;
+            float: right;
+            margin-right: 10px;
+            line-height: 40px;
+            font-size: 40px;
+            color: red;
+        }
+        #xfjp {
+            width: 100%;
+            height: calc(100% - 110px);
+        }
+        /*键盘*/
+        .jianpan td {
+            color: #333333;
+            width: 10%;
+            text-align: center;
+            font-size: 2em;
+            border: 1px solid #dcdddd;
+            border-top: none;
         }
         /*弹层动画（从下往上）*/
         .fadelogIn {
@@ -64,19 +100,28 @@
         }
     </style>
     <script type="text/javascript">
-        $("#jianpan .title").css("line-height",$("#jianpan").height()/5+"px");
+        var win = $(window).height();
         function xfjianpan(id,unit) {
+            var bodyDiv = $(".bodyDiv1").css("height");
+            var bp = bodyDiv.indexOf("p");
+            var headerHeight = 80;
+            var bodyHeight = bodyDiv.substring(0,bp);
+            var height = headerHeight + Number(bodyHeight);
+            if (height >= win) {
+                $("#jianpan").css("width","500px");
+                $("#jianpan").css("right","10px");
+            } else {
+                $("#jianpan").css("width","99%");
+            }
             $("#xfjp td").unbind("click");
             if (id != "false") {
                 $("#jianpan").addClass("fadelogIn");
                 $("#jianpan").show();
                 //显示标签键盘
                 if(unit!=null&&unit=='Label'){
-                    $("#t1").css("display","none");
                     $("#t1").hide();
                     $("#t2").show();
                 }else{
-                    $("#t1").css("display","");
                     $("#t1").show();
                     $("#t2").hide();
                 }
@@ -142,13 +187,13 @@
                 <td>1</td>
                 <td>2</td>
                 <td>3</td>
-                <td style="color: #00BBFF">后退</td>
+                <td style="color: red;">后退</td>
             </tr>
             <tr>
                 <td>4</td>
                 <td>5</td>
                 <td>6</td>
-                <td style="color: #00BBFF">切换</td>
+                <td style="color: #5fb878">切换</td>
             </tr>
             <tr>
                 <td>7</td>
@@ -167,7 +212,7 @@
                 <td>正常</td>
                 <td>渗水</td>
                 <td>漏水</td>
-                <td rowspan="2" style="color: #00BBFF">切换 </td>
+                <td rowspan="2" style="color: #5fb878">切换 </td>
             </tr>
             <tr>
                 <td>漏灰</td>

@@ -1,113 +1,129 @@
+var path = "";
+var id = "";
 $(function(){
-    //获取部门信息
-    $.ajax({
-        type:"post",
-        url:"/guide/template/getDepartmentList",
-        dataType:"json",
-        success:function(json){
-            $('#depart').combobox({
-                valueField: "id", //Value字段
-                textField: "text", //Text字段
-                panelHeight:"300",
-                data:json,
-                onChange:function(newValue,oldValue){
-                    var departName= $('#depart').combobox('getValue');
-                    //获取系统号
-                    $.ajax({
-                        type:"post",
-                        url:"/guide/template/getTemplateMap",//请求后台数据
-                        data: {'depart':departName},
-                        dataType:"json",
-                        success:function(json){
-                            $("#Template").combobox({//往下拉框塞值
-                                data:json,
-                                valueField:"id",//value值
-                                textField:"text",//文本值
-                                panelHeight:"300"
-                            });
-                            var data = $('#Template').combobox('getData');
-                            $('#Template').combobox('select',data[0].id);
-                        }
-                    });
-                }
-            });
-        }
-    });
+    showDepartName();
 });
-
-/**
- * 根据名称查询测点
- */
-function searchByWorkPer() {
-    var depart= $('#depart').combobox('getValue');
-    var Template= $('#Template').combobox('getValue');
-    if(depart==''||depart==null){
-        $.messager.alert("提示","请选择部门!");
-        $('#depart').focus;
-        return;
-    }
-    if(Template==''||Template==null){
-        $.messager.alert("提示","请选择模板!");
-        $('#Template').focus;
-        return;
-    }
-    // 显示查询的模板
-    $('#mouldTable').datagrid({
-        url: '/guide/mould/getMouldList',
-        method: 'get',
-        title: '查询模板',
-        //width: 'auto',
-        height: 200,
-        //fitColumns: true,//自适应列
-        loadMsg: '正在加载信息...',
-        pagination: true,//允许分页
-        singleSelect: true,//单行选中。
-        pageSize: 10,
-        pageNumber: 1,
-        pageList: [10, 15, 20, 30, 50],
-        queryParams: { 'depart':depart,'Template':Template }, //往后台传参数用的。
-        columns: [[
-            {field: 'id', title: '编号', width: 30, align: 'center',height: 10,hidden:true},
-            {field: 'status', title: '状态', width: 30, align: 'center',
-                formatter: function (value, row, index) {
-                    var html='<a href="javascript:openPostPerData('+row.id+')" style="text-decoration: none">'+row.status+'</a>';
-                    return html;
+//显示部门
+function showDepartName() {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getDepartmentList",
+            dataType: "json",
+            success: function (data) {
+                $("#selDepartName").empty();
+                var option = "<option value='0' >请选择部门</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
                 }
-            },
-            {field: 'startTime', title: '开始时间', width: 30, align: 'center',height: 10},
-            {field: 'endTime', title: '结束时间', width: 30, align: 'center',height: 10},
-            {field: 'diachronic', title: '历时', width: 30, align: 'center',height: 10},
-            {field: 'userName', title: '巡检人', width: 30, align: 'center',height: 10},
-            {field: 'count', title: '人工巡检数', width: 30, align: 'center',height: 10},
-            {field: 'AIcount', title: 'AI巡检数', width: 30, align: 'center',height: 10}
-        ]],
-        onClickRow: function (rowIndex, rowData) {
-            $('#mouldTable').datagrid('clearSelections');
-        },
-        onLoadSuccess: function (data) {
-            if (data.total == 0) {
+                $('#selDepartName').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(selDepartName)', function (data) {
+            $("#selDepartNameHidden").val(data.value);
+            selTemplate();
+        });
+    });
+}
+//显示模板
+function selTemplate() {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getTemplateMap",
+            dataType: "json",
+            success: function (data) {
+                $("#selTemplate").empty();
+                var option = "<option value='0' >请选择模板</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                }
+                $('#selTemplate').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(selTemplate)', function (data) {
+            $("#selTemplateHidden").val(data.value);
+        });
+    });
+}
+//根据条件查询
+function selShowMouldList() {
+    var department = $("#selDepartNameHidden").val();
+    var template = $("#selTemplateHidden").val();
+    if (department == "" || department == "0"){
+        alert("请选择部门");
+        return;
+    }
+    if (template == "" || template == "0"){
+        alert("请选择模板");
+        return;
+    }
+    $(".center").css("display","block");
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            ,height: "full-200"
+            ,toolbar: true
+            ,url: path + "/guide/mould/getMouldList?depart="+department+"&Template="+template //数据接口
+            ,page: true //开启分页
+            ,limit: 50
+            ,limits: [50, 100, 150]
+            ,cols: [[ //表头
+                {field: 'id', title: '编号', align: 'center', sort: true, hide:true}
+                ,{field: 'status', title: '状态', align: 'center', event: 'selStatus', style:'cursor: pointer;color:red;'}
+                ,{field: 'startTime', title: '开始时间', sort: true,  align: 'center'}
+                ,{field: 'endTime', title: '结束时间', sort: true,  align: 'center'}
+                ,{field: 'diachronic', title: '历时', sort: true,  align: 'center'}
+                ,{field: 'userName', title: '巡检人',  align: 'center'}
+                ,{field: 'count', title: '人工巡检数', sort: true,  align: 'center'}
+                ,{field: 'aicount', title: 'AI巡检数', sort: true,  align: 'center'}
+            ]]
+            ,done: function(res, curr, count){
 
             }
-            else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
-        }
+        });
+        table.on('tool(test)', function(obj) {
+            var data = obj.data;
+            if(obj.event == 'selStatus'){
+                showPostPerData(data.id);
+                layer.open({
+                    type: 1
+                    ,id: 'postPerData' //防止重复弹出
+                    ,content: $(".postPerData")
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0.5 //不显示遮罩
+                    ,area: ['100%', '100%']
+                    ,success: function () {
+                    }
+                    ,yes: function(){
+                    }
+                });
+            }
+        });
     });
 }
-
-/**
- * 查看员工数据
- * 条件:根据员工模板id
- */
-function openPostPerData(id) {
-    var text="巡检数据-"+id;
-    if (parent.$('#tabs').tabs('exists',text)){
-        parent.$('#tabs').tabs('select', text);
-    }else {
-        var content = '<iframe width="100%" height="100%" frameborder="0" src="/guide/mould/toMouldChild?postPeratorId='+id+'" style="width:100%;height:100%;margin:0px 0px;"></iframe>';
-        parent.$('#tabs').tabs('add',{
-            title:text,
-            content:content,
-            closable:true
+//显示状态数据
+function showPostPerData(id) {
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demoP'
+            ,height: "full-200"
+            ,toolbar: true
+            ,url: path + "/guide/mould/getPostPerData?id="+id //数据接口
+            ,cols: [[ //表头
+                {field: 'equipment', title: '设备', sort: true,  align: 'center'}
+                ,{field: 'measuringType', title: '测点类型', sort: true,  align: 'center'}
+                ,{field: 'measuringTypeData', title: '数据', sort: true,  align: 'center'}
+                ,{field: 'unit', title: '单位', sort: true,  align: 'center'}
+                ,{field: 'created', title: '时间', sort: true,  align: 'center'}
+            ]]
+            ,done: function(res, curr, count){}
         });
-    }
+    });
 }
-

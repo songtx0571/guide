@@ -110,7 +110,7 @@ public class UserController {
         } catch (Exception e){
             return "login";
         }
-        return "home";
+        return "staffhome";
     }
 
     @RequestMapping("/guide/getMenu")

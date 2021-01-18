@@ -7,8 +7,8 @@
 <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"  src="../layer/layer.js"></script>
 <script type="text/javascript"  src="../js/week/runningWeeklyAdd.js"></script>
-<link rel="stylesheet" href="css/iframe.css"/>
-<link rel="stylesheet" href="css/tr2.css"/>
+<link rel="stylesheet" href="../css/iframe.css"/>
+<link rel="stylesheet" href="../css/tr2.css"/>
 	<!--easyui-->
 	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
@@ -21,8 +21,8 @@ input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'type' th:value="${type}" style="display: none;"/>
-		<input type="text" id = 'weekId' th:value="${weekId}" style="display: none;"/>
+		<input type="text" id = 'type' value="${param.type}" style="display: none;"/>
+		<input type="text" id = 'weekId' value="${param.weekId}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>习惯性违章数</th>

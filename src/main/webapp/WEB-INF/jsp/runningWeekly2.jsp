@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html xmlns:th="http://www.thymeleaf.org">
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<html>
 <head>
 <meta charset="UTF-8"/>
 <script type="text/javascript" src="../js/week/jquery-3.2.1.js"></script>
@@ -8,11 +9,6 @@
 <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 <link rel="stylesheet" href="../css/iframe.css" media="screen"/>
 <link rel="stylesheet" href="../css/tr.css"/>
-	<!--easyui-->
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <title>运行周报</title>
 </head>
 <body>
@@ -20,7 +16,9 @@
 		<span>
 			年份选择:<input type="text" id="year" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy年',maxDate:'%y'})" class="Wdate"/>
 			周选择:<input id="week" class="Wdate" type="text" onfocus="WdatePicker({isShowWeek:true,onpicked:funccc,errDealMode:3,maxDate:'%y-%M-%d'})"/>
-			项目组选择:<select id='project'></select>
+			<shiro:hasPermission name='项目部选择'>
+				项目组选择:<select id='project'></select>
+			</shiro:hasPermission>
 			<input id='query' onclick="change()" type="button" value="查询"/>
 		</span>
 		<table style="width: 80%;margin-top: 50px;">

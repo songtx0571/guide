@@ -1,97 +1,261 @@
+var path = "";
+var id = "";
 $(function(){
-    $('#unit').datagrid({
-        url: '/guide/unit/getUnitList',
-        method: 'get',
-        title: '属性',
-        //width: 'auto',
-        height: 600,
-        //fitColumns: true,//自适应列
-        loadMsg: '正在加载信息...',
-        pagination: true,//允许分页
-        //singleSelect: true,//单行选中。
-        pageSize: 10,
-        pageNumber: 1,
-        pageList: [10, 15, 20, 30, 50],
-        queryParams: { mold: '1' }, //往后台传参数用的。
-        columns: [[
-            {field: 'id', title: '编号', width: 20, align: 'center',height: 10,hidden:true},
-            {field: 'type', title: '类型', width: 20,align: 'center',height: 10,hidden:true},
-            {field: 'nuit', title: '名称', width: 30,align: 'center',height: 10},
-            {field: 'departmentName', title: '部门', width: 30,align: 'center',height: 10},
-            {field: 'edit', title: '操作', width: 20, align: 'center',height: 10,
-                formatter: function (value, row, index) {
-                    var html="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block' onclick='updUnit("+row.id+")'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'>编辑</a></div>\
-                    <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block' onclick='delUnit(" + row.id + ")'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'>删除</a></div>";
-                    return html;
+    showDepartName();
+    showUnit();
+});
+//显示部门
+function showDepartName() {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getDepartmentList",
+            dataType: "json",
+            success: function (data) {
+                $("#selDepartName").empty();
+                $("#addDepartName").empty();
+                $("#updDepartName").empty();
+                var option = "<option value='0' >请选择部门</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
                 }
-            },
-        ]],
-        onClickRow: function(rowIndex, rowData){
-            $('#unit').datagrid('clearSelections');
-        },
-        onLoadSuccess: function (data) {
-            if (data.total == 0) {
+                $('#selDepartName').html(option);
+                $('#addDepartName').html(option);
+                $('#updDepartName').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(selDepartName)', function (data) {
+            $("#selDepartNameHidden").val(data.value);
+        });
+        form.on('select(addDepartName)', function (data) {
+            $("#addDepartNameHidden").val(data.value);
+        });
+        form.on('select(updDepartName)', function (data) {
+            $("#updDepartNameHidden").val(data.value);
+        });
+    });
+}
+//按照条件查询
+function selShowUnitList() {
+    var department = $("#selDepartNameHidden").val();
+    if (department == "" || department == "0"){
+        alert("请选择部门");
+        return;
+    }
+    // 显示查询的模板
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            ,height: 'full-200'
+            ,toolbar: true
+            ,url: path + '/guide/unit/getUnitList?mold=1&department='+department//数据接口
+            ,page: true //开启分页
+            ,limit: 50
+            ,limits: [50, 100, 150]
+            ,cols: [[ //表头
+                {field: 'id', title: '编号', align: 'center', hide: true}
+                ,{field: 'type', title: '类型', align: 'center', hide: true}
+                ,{field: 'nuit', title: '名称', sort: true,  align: 'center'}
+                ,{fixed: '', title:'操作', toolbar: '#barDemo1', width:270, align:'center'}
+            ]]
+            ,done: function(res, curr, count){
 
             }
-            else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
-        },
-    });
-});
+        });
+        //监听工具条
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                $.ajax({
+                    url: path + '/guide/unit/delUnit',
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    data:{'id':data.id},
+                    success: function (data) {
+                        if(data!=null&&data[0]=='error'){
+                            alert("操作失败,请联系技术人员");
+                        }
+                        showUnit();
+                    }
+                });
 
-/**
- * 打开编辑弹窗
- * @param id
- */
-function updUnit(id) {
+            } else if (obj.event === 'edit') {
+                id = data.id;
+                $("#updUnitName").val(data.nuit);
+                $("#updDepartNameHidden").val(data.departmentName);
+                layui.use('form', function(){
+                    var form = layui.form;
+                    $("#updDepartName").val(data.department);
+                    form.render('select');
+                    form.render(); //更新全部
+                });
+                layer.open({
+                    type: 1
+                    ,id: 'updUnit' //防止重复弹出
+                    ,content: $(".updUnit")
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0.5 //不显示遮罩
+                    ,area: ['420px', '330px']
+                    ,success: function () {
+                    }
+                    ,yes: function(){
+                    }
+                });
+            }
+        });
+    });
+}
+//显示模板
+function showUnit() {
+    // 显示查询的模板
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            ,height: 'full-200'
+            ,toolbar: true
+            ,url: path + '/guide/unit/getUnitList?mold=1'//数据接口
+            ,page: true //开启分页
+            ,limit: 50
+            ,limits: [50, 100, 150]
+            ,cols: [[ //表头
+                {field: 'id', title: '编号', align: 'center', hide: true}
+                ,{field: 'type', title: '类型', align: 'center', hide: true}
+                ,{field: 'nuit', title: '名称', sort: true,  align: 'center'}
+                ,{fixed: '', title:'操作', toolbar: '#barDemo1', width:270, align:'center'}
+            ]]
+            ,done: function(res, curr, count){
+
+            }
+        });
+        //监听工具条
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                $.ajax({
+                    url: path + '/guide/unit/delUnit',
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    data:{'id':data.id},
+                    success: function (data) {
+                        if(data!=null&&data[0]=='error'){
+                            alert("操作失败,请联系技术人员");
+                        }
+                        showUnit();
+                    }
+                });
+
+            } else if (obj.event === 'edit') {
+                id = data.id;
+                $("#updUnitName").val(data.nuit);
+                $("#updDepartNameHidden").val(data.departmentName);
+                layui.use('form', function(){
+                    var form = layui.form;
+                    $("#updDepartName").val(data.department);
+                    form.render('select');
+                    form.render(); //更新全部
+                });
+                layer.open({
+                    type: 1
+                    ,id: 'updUnit' //防止重复弹出
+                    ,content: $(".updUnit")
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0.5 //不显示遮罩
+                    ,area: ['420px', '330px']
+                    ,success: function () {
+                    }
+                    ,yes: function(){
+                    }
+                });
+            }
+        });
+    });
+}
+//打开添加页面
+function openUnit() {
+    id = "";
+    $("#addUnitName").val("");
+    layui.use('form', function(){
+        var form = layui.form;
+        $("#addDepartName").val("0");
+        form.render('select');
+        form.render(); //更新全部
+    });
+    layer.open({
+        type: 1
+        ,id: 'addUnit' //防止重复弹出
+        ,content: $(".addUnit")
+        ,btnAlign: 'c' //按钮居中
+        ,shade: 0.5 //不显示遮罩
+        ,area: ['420px', '330px']
+        ,success: function () {
+        }
+        ,yes: function(){
+        }
+    });
+}
+//添加
+function saveAddData() {
+    var nuit=$("#addUnitName").val();
+    var type= '单位';//1：系统；2：设备
+    var mold = "1";
+    var depart=$("#addDepartNameHidden").val();
+    if(nuit==''){
+        return;
+    }
+    if(depart == '' || depart == "0"){
+        return;
+    }
     $.ajax({
-        url: '/guide/unit/findUnit',
+        url: '/guide/unit/addUnit',
         type: 'GET',
         dataType: 'json',
         async: false,
-        data:{'id':id},
+        data:{'nuit':nuit,'type':type,'depart':depart, 'id':"","mold" : mold},
+        beforeSend:function(){
+            $("#save").hidden;//隐藏提交按钮
+        },
         success: function (data) {
-            if(data!=null&&data!=''){
-                $("#nuit").textbox('setValue',data.nuit);
-                $("#departName").textbox('setValue',data.departmentName);
-                $("#unitId").val(data.id);
-            }
-        }
-    });
-    addunitWin=$('#unitWin').window({
-        title:'新建',
-        height: 300,
-        width: 400,
-        closed: true,
-        minimizable:false,
-        maximizable:false,
-        collapsible:false,
-        cache:false,
-        shadow:false
-    });
-    addunitWin.window('open');
-}
-
-/**
- * 删除设备
- * @param id
- */
-function delUnit(id) {
-    $.messager.confirm("提示","确定要删除吗", function (data){
-        if(data){
-            $.ajax({
-                url: '/guide/unit/delUnit',
-                type: 'GET',
-                dataType: 'json',
-                async: false,
-                data:{'id':id},
-                success: function (data) {
-                    if(data!=null&&data[0]=='error'){
-                        $.messager.alert("提示","操作失败,请联系技术人员");
-                    }
-                    $('#unit').datagrid('reload');//刷新页面数据
-                }
-            });
+            layer.closeAll();
+            showUnit();
         }
     });
 }
-
+//修改
+function saveUpdData() {
+    var nuit=$("#updUnitName").val();
+    var type= '2';//1：系统；2：设备
+    var _id=id;
+    var depart=$("#updDepartNameHidden").val();
+    if(nuit==''){
+        return;
+    }
+    if(depart == '' || depart == "0"){
+        return;
+    }
+    $.ajax({
+        url: '/guide/unit/addUnit',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        data:{'nuit':nuit,'type':type,'depart':depart,id : _id},
+        beforeSend:function(){
+            $("#saveUpd").hidden;//隐藏提交按钮
+        },
+        success: function (data) {
+            layer.closeAll();
+            showUnit();
+        }
+    });
+}
+//取消
+function cancel() {
+    layer.closeAll();
+}

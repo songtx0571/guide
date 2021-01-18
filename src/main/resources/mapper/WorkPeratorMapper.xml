@@ -22,6 +22,8 @@
         <result column="unit" property="unit"></result>
         <result column="parent" property="parent"></result>
         <result column="projectDepartment" property="projectDepartment"></result>
+        <result column="dataType" property="dataType"></result>
+
     </resultMap>
     
     <sql id="sql_param">
@@ -53,9 +55,9 @@
     </select>
 
     <insert id="addWorkPerator" parameterType="com.howei.pojo.WorkPerator" keyProperty="id" useGeneratedKeys="true">
-        insert into workPerator(userId,created,createdBy,patrolTask,aiNumber,planTime,status,cycle,priority,parent,equipment,measuringType,unit,projectDepartment) values (
-          #{userId},#{created},#{createdBy},#{patrolTask},#{aiNumber},#{planTime},#{status},#{cycle},#{priority},#{parent},#{equipment},#{measuringType},#{unit},#{projectDepartment}
-        )
+        insert into workPerator(userId,created,createdBy,patrolTask,aiNumber,planTime,status,cycle,priority,parent,equipment,measuringType,unit,projectDepartment,dataType) values (
+          #{userId},#{created},#{createdBy},#{patrolTask},#{aiNumber},#{planTime},#{status},#{cycle},#{priority},#{parent},#{equipment},#{measuringType},#{unit},#{projectDepartment},
+          #{dataType})
     </insert>
 
     <update id="updStatus" parameterType="java.util.HashMap" keyProperty="id" useGeneratedKeys="true">
@@ -66,10 +68,19 @@
         delete from workPerator where id=#{id}
     </delete>
 
-    <select id="getTemplateChildList" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">
-        select * from workPerator where parent=#{parent}
-        <if test="admin==null or admin==''">
-            and status='1'
+    <select id="getTemplateChildList" resultType="com.howei.pojo.WorkPerator" parameterType="java.util.HashMap">
+       select DISTINCT w.id,w.userId,w.created,w.updated,w.createdBy,w.updatedBy,w.equipment,w.priority,w.patrolTask,w.artificialNumber,w.aiNumber,w.cycle,w.parent,w.planTime,
+        w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as unitId,w.unit,w.measuringType,w.dataType,w.equipment
+        from workPerator w
+        left join unit u on u.nuit=w.measuringType
+        left join unit u1 on u1.nuit=w.unit
+        left join workPerator w1 on w1.id=w.parent
+        left join (SELECT ad.* from ai_data_configure ad LEFT JOIN workPerator w2 on w2.equipment=ad.equipment where w2.parent=#{parent}) u2 on u2.measuringType=w.measuringType
+        where w.parent=#{parent}
+        and (u.department=w1.projectDepartment or u2.departmentId=w1.projectDepartment)
+        and u1.department=w1.projectDepartment
+        <if test="state!=null">
+            and w.status=1
         </if>
         order by priority limit ${page},${pageSize}
     </select>
@@ -81,9 +92,6 @@
 
     <select id="getTemplateChildListCount" resultType="int" parameterType="java.util.HashMap">
         select count(*) from workPerator where parent=#{parent}
-        <if test="admin==null or admin==''">
-            and status='1'
-        </if>
     </select>
 
     <update id="updWorkperator" parameterType="com.howei.pojo.WorkPerator" keyProperty="id" useGeneratedKeys="true">
@@ -109,10 +117,8 @@
     <select id="selAll" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">
         select * from workPerator
         where parent='0' and status='1'
-        <if test="userId==null or userId==''">
-            <if test="param1!=null and param1!=''">
-                and FIND_IN_SET(#{param1},projectDepartment)
-            </if>
+        <if test="departmentId!=null and departmentId!=''">
+            and projectDepartment=#{departmentId}
         </if>
     </select>
 

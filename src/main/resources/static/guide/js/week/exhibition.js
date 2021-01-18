@@ -1,175 +1,606 @@
+var path = "";
+var id = "";
+var id1 = "";
+var index1 = 1;
+var index2 = 2;
+var temChildId = "";
+var roadName = "";
 $(function(){
-    $('#bg').datagrid({
-        url: '/guide/template/getTemplate',
-        method: 'get',
-        title: '巡检模板',
-        //width: 'auto',
-        height: 600,
-        //fitColumns: true,//自适应列
-        loadMsg: '正在加载信息...',
-        pagination: true,//允许分页
-        //singleSelect: true,//单行选中。
-        pageSize: 10,
-        pageNumber: 1,
-        pageList: [10, 15, 20, 30, 50],
-        //queryParams: { type: 'yes' }, //往后台传参数用的。
-        columns: [[
-            {field: 'id', title: '编号', align: 'center', hidden:true},
-            {field: 'staus', title: '状态', hidden:true },
-            {field: 'patrolTask', title: '巡检任务', width: 30, align: 'center',
-                formatter: function (value, row, index) {
-                    var html='<a href="javascript:void(0);" onclick="javascript:openExhibitopn('+row.id+')" style="text-decoration: none">'+row.patrolTask+'</a>';
-                    return html;
-            }
-            },
-            {field: 'departmentName', title: '项目部', width: 60, align: 'center'},
-            {field: 'artificialNumber', title: '人工巡检数', width: 30, align: 'center'},
-            {field: 'aiNumber', title: 'ai巡检数量', width: 30,align: 'center'},
-            {field: 'planTime', title: '计划时间/分钟', width: 30,align: 'center'},
-            {field: 'cycle', title: '周期/小时', width: 30, align: 'center'},
-            {field: 'edit', title: '状态', width: 55, align: 'center',
-                formatter: function (value, row, index) {
-                    var action="";
-                    if(row.status=='1'){//启用状态
-                        action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00ee00;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
-                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
-                        //<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
-                    }else if(row.status=='2'){//暂停状态
-                        action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
-                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00ee00;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
-                        //<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
-                    }else {//已删除
-                        action="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",1)'>启用</a></div>\
-                        <div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",2)'>暂停</a></div>";
-                        //<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'  onclick='EditStatus(" + row.id + ",3)'>删除</a></div>";
-                    }
-                    return action;
-                }
-            },
-            {field: 'open', title: '编辑', width: 20, align: 'center',
-                formatter: function (value, row, index) {
-                    var html="<div style='width: 50px;height: 30px;line-height:30px;text-align:center;background-color: #00BBEE;border-radius: 5px;display: inline-block' onclick='openWorkPerator2("+row.id+")'><a style='text-decoration: none;color: #222222' href='javascript:void(0);'>编辑</a></div>";
-                    return html;
-                }
-            },
-        ]],
-        onClickRow: function(rowIndex, rowData){
-            $('#bg').datagrid('clearSelections');
-        },
-        onLoadSuccess: function (data) {
-            if (data.total == 0) {
-
-            }
-            else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
-        },
-    });
-    //获取部门信息
-    $.ajax({
-        type:"post",
-        url:"/guide/template/getDepartmentList",
-        dataType:"json",
-        success:function(json){
-            $("#department").combobox({//往下拉框塞值
-                data:json,
-                valueField:"id",//value值
-                textField:"text",//文本值
-                panelHeight:"auto"
-            });
-        }
-    });
+    showDepartName();
+    showExhibitionList();
+    showCycle();
 });
-
-function openExhibitopn(id){
-    //设置部门下拉选项
-    $.ajax({
-        type:"post",
-        url:"/guide/template/getDepartmentList",
-        dataType:"json",
-        async: false,
-        success:function(json){
-            $("#department").combobox({//往下拉框塞值
-                data:json,
-                valueField:"id",//value值
-                textField:"text",//文本值
-                panelHeight:"auto"
-            });
-        }
+//显示部门
+function showDepartName() {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getDepartmentList",
+            dataType: "json",
+            success: function (data) {
+                $("#selDepartName").empty();
+                $("#addDepartName").empty();
+                $("#updDepartName").empty();
+                var option = "<option value='0' >请选择部门</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                }
+                $('#selDepartName').html(option);
+                $('#addDepartName').html(option);
+                $('#updDepartName').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(selDepartName)', function (data) {
+            $("#selDepartNameHidden").val(data.value);
+            showExhibitionList();
+        });
+        form.on('select(addDepartName)', function (data) {
+            $("#addDepartNameHidden").val(data.value);
+        });
+        form.on('select(updDepartName)', function (data) {
+            $("#updDepartNameHidden").val(data.value);
+        });
     });
-    //获取模版记录
-    $.ajax({
-        url: '/guide/template/getWorkPerator',
-        type: 'GET',
-        dataType: 'json',
-        async: false,
-        data:{'id':id},
-        success: function (data) {
-            $('#cycle').combobox('select',data.cycle);
-            $('#patrolTask').textbox("setValue",data.patrolTask);
-            $('#planTime').textbox("setValue",data.planTime);
-            $("#workId").val(data.id);
-            var department=data.projectDepartment;//部门
-            $("#department").combobox("setValue",department);
-        },
-    });
-    addDataWin=$('#workPerator').window({
-        title:'新建模板',
-        height: 480,
-        width: 850,
-        closed: true,
-        minimizable:false,
-        maximizable:false,
-        collapsible:false,
-        cache:false,
-        shadow:false
-    });
-    addDataWin.window('open');
 }
-
-
-//修改模板状态
-function EditStatus(id,status){
-    if(status==3){
-        $.messager.confirm("提示","确定要删除吗", function (data){
-            if(data){
+//周期下拉框
+function showCycle() {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('select(addCycle)', function (data) {
+            $("#addCycleHidden").val(data.value);
+        });
+        form.on('select(updCycle)', function (data) {
+            $("#updCycleHidden").val(data.value);
+        });
+    });
+}
+//显示模板
+function showExhibitionList() {
+    var top = $(".top").css("height");
+    var win = $(window).height();
+    var tp = top.indexOf("p");
+    var topHeight = top.substring(0,tp);
+    var height = win-topHeight-20;
+    var department = $("#selDepartNameHidden").val();
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            ,height: height
+            ,toolbar: true
+            ,url: path + "/guide/template/getTemplate?department="+department //数据接口
+            ,page: true //开启分页
+            ,limit: 50
+            ,limits: [50, 100, 150]
+            ,cols: [[ //表头
+                {field: 'patrolTask', title: '巡检任务', align: 'center', event: 'task', style:'cursor: pointer;color:blue;'}
+                ,{field: 'departmentName', title: '项目部', align: 'center'}
+                ,{field: 'artificialNumber', title: '人工巡检数', sort: true,  align: 'center'}
+                ,{field: 'aiNumber', title: 'AI巡检数', sort: true,  align: 'center'}
+                ,{field: 'planTime', title: '计划时间/分钟', sort: true,  align: 'center'}
+                ,{field: 'cycle', title: '周期/小时', sort: true,  align: 'center'}
+                ,{fixed: '', title:'状态', toolbar: '#barDemo1',align:'center '}
+                ,{fixed: '', title: '操作', toolbar: '#barDemo2', align: 'center'}
+            ]]
+            ,done: function(res, curr, count){
+                for (var i = 0; i < res.data.length; i ++){
+                    var status = res.data[i].status;
+                    if (status == "0"){
+                        $("#statusHiddenOut").val("0");
+                        $(".closeStatusOut"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatusOut"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatusOut"+res.data[i].id).css("cursor","pointer");
+                        $(".closeStatusOut"+res.data[i].id).removeAttr("disabled");
+                        $(".openStatusOut"+res.data[i].id).removeAttr("disabled");
+                        $(".closeStatusOut"+res.data[i].id).css("cursor","pointer");
+                    }else if (status == "1") {
+                        $("#statusHiddenOut").val("1");
+                        $(".closeStatusOut"+res.data[i].id).css("background", "#ccc");
+                        $(".openStatusOut"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatusOut"+res.data[i].id).attr({"disabled":"disabled"});
+                        $(".openStatusOut"+res.data[i].id).css("cursor","no-drop");
+                        $(".closeStatusOut"+res.data[i].id).removeAttr("disabled");
+                        $(".closeStatusOut"+res.data[i].id).css("cursor","pointer");
+                    } else{
+                        $("#statusHiddenOut").val("2");
+                        $(".closeStatusOut"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatusOut"+res.data[i].id).css("background", "#ccc");
+                        $(".closeStatusOut"+res.data[i].id).attr({"disabled":"disabled"});
+                        $(".closeStatusOut"+res.data[i].id).css("cursor","no-drop");
+                        $(".openStatusOut"+res.data[i].id).removeAttr("disabled");
+                        $(".openStatusOut"+res.data[i].id).css("cursor","pointer");
+                    }
+                }
+            }
+        });
+        table.on('tool(test)', function(obj) {
+            var data = obj.data;
+            if(obj.event == 'task') {
+                $("#updId").val(data.id);
+                $("#updTask").val(data.patrolTask);
+                $("#updPlanTime").val(data.planTime);
+                $("#updCycleHidden").val(data.cycle);
+                $("#updDepartNameHidden").val(data.projectDepartment);
+                data.cycle = Number(data.cycle);
+                layui.use('form', function () {
+                    var form = layui.form;
+                    $("#updCycle").val(data.cycle);
+                    $("#updDepartName").val(data.projectDepartment);
+                    form.render('select');
+                    form.render(); //更新全部
+                });
+                index1 = layer.open({
+                    type: 1
+                    , id: 'taskUpdDiv' //防止重复弹出
+                    , content: $(".taskUpdDiv")
+                    , btnAlign: 'c' //按钮居中
+                    , shade: 0.5 //不显示遮罩
+                    , area: ['450px%', '400px']
+                    , success: function () {
+                    }
+                    , yes: function () {
+                    }
+                });
+            }else if(obj.event == 'edit'){
+                $(".temBarDivTable").css("display","block");
+                $(".addTemBarDiv").css("display","none");
+                $(".updTemBarDiv").css("display","none");
+                showTemBar(data.id);
+                index1 = layer.open({
+                    type: 1
+                    // ,id: 'temBarDiv' //防止重复弹出
+                    ,content: $(".temBarDiv")
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0.5 //不显示遮罩
+                    ,area: ['100%', '100%']
+                    ,success: function () {
+                    }
+                    ,yes: function(){
+                    }
+                });
+            } else if (obj.event == 'statusOpenOut') {//启用
+                $("#statusHiddenOut").val("0");
+                $(".closeStatusOut"+data.id).css("background", "#ccc");
+                $(".openStatusOut"+data.id).css("background", "#1E9FFF");
+                $(".openStatusOut"+data.id).attr({"disabled":"disabled"});
+                $(".openStatusOut"+data.id).css("cursor","no-drop");
+                $(".closeStatusOut"+data.id).removeAttr("disabled");
+                $(".closeStatusOut"+data.id).css("cursor","pointer");
                 $.ajax({
-                    url: '/guide/template/updStatus',
+                    url: path + '/guide/template/updStatus',
                     type: 'GET',
                     dataType: 'json',
                     async: false,
-                    data:{'id':id,'status':status},
+                    data:{'id':data.id,'status':1},
                     success: function (data) {
-                        $.messager.alert("提示",data[0]);
-                        $('#bg').datagrid('reload');//刷新页面数据
-                    },
+                        showExhibitionList();
+                    }
+                });
+            } else if (obj.event == 'statusCloseOut'){//禁用
+                $("#statusHiddenOut").val("1");
+                $(".closeStatusOut"+data.id).css("background", "#1E9FFF");
+                $(".openStatusOut"+data.id).css("background", "#ccc");
+                $(".closeStatusOut"+data.id).attr({"disabled":"disabled"});
+                $(".closeStatusOut"+data.id).css("cursor","no-drop");
+                $(".openStatusOut"+data.id).removeAttr("disabled");
+                $(".openStatusOut"+data.id).css("cursor","pointer");
+                $.ajax({
+                    url: path +'/guide/template/updStatus',
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    data:{'id':data.id,'status':2},
+                    success: function (data) {
+                        showExhibitionList();
+                    }
                 });
             }
         });
-    }else{
-        $.ajax({
-            url: '/guide/template/updStatus',
-            type: 'GET',
-            dataType: 'json',
-            async: false,
-            data:{'id':id,'status':status},
-            success: function (data) {
-                $.messager.alert("提示",data[0]);
-                $('#bg').datagrid('reload');//刷新页面数据
-            },
-        });
-    }
+    });
 }
-
-//跳转创建路线页面
-function openWorkPerator2(id) {
-    var text="编辑模板-"+id;
-    if (parent.$('#tabs').tabs('exists',text)){
-        parent.$('#tabs').tabs('select', text);
-    }else {
-        var content = '<iframe width="100%" height="100%" frameborder="0" src="/guide/template/toTemplateChild?temid='+id+'" style="width:100%;height:100%;margin:0px 0px;"></iframe>';
-        parent.$('#tabs').tabs('add',{
-            title:text,
-            content:content,
-            closable:true
-        });
+//打开创建巡检任务
+function openExhibition() {
+    $(".addExhibitionSpan").css("display","none");
+    index1 = layer.open({
+        type: 1
+        ,id: 'taskAddDiv' //防止重复弹出
+        ,content: $(".taskAddDiv")
+        ,btnAlign: 'c' //按钮居中
+        ,shade: 0.5 //不显示遮罩
+        ,area: ['424px', '450px']
+        ,success: function () {
+        }
+        ,yes: function(){
+        }
+    });
+}
+//添加巡检任务
+function addExhibition() {
+    var addTask = $("#addTask").val();
+    var addPlanTime = $("#addPlanTime").val();
+    var addCycleHidden = $("#addCycleHidden").val();
+    var addDepartNameHidden = $("#addDepartNameHidden").val();
+    if (addTask.trim() == "" || addPlanTime.trim() == "" || addCycleHidden.trim() == "" || addDepartNameHidden.trim() == ""){
+        $(".addExhibitionSpan").css("display","contents");
+        return;
     }
+    $.ajax({
+        url: '/guide/template/addWorkPerator',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        data:{'workId':"",'planTime':addPlanTime, 'patrolTask':addTask,'cycle':addCycleHidden, 'department':addDepartNameHidden},
+        success: function (data) {
+            layer.closeAll();
+            showExhibitionList();
+        },
+    });
+}
+//修改巡检任务
+function updExhibition() {
+    var updId = $("#updId").val();
+    var updTask = $("#updTask").val();
+    var updPlanTime = $("#updPlanTime").val();
+    var updCycleHidden = $("#updCycleHidden").val();
+    var updDepartNameHidden = $("#updDepartNameHidden").val();
+    $.ajax({
+        url: '/guide/template/addWorkPerator',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        data:{'workId':updId,'planTime':updPlanTime, 'patrolTask':updTask,'cycle':updCycleHidden, 'department':updDepartNameHidden},
+        success: function (data) {
+            layer.closeAll();
+            showExhibitionList();
+        }
+    });
+}
+/*************************路线**************************************/
+//获取系统号，设备名称,单位
+function getSysEquName(id) {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getSysNameList?id="+id,
+            dataType: "json",
+            success: function (data) {
+                $("#addTemBarSysName").empty();
+                $("#updTemBarSysName").empty();
+                var option = "<option value='0' >请选择系统号</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                }
+                $('#addTemBarSysName').html(option);
+                $('#updTemBarSysName').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(addTemBarSysName)', function (data) {
+            $("#addTemBarSysHidden").val(data.elem[data.elem.selectedIndex].text);
+            roadName = $("#addTemBarSysHidden").val()+","+$("#addTemBarEquNameHidden").val();
+        });
+        form.on('select(updTemBarSysName)', function (data) {
+            $("#updTemBarSysHidden").val(data.elem[data.elem.selectedIndex].text);
+            roadName = $("#updTemBarSysHidden").val()+","+$("#updTemBarEquNameHidden").val();
+        });
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getEquNameList?id="+id,
+            dataType: "json",
+            success: function (data) {
+                $("#addTemBarEquName").empty();
+                $("#updTemBarEquName").empty();
+                var option = "<option value='0' >请选择设备名称</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                }
+                $('#addTemBarEquName').html(option);
+                $('#updTemBarEquName').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(addTemBarEquName)', function (data) {
+            $("#addTemBarEquNameHidden").val(data.elem[data.elem.selectedIndex].text);
+            roadName = $("#addTemBarSysHidden").val()+","+$("#addTemBarEquNameHidden").val();
+            getSightTypeUnit(id)
+        });
+        form.on('select(updTemBarEquName)', function (data) {
+            $("#updTemBarEquNameHidden").val(data.elem[data.elem.selectedIndex].text);
+            roadName = $("#updTemBarSysHidden").val()+","+$("#updTemBarEquNameHidden").val();
+            getSightTypeUnit(id)
+        });
+        //单位
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getSightType?type=1&dataType=1&id="+id,
+            dataType: "json",
+            success: function (data) {
+                $("#addTemBarUnit").empty();
+                $("#updTemBarUnit").empty();
+                var option = "<option value='-1' >请选择单位</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                }
+                $('#addTemBarUnit').html(option);
+                $('#updTemBarUnit').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(addTemBarUnit)', function (data) {
+            $("#addTemBarUnitHidden").val(data.elem[data.elem.selectedIndex].text);
+        });
+        form.on('select(updTemBarUnit)', function (data) {
+            $("#updTemBarUnitHidden").val(data.elem[data.elem.selectedIndex].text);
+        });
+    })
+}
+//获取添加测点类型
+function getSightTypeUnit(id) {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        //人工还是AI
+        form.on('select(addTemBarType)', function (data) {
+            $("#addTemBarTypeHidden").val(data.value);
+            //测点类型
+            $.ajax({
+                type: "GET",
+                url: path + "/guide/template/getSightType",
+                data:{type: '2',id:id,dataType:$("#addTemBarTypeHidden").val(),name:roadName},
+                dataType: "json",
+                success: function (data) {
+                    $("#addTemBarSightType").empty();
+                    var option = "<option value='-1' >请选择测点类型</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                    }
+                    $('#addTemBarSightType').html(option);
+                    form.render();//菜单渲染 把内容加载进去
+                }
+            });
+            form.on('select(addTemBarSightType)', function (data) {
+                $("#addTemBarSightTypeHidden").val(data.elem[data.elem.selectedIndex].text);
+            });
+        });
+    })
+}
+//显示信息
+function showTemBar(id) {
+    id1 = id;
+    getSysEquName(id1);
+    getSightTypeUnit(id1);
+    var win = $(window).height();
+    var height = win -100-20;
+    layui.use(['table'], function() {
+        var table = layui.table;
+        table.render({
+            elem: '#demoTB'
+            , height: height
+            , toolbar: true
+            , url: path + "/guide/template/getTemplateChildList?temid="+id //数据接口
+            , page: true //开启分页
+            , limit: 50
+            , limits: [50, 100, 150]
+            , cols: [[ //表头
+                {field: 'equipment', title: '设备名称', align: 'center'}
+                , {field: 'measuringType', title: '测点类型', align: 'center'}
+                , {field: 'unit', title: '单位', sort: true, align: 'center'}
+                , {field: 'dataType', title: '路线类型',  align: 'center', toolbar: '#barDemo5'}
+                , {fixed: '', title: '状态', toolbar: '#barDemo3', align: 'center '}
+                , {fixed: '', title: '操作', toolbar: '#barDemo4', align: 'center'}
+            ]]
+            , done: function (res, curr, count) {
+                for (var i = 0; i < res.data.length; i ++){
+                    var status = res.data[i].status;
+                    if (status == "0"){
+                        $("#statusHidden").val("0");
+                        $(".closeStatus"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatus"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatus"+res.data[i].id).css("cursor","pointer");
+                        $(".closeStatus"+res.data[i].id).removeAttr("disabled");
+                        $(".openStatus"+res.data[i].id).removeAttr("disabled");
+                        $(".closeStatus"+res.data[i].id).css("cursor","pointer");
+                    }else if (status == "1") {
+                        $("#statusHidden").val("1");
+                        $(".closeStatus"+res.data[i].id).css("background", "#ccc");
+                        $(".openStatus"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatus"+res.data[i].id).attr({"disabled":"disabled"});
+                        $(".openStatus"+res.data[i].id).css("cursor","no-drop");
+                        $(".closeStatus"+res.data[i].id).removeAttr("disabled");
+                        $(".closeStatus"+res.data[i].id).css("cursor","pointer");
+                    } else{
+                        $("#statusHidden").val("2");
+                        $(".closeStatus"+res.data[i].id).css("background", "#1E9FFF");
+                        $(".openStatus"+res.data[i].id).css("background", "#ccc");
+                        $(".closeStatus"+res.data[i].id).attr({"disabled":"disabled"});
+                        $(".closeStatus"+res.data[i].id).css("cursor","no-drop");
+                        $(".openStatus"+res.data[i].id).removeAttr("disabled");
+                        $(".openStatus"+res.data[i].id).css("cursor","pointer");
+                    }
+                }
+            }
+        });
+        table.on('tool(testTB)', function(obj) {
+            var data = obj.data;
+            if (obj.event == "statusOpen"){//启用
+                $("#statusHidden").val("0");
+                $(".closeStatus"+data.id).css("background", "#ccc");
+                $(".openStatus"+data.id).css("background", "#1E9FFF");
+                $(".openStatus"+data.id).attr({"disabled":"disabled"});
+                $(".openStatus"+data.id).css("cursor","no-drop");
+                $(".closeStatus"+data.id).removeAttr("disabled");
+                $(".closeStatus"+data.id).css("cursor","pointer");
+                $.ajax({
+                    url: path + '/guide/template/updStatus',
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    data:{'id':data.id,'status':1},
+                    success: function (data) {
+                        showTemBar(id1);
+                    }
+                });
+            } else if (obj.event == "statusClose"){//暂停
+                $("#statusHidden").val("1");
+                $(".closeStatus"+data.id).css("background", "#1E9FFF");
+                $(".openStatus"+data.id).css("background", "#ccc");
+                $(".closeStatus"+data.id).attr({"disabled":"disabled"});
+                $(".closeStatus"+data.id).css("cursor","no-drop");
+                $(".openStatus"+data.id).removeAttr("disabled");
+                $(".openStatus"+data.id).css("cursor","pointer");
+                $.ajax({
+                    url: path +'/guide/template/updStatus',
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    data:{'id':data.id,'status':2},
+                    success: function (data) {
+                        showTemBar(id1);
+                    }
+                });
+            } else if(obj.event == 'editTB'){
+                getSelect(id1,data);
+            } else if (obj.event == "upTB"){//上移
+                $.ajax({
+                    url: path + '/guide/template/updPriority',
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    data:{'id':data.id,'workId':id},
+                    success: function (data) {
+                        showTemBar(id1);
+                    }
+                });
+            } else if (obj.event == "delTB"){//删除
+                $.ajax({
+                    url: path + '/guide/template/delWorkChild',
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    data:{'id':data.id},
+                    success: function (data) {
+                        showTemBar(id1);
+                    }
+                });
+            }
+        });
+    });
+}
+//路线编辑
+function getSelect (id1,data) {
+    layui.use('form', function(){
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getSightType",
+            data:{type: '2',id:id1,dataType:data.dataType,name:data.equipment},
+            dataType: "json",
+            sync:false,
+            success: function (Tdata) {
+                var option = "<option value='-1' >请选择测点类型</option>";
+                for (var i = 0; i < Tdata.length; i++) {
+                    option += "<option value='" + Tdata[i].id + "'>" + Tdata[i].name + "</option>"
+                }
+                $('#updTemBarSightType1').html(option);
+                $("#updTemBarSightType1").val(data.measuringTypeId);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(updTemBarSightType1)', function (data) {
+            $("#updTemBarSightTypeHidden").val(data.elem[data.elem.selectedIndex].text);
+        });
+        temChildId = data.id;
+        data.measuringTypeId = Number(data.measuringTypeId);
+        data.unitId = Number(data.unitId);
+        $(".temBarDivTable").css("display","none");
+        $(".updTemBarDiv").css("display","block");
+        var dou = (data.equipment).indexOf(",");
+        $('#updTemBarSysHidden').val(data.equipment.substr(0,dou));
+        $('#updTemBarEquNameHidden').val(data.equipment.substr((dou+1)));
+        $('#updTemBarUnitHidden').val(data.unit);
+        $("#updTemBarTypeHidden").val(data.dataType);
+        $('#updTemBarSightTypeHidden').val(data.measuringType);
+        $("#updTemBarType").val(data.dataType);
+        $("#updTemBarSysName").val(data.sysId);
+        $("#updTemBarEquName").val(data.equipmentId);
+        $("#updTemBarUnit").val(data.unitId);
+        form.render(); //更新全部
+    });
+}
+//打开创建窗口
+function openTemBar() {
+    layui.use('form', function() {
+        var form = layui.form;
+        $("#addTemBarType").val("0");
+        $("#addTemBarSightType").val("-1");
+        $("#addTemBarSysName").val("0");
+        $("#addTemBarEquName").val("0");
+        $("#addTemBarUnit").val("-1");
+        form.render('select');
+        form.render(); //更新全部
+    });
+    $(".temBarDivTable").css("display","none");
+    $(".addTemBarDiv").css("display","block");
+    $(".addTemBarSpan").css("display","none");
+}
+//创建路线
+function addTemBar() {
+    var workId=id1;
+    var sysName= $('#addTemBarSysHidden').val();
+    var equName= $('#addTemBarEquNameHidden').val();
+    var sightType= $('#addTemBarSightTypeHidden').val();
+    var unitType= $('#addTemBarUnitHidden').val();
+    var dataType = $("#addTemBarTypeHidden").val();
+    temChildId="";
+    if (sysName.trim() == "" || equName.trim() == "" || sightType.trim() == "" || unitType.trim() == ""){
+        $(".addTemBarSpan").css("display","block");
+        return;
+    }
+    $.ajax({
+        url: '/guide/template/addWorkPeratorChild',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        data:{'sysName':sysName,'equName':equName,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType},
+        success: function (data) {
+            showTemBar(id1);
+            $(".addTemBarDiv").css("display","none");
+            $(".temBarDivTable").css("display","block");
+        }
+    });
+}
+//修改路线
+function updTemBar() {
+    var workId=id1;
+    var sysName= $('#updTemBarSysHidden').val();
+    var equName= $('#updTemBarEquNameHidden').val();
+    var sightType= $('#updTemBarSightTypeHidden').val();
+    var unitType= $('#updTemBarUnitHidden').val();
+    $.ajax({
+        url: '/guide/template/addWorkPeratorChild',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        data:{'sysName':sysName,'equName':equName,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId},
+        success: function (data) {
+            showTemBar(id1);
+            $(".updTemBarDiv").css("display","none");
+            $(".temBarDivTable").css("display","block");
+        }
+    });
+}
+//取消
+function cancel1() {
+    layer.close(index1);
+}
+function cancel2() {
+    $(".temBarDivTable").css("display","block");
+    $(".addTemBarDiv").css("display","none");
+    $(".updTemBarDiv").css("display","none");
+    $('#addTemBarSysHidden').val("");
+    $('#addTemBarEquNameHidden').val("");
+    $('#addTemBarSightTypeHidden').val("");
+    $('#addTemBarUnitHidden').val("");
 }

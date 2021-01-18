@@ -25,6 +25,7 @@ table {width: 95%;margin-top: 50px;}
 input {height: 24px;}
 #h,#time,#people{display: none;}
 </style>
+
 </head>
 <body>
 	<div>
@@ -36,8 +37,8 @@ input {height: 24px;}
 		<input id='print1' onclick="aa()" type="button" value="打印"/>
 		<input id='print1' onclick="exportWord()" type="button" value="导出"/>
 		</span>
-		<input type="text" id='id' th:value="${id}" style="display: none;"/>
-		
+		<%--<input type="text" id='id' th:value="${id}" style="display: none;"/>--%>
+		<input type="hidden" id='id' value="${param.id}" />
 		<div id='myElementId'>
 		<h2 id='h'></h2>
 		<span id="people" ></span>

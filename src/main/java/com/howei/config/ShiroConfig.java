@@ -36,7 +36,7 @@ public class ShiroConfig {
     @DependsOn(value="lifecycleBeanPostProcessor")
     public LoginRealm loginRealm(){
         LoginRealm userRealm = new LoginRealm();
-        userRealm.setCredentialsMatcher(credentialsMatcher());
+        //userRealm.setCredentialsMatcher(credentialsMatcher());
         return userRealm;
     }
 
@@ -102,10 +102,10 @@ public class ShiroConfig {
      * @return
      */
     @Bean(name="securityManager")
-    public DefaultWebSecurityManager securityManager(LoginRealm userRealm) {
+    public DefaultWebSecurityManager securityManager(LoginRealm userRealm, RedisSessionDao redisSessionDao) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(userRealm);
-//        manager.setSessionManager(defaultWebSessionManager(redisSessionDao));
+        manager.setSessionManager(defaultWebSessionManager(redisSessionDao));
         return manager;
     }
 
@@ -117,11 +117,6 @@ public class ShiroConfig {
     public SimpleCookie getSessionIdCookie(){
         SimpleCookie simpleCookie = new SimpleCookie(jessionId);
         return simpleCookie;
-    }
-
-    @Bean(name="credentialsMatcher")
-    public CredentialsMatcher credentialsMatcher() {
-        return new RetryLimitHashedCredentialsMatcher();
     }
 
     /**

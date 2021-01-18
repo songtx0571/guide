@@ -1,6 +1,7 @@
 package com.howei.service.impl;
 
 import com.howei.mapper.DepartmentMapper;
+import com.howei.pojo.Company;
 import com.howei.pojo.Department;
 import com.howei.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,10 @@ public class DepartmentServiceImpl  implements DepartmentService {
     @Override
     public Department selByMapParam(Object departmentName) {
         return departmentMapper.selByMapParam(departmentName);
+    }
+
+    @Override
+    public List<Company> getDepMap() {
+        return departmentMapper.getDepMap();
     }
 }

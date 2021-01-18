@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
-    <script type="text/javascript" src="js/easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+    <script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -15,7 +15,7 @@
         .whole {
             width: 1920px;
             height: 971px;
-            background: url("img/loginA.png") no-repeat;
+            background: url("../img/loginA.png") no-repeat;
             backgroud-size: 100%;
         }
         .white_content {
@@ -121,7 +121,7 @@
     <div class="white_content">
         <div
                 style="float: left; width: 34%; text-align: right; height: 70px;">
-            <img src="img/logo.png" width="64px" height="64px" />
+            <img src="../img/logo.png" width="64px" height="64px" />
         </div>
         <div style="width: 65%; float: right; text-align: left; color: #4A4A4A;">
             <a style="line-height: 70px; font-size: 24px;">浩维运行引导管理平台</a>

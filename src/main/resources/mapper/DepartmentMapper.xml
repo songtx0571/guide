@@ -21,4 +21,8 @@
         </if>
     </select>
 
+    <select id="getDepMap" resultType="com.howei.pojo.Company">
+        select id,name from company where parent=1
+    </select>
+
 </mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.howei.mapper.DataConfigurationMapper" >
+
+    <resultMap id="configMap" type="com.howei.pojo.DataConfiguration">
+        <result column="id" property="id"></result>
+        <result column="address" property="address"></result>
+        <result column="time" property="time"></result>
+        <result column="measuringPoint" property="measuringPoint"></result>
+        <result column="equipment" property="equipment"></result>
+        <result column="unit" property="unit"></result>
+        <result column="measuringType" property="measuringType"></result>
+        <result column="departmentId" property="departmentId"></result>
+    </resultMap>
+
+    <select id="getDataConfigurationList" parameterType="java.util.HashMap" resultType="com.howei.pojo.DataConfiguration">
+        select d.id,d.address,d.time,d.measuringPoint,d.equipment,d.unit,d.measuringType,d.departmentId,e.name addressName from ai_data_configure d
+        left join ai_equipment e on e.id=d.address
+        <where>
+            <if test="address!=null and address!=''">
+                d.address=#{address}
+            </if>
+        </where>
+        <if test="page!=null and pageSize!=null">
+            limit ${page},${pageSize}
+        </if>
+    </select>
+
+    <insert id="addDataConfiguration" parameterType="com.howei.pojo.DataConfiguration" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_data_configure(address,`time`,measuringPoint,equipment,unit,measuringType,departmentId) values (#{address},#{time},#{measuringPoint},#{equipment},#{unit},#{measuringType},#{departmentId});
+    </insert>
+
+    <select id="getDataConfigurationById" parameterType="String" resultType="com.howei.pojo.DataConfiguration">
+        select * from ai_data_configure where id=#{id}
+    </select>
+
+    <select id="getMeasuringTypeMap" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select distinct measuringType from ai_data_configure
+        <where>
+            <if test="department!=null">
+                and departmentId=#{department}
+            </if>
+            <if test="equipment!=null and equipment!=''">
+                and equipment=#{equipment}
+            </if>
+        </where>
+    </select>
+
+    <select id="getMeasuringType" parameterType="java.util.HashMap" resultType="com.howei.pojo.Unit">
+        select id,measuringType as nuit from ai_data_configure
+        <where>
+            <if test="department!=null">
+                and departmentId=#{department}
+            </if>
+            <if test="equipment!=null and equipment!=''">
+                and equipment=#{equipment}
+            </if>
+        </where>
+    </select>
+
+</mapper>

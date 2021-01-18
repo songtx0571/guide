@@ -25,7 +25,7 @@
 </head>
 <body>
 	<div>
-		<input type="text" id='id' th:value="${id}" style="display: none;"/>
+		<input type="text" id='id' value="${param.id}" style="display: none;"/>
 		<span>
 			<input type="button" value="上一篇" onclick='last()'/>
 			<input type="button" value="下一篇" onclick='next()'/>

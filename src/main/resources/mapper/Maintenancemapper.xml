@@ -23,7 +23,7 @@
 	ANY_VALUE(a.id) id,ANY_VALUE(a.datetime) `datetime`,project_id projectId,ANY_VALUE(leader) leader,COUNT(b.id)   num,ANY_VALUE(IFNULL(attendance,0)) attendance,ANY_VALUE(IFNULL(a.totalTime,0)) totalTime,
 	(SELECT GROUP_CONCAT(c.userNumber ORDER BY FIND_IN_SET(c.userNumber,ANY_VALUE(a.leader))) FROM users c WHERE FIND_IN_SET(c.userName,ANY_VALUE(a.leader)) ) AS leaderName
 	FROM maintenance a JOIN maintenanceRecord b ON maintenanceId = a.id
-	WHERE project_id = #{project} AND b.type = 1
+	WHERE project_id = #{project} AND b.type = 1 GROUP BY maintenanceId
 	</select>
 
 

@@ -64,4 +64,9 @@ public class EquipmentServiceImpl implements EquipmentService {
     public List<Equipment> getEquMap(Map map) {
         return equipmentMapper.getEquMap(map);
     }
+
+    @Override
+    public Equipment getEquipmentByName(String name,String depatmentId) {
+        return equipmentMapper.getEquipmentByName(name,depatmentId);
+    }
 }

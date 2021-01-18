@@ -21,31 +21,31 @@ input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'id' th:value="${ScrDailyRecord.id}" style="display: none;"/>
-		<input type="text" id = 'content1' th:value="${ScrDailyRecord.content1}" style="display: none;"/>
+		<input type="text" id = 'id' value="${param.ScrDailyRecord.id}" style="display: none;"/>
+		<input type="text" id = 'content1' value="${param.ScrDailyRecord.content1}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>PH计(台)</th>
 				<th>
-					<input type="text" id="content2" th:value="${ScrDailyRecord.content2}"/>
+					<input type="text" id="content2" value="${param.ScrDailyRecord.content2}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>量筒(只)</th>
 				<th>
-					<input type="text" id="content3" th:value="${ScrDailyRecord.content3}"/>
+					<input type="text" id="content3" value="${param.ScrDailyRecord.content3}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>取样杯(只)</th>
 				<th>
-					<input type="text" id="content4" th:value="${ScrDailyRecord.content4}"/>
+					<input type="text" id="content4" value="${param.ScrDailyRecord.content4}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>其他</th>
 				<th>
-					<input type="text" id="content5" th:value="${ScrDailyRecord.content5}"/>
+					<input type="text" id="content5" value="${param.ScrDailyRecord.content5}"/>
 				</th>
 			</tr>
 			<tr>

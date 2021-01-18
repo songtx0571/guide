@@ -21,8 +21,8 @@ input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'type' th:value="${type}" style="display: none;"/>
-		<input type="text" id = 'scrDailyId' th:value="${scrDailyId}" style="display: none;"/>
+		<input type="text" id = 'type' value="${param.type}" style="display: none;"/>
+		<input type="text" id = 'scrDailyId' value="${param.scrDailyId}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1' colspan="2">氨水耗量统计</th>

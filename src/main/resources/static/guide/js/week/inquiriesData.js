@@ -1,232 +1,244 @@
+var path = "";
+var name = "";
+var measuringType = "";
 $(function(){
-    //获取部门信息
-    $.ajax({
-        type:"post",
-        url:"/guide/template/getDepartmentList",
-        dataType:"json",
-        success:function(json){
-            $('#departName').combobox({
-                valueField: "id", //Value字段
-                textField: "text", //Text字段
-                panelHeight:"300",
-                data:json,
-                onChange:function(newValue,oldValue){
-                    var departName= $('#departName').combobox('getValue');
-                    //获取系统号
-                    $.ajax({
-                        type:"post",
-                        url:"/guide/equipment/getEquMap",//请求后台数据
-                        dataType:"json",
-                        data: {'type':'1','departName':departName},
-                        success:function(json){
-                            $("#sysName").combobox({//往下拉框塞值
-                                data:json,
-                                valueField:"id",//value值
-                                textField:"text",//文本值
-                                panelHeight:"300"
-                            });
-                            var data = $('#sysName').combobox('getData');
-                            $('#sysName').combobox('select',data[0].id);
-                        }
-                    });
-                    //获取设备
-                    $.ajax({
-                        type:"post",
-                        url:"/guide/equipment/getEquMap",//请求后台数据
-                        dataType:"json",
-                        data: {'type':'2','departName':departName},
-                        success:function(json){
-                            $("#equName").combobox({//往下拉框塞值
-                                data:json,
-                                valueField:"id",//value值
-                                textField:"text",//文本值
-                                panelHeight:"300",
-                                onLoadSuccess:function(){
-                                    var departName= $('#departName').combobox('getValue');
-                                    var sysName= $('#sysName').combobox('getText');
-                                    var equName= $('#equName').combobox('getText');
-                                    var name=sysName+","+equName;
-                                    $.ajax({
-                                        type:"post",
-                                        url:"/guide/inquiries/getUnityMap",//请求后台数据
-                                        dataType:"json",
-                                        data: {'departName':departName,'name':name},
-                                        success:function(json){
-                                            $("#measuringType").combobox({//往下拉框塞值
-                                                data:json,
-                                                valueField:"id",//value值
-                                                textField:"text",//文本值
-                                                panelHeight:"300"
-                                            });
-                                            var data = $('#measuringType').combobox('getData');
-                                            $('#measuringType').combobox('select',data[0].id);
-                                        }
-                                    });
-                                },
-                                onChange:function(newValue,oldValue){
-                                    var departName= $('#departName').combobox('getValue');
-                                    var sysName= $('#sysName').combobox('getText');
-                                    var equName= $('#equName').combobox('getText');
-                                    var name=sysName+","+equName;
-                                    $.ajax({
-                                        type:"post",
-                                        url:"/guide/inquiries/getUnityMap",//请求后台数据
-                                        dataType:"json",
-                                        data: {'departName':departName,'name':name},
-                                        success:function(json){
-                                            $("#measuringType").combobox({//往下拉框塞值
-                                                data:json,
-                                                valueField:"id",//value值
-                                                textField:"text",//文本值
-                                                panelHeight:"300"
-                                            });
-                                            var data = $('#measuringType').combobox('getData');
-                                            $('#measuringType').combobox('select',data[0].id);
-                                        }
-                                    });
-                                }
-                            });
-                            var data = $('#equName').combobox('getData');
-                            $('#equName').combobox('select',data[0].id);
-                        }
-                    });
-                }
-            });
-        }
-    });
-    //获取系统号
-    $.ajax({
-        type:"post",
-        url:"/guide/equipment/getEquMap",//请求后台数据
-        dataType:"json",
-        data: {'type':'1'},
-        success:function(json){
-            $("#sysName").combobox({//往下拉框塞值
-                data:json,
-                valueField:"id",//value值
-                textField:"text",//文本值
-                panelHeight:"300"
-            });
-            var data = $('#sysName').combobox('getData');
-            $('#sysName').combobox('select',data[0].id);
-        }
-    });
-    //获取设备
-    $.ajax({
-        type:"post",
-        url:"/guide/equipment/getEquMap",//请求后台数据
-        dataType:"json",
-        data: {'type':'2'},
-        success:function(json){
-            $("#equName").combobox({//往下拉框塞值
-                data:json,
-                valueField:"id",//value值
-                textField:"text",//文本值
-                panelHeight:"300",
-                onLoadSuccess:function(){
-                    var departName= $('#departName').combobox('getValue');
-                    var sysName= $('#sysName').combobox('getText');
-                    var equName= $('#equName').combobox('getText');
-                    var name=sysName+","+equName;
-                    $.ajax({
-                        type:"post",
-                        url:"/guide/inquiries/getUnityMap",//请求后台数据
-                        dataType:"json",
-                        data: {'departName':departName,'name':name},
-                        success:function(json){
-                            $("#measuringType").combobox({//往下拉框塞值
-                                data:json,
-                                valueField:"id",//value值
-                                textField:"text",//文本值
-                                panelHeight:"300"
-                            });
-                            var data = $('#measuringType').combobox('getData');
-                            $('#measuringType').combobox('select',data[0].id);
-                        }
-                    });
-                },
-                onChange:function(newValue,oldValue){
-                    var departName= $('#departName').combobox('getValue');
-                    var sysName= $('#sysName').combobox('getText');
-                    var equName= $('#equName').combobox('getText');
-                    var name=sysName+","+equName;
-                    $.ajax({
-                        type:"post",
-                        url:"/guide/inquiries/getUnityMap",//请求后台数据
-                        dataType:"json",
-                        data: {'departName':departName,'name':name},
-                        success:function(json){
-                            $("#measuringType").combobox({//往下拉框塞值
-                                data:json,
-                                valueField:"id",//value值
-                                textField:"text",//文本值
-                                panelHeight:"300"
-                            });
-                            var data = $('#measuringType').combobox('getData');
-                            $('#measuringType').combobox('select',data[0].id);
-                        }
-                    });
-                }
-            });
-            var data = $('#equName').combobox('getData');
-            $('#equName').combobox('select',data[0].id);
-        }
-    });
+    showDepartName();
+    showTime();
 });
+//导出
+function productqueryOutXls() {
+    var $trs = $("#LAY_demo1").find("tr");
+    var str = "";
+    for (var i = 0; i < $trs.length; i++) {
+        var $tds = $trs.eq(i).find("td,th");
+        for (var j = 0; j < $tds.length; j++) {
+            str += $tds.eq(j).text() + ",";
+        }
+        str += "\n";
+    }
 
-/**
- * 根据名称查询测点
- */
-function searchByEqu() {
-    var departName= $('#departName').combobox('getValue');
-    var sysName= $('#sysName').combobox('getText');
-    var equName= $('#equName').combobox('getText');
-    var measuringType= $('#measuringType').combobox('getText');
-    if(departName==''||departName==null){
-        $.messager.alert("提示","请选择部门!");
-        return;
-    }
-    if(sysName==''||sysName==null){
-        $.messager.alert("提示","请选择系统号!");
-        return;
-    }
-    if(equName==''||equName==null){
-        $.messager.alert("提示","请选择设备名称!");
-        return;
-    }
-    var name=sysName+","+equName;
-    // 显示查询的模板
-    $('#inquiresTable').datagrid({
-        url: '/guide/inquiries/getInquiriesData',
-        method: 'get',
-        title: '查询数据',
-        //width: 'auto',
-        height: 600,
-        //fitColumns: true,//自适应列
-        loadMsg: '正在加载信息...',
-        pagination: true,//允许分页
-        //singleSelect: true,//单行选中。
-        pageSize: 10,
-        pageNumber: 1,
-        pageList: [10, 15, 20, 30, 50],
-        queryParams: { 'name':name,'departName':departName,'measuringType':measuringType }, //往后台传参数用的。
-        columns: [[
-            {field: 'id', title: '编号', width: 30, align: 'center',height: 10,hidden:true},
-            {field: 'measuringType', title: '测点类型', width: 30, align: 'center',height: 10},
-            {field: 'measuringTypeData', title: '数据', width: 30, align: 'center',height: 10},
-            {field: 'unit', title: '单位', width: 30, align: 'center',height: 10},
-            {field: 'createdByName', title: '巡检人', width: 30, align: 'center',height: 10},
-            {field: 'created', title: '时间', width: 30, align: 'center',height: 10},
-        ]],
-        onClickRow: function(rowIndex, rowData){
-            $('#inquiresTable').datagrid('clearSelections');
-        },
-        onLoadSuccess: function (data) {
-            if (data.total == 0) {
-
+    var aaaa = "data:text/csv;charset=utf-8,\ufeff" + str;
+    var link = document.createElement("a");
+    link.setAttribute("href", aaaa);
+    var date=new Date().getTime();
+    var filename = new Date(date).toLocaleDateString();
+    link.setAttribute("download", filename + ".csv");
+    link.click();
+}
+//显示时间
+function showTime() {
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#test1'
+            , format: 'yyyy-MM-dd'
+            ,type: 'date'
+            ,trigger: 'click'//呼出事件改成click
+            , done: function (value) {
+                $("#selStartTimeHidden").val(value);
             }
-            else $(this).closest('div.datagrid-wrap').find('div.datagrid-pager').show();
-        },
+        });
+        laydate.render({
+            elem: '#test2'
+            , format: 'yyyy-MM-dd'
+            ,type: 'date'
+            ,trigger: 'click'//呼出事件改成click
+            , done: function (value) {
+                $("#selEndTimeHidden").val(value);
+            }
+        });
+    })
+}
+//显示部门
+function showDepartName() {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/template/getDepartmentList",
+            dataType: "json",
+            success: function (data) {
+                $("#selDepartName").empty();
+                var option = "<option value='0' >请选择部门</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                }
+                $('#selDepartName').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(selDepartName)', function (data) {
+            $("#selDepartNameHidden").val(data.value);
+            selSysName(data.value);
+        });
     });
 }
+//显示系统和设备号
+function selSysName(departName) {
+    layui.use(['form'], function () {
+        var form = layui.form;
+        //显示系统号
+        $.ajax({
+            type: "GET",
+            url: path + "/guide/equipment/getEquMap",
+            data: {'type':'1','departName':departName},
+            dataType: "json",
+            success: function (data) {
+                $("#selSysName").empty();
+                var option = "<option value='-1' >请选择系统号</option>";
+                for (var i = 0; i < data.length; i++) {
+                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                }
+                $('#selSysName').html(option);
+                form.render();//菜单渲染 把内容加载进去
+            }
+        });
+        form.on('select(selSysName)', function (data) {
+            $("#selSysNameHidden").val(data.value);
+            var sysName = data.elem[data.elem.selectedIndex].text;
+            //显示设备号
+            $.ajax({
+                type: "GET",
+                url: path + "/guide/equipment/getEquMap",
+                data: {'type':'2','departName':departName},
+                dataType: "json",
+                success: function (data) {
+                    $("#selEquName").empty();
+                    var option = "<option value='-1' >请选择设备号</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                    }
+                    $('#selEquName').html(option);
+                    form.render();//菜单渲染 把内容加载进去
+                }
+            });
+            form.on('select(selEquName)', function (data) {
+                $("#selEquNameHidden").val(data.value);
+                var equName = data.elem[data.elem.selectedIndex].text;
+                name = sysName +","+equName;
+            });
+            form.on('select(selType)', function (data) {
+                $("#selTypeNameHidden").val(data.value);
+                var type = $("#selTypeNameHidden").val();
+                if (type != "0" || type != ""){
+                    //显示测点类型
+                    $.ajax({
+                        type: "GET",
+                        url: path + "/guide/inquiries/getUnityMap",
+                        data: {'departName':departName,'name':name,'type':type},
+                        dataType: "json",
+                        success: function (data) {
+                            $("#selMeasuringType").empty();
+                            var option = "<option value='-1' >请选择测点类型</option>";
+                            for (var i = 0; i < data.length; i++) {
+                                option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                            }
+                            $('#selMeasuringType').html(option);
+                            form.render();//菜单渲染 把内容加载进去
+                        }
+                    });
+                    form.on('select(selMeasuringType)', function (data) {
+                        $("#selMeasuringTypeHidden").val(data.value);
+                        measuringType = data.elem[data.elem.selectedIndex].text;
+                    })
+                }
+            });
+        });
+    });
+}
+//查询
+function selShowInquiriesDataList() {
+    /*$("#LAY_demo1").remove();
+    $(document).unbind();
+    $('#daochuBtn').after('<table class="flow-default item" id="LAY_demo1" cellpadding=\'0\'><thead id="itemHead"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead></table>');*/
+    var departName =  $("#selDepartNameHidden").val();
+    var type = $("#selTypeNameHidden").val();
+    var selStartTimeHidden = $("#selStartTimeHidden").val();
+    var selEndTimeHidden = $("#selEndTimeHidden").val();
+    if (departName == "0" || departName == ""){
+        layer.alert("请选择部门");
+        return;
+    }
+    if ($("#selSysNameHidden").val() == "-1" || $("#selSysNameHidden").val() == ""){
+        layer.alert("请选择系统号");
+        return;
+    }
+    if ($("#selEquNameHidden").val() == "-1" || $("#selEquNameHidden").val() == ""){
+        layer.alert("请选择设备号");
+        return;
+    }
+    if ($("#selTypeNameHidden").val() == "0" || $("#selTypeNameHidden").val() == ""){
+        layer.alert("请选择测点类型");
+        return;
+    }
+    if ($("#selMeasuringTypeHidden").val() == "-1" || $("#selMeasuringTypeHidden").val() == ""){
+        layer.alert("请选择测点类型");
+        return;
+    }
+    $(".center").css("display","block");
+    /*layui.use(['jquery','flow'], function() {
+        var flow = layui.flow,
+            $=layui.jquery;
+        flow.load({
+            elem: '#LAY_demo1' //流加载容器
+            , scrollElem: '#LAY_demo1' //滚动条所在元素，一般不用填，此处只是演示需要。
+            , done: function (page, next) { //执行下一页的回调
+                setTimeout(function() {
+                    $.ajax({
+                        url: path + "/guide/inquiries/getInquiriesData",	    //请求数据路径
+                        type: 'get',										//请求数据最好用get，上传数据用post
+                        data: {
+                            page: page,
+                            departName: departName,
+                            name: name,
+                            measuringType: measuringType,
+                            type: type,
+                            limit: 10000
+                        },   //传参
+                        dataType: 'json',
+                        success: function (res) {
+                            var lis = [];
+                            layui.each(res.data, function (index, item) {
+                                //这里遍历数据
+                                lis.push(
+                                     "<tr><td>" + res.data[index].measuringType + "</td><td>" + res.data[index].measuringTypeData + "</td><td>" + res.data[index].unit + "</td><td>" + res.data[index].createdByName + "</td><td>" + res.data[index].created + "</td></tr>"
+                                );
+                            });
+                            var tr = $(".item").children("tr").length;
+                            if (tr >= res.count){
+                                $(".layui-flow-more").html("没有更多了");
+                            }
+                            next(lis.join(','), page < res.count);	//pages是后台返回的总页数
+                        }
+                    });
+                },500)
+            }
+        });
+    })*/
+    $.ajax({
+        url: path + "/guide/inquiries/getInquiriesData",	    //请求数据路径
+        type: 'get',										//请求数据最好用get，上传数据用post
+        data: {
+            page:1,
+            limit:100,
+            departName: departName,
+            name: name,
+            measuringType: measuringType,
+            type: type,
+            startTime: selStartTimeHidden,
+            endTime: selEndTimeHidden
+        },   //传参
+        dataType: 'json',
+        success: function (res) {
+            var tableDiv = $("#tableDiv");
+            tableDiv.html("");
+            var table = "<table class='flow-default item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
+            layui.each(res.data, function (index, item) {
+                table  += "<tr><td>" + res.data[index].measuringType + "</td><td>" + res.data[index].measuringTypeData + "</td><td>" + res.data[index].unit + "</td><td>" + res.data[index].createdByName + "</td><td>" + res.data[index].created + "</td></tr>"
+            });
+            table += "</table>"
+            tableDiv.append(table)
+        }
+    });
 
+}

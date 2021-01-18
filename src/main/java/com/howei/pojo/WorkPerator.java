@@ -22,12 +22,17 @@ public class WorkPerator {
     private String unit;//单位
     private String projectDepartment;//项目部
     private int parent;// 父类
+    private int dataType;//1为人工，2为ai
     // 虚字段
     private int edit;
     private String userName;//专工Name
     private String sysName;//系统号
     private String unitName;//单位名称
     private String departmentName;//项目部
+    private Integer equipmentId;//设备名称
+    private Integer sysId;//系统名称
+    private String measuringTypeId;//测点类型Id
+    private String unitId;//单位Id
 
     public int getId() {
 
@@ -214,5 +219,45 @@ public class WorkPerator {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public Integer getEquipmentId() {
+        return equipmentId;
+    }
+
+    public void setEquipmentId(Integer equipmentId) {
+        this.equipmentId = equipmentId;
+    }
+
+    public Integer getSysId() {
+        return sysId;
+    }
+
+    public void setSysId(Integer sysId) {
+        this.sysId = sysId;
+    }
+
+    public String getMeasuringTypeId() {
+        return measuringTypeId;
+    }
+
+    public void setMeasuringTypeId(String measuringTypeId) {
+        this.measuringTypeId = measuringTypeId;
+    }
+
+    public String getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(String unitId) {
+        this.unitId = unitId;
+    }
+
+    public int getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(int dataType) {
+        this.dataType = dataType;
     }
 }

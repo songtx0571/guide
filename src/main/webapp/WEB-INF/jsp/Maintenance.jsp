@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"/>
@@ -18,8 +19,10 @@
 	<div>
 		<span class='span'>
 		日期选择<input type="text" id="datetime"  onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="Wdate"/>
-		项目组选择:<select id='project'></select>
-		<input id='query' onclick="change()" type="button" value="查询"/>
+		<shiro:hasPermission name='项目部选择'>
+			项目组选择:<select id='project'></select>
+			<input id='query' onclick="change()" type="button" value="查询"/>
+		</shiro:hasPermission>
 		</span>
 		
 		<table  style="width: 80%;margin-top: 50px;">

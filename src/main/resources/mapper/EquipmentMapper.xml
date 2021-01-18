@@ -72,4 +72,8 @@
         </if>
     </select>
 
+    <select id="getEquipmentByName" resultType="com.howei.pojo.Equipment" parameterType="java.lang.String">
+        select * from equipment where name=#{name} and department=#{departmentId}
+    </select>
+
 </mapper>

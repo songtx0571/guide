@@ -1,5 +1,6 @@
 package com.howei.service;
 
+import com.howei.pojo.Company;
 import com.howei.pojo.Department;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface DepartmentService {
     Department selById(int department);
 
     Department selByMapParam(Object departmentName);
+
+    List<Company> getDepMap();
 }

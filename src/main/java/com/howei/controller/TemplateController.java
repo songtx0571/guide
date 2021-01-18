@@ -3,10 +3,7 @@ package com.howei.controller;
 import com.alibaba.fastjson.JSON;
 import com.howei.pojo.*;
 import com.howei.service.*;
-import com.howei.util.DateFormat;
-import com.howei.util.EasyuiResult;
-import com.howei.util.Page;
-import com.howei.util.Type;
+import com.howei.util.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -42,6 +39,12 @@ public class TemplateController {
     @Autowired
     CompanyService companyService;
 
+    @Autowired
+    DataConfigurationService dataConfigurationService;
+
+    @Autowired
+    AiConfigurationDataService aiConfigurationDataService;
+
     /**
      * 获取当前用户登录信息
      * @return
@@ -54,20 +57,19 @@ public class TemplateController {
 
     /**
      * 查询
-     * @param session
      * @return
      */
     @RequestMapping("/getTemplate")
     @ResponseBody
-    public EasyuiResult getTemplate(HttpSession session,HttpServletRequest request){
+    public Result getTemplate(HttpServletRequest request){
         Users users=this.getPrincipal();
         String page=request.getParameter("page");
-        String rows=request.getParameter("rows");
+        String limit=request.getParameter("limit");
+        int rows=Page.getOffSet(page,limit);
         String department=request.getParameter("department");
-        int offset=Page.getOffSet(page,rows);
         Map<String,Object> map=new HashMap<String, Object>();
-        map.put("page",offset);
-        map.put("pageSize",rows);
+        map.put("pageSize",limit);
+        map.put("page",rows);
         if(users!=null){
             map.put("userId",users.getId());
         }
@@ -86,12 +88,23 @@ public class TemplateController {
             map.put("pageSize",1000);
             map.put("parent",id);
             List<WorkPerator> list1=workPeratorService.getTemplateChildList(map);
-            work.setArtificialNumber(list1.size());
+            if(list1!=null){
+                int count=0;
+                for(WorkPerator w1:list1){
+                    //人工
+                    if(w1.getDataType()==1) {
+                        count++;
+                    }
+                }
+                work.setArtificialNumber(count);
+                work.setAiNumber(list1.size()-count);
+            }
         }
-        EasyuiResult easyuiResult=new EasyuiResult();
-        easyuiResult.setTotal(Integer.parseInt(total));
-        easyuiResult.setRows(list);
-        return easyuiResult;
+        Result result=new Result();
+        result.setCode(0);
+        result.setCount(Integer.parseInt(total));
+        result.setData(list);
+        return result;
     }
 
     /**
@@ -156,7 +169,7 @@ public class TemplateController {
             work.setCreated(created);
             work.setCycle(cycle);
             work.setParent(0);
-            work.setStatus(0);
+            work.setStatus(2);//暂停状态
             work.setPatrolTask(patrolTask);
             work.setPlanTime(planTime);
             work.setProjectDepartment(department);
@@ -262,23 +275,43 @@ public class TemplateController {
      */
     @RequestMapping("/getTemplateChildList")
     @ResponseBody
-    public EasyuiResult getTemplateChildList(HttpServletRequest request){
-        EasyuiResult easyuiResult=new EasyuiResult();
+    public Result getTemplateChildList(HttpServletRequest request){
+        Result result1=new Result();
         String parentId=request.getParameter("temid");
         String page=request.getParameter("page");
-        String rows=request.getParameter("rows");
+        String limit=request.getParameter("limit");
+        int rows=Page.getOffSet(page,limit);
         if(parentId!=null&&!parentId.equals("")){
-            int offset=Page.getOffSet(page,rows);
             Map map=new HashMap();
             map.put("parent",parentId);
-            map.put("admin","true");
             int count=workPeratorService.getTemplateChildListCount(map);
-            map.put("page",offset);
-            map.put("pageSize",rows);
+            map.put("pageSize",limit);
+            map.put("page",rows);
             List<WorkPerator> result=workPeratorService.getTemplateChildList(map);
-            easyuiResult.setRows(result);
-            easyuiResult.setTotal(count);
-            return easyuiResult;
+            if(result.size()>0){
+                for(WorkPerator workPerator : result) {
+                    String equipment = workPerator.getEquipment();
+                    String departmentId=workPerator.getProjectDepartment();
+                    if(equipment!=null&&!equipment.equals("")){
+                        String[] str = equipment.split(",");
+                        String sysName=str[0];//系统名称
+                        String equiqmentName=str[1];//设备名称
+                        Equipment equipmentObj=equipmentService.getEquipmentByName(sysName,departmentId);
+                        Equipment equipmentObj1=equipmentService.getEquipmentByName(equiqmentName,departmentId);
+                        if(equipmentObj!=null){
+                            workPerator.setSysId(equipmentObj.getId());
+                        }
+                        if(equipmentObj1!=null){
+                            workPerator.setEquipmentId(equipmentObj1.getId());
+                        }
+                    }
+                }
+            }
+
+            result1.setCode(0);
+            result1.setCount(count);
+            result1.setData(result);
+            return result1;
         }
         return null;
     }
@@ -291,7 +324,7 @@ public class TemplateController {
     @ResponseBody
     public List<Map<String,Object>> getSysNameList(HttpServletRequest request){
         List<Map<String,Object>> list=new ArrayList<>();
-        String postPeratorId=request.getParameter("temid");
+        String postPeratorId=request.getParameter("id");
         WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
         if(workPerator!=null){
            String department= workPerator.getProjectDepartment();
@@ -317,7 +350,7 @@ public class TemplateController {
     @ResponseBody
     public List<Map<String,Object>> getEquNameList(HttpServletRequest request){
         List<Map<String,Object>> list=new ArrayList<>();
-        String postPeratorId=request.getParameter("temid");
+        String postPeratorId=request.getParameter("id");
         WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
         if(workPerator!=null) {
             String department = workPerator.getProjectDepartment();
@@ -343,11 +376,16 @@ public class TemplateController {
     @ResponseBody
     public List<Map<String,Object>> getSightType(HttpServletRequest request){
         String type=request.getParameter("type");
-        String postPeratorId=request.getParameter("temid");
+        String postPeratorId=request.getParameter("id");
+        String dataType=request.getParameter("dataType");
+        String name=request.getParameter("name");
         List<Map<String,Object>> list=new ArrayList<>();
-        List<Unit> unitList=new ArrayList<>();
+        List<?> unitList=new ArrayList<>();
         WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
         Map map1=new HashMap();
+        if(name!=null&&!name.equals("")){
+            map1.put("equipment",name);
+        }
         if(workPerator!=null) {
             map1.put("department",workPerator.getProjectDepartment());
         }
@@ -356,12 +394,21 @@ public class TemplateController {
         }else if(type.equals("2")){
             map1.put("type",'2');
         }
-        unitList=unitService.getUnityMap(map1);
+
+        if(dataType!=null){
+            if(dataType.equals("1")){//人工数据
+                unitList=unitService.getUnityMap(map1);
+            }else if(dataType.equals("2")){//ai数据
+                unitList = dataConfigurationService.getMeasuringType(map1);
+            }else{
+                unitList=unitService.getUnityMap(map1);
+            }
+        }
         if(unitList!=null){
             for(int i=0;i<unitList.size();i++){
-                Unit unit=unitList.get(i);
+                Unit unit=(Unit)unitList.get(i);
                 Map<String,Object> map=new HashMap<>();
-                map.put("id",i);
+                map.put("id",unit.getId());
                 map.put("name",unit.getNuit());//获取测点
                 list.add(map);
             }
@@ -381,7 +428,7 @@ public class TemplateController {
             for(int i=0;i<unitList.size();i++){
                 Unit unit=unitList.get(i);
                 Map<String,Object> map=new HashMap<>();
-                map.put("id",i);
+                map.put("id",unit.getId());
                 map.put("name",unit.getNuit());
                 list.add(map);
             }
@@ -404,6 +451,7 @@ public class TemplateController {
         String unitType=request.getParameter("unitType");
         String workId=request.getParameter("workId");//模板id
         String temChildId=request.getParameter("temChildId");//路线id
+        String dataType=request.getParameter("dataType");//ai或人工
         Users users=this.getPrincipal();
         String result="";
         WorkPerator work=new WorkPerator();
@@ -424,7 +472,8 @@ public class TemplateController {
             work.setParent(Integer.parseInt(workId));
             work.setPatrolTask("");
             work.setPlanTime("");
-            work.setStatus(0);
+            work.setStatus(2);
+            work.setDataType(Integer.parseInt(dataType));
             work.setEquipment(sysName+","+equName);
             work.setMeasuringType(sightType);
             work.setUnit(unitType);

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" content="width=device-width" name="viewport"/>
@@ -33,8 +34,10 @@ body{width:98%;height: 98%;}
 <body>
 	<div class="table-c">
 		<span>
+			<shiro:hasPermission name='项目部选择'>
 			项目组选择:<select id='project'></select>
 			<input id='query' onclick="change()" type="button" value="查询"/>
+			</shiro:hasPermission>
 		</span>
         <div id="divTable" style="height: 90%;">
         	<table class="display" id="DataTable" >

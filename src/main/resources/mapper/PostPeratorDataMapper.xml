@@ -50,6 +50,16 @@
         <if test="measuringType!=null and measuringType!=''">
             and pd.measuringType=#{measuringType}
         </if>
+        <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+            and DATE_FORMAT(pd.created,'%Y-%m-%d')&gt;=DATE_FORMAT(#{startTime},'%Y-%m-%d')
+            and DATE_FORMAT(pd.created,'%Y-%m-%d')&lt;=DATE_FORMAT(#{endTime},'%Y-%m-%d')
+        </if>
+        <if test="startTime!=null and startTime!='' and endTime==null">
+            and DATE_FORMAT(pd.created,'%Y-%m')&gt;=DATE_FORMAT(#{startTime},'%Y-%m-%d')
+        </if>
+        <if test="startTime==null and endTime!=null and endTime!=''">
+            and DATE_FORMAT(pd.created,'%Y-%m')&lt;=DATE_FORMAT(#{endTime},'%Y-%m-%d')
+        </if>
         ORDER BY pd.created desc,pd.createdBy,pd.measuringType
         <if test="page!=null and pageSize!=null">
             limit ${page},${pageSize}

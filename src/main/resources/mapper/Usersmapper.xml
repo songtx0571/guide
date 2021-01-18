@@ -17,6 +17,14 @@
         <result column="userNumber" property="userNumber"></result>
         <result column="manager" property="manager"></result>
         <result column="entryDate" property="entryDate"></result>
+        <collection property="roles" resultMap="roleMap"></collection>
+    </resultMap>
+
+    <resultMap id="roleMap" type="com.howei.pojo.Role">
+        <result column="rid" property="id" />
+        <result column="roleName" property="roleName" />
+        <result column="description" property="description" />
+        <result column="englishName" property="englishName" />
     </resultMap>
 
     <select id="findUser" resultType="com.howei.pojo.Users" parameterType="java.lang.String" resultMap="userMap">

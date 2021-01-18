@@ -31,4 +31,6 @@ public interface EquipmentService {
     int getEquipmentListCount(Map<String,Object> map);
 
     List<Equipment> getEquMap(Map map);
+
+    Equipment getEquipmentByName(String sysName,String depatmentId);
 }

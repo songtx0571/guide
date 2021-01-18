@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"/>
@@ -24,8 +25,10 @@
 			<option value="1">8:00</option>
 			<option value="2">16:00</option>
 		</select>
-		项目组选择:<select id='project'></select>
-		<input id='query' onclick="change()" type="button" value="查询"/>
+		<shiro:hasPermission name='项目部选择'>
+			项目组选择:<select id='project'></select>
+			<input id='query' onclick="change()" type="button" value="查询"/>
+		</shiro:hasPermission>
 		</span>
 		
 		<table  style="width: 60%;margin-top: 50px;">

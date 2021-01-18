@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
-<script type="text/javascript" src="js/easyui/jquery.min.js"></script>
-<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="js/week/login.js?version=1.01"></script>
+<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/week/login.js?version=1.01"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <head>
@@ -17,7 +17,7 @@
         .whole {
             width: 1200px;
             height: 1920px;
-            background: url("img/loginP.png") no-repeat;
+            background: url("../img/loginP.png") no-repeat;
             backgroud-size: 1920px 971px;
         }
         .white_content {

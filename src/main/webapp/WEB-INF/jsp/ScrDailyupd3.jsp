@@ -17,12 +17,12 @@
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'id' th:value="${ScrDailyRecord.id}" style="display: none;"/>
+		<input type="text" id = 'id' value="${param.ScrDailyRecord.id}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea id='content1' rows="5" cols="50" maxlength="100" th:text="${ScrDailyRecord.content1}"></textarea>
+					<textarea id='content1' rows="5" cols="50" maxlength="100" text="${param.ScrDailyRecord.content1}"></textarea>
 				</th>
 			</tr>
 			<tr>

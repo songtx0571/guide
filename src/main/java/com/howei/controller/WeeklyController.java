@@ -2,22 +2,37 @@ package com.howei.controller;
 
 
 import com.howei.pojo.Project;
+import com.howei.pojo.Users;
 import com.howei.pojo.Week;
 import com.howei.pojo.Weekly;
 import com.howei.service.WeeklyService;
 import com.howei.util.JsonResult;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping("WeeklyController")
+@RequestMapping("/guide/WeeklyController")
 public class WeeklyController {
 
 
     @Autowired
     WeeklyService weeklyService;
+
+    /**
+     * 获取shiro存储的Users
+     */
+    public Users getPrincipal(){
+        Subject subject=SecurityUtils.getSubject();
+        Users users=(Users)subject.getPrincipal();
+        return users;
+    }
 
     @RequestMapping("Weekly")
     public ModelAndView Weekly() {
@@ -49,6 +64,10 @@ public class WeeklyController {
 
     @RequestMapping("getWeeks")
     public JsonResult getWeeks(int project) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Week[] weeks = weeklyService.getWeeks(project);
         return new JsonResult(weeks);
     }
@@ -65,26 +84,40 @@ public class WeeklyController {
 
     @RequestMapping("find")
     public JsonResult find(int year, int week, int type, int project) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Weekly[] weeklys = weeklyService.getWeeklys(year, week, type, project);
         return new JsonResult(weeklys);
     }
 
     @RequestMapping("find1")
-    public JsonResult find1(int id) {
-        Weekly[] weeklys = weeklyService.getWeeklysByWeekId(id);
-        return new JsonResult(weeklys);
+    public JsonResult find1(String id) {
+        if(id!=null&&!id.equals("")){
+            Weekly[] weeklys = weeklyService.getWeeklysByWeekId(Integer.parseInt(id));
+            return new JsonResult(weeklys);
+        }
+        return new JsonResult("");
     }
 
     @RequestMapping("findWeek")
     public JsonResult findWeek(int year, int week, int type, int project) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Week weeks = weeklyService.getWeek(year, week, type, project);
         return new JsonResult(weeks);
     }
 
     @RequestMapping("findWeek1")
-    public JsonResult findWeek1(int id) {
-        Week weeks = weeklyService.getWeekById(id);
-        return new JsonResult(weeks);
+    public JsonResult findWeek1(String id) {
+        if(id!=null&&!id.equals("")){
+            Week weeks = weeklyService.getWeekById(Integer.parseInt(id));
+            return new JsonResult(weeks);
+        }
+        return new JsonResult("");
     }
 
 
@@ -145,7 +178,10 @@ public class WeeklyController {
 
     @RequestMapping("addAuditor")
     public JsonResult addAuditor(int id, int type, int projectId, int week, int year, String userName) {
-
+        if(projectId==0){
+            Users users=this.getPrincipal();
+            projectId=users.getDepartmentId();
+        }
         Week weeks = new Week(id, projectId, year, week, type, userName);
         int num = weeklyService.addAuditor(weeks);
         return new JsonResult(num);
@@ -158,8 +194,13 @@ public class WeeklyController {
     }
 
     @RequestMapping("addFillIn")
-    public JsonResult addFillIn(int id, int type, int projectId, int week, int year, String userName) {
-
+    public JsonResult addFillIn(Integer id, int type, Integer projectId, int week, int year, String userName) {
+        if(projectId==0){
+            Users users=this.getPrincipal();
+            projectId=users.getDepartmentId();
+        }
+        Users users=this.getPrincipal();
+        userName=users.getUserNumber();
         Week weeks = new Week(id, projectId, year, week, type, userName);
         int num = weeklyService.addFillIn(weeks);
         return new JsonResult(num);
@@ -167,8 +208,8 @@ public class WeeklyController {
 
     @RequestMapping("delFillIn")
     public JsonResult delFillIn(int id, String userName) {
-
-
+        //Users users=this.getPrincipal();
+        //userName=users.getUserNumber();
         int num = weeklyService.delFillIn(id, userName);
         return new JsonResult(num);
     }
@@ -235,13 +276,21 @@ public class WeeklyController {
 
 
     @RequestMapping("next")
-    public JsonResult next(int type, int week, int year, int project) { 
+    public JsonResult next(int type, int week, int year, int project) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Week weeks = weeklyService.getWeek(year, week + 1, type, project);
         return new JsonResult(weeks);
     }
 
     @RequestMapping("last")
     public JsonResult last(int type, int week, int year, int project) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Week weeks = weeklyService.getWeek(year, week - 1, type, project);
         return new JsonResult(weeks);
     }
@@ -250,16 +299,23 @@ public class WeeklyController {
     @RequestMapping("getProject")
     public JsonResult getProject() {
         Project[] Projects = weeklyService.getProject();
+        /*Users users=this.getPrincipal();
+        if(users!=null){
+            Integer departmentId=users.getDepartmentId();
+            if(departmentId!=null&&departmentId>0){
+                return new JsonResult(departmentId);
+            }
+        }*/
         return new JsonResult(Projects);
     }
 
     @RequestMapping("getProject2")
     public JsonResult getProject2(String userName) {
+        Users users=this.getPrincipal();
+        userName=users.getUserNumber();
         Project[] Projects = weeklyService.getProject2(userName);
-        System.out.println(new JsonResult(Projects));
         return new JsonResult(Projects);
     }
-
 
     @RequestMapping("getProject1")
     public JsonResult getProject1(String userName) {
@@ -267,5 +323,14 @@ public class WeeklyController {
         return new JsonResult(Projects);
     }
 
-
+    @RequestMapping("getParamList")
+    public JsonResult getParamList(){
+        Users users=this.getPrincipal();
+        Map map=new HashMap();
+        if(users!=null){
+            map.put("userName",users.getUserNumber());
+            map.put("Name",users.getUserName());
+        }
+        return new JsonResult(map);
+    }
 }

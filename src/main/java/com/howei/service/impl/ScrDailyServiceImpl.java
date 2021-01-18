@@ -53,7 +53,6 @@ public class ScrDailyServiceImpl implements ScrDailyService {
             scrDaily1.setOther(other);
             return scrDaily1;
         }
-        System.out.println(scrDaily);
         return scrDaily;
     }
 

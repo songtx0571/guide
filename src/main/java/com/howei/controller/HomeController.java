@@ -75,4 +75,10 @@ public class HomeController {
     public String toExhibition(){
         return "exhibition";
     }
+
+    @RequestMapping("/toStaffhome")
+    public String toStaffhome(){
+        return "staffhome";
+    }
+
 }

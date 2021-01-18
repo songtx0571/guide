@@ -1,6 +1,9 @@
 package com.howei.controller;
 
 
+import com.howei.pojo.Users;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,11 +29,20 @@ import java.util.Date;
  *
  */
 @RestController
-@RequestMapping("MaintenanceController")
+@RequestMapping("/guide/MaintenanceController")
 public class MaintenanceController {
 
     @Autowired
     MaintenanceService maintenanceService;
+
+    /**
+     * 获取shiro存储的Users
+     */
+    public Users getPrincipal(){
+        Subject subject=SecurityUtils.getSubject();
+        Users users=(Users)subject.getPrincipal();
+        return users;
+    }
 
     @RequestMapping("Maintenance")
     public ModelAndView Maintenance(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
@@ -40,7 +52,13 @@ public class MaintenanceController {
     }
 
     @RequestMapping("addLeader")
-    public JsonResult addSuccessor(int id, int projectId, String datetime, String userName) {
+    public JsonResult addSuccessor(int id, Integer projectId, String datetime, String userName) {
+        if(projectId==0){
+            Users users=this.getPrincipal();
+            projectId=users.getDepartmentId();
+        }
+        Users users=this.getPrincipal();
+        userName=users.getUserNumber();
         Maintenance maintenance = new Maintenance();
         maintenance.setProjectId(projectId);
         maintenance.setId(id);
@@ -72,6 +90,10 @@ public class MaintenanceController {
 
     @RequestMapping("getMaintenances")
     public JsonResult getMaintenances(HttpServletRequest request, HttpServletResponse response, int project) throws IOException {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Maintenance[] maintenances = maintenanceService.getMaintenances(project);
         return new JsonResult(maintenances);
 
@@ -94,7 +116,9 @@ public class MaintenanceController {
     public ModelAndView updMaintenanceRecord(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ParseException {
         ModelAndView view = new ModelAndView();
         MaintenanceRecord maintenanceRecord = maintenanceService.getMaintenanceRecord(id);
+        System.out.println(maintenanceRecord.toString());
         view.addObject("maintenanceRecord", maintenanceRecord);
+        view.addObject("aaa", "aaa");
         if (maintenanceRecord.getType() == 1) {
             view.setViewName("MaintenanceRecordUpd2");
         } else {

@@ -21,18 +21,18 @@ input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'id' th:value="${weekly.id}" style="display: none;"/>
+		<input type="text" id = 'id' value="${param.weekly.id}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>本周缺陷总数</th>
 				<th>
-					<input th:value="${weekly.content1}"  type="text" id='content1'/>
+					<input value="${param.weekly.content1}"  type="text" id='content1'/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>已完成数</th>
 				<th>
-					<input th:value="${weekly.content2}"  type="text" id='content2'/>
+					<input value="${param.weekly.content2}"  type="text" id='content2'/>
 				</th>
 			</tr>
 			<tr>

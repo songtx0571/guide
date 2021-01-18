@@ -9,6 +9,7 @@
         <result column="code" property="code"></result>
         <result column="mold" property="mold"></result>
         <result column="department" property="department"></result>
+        <result column="bothType" property="bothType"></result>
     </resultMap>
 
     <select id="getUnitList" resultType="java.util.HashMap" resultMap="unitMap">
@@ -45,7 +46,7 @@
     </select>
 
     <insert id="addUnit" parameterType="com.howei.pojo.Unit" keyProperty="id" useGeneratedKeys="true">
-        insert into unit(nuit,type,mold,english,department) values(#{nuit},#{type},#{mold},#{english},#{department})
+        insert into unit(nuit,type,mold,english,department,bothType) values(#{nuit},#{type},#{mold},#{english},#{department},#{bothType})
     </insert>
 
     <select id="getUnitMap" resultType="java.util.HashMap" resultMap="unitMap">
@@ -65,10 +66,10 @@
     </select>
 
     <select id="getUnityMap" parameterType="java.util.HashMap" resultType="java.util.HashMap" resultMap="unitMap">
-        select `nuit` from unit where mold=#{type}
+        select * from unit where mold=#{type}
         <if test="department!=null and department!=''">
             and department=#{department}
         </if>
-        group by `nuit`
+
     </select>
 </mapper>

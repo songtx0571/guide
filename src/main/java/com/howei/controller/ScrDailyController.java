@@ -2,27 +2,41 @@ package com.howei.controller;
 
 import com.howei.pojo.ScrDaily;
 import com.howei.pojo.ScrDailyRecord;
+import com.howei.pojo.Users;
 import com.howei.service.ScrDailyService;
 import com.howei.util.JsonResult;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
 @RestController
-@RequestMapping("ScrDailyController")
+@RequestMapping("/guide/ScrDailyController")
 public class ScrDailyController {
 
 
     @Autowired
     ScrDailyService ScrDailyService;
 
+    /**
+     * 获取shiro存储的Users
+     */
+    public Users getPrincipal(){
+        Subject subject=SecurityUtils.getSubject();
+        Users users=(Users)subject.getPrincipal();
+        return users;
+    }
 
     @RequestMapping("ScrDaily")
     public ModelAndView ScrDaily() {
@@ -77,7 +91,16 @@ public class ScrDailyController {
 
 
     @RequestMapping("addSuccessor")
-    public JsonResult addSuccessor(int id, int type, int projectId, String datetime, String userName, String name) {
+    public JsonResult addSuccessor(int id, int type, Integer projectId, String datetime, String userName, String name) {
+        if(projectId==0){
+            Users users=this.getPrincipal();
+            projectId=users.getDepartmentId();
+        }
+        Users users=this.getPrincipal();
+        userName=users.getUserNumber();
+        if(name==null||name.equals("undefined")){
+            name=userName;
+        }
         ScrDaily ScrDaily = new ScrDaily();
         ScrDaily.setProjectId(projectId);
         ScrDaily.setId(id);
@@ -108,7 +131,16 @@ public class ScrDailyController {
 
 
     @RequestMapping("addTrader")
-    public JsonResult addTrader(int id, int type, int projectId, String datetime, String userName, String Name) {
+    public JsonResult addTrader(int id, int type, Integer projectId, String datetime, String userName, String Name) {
+        if(projectId==0){
+            Users users=this.getPrincipal();
+            projectId=users.getDepartmentId();
+        }
+        Users users=this.getPrincipal();
+        userName=users.getUserNumber();
+        if(Name==null||Name.equals("undefined")){
+            Name=userName;
+        }
         ScrDaily ScrDaily = new ScrDaily();
         ScrDaily.setProjectId(projectId);
         ScrDaily.setId(id);
@@ -129,6 +161,10 @@ public class ScrDailyController {
 
     @RequestMapping("find")
     public JsonResult find(String datetime, int type, int project, int other) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         ScrDailyRecord[] ScrDailyRecord = ScrDailyService.getScrDailyRecords(datetime, type, project, other);
         return new JsonResult(ScrDailyRecord);
     }
@@ -141,22 +177,27 @@ public class ScrDailyController {
 
     @RequestMapping("getscrDailys")
     public JsonResult getscrDailys(int project, int other) throws ParseException {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         ScrDaily[] scrDailys = ScrDailyService.getScrDailys(project, other);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        /*for (int i = 0; i < scrDailys.length; i++) {
+        for (int i = 0; i < scrDailys.length; i++) {
             String dateTime=scrDailys[i].getDatetime();
-            if(dateTime!=null&&!dateTime.equals("")){
-                Date date=new Date(dateTime);
-                String date1=sdf.format(date);
-                scrDailys[i].setDatetime(date1);
-            }
-        }*/
+            Date parse = sdf1.parse(dateTime);
+            String timeStr1=sdf1.format(parse);
+            scrDailys[i].setDatetime(timeStr1);
+        }
         return new JsonResult(scrDailys);
     }
 
     @RequestMapping("findscrDaily")
-    public JsonResult findscrDaily(String datetime, int type, int project, int other) {
+    public JsonResult findscrDaily(String datetime, int type, Integer project, int other) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
         return new JsonResult(scrDaily);
     }
@@ -166,7 +207,7 @@ public class ScrDailyController {
         ScrDaily scrDaily = ScrDailyService.getScrDailyById(id);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年M月d日");
-        //scrDaily.setDatetime(sdf1.format(sdf.parse(scrDaily.getDatetime())));
+        scrDaily.setDatetime(sdf1.format(sdf.parse(scrDaily.getDatetime())));
         return new JsonResult(scrDaily);
     }
 
@@ -286,6 +327,10 @@ public class ScrDailyController {
 
     @RequestMapping("updScrDaily")
     public ModelAndView updScrDaily(String datetime, int type, int project, int other) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         ModelAndView view = new ModelAndView();
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
         view.addObject("scrDaily", scrDaily);
@@ -295,6 +340,10 @@ public class ScrDailyController {
 
     @RequestMapping("changeScrDaily")
     public JsonResult changeWeek(int projectId, int id, int type, int group, String datetime, String traders, String successor, int other) {
+        if(projectId==0){
+            Users users=this.getPrincipal();
+            projectId=users.getDepartmentId();
+        }
         ScrDaily scrDaily = new ScrDaily(id, datetime, projectId, group, type, traders, successor, other);
         int num = ScrDailyService.changeScrDaily(scrDaily);
         return new JsonResult(num);
@@ -302,7 +351,7 @@ public class ScrDailyController {
 
     @RequestMapping("next")
     public JsonResult next(int type, String datetime, int project, int other) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-M-d");
         Date date = sdf.parse(datetime);
         if (type == 3) {
@@ -317,6 +366,10 @@ public class ScrDailyController {
             }
             type++;
         }
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         datetime = sdf1.format(date);
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
         if (scrDaily.getId() == 0) {
@@ -327,7 +380,7 @@ public class ScrDailyController {
 
     @RequestMapping("last")
     public JsonResult last(int type, String datetime, int project, int other) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-M-d");
         Date date = sdf.parse(datetime);
         if (type == 1) {
@@ -344,7 +397,10 @@ public class ScrDailyController {
             type--;
         }
         datetime = sdf1.format(date);
-
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
         if (scrDaily.getId() == 0) {
             scrDaily.setDatetime(sdf.format(date));

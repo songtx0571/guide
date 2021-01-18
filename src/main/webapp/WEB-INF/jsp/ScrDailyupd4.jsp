@@ -21,7 +21,7 @@ input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'id' th:value="${ScrDailyRecord.id}" style="display: none;"/>
+		<input type="text" id = 'id' value="${param.ScrDailyRecord.id}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1' colspan="2">氨水耗量统计</th>
@@ -29,37 +29,37 @@ input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 
 			<tr>
 				<th id='th1'>1#(t)</th>
 				<th>
-					<input type="text" id="content1" th:value="${ScrDailyRecord.content1}"/>
+					<input type="text" id="content1" value="${param.ScrDailyRecord.content1}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>2#(t)</th>
 				<th>
-					<input type="text" id="content2" th:value="${ScrDailyRecord.content2}"/>
+					<input type="text" id="content2" value="${param.ScrDailyRecord.content2}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>3#(t)</th>
 				<th>
-					<input type="text" id="content3" th:value="${ScrDailyRecord.content3}"/>
+					<input type="text" id="content3" value="${param.ScrDailyRecord.content3}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>4#(t)</th>
 				<th>
-					<input type="text" id="content4" th:value="${ScrDailyRecord.content4}"/>
+					<input type="text" id="content4" value="${param.ScrDailyRecord.content4}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>5#(t)</th>
 				<th>
-					<input type="text" id="content5" th:value="${ScrDailyRecord.content5}"/>
+					<input type="text" id="content5" value="${param.ScrDailyRecord.content5}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>6#(t)</th>
 				<th>
-					<input type="text" id="content6" th:value="${ScrDailyRecord.content6}"/>
+					<input type="text" id="content6" value="${param.ScrDailyRecord.content6}"/>
 				</th>
 			</tr>
 			<tr>

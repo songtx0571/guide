@@ -29,4 +29,6 @@ public interface EquipmentMapper {
     int getEquipmentListCount(Map<String,Object> map);
 
     List<Equipment> getEquMap(Map map);
+
+    Equipment getEquipmentByName(@Param("name") String name,@Param("departmentId") String depatmentId);
 }

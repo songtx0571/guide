@@ -8,6 +8,7 @@ import com.howei.service.DepartmentService;
 import com.howei.service.EquipmentService;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
+import com.howei.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,29 +58,30 @@ public class EquipmentController {
      */
     @RequestMapping("/getEquipmentList")
     @ResponseBody
-    public EasyuiResult getEquipmentList(HttpServletRequest request){
+    public Result getEquipmentList(HttpServletRequest request){
         String page=request.getParameter("page");
-        String rows=request.getParameter("rows");
+        String limit=request.getParameter("limit");
+        int rows=Page.getOffSet(page,limit);
         String type=request.getParameter("type");
         String depar=request.getParameter("department");
-        int offset=Page.getOffSet(page,rows);
         Map<String,Object> map=new HashMap<String, Object>();
         map.put("type",type);
         if(depar!=null&&!depar.equals("")){
             map.put("department",depar);
         }
         List<Equipment> total=equipmentService.getEquipmentList(map);
-        map.put("page",offset);
-        map.put("pageSize",rows);
+        map.put("pageSize",limit);
+        map.put("page",rows);
         List<Equipment> result=equipmentService.getEquipmentList(map);
         for(Equipment equipment : result){
             Company company =companyService.getCompanyById(String.valueOf(equipment.getDepartment()));
             equipment.setDepartmentName(company.getName());
         }
-        EasyuiResult easy=new EasyuiResult();
-        easy.setTotal(total.size());
-        easy.setRows(result);
-        return easy;
+        Result result1=new Result();
+        result1.setCode(0);
+        result1.setCount(total.size());
+        result1.setData(result);
+        return result1;
     }
 
     /**

@@ -4,10 +4,13 @@ import com.howei.pojo.InquiriesData;
 import com.howei.pojo.InquiriesDataV;
 import com.howei.pojo.PostPeratorData;
 import com.howei.pojo.Users;
+import com.howei.service.AiConfigurationDataService;
+import com.howei.service.DataConfigurationService;
 import com.howei.service.PostPeratorDataService;
 import com.howei.service.UserService;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
+import com.howei.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,6 +38,12 @@ public class InquiriesDataController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    DataConfigurationService dataConfigurationService;
+
+    @Autowired
+    AiConfigurationDataService aiConfigurationDataService;
+
     /**
      * 跳转查询数据页面
      * @return
@@ -51,40 +60,61 @@ public class InquiriesDataController {
      */
     @RequestMapping("/getInquiriesData")
     @ResponseBody
-    public EasyuiResult getInquiriesData(HttpServletRequest request){
+    public Result getInquiriesData(HttpServletRequest request){
         String name=request.getParameter("name");
         String depart=request.getParameter("departName");
         String measuringType=request.getParameter("measuringType");
-        String rows=request.getParameter("rows");
+        String type=request.getParameter("type");//1：人工；2：ai
+        String startTime=request.getParameter("startTime");//开始时间
+        String endTime=request.getParameter("endTime");//结束时间
         String page=request.getParameter("page");
-        int offset=Page.getOffSet(page,rows);
-        EasyuiResult easyuiResult=new EasyuiResult();
-        List<PostPeratorData> list=new ArrayList<>();
-        int count=0;
+        String limit=request.getParameter("limit");
+        int rows=Page.getOffSet(page,limit);
+        Result result=new Result();
+        List<?> list=new ArrayList<>();
+        int total=0;
         if(name!=null&&!name.equals("")) {
             Map map = new HashMap();
             map.put("equipment", name);
             map.put("measuringType", measuringType);
             map.put("projectDepartment", depart);
-            list = postPeratorDataService.selByName(map);
-            count = list.size();
-            list.clear();
-            map.put("page", offset);
-            map.put("pageSize", rows);
-            list = postPeratorDataService.selByName(map);
-            for(int i=0;i<list.size();i++){
-                PostPeratorData postPeratorData=list.get(i);
-                Users user=userService.findById(postPeratorData.getCreatedBy()+"");
-                if(user!=null){
-                    //postPeratorData.setCreatedByName(user.getName());
-                }else{
-                    postPeratorData.setCreatedByName("");
+            if(startTime!=null&&!startTime.equals("")){
+                map.put("startTime", startTime);
+            }
+            if(endTime!=null&&!endTime.equals("")){
+                map.put("endTime", endTime);
+            }
+            if(type.equals("1")){//人工数据
+                list = postPeratorDataService.selByName(map);
+                total = list.size();
+                list.clear();
+                map.put("pageSize",limit);
+                map.put("page",rows);
+                list = postPeratorDataService.selByName(map);
+                for(int i=0;i<list.size();i++){
+                    PostPeratorData postPeratorData=(PostPeratorData)list.get(i);
+                    Users user=userService.findById(postPeratorData.getCreatedBy()+"");
+                    if(user!=null){
+                        postPeratorData.setCreatedByName(user.getUserName());
+                    }else{
+                        postPeratorData.setCreatedByName("");
+                    }
                 }
+            }else if(type.equals("2")){//ai数据
+                list = aiConfigurationDataService.getAiConfigureDataList(map);
+                total = list.size();
+                list.clear();
+                if(startTime==null||startTime.equals("")&&endTime==null||endTime.equals("")){
+                    map.put("pageSize",2000);
+                    map.put("page",1);
+                }
+                list = aiConfigurationDataService.getAiConfigureDataList(map);
             }
         }
-        easyuiResult.setRows(list);
-        easyuiResult.setTotal(count);
-        return easyuiResult;
+        result.setCode(0);
+        result.setCount(total);
+        result.setData(list);
+        return result;
     }
 
     /**
@@ -98,10 +128,18 @@ public class InquiriesDataController {
         List<Map<String,Object>> result=new ArrayList<>();
         String depart=request.getParameter("departName");//项目
         String equipment=request.getParameter("name");//系统名+设备名
+        String type=request.getParameter("type");//1:人工；2:ai
         Map map=new HashMap();
         map.put("department",depart);
         map.put("equipment",equipment);
-        List<Map> list=postPeratorDataService.getUnityMap(map);
+        List<Map> list=new ArrayList<>();
+        if(type!=null&&!type.equals("")){
+            if(type.equals("1")){//人工
+                list=postPeratorDataService.getUnityMap(map);
+            }else if(type.equals("2")){//ai
+                list=dataConfigurationService.getMeasuringTypeMap(map);
+            }
+        }
         for (int i=0;i<list.size();i++){
             Map<String,Object> mapStr=new HashMap<>();
             Map object=list.get(i);

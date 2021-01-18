@@ -4,29 +4,23 @@
 <meta charset="UTF-8"/>
 <script type="text/javascript" src="../js/week/jquery-3.2.1.js"></script>
 <script type="text/javascript"  src="../layer/layer.js"></script>
-<script type="text/javascript"  src="../js/week/runningWeeklyRecord2.js"></script>
 <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"  src="../js/week/jQuery.print.min.js"></script>
 <script type="text/javascript"  src="../word/FileSaver.js"></script>
 <script type="text/javascript"  src="../word/jquery.wordexport.js"></script>
 <link rel="stylesheet" href="../css/iframe.css" media="screen"/>
-
-<link rel="stylesheet" href="../css/print.css" media="screen"/>
+ <link rel="stylesheet" href="../css/print.css" media="screen"/>
 <link rel="stylesheet" href="../css/tr.css"  media="screen"/>
 
 <link rel="stylesheet" href="../css/print1.css" media="print"/>
 <link rel="stylesheet" href="../css/iframeprint.css" media="print"/>
-	<!--easyui-->
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <title>运行周报</title>
 <style type="text/css" media="screen">
 table{width: 95%;margin-top: 50px;}
 input {height: 24px;}
 #h,#time,#people{display: none;}
 </style>
+
 </head>
 <body>
 	<div>
@@ -38,7 +32,7 @@ input {height: 24px;}
 		<input id='print1' onclick="aa()" type="button" value="打印"/>
 		<input id='print1' onclick="exportWord()" type="button" value="导出"/>
 		</span>
-		<input type="text" id='id' th:value="${id}" style="display: none;"/>
+		<input type="hidden" id='id' value="${param.id}" />
 		
 		<div id='myElementId'>
 		<h2 id='h'></h2>
@@ -189,4 +183,5 @@ input {height: 24px;}
 		</div>
 	</div>
 </body>
+<script type="text/javascript"  src="../js/week/runningWeeklyRecord2.js"></script>
 </html>

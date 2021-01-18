@@ -1,5 +1,6 @@
 package com.howei.mapper;
 
+import com.howei.pojo.Company;
 import com.howei.pojo.Department;
 import org.springframework.stereotype.Component;
 
@@ -16,4 +17,6 @@ public interface DepartmentMapper {
     Department selById(int id);
 
     Department selByMapParam(Object departmentName);
+
+    List<Company> getDepMap();
 }

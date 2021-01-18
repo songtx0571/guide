@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-<meta charset="UTF-8"/>
-<title></title>
 <script type="text/javascript" src="../js/week/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"  src="../layer/layer.js"></script>
@@ -16,14 +14,14 @@
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'id' th:value="${maintenanceRecord.id}" style="display: none;"/>
-		<input type="text" id = 'maintenanceId' th:value="${maintenanceRecord.maintenanceId}" style="display: none;"/>
-		<input type="text" id = 'type' th:value="${maintenanceRecord.type}" style="display: none;"/>
+		<input type="text" id = 'id' value="${requestScope.maintenanceRecord.id}" style="display: none;"/>
+		<input type="text" id = 'maintenanceId' value="${requestScope.maintenanceRecord.maintenanceId}" style="display: none;"/>
+		<input type="text" id = 'type'  value="${requestScope.maintenanceRecord.type}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea id='content' rows="5" cols="50" maxlength="100" th:text="${maintenanceRecord.content}"></textarea>
+					<textarea id='content' rows="5" cols="50" maxlength="100" text="${requestScope.maintenanceRecord.content}"></textarea>
 				</th>
 			</tr>
 			<tr>
