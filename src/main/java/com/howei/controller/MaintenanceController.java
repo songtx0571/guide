@@ -77,6 +77,10 @@ public class MaintenanceController {
 
     @RequestMapping("find")
     public JsonResult find(HttpServletRequest request, HttpServletResponse response, String datetime, int project) throws IOException {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Maintenance maintenance = maintenanceService.getMaintenanceByProject(datetime, project);
         return new JsonResult(maintenance);
 
@@ -84,6 +88,10 @@ public class MaintenanceController {
 
     @RequestMapping("findRecord")
     public JsonResult findRecord(HttpServletRequest request, HttpServletResponse response, String datetime, int project) throws IOException {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         MaintenanceRecord[] maintenanceRecords = maintenanceService.getMaintenanceRecords(datetime, project);
         return new JsonResult(maintenanceRecords);
     }

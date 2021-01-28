@@ -22,7 +22,7 @@ function getProject(){
 		"data":{userName:userName},
     	"success":function(Json){
     		var data = Json.data;
-    		document.getElementById('project').length = 0;
+    		//document.getElementById('project').length = 0;
     		var project = document.getElementById('project');
     		var projectId = sessionStorage.MaintenanceProject;
     		for(var i = 0;i<data.length;i++){
@@ -30,7 +30,9 @@ function getProject(){
     			if(data[i].id == projectId){
     				opt1.selected = true;
     			}
-    			project.options.add(opt1);
+    			if(project!=null){
+                    project.options.add(opt1);
+				}
     		}
     		change();
     	}
@@ -43,6 +45,9 @@ function change(){
 	var project = $('#project').val();
 	sessionStorage.MaintenanceDatetime = datetime;
 	sessionStorage.MaintenanceProject = project;
+	if(project==null||project==''){
+		project=0;
+	}
 	$.ajax({ 
 		"type" : 'post', 
 		"url": "../MaintenanceController/findRecord",  
