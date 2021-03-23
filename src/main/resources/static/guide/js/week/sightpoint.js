@@ -47,7 +47,6 @@ function showPoint() {
     if (department == "" || department == "0"){
         department = ""
     }
-    // 显
     // 显示查询的模板
     layui.use('table', function(){
         var table = layui.table;
@@ -130,7 +129,7 @@ function openPoint() {
         ,content: $(".addPoint")
         ,btnAlign: 'c' //按钮居中
         ,shade: 0.5 //不显示遮罩
-        ,area: ['420px', '370px']
+        ,area: ['420px', '400px']
         ,success: function () {
         }
         ,yes: function(){

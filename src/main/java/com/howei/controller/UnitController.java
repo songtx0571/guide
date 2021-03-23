@@ -7,10 +7,7 @@ import com.howei.pojo.Unit;
 import com.howei.service.CompanyService;
 import com.howei.service.DepartmentService;
 import com.howei.service.UnitService;
-import com.howei.util.EasyuiResult;
-import com.howei.util.Page;
-import com.howei.util.PinYin;
-import com.howei.util.Result;
+import com.howei.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -82,6 +79,8 @@ public class UnitController {
             Company company=companyService.getCompanyById(String.valueOf(unit1.getDepartment()));
             unit1.setDepartmentName(company.getName());
         }
+        WebSocket webSocket=new WebSocket();
+        webSocket.sendMessage("你好");
         Result result=new Result();
         result.setCount(count);
         result.setData(unit);

@@ -98,10 +98,10 @@
             </tr>
             <tr>
                 <td>类型：</td>
-                <td>
+                <td style="padding-top: 12px;box-sizing: border-box;">
                     <input type="hidden" id="addTypeNameHidden">
                     <form class="layui-form" action="">
-                        <div class="layui-form-item" style="margin-bottom: 20px;">
+                        <div class="layui-form-item">
                             <div class="layui-inline">
                                 <select name="modules" lay-verify="required" lay-filter="addTypeName" lay-search="" id="addTypeName">
                                     <option value="0">请选择</option>

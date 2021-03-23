@@ -9,11 +9,7 @@
 <script type="text/javascript"  src="../js/week/runningWeeklyUpd.js"></script>
 <link rel="stylesheet" href="../css/iframe.css"/>
 <link rel="stylesheet" href="../css/tr2.css"/>
-	<!--easyui-->
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+
 <style type="text/css">
 
 input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 98%;height: 30px;line-height: 100%;background-color: #FFF;}

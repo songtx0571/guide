@@ -218,7 +218,7 @@ function saveAddData() {
         type: 'GET',
         dataType: 'json',
         async: false,
-        data:{'nuit':nuit,'type':type,'depart':depart, 'id':"","mold" : mold},
+        data:{'nuit':nuit,'type':type,'depart':depart, 'id':"","mold" : mold,"bothType": '1'},
         beforeSend:function(){
             $("#save").hidden;//隐藏提交按钮
         },
