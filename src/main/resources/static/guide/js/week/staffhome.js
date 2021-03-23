@@ -1,3 +1,4 @@
+var departmentName = "";
 $(function(){
     //初始化表格:隐藏
     $("#bodyDiv2").hide();
@@ -28,6 +29,7 @@ function showDepartment() {
         });
         form.on('select(departmentList)', function(data){
             showInit(data.value);
+            departmentName = data.elem[data.elem.selectedIndex].text;
         });
     });
 }
@@ -51,7 +53,7 @@ function showInit(departmentId) {
                     $("#dateTime").html(dateTime);
                 }
                 if((userName==null||userName=='')&&(dateTime==null||dateTime=='')){
-                    html=html+'<div id="'+result.id+'" class="Task" onclick="crePost('+result.id+')">'+
+                    html=html+'<div id="'+result.id+'" class="Task" onclick="crePost('+result.id+',\'\+'+patrolTask+'\'\)">'+
                         '<div class="TaskBody">'+patrolTask+'</div>' +
                         '<div class="TaskBody" id="cycle'+i+'">'+result.cycle+'</div>' +
                         '<div class="TaskBody green" id="nextTime'+i+'">可执行</div>' +
@@ -106,7 +108,9 @@ var record='equipment0';
 /**
  * 创建员工执行任务
  */
-function crePost(id){
+var patrolTask1 = "";
+function crePost(id,patrolTask){
+    patrolTask1 = patrolTask.substring(1,patrolTask.length);
     $("#patrolTask").css("display","revert");
     $("#department").css("display","none");
     //创建员工空数据
@@ -143,6 +147,13 @@ function crePost(id){
                 }
             }
         }
+    });
+    $.ajax({
+        url:"/guide/operation/send",
+        dataType: "json",//数据格式
+        type: "post",//请求方式
+        data: {employeeId:"",verb:"开始巡检路线",content:departmentName+" "+patrolTask1,type:"guide",remark:"",createTime:""},
+        success:function(data){}
     });
 }
 
@@ -258,6 +269,13 @@ function Forward(){
                             layer.alert("任务完成");
                         })
                         init();
+                        $.ajax({
+                            url:"/guide/operation/send",
+                            dataType: "json",//数据格式
+                            type: "post",//请求方式
+                            data: {employeeId:"",verb:"结束巡检路线",content:departmentName+" "+patrolTask1,type:"guide",remark:"",createTime:"",id:""},
+                            success:function(data){}
+                        });
                     }
                 );
             }else{
@@ -375,7 +393,7 @@ function init() {
                     $("#dateTime").html(dateTime);
                 }
                 if((userName==null||userName=='')&&(dateTime==null||dateTime=='')){
-                    html=html+'<div id="'+result.id+'" class="Task" onclick="crePost('+result.id+')">'+
+                    html=html+'<div id="'+result.id+'" class="Task" onclick="crePost('+result.id+',\'\+'+patrolTask+'\'\)">'+
                         '<div class="TaskBody">'+patrolTask+'</div>' +
                         '<div class="TaskBody" id="cycle'+i+'">'+result.cycle+'</div>' +
                         '<div class="TaskBody green" id="nextTime'+i+'">可执行</div>' +
