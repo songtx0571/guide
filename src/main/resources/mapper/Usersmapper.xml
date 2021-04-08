@@ -59,4 +59,7 @@
     <select id="getNameByUserName" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT `userName` FROM users WHERE UPPER(userNumber) = UPPER(#{userNumber})
 	</select>
+    <select id="getUserSettingByEmployeeId" resultType="java.util.Map">
+        select * from user_setting where employee_id=#{employeeId}
+    </select>
 </mapper>

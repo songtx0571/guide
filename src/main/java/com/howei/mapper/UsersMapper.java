@@ -4,6 +4,8 @@ import com.howei.pojo.Users;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public interface UsersMapper{
 
@@ -34,4 +36,6 @@ public interface UsersMapper{
     Users loginUserNumber(@Param("userNumber") String userNumber);
     
     String getNameByUserName(@Param("userNumber") String userNumber);
+
+    Map<String, Object> getUserSettingByEmployeeId(@Param("employeeId") Integer employeeId);
 }
