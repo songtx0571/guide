@@ -215,7 +215,7 @@ public class WeeklyServiceImpl implements WeeklyService {
     public int delAuditor(int id, String userName) {
         Week week = new Week();
         week.setId(id);
-        week.setFillIn(userName);
+        week.setAuditor(userName);
         int num = weeklymapper.addAuditor(week);
         return num;
     }

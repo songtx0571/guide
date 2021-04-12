@@ -25,7 +25,7 @@ public class Week {
     private String coding;
 
 
-    public Week(int id, int projectId, int year, int week, int type, String fillIn) {
+    public Week(int id, int projectId, int year, int week, int type, String fillIn,String auditor) {
         super();
         this.id = id;
         this.projectId = projectId;
@@ -33,6 +33,7 @@ public class Week {
         this.week = week;
         this.type = type;
         this.fillIn = fillIn;
+        this.auditor=auditor;
     }
 
 

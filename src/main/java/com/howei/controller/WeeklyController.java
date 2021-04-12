@@ -7,6 +7,7 @@ import com.howei.pojo.Week;
 import com.howei.pojo.Weekly;
 import com.howei.service.WeeklyService;
 import com.howei.util.JsonResult;
+import com.howei.util.Type;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,17 @@ public class WeeklyController {
         Subject subject=SecurityUtils.getSubject();
         Users users=(Users)subject.getPrincipal();
         return users;
+    }
+
+    @RequestMapping("/getLoginUser")
+    public Map<String,String> getLoginUser(){
+        Subject subject=SecurityUtils.getSubject();
+        Users users=(Users)subject.getPrincipal();
+        Map<String,String> map=new HashMap<>();
+        map.put("userName",users.getUserName());
+        map.put("userNumber",users.getUserNumber());
+        map.put("userId",users.getId().toString());
+        return map;
     }
 
     @RequestMapping("Weekly")
@@ -168,6 +180,10 @@ public class WeeklyController {
 
     @RequestMapping("updWeek")
     public ModelAndView updWeek(int year, int week, int type, int project) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         ModelAndView view = new ModelAndView();
         Week weeks = weeklyService.getWeek(year, week, type, project);
         view.addObject("week", weeks);
@@ -175,41 +191,91 @@ public class WeeklyController {
         return view;
     }
 
-
+    /**
+     * 运行周报、检修周报添加批准人
+     * @param id
+     * @param type
+     * @param projectId
+     * @param week
+     * @param year
+     * @param userName
+     * @return
+     */
     @RequestMapping("addAuditor")
     public JsonResult addAuditor(int id, int type, int projectId, int week, int year, String userName) {
+        Users users=this.getPrincipal();
+        if(users==null){
+            new JsonResult(Type.noUser);
+        }
         if(projectId==0){
-            Users users=this.getPrincipal();
             projectId=users.getDepartmentId();
         }
-        Week weeks = new Week(id, projectId, year, week, type, userName);
+        if(userName==null||userName.equals("")){
+            userName=users.getUserNumber();
+        }
+        Week weeks = new Week(id, projectId, year, week, type,null, userName);
         int num = weeklyService.addAuditor(weeks);
         return new JsonResult(num);
     }
 
+    /**
+     *  运行周报、检修周报删除批准人
+     * @param id
+     * @param userName
+     * @return
+     */
     @RequestMapping("delAuditor")
     public JsonResult delAuditor(int id, String userName) {
+        Users users=this.getPrincipal();
+        if(users==null){
+            new JsonResult(Type.noUser);
+        }
+        if(userName==null||userName.equals("")){
+            userName=users.getUserNumber();
+        }
         int num = weeklyService.delAuditor(id, userName);
         return new JsonResult(num);
     }
 
+    /**
+     * 运行周报、检修周报添加执行人
+     * @param id
+     * @param type
+     * @param projectId
+     * @param week
+     * @param year
+     * @param userName
+     * @return
+     */
     @RequestMapping("addFillIn")
-    public JsonResult addFillIn(Integer id, int type, Integer projectId, int week, int year, String userName) {
+    public JsonResult addFillIn(Integer id, int type, int projectId, int week, int year, String userName) {
+        Users users=this.getPrincipal();
+        if(users==null){
+            new JsonResult(Type.noUser);
+        }
         if(projectId==0){
-            Users users=this.getPrincipal();
             projectId=users.getDepartmentId();
         }
-        Users users=this.getPrincipal();
-        userName=users.getUserNumber();
-        Week weeks = new Week(id, projectId, year, week, type, userName);
+        if(userName==null||userName.equals("")){
+            userName=users.getUserNumber();
+        }
+        Week weeks = new Week(id, projectId, year, week, type,userName,null);
         int num = weeklyService.addFillIn(weeks);
         return new JsonResult(num);
     }
 
+    /**
+     * 运行周报、检修周报删除执行人
+     * @param id
+     * @param userName
+     * @return
+     */
     @RequestMapping("delFillIn")
     public JsonResult delFillIn(int id, String userName) {
-        //Users users=this.getPrincipal();
-        //userName=users.getUserNumber();
+        Users users=this.getPrincipal();
+        if(userName==null||userName.equals("")){
+            userName=users.getUserNumber();
+        }
         int num = weeklyService.delFillIn(id, userName);
         return new JsonResult(num);
     }
@@ -217,6 +283,10 @@ public class WeeklyController {
 
     @RequestMapping("changeWeek")
     public JsonResult changeWeek(int id, int type, int project, int week, int year, String name, String fillIn, String auditor) {
+        if(project==0){
+            Users users=this.getPrincipal();
+            project=users.getDepartmentId();
+        }
         Week weeks = new Week(id, name, project, year, week, type, fillIn, auditor);
         int num = weeklyService.changeWeek(weeks);
         return new JsonResult(num);
@@ -299,23 +369,22 @@ public class WeeklyController {
     @RequestMapping("getProject")
     public JsonResult getProject() {
         Project[] Projects = weeklyService.getProject();
-        /*Users users=this.getPrincipal();
-        if(users!=null){
-            Integer departmentId=users.getDepartmentId();
-            if(departmentId!=null&&departmentId>0){
-                return new JsonResult(departmentId);
-            }
-        }*/
         return new JsonResult(Projects);
     }
 
     @RequestMapping("getProject2")
     public JsonResult getProject2(String userName) {
         Users users=this.getPrincipal();
-        userName=users.getUserNumber();
+        if(users!=null){
+            userName=users.getUserNumber();
+        }
+        else{
+            userName="";
+        }
         Project[] Projects = weeklyService.getProject2(userName);
         return new JsonResult(Projects);
     }
+
 
     @RequestMapping("getProject1")
     public JsonResult getProject1(String userName) {

@@ -99,8 +99,8 @@
 	
 	
 	<insert id="insertWeekByFillIn"  parameterType="com.howei.pojo.Week">
-		INSERT ignore INTO weekly(week,project_id,type,year,fill_in)
-		VALUES(#{week.week},#{week.projectId},#{week.type},#{week.year},#{week.fillIn})
+		INSERT ignore INTO weekly(week,project_id,`type`,`year`,auditor,fill_in)
+		VALUES(#{week.week},#{week.projectId},#{week.type},#{week.year},#{week.auditor},#{week.fillIn})
 	</insert>
 	
 	<update id="addFillIn"  parameterType="com.howei.pojo.Week">
@@ -108,12 +108,12 @@
 	</update>
 	
 	<insert id="insertWeekByAuditor"  parameterType="com.howei.pojo.Week">
-		INSERT ignore INTO weekly(week,project_id,type,year,auditor)
-		VALUES(#{week.week},#{week.projectId},#{week.type},#{week.year},#{week.fillIn})
+		INSERT ignore INTO weekly(week,project_id,`type`,`year`,auditor,fill_in)
+		VALUES(#{week.week},#{week.projectId},#{week.type},#{week.year},#{week.auditor},#{week.fillIn})
 	</insert>
 	
 	<update id="addAuditor"  parameterType="com.howei.pojo.Week">
-		UPDATE weekly SET auditor = #{week.fillIn} WHERE id = #{week.id}
+		UPDATE weekly SET auditor = #{week.auditor} WHERE id = #{week.id}
 	</update>
 	
 

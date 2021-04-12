@@ -1,3 +1,4 @@
+var _userName = "";
 $(function(){
 	var tmpDate = new Date();
 	var D = tmpDate.getDate();
@@ -17,6 +18,14 @@ $(function(){
 		document.getElementById("year").value = year;
 	}
 	getProject()
+	$.ajax({
+		"type": 'post',
+		"url": "/guide/WeeklyController/getLoginUser",
+		"data": {},
+		"success": function (data) {
+			_userName = data.userNumber;
+		}
+	});
 });
 
 
@@ -336,7 +345,7 @@ function fill(data){
 
 //增加填写人
 function addFillIn(){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var weekId = sessionStorage.runningWeekId;
 	var weeklyType = 3;
 	var year = sessionStorage.runningWeeklyyear;
@@ -379,14 +388,16 @@ function addFillIn(){
             if(Json.data==1){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../WeeklyController/runningWeekly";},500);
-            }
+            } else if (Json.data== 'noUser') {
+				layer.alert('用戶信息失效');
+			}
         }
     });
 	
 }
 //删除填写人
 function delFillIn(index){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var weekId = sessionStorage.runningWeekId;
 	var FillIn = sessionStorage.runningWeeklyFillIn;
 	var FillIns = FillIn.split(";");
@@ -410,7 +421,9 @@ function delFillIn(index){
 				if(Json.data==1){
 	    			layer.alert('删除成功',{icon:1});
 	    			setTimeout(function(){window.location.href="../WeeklyController/runningWeekly";},500);
-	      	  	}
+	      	  	} else if (Json.data== 'noUser') {
+					layer.alert('用戶信息失效');
+				}
 			}	
 		});
 		return;
@@ -437,7 +450,9 @@ function delFillIn(index){
             if(Json.data==1){
                 layer.alert('删除添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../WeeklyController/runningWeekly";},500);
-            }
+            } else if (Json.data== 'noUser') {
+				layer.alert('用戶信息失效');
+			}
         }
     });
 	
@@ -446,7 +461,7 @@ function delFillIn(index){
 
 //添加批准人
 function addAuditor(){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var weekId = sessionStorage.runningWeekId;
 	var weeklyType = 3;
 	var year = sessionStorage.runningWeeklyyear;
@@ -488,13 +503,15 @@ function addAuditor(){
             if(Json.data==1){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../WeeklyController/runningWeekly";},500);
-            }
+            } else if (Json.data== 'noUser') {
+				layer.alert('用戶信息失效');
+			}
         }
     });
 }
 //删除批准人
 function delAuditor(index){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var weekId = sessionStorage.runningWeekId;
 	var Auditor = sessionStorage.runningWeeklyAuditor;
 	var Auditors = Auditor.split(";");
@@ -518,7 +535,9 @@ function delAuditor(index){
 				if(Json.data==1){
 	    			layer.alert('添加成功',{icon:1});
 	    			setTimeout(function(){window.location.href="../WeeklyController/runningWeekly";},500);
-	      	  	}
+	      	  	} else if (Json.data== 'noUser') {
+					layer.alert('用戶信息失效');
+				}
 			}	
 		});
 		return;
@@ -544,7 +563,9 @@ function delAuditor(index){
             if(Json.data==1){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../WeeklyController/runningWeekly";},500);
-            }
+            } else if (Json.data== 'noUser') {
+				layer.alert('用戶信息失效');
+			}
         }
     });
 	
@@ -556,7 +577,7 @@ function delAuditor(index){
 
 
 function add(type){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var projectId = $("#project").val();
 	/*$.ajax({
 		"type" : 'post', 
@@ -587,7 +608,7 @@ function add(type){
 }
 
 function upd(id,type){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var projectId = $("#project").val();
 	/*$.ajax({
 		"type" : 'post', 
@@ -612,7 +633,7 @@ function upd(id,type){
 }
 
 function del(id,type){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var projectId = $("#project").val();
 	/*$.ajax({
 		"type" : 'post', 
@@ -651,7 +672,7 @@ function del(id,type){
 
 
 function updWeek(){
-	var userName = sessionStorage.Username;
+	var userName = _userName;
 	var projectId = $("#project").val();
 	var year = $('#year').val();
 	var week = $('#week').val();
