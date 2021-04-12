@@ -4,7 +4,9 @@ import com.howei.config.Sender;
 import com.howei.pojo.OperationRecord;
 import com.howei.pojo.Users;
 import com.howei.pojo.WorkPerator;
+import com.howei.service.UserService;
 import com.howei.service.WorkPeratorService;
+import com.howei.util.DateFormat;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/guide/operation")
@@ -22,7 +25,7 @@ public class OperationController {
     @Autowired
     private Sender sender;
     @Autowired
-    private WorkPeratorService wpService;
+    private UserService userService;
 
 
 
@@ -53,6 +56,18 @@ public class OperationController {
         record.setRemark(remark);
         record.setLongTime(timeMillis.toString());
         record.setCreateTime(sdf.format(timeMillis));
+
+        Map<String, Object> userSettinMap = userService.getUserSettingByEmployeeId(sendId);
+
+        String level = (String) userSettinMap.get(type + "_level");
+
+        Long confirmTime = DateFormat.getConfirmTimeMills(timeMillis, level);
+        if (confirmTime != null) {
+            record.setConfirmTime(sdf.format(confirmTime));
+        } else {
+            record.setConfirmTime("1");
+        }
+
         System.out.println("Openation::" + record);
         try {
             sender.send(record);
