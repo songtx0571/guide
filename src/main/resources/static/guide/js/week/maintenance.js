@@ -91,6 +91,8 @@ function change(){
 			layer.alert("系统繁忙");
 		}	
 	});
+	//填充工作安排A
+	fillA(datetime,project);
 }
 function addLeader(){
 	var userName = sessionStorage.Username;
@@ -321,6 +323,28 @@ function fill(data){
 		
 }
 
+//填充工作安排A
+function fillA(datetime,project){
+	project = Number(project);
+	$.ajax({
+		"type": 'post',
+		"url": "../MaintenanceController/getDefectList",
+		"data": {date: datetime, departmentId: project},
+		"success": function (Json) {
+			var data = Json.data;
+			var tbody0 = document.getElementById("tbody0");
+			var tr  = "";
+			if (data == null || data.length == 0){
+				tr = "<tr><td colspan='10'>无</td></tr>"
+			} else {
+				for (var i = 0; i < data.length; i ++) {
+					tr += "<tr></tr><td>"+(i+1)+"</td><td>"+data[i].number+"</td><td colspan='4'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td colspan='2'>"+data[i].confirmer1Time+"</td></tr>";
+				}
+			}
+			tbody0.innerHTML = tr;
+		}
+	});
+}
 
 function add(type){
 	var userName = sessionStorage.Username;
@@ -412,14 +436,11 @@ function updMaintenance(){
 
 
 function updWorkingHours(id){
-	var userName = sessionStorage.Username;
-	var projectId = $("#project").val();
     layer.open({
         type: 2,
         title:["检修工时修改",'font-size:20px;font-weight:bold;'],
-        area: ['500px', '150px'],
-        fixed: false, //不固定
-        maxmin: true,
+        shade: 0.5, //不显示遮罩
+        area: ['100%', '100%'],
         content: '../MaintenanceController/updMaintenanceRecord1?id='+id
     });
 }

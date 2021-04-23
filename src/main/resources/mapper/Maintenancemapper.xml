@@ -125,5 +125,9 @@
 	<update id='addLeader'  parameterType="com.howei.pojo.MaintenanceRecord">
 		UPDATE maintenance SET leader = #{maintenance.leader} WHERE id = #{maintenance.id}
 	</update>
+
+	<select id="getDefectList" resultType="com.howei.pojo.Defect">
+		select * from defect where company=1 and `type`=4 and DATE_FORMAT(confirmer1Time,'%Y-%m-%d')=DATE_FORMAT(#{date},'%Y-%m-%d') and departmentId=#{departmentId}
+	</select>
 	
 </mapper>

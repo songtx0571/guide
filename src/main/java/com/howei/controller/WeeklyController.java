@@ -1,11 +1,10 @@
 package com.howei.controller;
 
 
-import com.howei.pojo.Project;
-import com.howei.pojo.Users;
-import com.howei.pojo.Week;
-import com.howei.pojo.Weekly;
+import com.howei.pojo.*;
+import com.howei.service.UserService;
 import com.howei.service.WeeklyService;
+import com.howei.util.DateFormat;
 import com.howei.util.JsonResult;
 import com.howei.util.Type;
 import org.apache.shiro.SecurityUtils;
@@ -15,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,6 +27,9 @@ public class WeeklyController {
 
     @Autowired
     WeeklyService weeklyService;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 获取shiro存储的Users
@@ -401,5 +406,33 @@ public class WeeklyController {
             map.put("Name",users.getUserName());
         }
         return new JsonResult(map);
+    }
+
+    /**--------------------------------------获取缺陷系统的数据-----------------------------------------*/
+
+    @RequestMapping("getDefectList")
+    public JsonResult getDefectList(Integer departmentId,String date){
+        if(departmentId!=null && !date.equals("")){
+            Map map=new HashMap();
+            map.put("departmentId",departmentId);
+            Map<String,String> mapDate=DateFormat.getDateBothByWeekly(date);
+            map.put("startDate",mapDate.get("startDate"));
+            map.put("endDate",mapDate.get("endDate"));
+            List<Defect> list=weeklyService.getDefectList(map);
+            for (Defect defect:list){
+                String[] arr=defect.getEmpIds().split(",");
+                String empIdsName="";
+                for (String str:arr){
+                    Users users=userService.findByEmpId(str);
+                    if(users!=null){
+                        empIdsName+=users.getUserName()+"、";
+                    }
+                }
+                empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
+                defect.setEmpIdsName(empIdsName);
+            }
+            return new JsonResult(list);
+        }
+        return new JsonResult(null);
     }
 }

@@ -69,4 +69,10 @@ public class EquipmentServiceImpl implements EquipmentService {
     public Equipment getEquipmentByName(String name,String depatmentId) {
         return equipmentMapper.getEquipmentByName(name,depatmentId);
     }
+
+    @Override
+    public List<Map<String, Object>> getEquMap1(Map souMap) {
+        return equipmentMapper.getEquMap1(souMap);
+    }
+
 }

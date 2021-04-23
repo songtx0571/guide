@@ -1,9 +1,13 @@
 package com.howei.mapper;
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.Maintenance;
 import com.howei.pojo.MaintenanceRecord;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Map;
 
 @Component
 public interface MaintenanceMapper {
@@ -50,4 +54,6 @@ public interface MaintenanceMapper {
     int insertMaintenanceByLeader(@Param("maintenance") Maintenance maintenance);
 
     int addLeader(@Param("maintenance") Maintenance maintenance);
+
+    List<Defect> getDefectList(Map map);
 }

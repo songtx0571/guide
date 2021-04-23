@@ -102,13 +102,13 @@ function change(id){
 			sessionStorage.ScrDailyRecordType = data.type;
 			sessionStorage.ScrDailyRecordProject = data.projectId;
 			if(data.type==1){
-				document.getElementById("type").innerHTML = '8:00';
+				document.getElementById("type").innerHTML = '白班';
 				document.getElementById("h2").innerHTML = data.datetime + "8点脱硝运行日志";
 			}else if(data.type==2){
-				document.getElementById("type").innerHTML = '16:00';
+				document.getElementById("type").innerHTML = '中班';
 				document.getElementById("h2").innerHTML = data.datetime + "16点脱硝运行日志";
 			}else if(data.type==3){
-				document.getElementById("type").innerHTML = '0:00';
+				document.getElementById("type").innerHTML = '夜班';
 				document.getElementById("h2").innerHTML = data.datetime + "0点脱硝运行日志";
 			}
 			if(data.group==1){

@@ -38,4 +38,6 @@ public interface UsersMapper{
     String getNameByUserName(@Param("userNumber") String userNumber);
 
     Map<String, Object> getUserSettingByEmployeeId(@Param("employeeId") Integer employeeId);
+
+    Users findByEmpId(@Param("employeeId") String employeeId);
 }

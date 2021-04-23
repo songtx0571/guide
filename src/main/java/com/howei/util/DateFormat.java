@@ -1,8 +1,12 @@
 package com.howei.util;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DateFormat {
 
@@ -142,5 +146,104 @@ public class DateFormat {
             return timeMillis + 168 * 60 * 60 * 1000;
         }
         return null;
+    }
+
+    /**
+     * 获取指定日期在当年第几周
+     * @param today
+     * @return
+     */
+    public int getWeeklyByThisYear(String today){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        Date date1=null;
+        try {
+            date1=dateFormat.parse(today);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //获取一个Calendar对象
+        Calendar calendar = Calendar.getInstance();
+        //设置星期一为一周开始的第一天
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setTime(date1);
+        //设置在一年中第一个星期所需最少天数
+        calendar.setMinimalDaysInFirstWeek(4);
+        //格式化日期
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = null;
+        try {
+            parse = simpleDateFormat.parse(today);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(parse);
+        int weekOfYear1 = calendar.get(Calendar.WEEK_OF_YEAR);
+        return weekOfYear1;
+    }
+
+    /**
+     * 获取指定日期所在周的开始日期与结束日期
+     * @param today
+     * @return
+     */
+    public static Map<String,String> getDateBothByWeekly(String today){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        Date date1=null;
+        try {
+            date1=dateFormat.parse(today);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //获取一个Calendar对象
+        Calendar calendar = Calendar.getInstance();
+        //设置星期一为一周开始的第一天
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setTime(date1);
+        //格式化日期
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = null;
+        try {
+            parse = simpleDateFormat.parse(today);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(parse);
+        //获得当前日期属于今年的第几周
+        int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+        //获得当前的年
+        int weekYear = calendar.get(Calendar.YEAR);
+        calendar.setWeekDate(weekYear, weekOfYear, 2);//获得指定年的第几周的开始日期
+        long starttime = calendar.getTime().getTime();//创建日期的时间该周的第一天，
+        calendar.setWeekDate(weekYear, weekOfYear, 1);//获得指定年的第几周的结束日期
+        long endtime = calendar.getTime().getTime();
+        String dateStart = simpleDateFormat.format(starttime);//将时间戳格式化为指定格式
+        String dateEnd = simpleDateFormat.format(endtime);
+        Map<String,String> map=new HashMap<>();
+        map.put("startDate",dateStart);
+        map.put("endDate",dateEnd);
+        return  map;
+    }
+
+    /**
+     * 获取两个时间的相差小时
+     * @param beginTime
+     * @param endTime
+     * @return
+     * @throws ParseException
+     */
+    public static double getBothNH(String beginTime,String endTime)throws ParseException{
+        long nh = 1000 * 60 * 60;
+        long nm = 1000 * 60;
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long bt=sdf.parse(beginTime).getTime();
+        long et=sdf.parse(endTime).getTime();
+        long diff=(bt-et);
+        // 计算差多少小时
+        long hour = diff / nh;
+        // 计算差多少分钟
+        long min = diff  % nh / nm;
+        BigDecimal bd = new BigDecimal(hour+(Double.valueOf(min)/60));
+        double result=bd.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return result;
     }
 }

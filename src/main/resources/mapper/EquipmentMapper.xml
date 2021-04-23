@@ -76,4 +76,17 @@
         select * from equipment where name=#{name} and department=#{departmentId}
     </select>
 
+    <select id="getEquMap1" resultMap="equipMap" resultType="com.howei.pojo.Equipment" parameterType="java.util.HashMap">
+        select * from equipment
+        <where>
+            <if test="type!=null and type!=''">
+                type=#{type}
+            </if>
+            <if test="department!=null and department!=''">
+                and department=#{department}
+            </if>
+        </where>
+
+    </select>
+
 </mapper>

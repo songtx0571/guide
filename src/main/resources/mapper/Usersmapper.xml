@@ -62,4 +62,8 @@
     <select id="getUserSettingByEmployeeId" resultType="java.util.Map">
         select * from user_setting where employee_id=#{employeeId}
     </select>
+
+    <select id="findByEmpId" resultType="com.howei.pojo.Users">
+        select userName from users where employeeId=#{employeeId}
+    </select>
 </mapper>

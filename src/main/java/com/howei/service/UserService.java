@@ -28,4 +28,6 @@ public interface UserService {
     Users loginUserNumber(String userNumber);
 
     Map<String, Object> getUserSettingByEmployeeId(Integer employeeId);
+
+    Users findByEmpId(String str);
 }

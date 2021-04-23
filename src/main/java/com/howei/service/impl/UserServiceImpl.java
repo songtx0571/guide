@@ -43,4 +43,9 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> getUserSettingByEmployeeId(Integer employeeId) {
         return usersMapper.getUserSettingByEmployeeId(employeeId);
     }
+
+    @Override
+    public Users findByEmpId(String str) {
+        return usersMapper.findByEmpId(str);
+    }
 }

@@ -45,7 +45,7 @@ body{width:98%;height: 98%;}
                 	<tr>
                     	<th width="5%">序号</th>
                         <th width="15%">日期</th>
-                        <th width="20%">交班时间</th>
+                        <th width="20%">班次</th>
                         <th width="30%">交班人</th>
                         <th width="30%">接班人</th>
                    </tr>

@@ -1,7 +1,10 @@
 package com.howei.controller;
 
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.Users;
+import com.howei.service.UserService;
+import com.howei.util.DateFormat;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * 
@@ -34,6 +36,9 @@ public class MaintenanceController {
 
     @Autowired
     MaintenanceService maintenanceService;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 获取shiro存储的Users
@@ -256,5 +261,31 @@ public class MaintenanceController {
             Maintenance.setDatetime(sdf.format(date));
         }
         return new JsonResult(Maintenance);
+    }
+
+    /**--------------------------------------获取缺陷系统的数据-----------------------------------------*/
+
+    @RequestMapping("getDefectList")
+    public JsonResult getDefectList(Integer departmentId,String date){
+        if(departmentId!=null && !date.equals("")){
+            Map map=new HashMap();
+            map.put("departmentId",departmentId);
+            map.put("date",date);
+            List<Defect> list=maintenanceService.getDefectList(map);
+            for (Defect defect:list){
+                String[] arr=defect.getEmpIds().split(",");
+                String empIdsName="";
+                for (String str:arr){
+                    Users users=userService.findByEmpId(str);
+                    if(users!=null){
+                        empIdsName+=users.getUserName()+"、";
+                    }
+                }
+                empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
+                defect.setEmpIdsName(empIdsName);
+            }
+            return new JsonResult(list);
+        }
+        return new JsonResult(null);
     }
 }

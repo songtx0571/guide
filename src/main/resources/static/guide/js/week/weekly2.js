@@ -1,26 +1,27 @@
 var _userName = "";
+var YearWeek = "";
+var yearWeek = "";
 $(function(){
 	var tmpDate = new Date();
 	var D = tmpDate.getDate();
 	var M = tmpDate.getMonth() + 1;
 	var Y = tmpDate.getFullYear();
-	var YearWeek = getYearWeek(Y,M,D);
-
+	YearWeek = getYearWeek(Y,M,D);
 	document.getElementById("year").value = Y;
-	document.getElementById('week').value = YearWeek;
 	var type = sessionStorage.weeklyType;
 	var year = sessionStorage.weeklyyear;
-	var yearWeek = sessionStorage.weeklyYearWeek;
-
+	yearWeek = sessionStorage.weeklyYearWeek;
+	if (M < 10) {
+		M = "0"+M;
+	}
+	$("#datetime").val(Y+"-"+M+"-"+D)
 	if(type){
 		$('#type').val(type);
 	}
 	if(year){
 		document.getElementById("year").value = year;
 	}
-	if(yearWeek){
-		document.getElementById('week').value = yearWeek;
-	}
+
 	getProject()
 	$.ajax({
 		"type": 'post',
@@ -59,7 +60,12 @@ function getProject(){
 function change(){
 	$("tbody tr").remove("tr[id=123]");
 	var year = $('#year').val();
-	var week = $('#week').val();
+	var dateDay = $("#datetime").val();
+	var y = dateDay.substring(0,4);
+	var m = dateDay.substr(5,2);
+	var d = dateDay.substr(8,2);
+	getYearWeek(y,m,d)
+	var week = getYearWeek(y,m,d);
 	var type = $('#type').val();
 	var project = $('#project').val();
 	sessionStorage.weeklyType =  $('#type').val();
@@ -117,6 +123,8 @@ function change(){
 			layer.alert("系统繁忙");
 		}
 	});
+	//填充本周生产情况A
+	fillA(year,dateDay,project);
 }
 function fill(data){
 
@@ -298,6 +306,30 @@ function fill(data){
 
 }
 
+//填充本周生产情况A
+function fillA(year,dateDay,project){
+	year = Number(year);
+	project = Number(project);
+	$.ajax({
+		"type": 'post',
+		"url": "../WeeklyController/getDefectList",
+		"data": {date:dateDay,departmentId:project},
+		"success": function (Json) {
+			var data = Json.data;
+			var tbody0 = document.getElementById("tbody0");
+			var tr  = "";
+			if (data == null || data.length == 0){
+				tr = "<tr><td colspan='10'>无</td></tr>"
+			} else {
+				for (var i = 0; i < data.length; i ++) {
+					tr += "<tr></tr><td>"+(i+1)+"</td><td>"+data[i].number+"</td><td colspan='2'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>"+data[i].confirmer1Time+"</td></tr>";
+				}
+			}
+			tbody0.innerHTML = tr;
+		}
+	});
+}
+
 function add(type){
 	var weekId = sessionStorage.weekId;
 	if(weekId==0){
@@ -357,7 +389,7 @@ function getPermissionId(index){
 function updWeek(){
 	var projectId = $("#project").val();
 	var year = $('#year').val();
-	var week = $('#week').val();
+	var week = sessionStorage.weeklyYearWeek;
 	var type = $('#type').val();
 	layer.open({
 		type: 2,
@@ -476,7 +508,6 @@ function addAuditor(){
 	var week = sessionStorage.weeklyYearWeek;
 	var project = sessionStorage.weeklyProject;
 	var Auditor = sessionStorage.weeklyAuditor;
-	console.log(Auditor);
 	if(Auditor != ""&&Auditor != null){
 		var Auditors = Auditor.split(";");
 		for(var i=0;i<Auditors.length;i++){
@@ -506,6 +537,7 @@ function addAuditor(){
 }
 //删除批准人
 function delAuditor(index){
+	debugger;
 	var userName = _userName;
 	var weekId = sessionStorage.weekId;
 	var Auditor = sessionStorage.weeklyAuditor;
@@ -592,7 +624,7 @@ function isLeapYear(year) {
 }
 
 function funccc(){
-	$dp.$('week').value=$dp.cal.getP('W','WW');
+	// $dp.$('week').value=$dp.cal.getP('W','WW');
 	document.getElementById("year").value = $dp.cal.getP('y');
 }
 

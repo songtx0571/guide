@@ -33,4 +33,7 @@ public interface EquipmentService {
     List<Equipment> getEquMap(Map map);
 
     Equipment getEquipmentByName(String sysName,String depatmentId);
+
+    List<Map<String,Object>> getEquMap1(Map souMap);
+
 }

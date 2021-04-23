@@ -1,5 +1,6 @@
 package com.howei.service.impl;
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.Maintenance;
 import com.howei.pojo.MaintenanceRecord;
 import com.howei.mapper.MaintenanceMapper;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -198,4 +200,8 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         return num;
     }
 
+    @Override
+    public List<Defect> getDefectList(Map map) {
+        return maintenancemapper.getDefectList(map);
+    }
 }

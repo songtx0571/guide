@@ -31,4 +31,6 @@ public interface EquipmentMapper {
     List<Equipment> getEquMap(Map map);
 
     Equipment getEquipmentByName(@Param("name") String name,@Param("departmentId") String depatmentId);
+
+    List<Map<String,Object>> getEquMap1(Map souMap);
 }

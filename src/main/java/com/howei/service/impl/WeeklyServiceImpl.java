@@ -1,6 +1,7 @@
 package com.howei.service.impl;
 
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.Project;
 import com.howei.pojo.Week;
 import com.howei.pojo.Weekly;
@@ -9,6 +10,9 @@ import com.howei.mapper.WeeklyMapper;
 import com.howei.service.WeeklyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class WeeklyServiceImpl implements WeeklyService {
@@ -220,4 +224,8 @@ public class WeeklyServiceImpl implements WeeklyService {
         return num;
     }
 
+    @Override
+    public List<Defect> getDefectList(Map map) {
+        return weeklymapper.getDefectList(map);
+    }
 }

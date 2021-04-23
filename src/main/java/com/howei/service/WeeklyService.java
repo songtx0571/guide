@@ -1,9 +1,13 @@
 package com.howei.service;
 
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.Project;
 import com.howei.pojo.Week;
 import com.howei.pojo.Weekly;
+
+import java.util.List;
+import java.util.Map;
 
 public interface WeeklyService {
 
@@ -41,4 +45,6 @@ public interface WeeklyService {
     int addAuditor(Week week);
 
     int delAuditor(int id, String userName);
+
+    List<Defect> getDefectList(Map map);
 }

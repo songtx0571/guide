@@ -1,7 +1,11 @@
 package com.howei.service;
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.Maintenance;
 import com.howei.pojo.MaintenanceRecord;
+
+import java.util.List;
+import java.util.Map;
 
 public interface MaintenanceService {
 
@@ -33,4 +37,5 @@ public interface MaintenanceService {
 
     int delLeader(int id, String userName);
 
+    List<Defect> getDefectList(Map map);
 }

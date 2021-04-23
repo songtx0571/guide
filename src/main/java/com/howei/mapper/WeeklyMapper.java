@@ -1,10 +1,14 @@
 package com.howei.mapper;
 
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.Project;
 import com.howei.pojo.Week;
 import com.howei.pojo.Weekly;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 public interface WeeklyMapper {
 
@@ -45,4 +49,6 @@ public interface WeeklyMapper {
     int addAuditor(@Param("week") Week week);
 
     int insertWeekByAuditor(@Param("week") Week week);
+
+    List<Defect> getDefectList(Map map);
 }

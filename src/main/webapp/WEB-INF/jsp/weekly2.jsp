@@ -20,7 +20,8 @@
 	<div>
 		<span>
 			年份选择:<input type="text" id="year" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy年',maxDate:'%y'})" class="Wdate"/>
-			周选择:<input id="week" class="Wdate" type="text" onfocus="WdatePicker({isShowWeek:true,onpicked:funccc,errDealMode:3,maxDate:'%y-%M-%d'})"/>
+			周选择:
+			<input type="text" id="datetime"  onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="Wdate"/>
 			类别选择:<select id='type'>
 				<option value="1">电仪</option>
 				<option value="2">机务</option>
@@ -39,14 +40,27 @@
 					<td id='fillIn' colspan="3"></td>
 					<th>批准人</th>
 					<td  colspan="2"  id='auditor'></td>
-				</tr> 
+				</tr>
+				<tr>
+					<th colspan="7">本周生产情况A</th>
+				</tr>
+				<tr>
+					<th width='8%'>序号</th>
+					<th width='12%'>缺陷号</th>
+					<th width='32%' colspan="2">缺陷名称和处理方法</th>
+					<th width='18%'>人员</th>
+					<th width='10%'>工时</th>
+					<th width='15%'>完成时间</th>
+				</tr>
+			</thead>
+			<tbody id='tbody0'></tbody>
+			<thead>
 				<tr>
 					<th colspan="7">本周生产情况</th>
 				</tr>
 				<tr>
 					<th>序号</th>
-					<th colspan="5">内容</th>
-					<th>操作</th>
+					<th colspan="6">内容</th>
 				</tr>
 			</thead>
 			<tbody id='tbody1'></tbody>

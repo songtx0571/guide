@@ -71,11 +71,11 @@ function bigDataTable(project){
    	    	 {"data" : "datetime","width": "25%" },  
     	     {"data" : "type","width": "10%", "render": function ( data, type, full, meta ) {
                     if(data==1){
-                    	return "8:00";
+                    	return "白班";
                     }else if(data==2){
-                    	return "16:00";
+                    	return "中班";
                     }else{
-                    	return "0:00";
+                    	return "夜班";
                     }
                   }  
    	    	 }, 

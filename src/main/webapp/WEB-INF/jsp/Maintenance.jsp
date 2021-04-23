@@ -9,14 +9,10 @@
 <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 <link rel="stylesheet" href="../css/iframe.css" media="screen"/>
 <link rel="stylesheet" href="../css/tr.css"/>
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <title>检修日志</title>
 </head>
 <body>
-	<div>
+	<div style="height: 100%">
 		<span class='span'>
 		日期选择<input type="text" id="datetime"  onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="Wdate"/>
 		<shiro:hasPermission name='项目部选择'>
@@ -35,6 +31,20 @@
 					<td width='10%'>出勤人数</td>
 					<td colspan="2" width='25%' id='attendance'></td>
 				</tr>
+				<tr>
+					<td colspan="10">工作安排A</td>
+				</tr>
+				<tr>
+					<td width='8%'>序号</td>
+					<td width='12%'>缺陷号</td>
+					<td width='42%' colspan="4">缺陷名称和处理方法</td>
+					<td width='18%'>人员</td>
+					<td width="5">工时</td>
+					<td width='15%' colspan="2">完成时间</td>
+				</tr>
+			</thead>
+			<tbody id='tbody0'></tbody>
+			<thead>
 				<tr>
 					<td colspan="10">工作安排</td>
 				</tr>

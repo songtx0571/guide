@@ -115,6 +115,13 @@
 	<update id="addAuditor"  parameterType="com.howei.pojo.Week">
 		UPDATE weekly SET auditor = #{week.auditor} WHERE id = #{week.id}
 	</update>
+
+	<select id="getDefectList" resultType="com.howei.pojo.Defect">
+		select * from defect where company=1 and `type`=4
+		and DATE_FORMAT(confirmer1Time,'%Y-%m-%d') &gt;= DATE_FORMAT(#{startDate},'%Y-%m-%d')
+		and DATE_FORMAT(confirmer1Time,'%Y-%m-%d') &lt;= DATE_FORMAT(#{endDate},'%Y-%m-%d')
+		and departmentId=#{departmentId}
+	</select>
 	
 
 </mapper>
