@@ -39,8 +39,8 @@
     </select>
 
     <insert id="addDefect" parameterType="com.howei.pojo.Defect" keyProperty="id" useGeneratedKeys="true">
-        insert into defect(company,createdBy,`level`,created,`type`,departmentId,abs,sysId,equipmentId,maintenanceCategory,`year`,bPlc) value
-        (#{company},#{createdBy},#{level},#{created},#{type},#{departmentId},#{abs},#{sysId},#{equipmentId},#{maintenanceCategory},#{year},#{bPlc})
+        insert into defect(company,createdBy,`level`,created,`type`,departmentId,abs,sysId,equipmentId,maintenanceCategory,`year`,bPlc,sourceType) value
+        (#{company},#{createdBy},#{level},#{created},#{type},#{departmentId},#{abs},#{sysId},#{equipmentId},#{maintenanceCategory},#{year},#{bPlc},#{sourceType})
     </insert>
 
     <update id="updDefect" useGeneratedKeys="true" keyProperty="id" parameterType="com.howei.pojo.Defect">

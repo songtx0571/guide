@@ -6,6 +6,8 @@ import com.howei.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +74,18 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public List<Map<String, Object>> getEquMap1(Map souMap) {
-        return equipmentMapper.getEquMap1(souMap);
+        List<Equipment> list=equipmentMapper.getEquMap(souMap);
+        List<Map<String,Object>> result=new ArrayList<>();
+        if(list!=null){
+            for (int i = 0; i < list.size(); i++) {
+                Equipment equipment = list.get(i);
+                Map<String, Object> eMap = new HashMap<>();
+                eMap.put("text", equipment.getName());
+                eMap.put("id", equipment.getId());
+                result.add(eMap);
+            }
+        }
+        return result;
     }
 
 }

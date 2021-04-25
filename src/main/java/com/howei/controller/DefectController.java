@@ -3,6 +3,7 @@ package com.howei.controller;
 import com.alibaba.fastjson.JSON;
 import com.howei.pojo.Company;
 import com.howei.pojo.Defect;
+import com.howei.pojo.Equipment;
 import com.howei.pojo.Users;
 import com.howei.service.CompanyService;
 import com.howei.service.DefectService;
@@ -149,6 +150,7 @@ public class DefectController {
         Iterator<Defect> iterator = list.iterator();
         while(iterator.hasNext()) {
             Defect defect = iterator.next();
+            //获取执行人
             String[] strs=(defect.getEmpIds()!=null&&(!defect.getEmpIds().equals("")))? defect.getEmpIds().split(","):null;
             if(strs!=null){
                 String empIdsName="";
@@ -226,7 +228,22 @@ public class DefectController {
         if(company!=null && company.getCodeName().equals("")){
             return JSON.toJSONString(Type.NoDepNumber);//当前部门无编号
         }
+        //根据来源设置系统及设备
+        //1：defect项目创建
+        //2：guide项目创建
+        if(defect.getSourceType()==2){
+            String sysName=defect.getSysName();//系统名称
+            String equipName=defect.getEquipmentName();//设备名称
 
+            Equipment equipment=equipmentService.getEquipmentByName(sysName,defect.getDepartmentId().toString());
+            if(equipment!=null){
+                defect.setSysId(equipment.getId());
+            }
+            equipment=equipmentService.getEquipmentByName(equipName,defect.getDepartmentId().toString());
+            if(equipment!=null){
+                defect.setEquipmentId(equipment.getId());
+            }
+        }
         int result=defectService.addDefect(defect);
         //设置缺陷单编号
         if(result>=0){
