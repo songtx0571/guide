@@ -7,11 +7,11 @@ $(document).ready( function () {
     	"data":{userName:userName}, 
     	"success":function(Json){
     		var data = Json.data;
-    		document.getElementById('project').length = 0;
+    		//document.getElementById('project').length = 0;
     		var project = document.getElementById('project');
     		for(var i = 0;i<data.length;i++){
     			var opt1 = new Option(data[i].projectTeam, data[i].id); 
-    			project.options.add(opt1);
+    			//project.options.add(opt1);
     		}
     		bigDataTable($('#project').val(),$('#other').val());
     		$('#DataTable tbody').on('click','tr td:nth-child(2)', function (e) {

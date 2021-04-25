@@ -411,7 +411,7 @@ public class WeeklyController {
     /**--------------------------------------获取缺陷系统的数据-----------------------------------------*/
 
     @RequestMapping("getDefectList")
-    public JsonResult getDefectList(Integer departmentId,String date){
+    public JsonResult getDefectList(Integer departmentId,String date) throws ParseException {
         if(departmentId!=null && !date.equals("")){
             Map map=new HashMap();
             map.put("departmentId",departmentId);
@@ -430,6 +430,16 @@ public class WeeklyController {
                 }
                 empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
                 defect.setEmpIdsName(empIdsName);
+                String realETime=DateFormat.getYMDHMS(new Date());//实际结束时间
+                String planedTime=defect.getPlanedTime();//计划完成时间
+                String realSTime=defect.getRealSTime();//实际开始时间
+                double diff1=DateFormat.getBothNH(realSTime,planedTime);
+                double diff2=DateFormat.getBothNH(realSTime,realETime);
+                if(diff1<=diff2){
+                    defect.setRealExecuteTime(diff1);
+                }else{
+                    defect.setRealExecuteTime(diff2);
+                }
             }
             return new JsonResult(list);
         }

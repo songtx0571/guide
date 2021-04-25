@@ -32,7 +32,7 @@ input {height: 24px;}
 		<input id='print1' onclick="aa()" type="button" value="打印"/>
 		<input id='print1' onclick="exportWord()" type="button" value="导出"/>
 		</span>
-		<input type="hidden" id='id' value="${param.id}" />
+		<input type="hidden" id='id' value="${id}" />
 		
 		<div id='myElementId'>
 		<h2 id='h'></h2>

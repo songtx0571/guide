@@ -11,7 +11,7 @@ function next(){
 	var type = sessionStorage.ScrDailyRecordType;
 	var project = sessionStorage.ScrDailyRecordProject;
 	var str = document.getElementById("datetime").innerHTML;
-	var datetime = str.substring(3,str.length);
+	var datetime = $("#datetime1").val();
 	$.ajax({ 
 		"type" : 'post', 
 		"url": "../ScrDailyController/next",  
@@ -40,7 +40,7 @@ function last(){
 	var type = sessionStorage.ScrDailyRecordType;
 	var project = sessionStorage.ScrDailyRecordProject;
 	var str = document.getElementById("datetime").innerHTML;
-	var datetime = str.substring(3,str.length);
+	var datetime = $("#datetime1").val();
 	$.ajax({ 
 		"type" : 'post', 
 		"url": "../ScrDailyController/last",  
@@ -90,6 +90,7 @@ function change(id){
 		"data":{id:id},
 		"success":function(Json){
 			var data = Json.data;
+			console.log(data.datetime)
 			document.getElementById("successor").innerHTML = data.successorName;
 			document.getElementById("traders").innerHTML = data.tradersName;
 			document.getElementById("recorder").innerHTML = data.recorderName;

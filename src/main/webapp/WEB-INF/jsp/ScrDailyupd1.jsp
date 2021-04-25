@@ -20,18 +20,18 @@
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'id' value="${param.ScrDailyRecord.id}" style="display: none;"/>
+		<input type="text" id = 'id' value="${ScrDailyRecord.id}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>时间</th>
 				<th>
-					<input type="text" id="content1" value="${param.ScrDailyRecord.content1}" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					<input type="text" id="content1" value="${ScrDailyRecord.content1}" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea id='content2' rows="5" cols="50" maxlength="100" text="${param.param.ScrDailyRecord.content2}"></textarea>
+					<textarea id='content2' rows="5" cols="50" maxlength="100" text="${ScrDailyRecord.content2}">${ScrDailyRecord.content2}</textarea>
 				</th>
 			</tr>
 			<tr>

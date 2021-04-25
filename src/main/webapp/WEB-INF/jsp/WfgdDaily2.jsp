@@ -30,7 +30,7 @@
 		</shiro:hasPermission>
 			<input id='query' onclick="change()" type="button" value="查询"/>
 		</span>
-		
+
 		<table  style="width: 60%;margin-top: 50px;">
 			<thead >
 				<tr>
@@ -51,7 +51,7 @@
 				</tr>
 			</thead>
 			<tbody id='tbody1'>
-				
+
 			</tbody>
 			<tbody>
 				<tr>
@@ -80,7 +80,7 @@
 				</tr>
 			</thead>
 			<tbody id='tbody3'>
-				
+
 			</tbody>
 			<thead>
 				<tr><td colspan="10">异常参数记录</td></tr>
@@ -92,7 +92,7 @@
 				</tr>
 			</thead>
 			<tbody id='tbody4'>
-				
+
 			</tbody>
 		</table>
 	</div>

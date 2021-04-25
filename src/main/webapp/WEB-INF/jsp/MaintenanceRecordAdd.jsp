@@ -9,15 +9,11 @@
 <script type="text/javascript"  src="../js/week/maintenanceChange.js"></script>
 <link rel="stylesheet" href="../css/iframe.css"/>
 <link rel="stylesheet" href="../css/tr2.css"/>
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'type' value="${param.type}" style="display: none;"/>
-		<input type="text" id = 'maintenanceId' value="${param.maintenanceId}" style="display: none;"/>
+		<input type="text" id = 'type' value="${type}" style="display: none;"/>
+		<input type="text" id = 'maintenanceId' value="${maintenanceId}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>内容</th>

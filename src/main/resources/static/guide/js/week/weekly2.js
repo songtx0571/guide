@@ -322,14 +322,86 @@ function fillA(year,dateDay,project){
 				tr = "<tr><td colspan='10'>无</td></tr>"
 			} else {
 				for (var i = 0; i < data.length; i ++) {
-					tr += "<tr></tr><td>"+(i+1)+"</td><td>"+data[i].number+"</td><td colspan='2'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>"+data[i].confirmer1Time+"</td></tr>";
+					tr += "<tr></tr><td>"+(i+1)+"</td><td onclick='showDetailedInfoDiv("+data[i].id+")'>"+data[i].number+"</td><td colspan='2'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>"+data[i].confirmer1Time+"</td></tr>";
 				}
 			}
 			tbody0.innerHTML = tr;
 		}
 	});
 }
-
+//点击缺陷号显示详细信息
+function showDetailedInfoDiv (id) {
+	$.ajax({
+		type: 'GET',
+		url: "/guide/defect/getDefectById",
+		data: {id:id},
+		success: function (data) {
+			$("#detailedInfoId").text(data.id);//id
+			$("#detailedInfoNumber").text(data.number);//编号
+			$("#detailedInfoSys").text(data.sysName+","+data.equipmentName);//系统 设备
+			$("#detailedInfoLevel").text(data.level+"类");//级别
+			if (data.maintenanceCategory == 1) {//类别
+				$("#detailedInfoMan").text("机务");
+			} else {
+				$("#detailedInfoMan").text("电仪");
+			}
+			if (data.type == 1) {//状态
+				$("#detailedInfoStatus").text("未认领");
+			} else if (data.type == 2) {
+				$("#detailedInfoStatus").text("消缺中");
+			} else if (data.type == 3) {
+				$("#detailedInfoStatus").text("已消缺");
+			} else if (data.type == 4) {
+				$("#detailedInfoStatus").text("已完成");
+			} else if (data.type == 5) {
+				$("#detailedInfoStatus").text("已认领");
+			} else if (data.type == 6) {
+				$("#detailedInfoStatus").text("延期中");
+			}
+			$("#detailedInfoCreateName").text(data.createdByName);//创建人
+			$("#detailedInfoCreateTime").text(data.created);//创建时间
+			$("#detailedInfoPlannedWork").text(data.plannedWork);//计划工时
+			$("#detailedInfoRealExecuteTime").text(data.realExecuteTime);//实际工时
+			if (data.delayReason == 1) {
+				$("#detailedInfoBelay").text('等待备件');//延期原由
+			} else if (data.delayReason == 2) {
+				$("#detailedInfoBelay").text('无法安措');//延期原由
+			} else if (data.delayReason == 3) {
+				$("#detailedInfoBelay").text('停炉处理');//延期原由
+			} else if (data.delayReason == 4) {
+				$("#detailedInfoBelay").text('继续观察');//延期原由
+			} else {
+				$("#detailedInfoBelay").text('无');//延期原由
+			}
+			$("#detailedInfoBelayTime").text(data.delayETime);//延期时间
+			$("#detailedInfoStaff").text(data.empIdsName);//消缺人
+			$("#detailedInfoPlanedTime").text(data.planedTime);//计划完成时间
+			$("#detailedInfoRealETime").text(data.realETime);//实际完成时间
+			$("#detailedInfoAbs").val(data.abs);//缺陷描述
+			$("#detailedInfoMethod").val(data.method);//处理措施
+			$("#detailedInfoProblem").val(data.problem);//遗留问题
+			$("#detailedInfoRemark").val(data.remark);//备注
+			$("#detailedInfoBImg").css("display","block");
+			$("#detailedInfoAImg").css("display","block");
+			$("#detailedInfoBImg").attr("src", "data:img/jpeg;base64,"+data.bPlc64);//消缺前图片
+			$("#detailedInfoAImg").attr("src", "data:img/jpeg;base64,"+data.aPlc64);//消缺后图片
+			if(data.bPlc64==null){
+				$("#detailedInfoBImg").css("display","none");
+			}else if (data.bPlc64 == "") {
+				$("#detailedInfoBImg").attr("src","../img/noImg.png");
+			}
+			if(data.aPlc64==null){
+				$("#detailedInfoAImg").css("display","none");
+			}else if (data.aPlc64 == "") {
+				$("#detailedInfoAImg").attr("src","../img/noImg.png");
+			}
+			$(".detailedInfoDiv").css("display","block");
+		}
+	})
+}
+function cancel () {
+	$(".detailedInfoDiv").css("display","none");
+}
 function add(type){
 	var weekId = sessionStorage.weekId;
 	if(weekId==0){
@@ -428,7 +500,7 @@ function addFillIn(){
 		FillIn = userName;
 	}
 
-	debugger;
+
 	if(project==null){
 		project=0;
 	}
@@ -537,7 +609,6 @@ function addAuditor(){
 }
 //删除批准人
 function delAuditor(index){
-	debugger;
 	var userName = _userName;
 	var weekId = sessionStorage.weekId;
 	var Auditor = sessionStorage.weeklyAuditor;

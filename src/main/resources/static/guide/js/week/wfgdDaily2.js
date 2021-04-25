@@ -23,7 +23,6 @@ function getUserName() {
         "url": "../WeeklyController/getParamList",
         "success":function(Json){
         	var info=Json.data.userName;
-        	alert(info);
             sessionStorage.Username=info;
         }
     });

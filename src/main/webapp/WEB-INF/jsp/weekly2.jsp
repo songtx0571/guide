@@ -14,6 +14,22 @@
 	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
 	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+	<style>
+		.detailedInfoDiv{
+			display: none;
+			background: #fff;
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+		}
+		.img-change:hover{
+			transform: scale(5);
+		}
+		body::-webkit-scrollbar{
+			display: none;
+		}
+	</style>
 <title>周报</title>
 </head>
 <body>
@@ -31,6 +47,84 @@
 				<input id='query' onclick="change()" type="button" value="查询"/>
 			</shiro:hasPermission>
 		</span>
+		<!-- 详细信息 -->
+		<div class="detailedInfoDiv">
+			<input type="hidden" id="detailedInfoId">
+			<table>
+				<thead>
+				<tr><td colspan="10" style="text-align: center;font-weight: bold;font-size: 18px;">缺陷详单</td></tr>
+				</thead>
+				<tbody>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">缺陷编号</th>
+					<td id="detailedInfoNumber"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">所属系统</th>
+					<td colspan="4" id="detailedInfoSys"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">级别</th>
+					<td colspan="2" id="detailedInfoLevel"></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">处理类别</th>
+					<td id="detailedInfoMan"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">创建时间</th>
+					<td colspan="4" id="detailedInfoCreateTime"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">创建人</th>
+					<td colspan="2" id="detailedInfoCreateName"></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">状态</th>
+					<td id="detailedInfoStatus"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">延期时间</th>
+					<td colspan="3" id="detailedInfoBelayTime"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">延期原由</th>
+					<td colspan="2" id="detailedInfoBelay"></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">消缺人</th>
+					<td colspan="2" id="detailedInfoStaff"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">计划工时</th>
+					<td id="detailedInfoPlannedWork"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">实际工时</th>
+					<td  id="detailedInfoRealExecuteTime"></td>
+					<th style="padding-right: 8px;box-sizing: border-box;">实际完成时间</th>
+					<td id="detailedInfoRealETime"></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">缺陷描述</th>
+					<td colspan="9"><textarea id='detailedInfoAbs' rows="5" cols="80" maxlength="80"></textarea></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">处理措施</th>
+					<td colspan="9"><textarea id='detailedInfoMethod' rows="5" cols="80" maxlength="80"></textarea></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">遗留问题</th>
+					<td colspan="9"><textarea id='detailedInfoProblem' rows="5" cols="80" maxlength="80"></textarea></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">备注</th>
+					<td colspan="9"><textarea id='detailedInfoRemark' rows="5" cols="80" maxlength="80"></textarea></td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">消缺前图片</th>
+					<td colspan="9" style="padding: 8px;box-sizing: border-box;">
+						<img src="" id="detailedInfoBImg" class="img-change" alt="无图片">
+					</td>
+				</tr>
+				<tr>
+					<th style="padding-right: 8px;box-sizing: border-box;">消缺后图片</th>
+					<td colspan="9" style="padding-left: 8px;box-sizing: border-box;">
+						<img src="" id="detailedInfoAImg" class="img-change" alt="无图片">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="10">
+						<button onclick="cancel()">取消</button>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
 		<table id='table' style="width: 60%;margin-top: 50px;">
 			<thead>
 				<tr>

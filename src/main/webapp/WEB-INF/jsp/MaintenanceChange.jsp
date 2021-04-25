@@ -9,30 +9,26 @@
 <script type="text/javascript"  src="../js/week/maintenanceChange.js"></script>
 <link rel="stylesheet" href="../css/iframe.css"/>
 <link rel="stylesheet" href="../css/tr2.css"/>
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <style type="text/css">
 input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 98%;height: 30px;line-height: 100%;background-color: #FFF;}
 </style>
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'id' value="${param.Maintenance.id}" style="display: none;"/>
-		<input type="text" id = 'datetime' value="${param.Maintenance.datetime}" style="display: none;"/>
-		<input type="text" id = 'projectId' value="${param.Maintenance.projectId}" style="display: none;"/>
+		<input type="text" id = 'id' value="${Maintenance.id}" style="display: none;"/>
+		<input type="text" id = 'datetime' value="${Maintenance.datetime}" style="display: none;"/>
+		<input type="text" id = 'projectId' value="${Maintenance.projectId}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>当班负责人</th>
 				<th>
-					<input type="text" id='leader' value="${param.Maintenance.leader}"/>
+					<input type="text" id='leader' value="${Maintenance.leader}"/>
 				</th>
 			</tr>
 			<tr>
 				<th id='th1'>出勤人数</th>
 				<th>
-					<input type="text" id='attendance' value="${param.Maintenance.attendance}"/>
+					<input type="text" id='attendance' value="${Maintenance.attendance}"/>
 				</th>
 			</tr>
 			<tr>
