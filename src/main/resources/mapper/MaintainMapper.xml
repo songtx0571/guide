@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.howei.mapper.MaintainMapper">
+
+
+    <resultMap id="maintainMap" type="com.howei.pojo.Maintain">
+        <id column="id" property="id"/>
+        <result column="company_id" property="companyId"/>
+        <result column="employee_id" property="employeeId"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="system_id" property="systemId"/>
+        <result column="system_name" property="systemName"/>
+        <result column="equipment_id" property="equipmentId"/>
+        <result column="equipment_name" property="equipmentName"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="unit_name" property="unitName"/>
+        <result column="work_content" property="workContent"/>
+        <result column="planed_working_hour" property="planedWorkingHour"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="start_time" property="startTime"/>
+        <result column="assignment_status" property="assignmentStatus"/>
+    </resultMap>
+
+
+    <resultMap id="maintainRecordMap" type="com.howei.pojo.MaintainRecord">
+        <id column="id" property="id"/>
+        <result column="maintain_id" property="maintainId"/>
+        <result column="maintain_record_no" property="maintainRecordNo"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="employee_id" property="employeeId"/>
+
+        <result column="work_feedback" property="workFeedback"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="working_hour" property="workingHour"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="start_time" property="startTime"/>
+
+        <result column="system_name" property="systemName"/>
+        <result column="equipment_name" property="equipmentName"/>
+        <result column="unit_name" property="unitName"/>
+    </resultMap>
+
+
+    <insert id="insertMaintain">
+        insert into maintain(company_id,employee_id,department_id,system_id,equipment_id,unit_id,work_content,cycle,planed_working_hour,create_time,update_time,start_time)
+        value
+        (#{record.companyId},#{record.employeeId},#{record.departmentId},#{record.systemId},#{record.equipmentId},#{record.unitId},#{record.workContent},#{record.cycle},#{record.planedWorkingHour},#{record.createTime},#{record.updateTime},#{record.startTime});
+
+    </insert>
+    <insert id="insertMaintainRecord">
+
+        insert into maintain_record (maintain_id,employee_id,claim_time,create_time,update_time,department_id)
+        value
+        (#{record.maintainId},#{record.employeeId},#{record.claimTime},#{record.createTime},#{record.updateTime},#{record.departmentId})
+
+
+    </insert>
+    <update id="updateMaintainById">
+        update maintain
+        set
+        update_time=#{record.updateTime}
+        <if test="record.systemId!=null">
+            ,system_id=#{record.systemId}
+        </if>
+        <if test="record.equipmentId!=null">
+            ,equipment_id=#{record.equipmentId}
+        </if>
+        <if test="record.unitId!=null">
+            ,unit_id=#{record.unitId}
+        </if>
+        <if test="record.workContent!=null">
+            ,work_content=#{record.workContent}
+        </if>
+        <if test="record.cycle!=null">
+            ,cycle=#{record.cycle}
+        </if>
+        <if test="record.assignmentStatus!=null">
+            ,assignment_status=#{record.assignmentStatus}
+        </if>
+        <if test="record.planedWorkingHour!=null">
+            ,planed_working_hour=#{record.planedWorkingHour}
+        </if>
+        <if test="record.startTime!=null">
+            ,start_time=#{record.startTime}
+        </if>
+        where
+        id=#{record.id}
+    </update>
+    <update id="updateMaintainRecordById">
+        update maintain_record
+        set
+        update_time=#{record.updateTime}
+        <if test="record.maintainRecordNo!=null">
+            ,maintain_record_no=#{record.maintainRecordNo}
+        </if>
+        <if test="record.workFeedback!=null">
+            ,work_feedback=#{record.workFeedback}
+        </if>
+        <if test="record.startTime!=null">
+            ,start_time=#{record.startTime}
+        </if>
+        <if test="record.endTime!=null">
+            ,end_time=#{record.endTime}
+        </if>
+        <if test="record.workingHour!=null">
+            ,working_hour=#{record.workingHour}
+        </if>
+        <if test="record.status!=null">
+            ,status=#{record.status}
+        </if>
+        where
+        id=#{record.id}
+    </update>
+    <delete id="deleteMaintainById">
+         delete from maintain where id=#{id}
+    </delete>
+    <select id="getMaintainByMap" resultMap="maintainMap">
+        SELECT
+        e.`name` AS system_name,
+        e1.`name` AS equipment_name,
+        u.nuit AS unit_name,
+        m.*
+        FROM
+        maintain m
+        LEFT JOIN equipment e ON e.id = m.system_id
+        LEFT JOIN equipment e1 ON e1.id = m.equipment_id
+        LEFT JOIN unit u ON u.id = m.unit_id
+        where 1=1
+        <if test="map.departmentId!=null">and m.department_id=#{map.departmentId}</if>
+        <if test="map.id!=null">and m.id=#{map.id}</if>
+    </select>
+    <select id="getMaintainRecordByMap" resultMap="maintainRecordMap">
+        SELECT
+        e.`name` AS system_name,
+        e1.`name` AS equipment_name,
+        u.nuit AS unit_name,
+        mr.*
+        FROM
+        maintain_record mr
+        JOIN maintain m ON m.id = mr.maintain_id
+        LEFT JOIN equipment e ON e.id = m.system_id
+        LEFT JOIN equipment e1 ON e1.id = m.equipment_id
+        LEFT JOIN unit u ON u.id = m.unit_id
+        WHERE
+        1 = 1
+        <if test="map.departmentId!=null">and m.department_id=#{map.departmentId}</if>
+        <if test="map.id!=null">and m.id=#{map.id}</if>
+        <if test="map.employeeId!=null">and mr.employee_id=#{map.employeeId}</if>
+        <if test="map.status!=null and map.status==1">
+            and mr.status!='2'
+        </if>
+        <if test="map.status!=null and map.status==2">
+            and mr.status='2'
+        </if>
+        order by mr.create_time desc
+
+    </select>
+    <select id="getMaintainById" resultMap="maintainMap">
+        SELECT
+        e.`name` AS system_name,
+        e1.`name` AS equipment_name,
+         u.nuit AS unit_name,
+        m.*
+        FROM
+        maintain m
+        LEFT JOIN equipment e ON e.id = m.system_id
+        LEFT JOIN equipment e1 ON e1.id = m.equipment_id
+        LEFT JOIN unit u ON u.id = m.unit_id
+        where  m.id=#{id}
+    </select>
+    <select id="getMaintainRecoreById" resultMap="maintainRecordMap">
+          SELECT
+        e.`name` AS system_name,
+        e1.`name` AS equipment_name,
+         u.nuit AS unit_name,
+        mr.*
+        FROM
+        maintain_record mr
+        join maintain  m on mr.maintain_id=m.id
+        LEFT JOIN equipment e ON e.id = m.system_id
+        LEFT JOIN equipment e1 ON e1.id = m.equipment_id
+        LEFT JOIN unit u ON u.id = m.unit_id
+         where  mr.id=#{id}
+
+    </select>
+</mapper>

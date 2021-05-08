@@ -2,48 +2,57 @@
 <html>
 <head>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css"/>
     <script type="text/javascript" src="../js/layui/layui.js"></script>
     <script type="text/javascript" src="../js/week/sightpoint.js?version=1.01"></script>
 </head>
 <style type="text/css">
-    .top{
+    .top {
         width: 100%;
         padding-top: 20px;
         box-sizing: border-box;
     }
-    .center{
+
+    .center {
         width: 99%;
         margin: 0 auto;
     }
-    .addPoint,.updPoint{
+
+    .addPoint, .updPoint {
         display: none;
         padding-top: 34px;
         box-sizing: border-box;
     }
-    .addPoint{
+
+    .addPoint {
         padding-top: 15px;
     }
-    .addPoint,.addPoint table,.updPoint,.updPoint table{
+
+    .addPoint, .addPoint table, .updPoint, .updPoint table {
         width: 400px;
     }
-    .addPoint tr,.updPoint tr{
+
+    .addPoint tr, .updPoint tr {
         line-height: 60px;
     }
-    .addPoint tr td:first-of-type, .updPoint tr td:first-of-type{
+
+    .addPoint tr td:first-of-type, .updPoint tr td:first-of-type {
         text-align: right;
         width: 128px;
     }
-    .addPoint tr td input, .updPoint tr td input{
+
+    .addPoint tr td input, .updPoint tr td input {
         width: 237px;
         height: 38px;
         border: 1px solid #e6e6e6;
     }
-    .addPoint .layui-anim,.updPoint .layui-anim{
+
+    .addPoint .layui-anim, .updPoint .layui-anim {
         height: 120px;
     }
+
     .layui-table-body::-webkit-scrollbar {
-        display:none
+        display: none
     }
 </style>
 <div class="warp">
@@ -54,16 +63,39 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">部门</label>
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required" lay-filter="selDepartName" lay-search="" id="selDepartName">
+                        <select name="modules" lay-verify="required" lay-filter="selDepartName" lay-search=""
+                                id="selDepartName">
                         </select>
                     </div>
                 </div>
             </div>
         </form>
+
+        <input type="hidden" id="selTypeNameHidden">
+
+        <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">类型</label>
+                    <div class="layui-input-inline">
+                        <select name="modules" lay-verify="required" lay-filter="selTypeName" lay-search=""
+                                id="selTypeName">
+                            <option value="0">请选择</option>
+                            <option value="1">人工</option>
+                            <option value="2">AI</option>
+                            <option value="3">维护</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
         <form class="layui-form" action="" style="display: inline-block;">
-            <div class="layui-form-item" style="width: 300px;">
+            <div class="layui-form-item" style="width: 60px;">
                 <div class="">
-                    <button type="button" class="layui-btn layui-btn-fluid  layui-btn-normal" onclick="openPoint()">创建</button>
+                    <button type="button" class="layui-btn layui-btn-fluid  layui-btn-normal" onclick="openPoint()">创建
+                    </button>
                 </div>
             </div>
         </form>
@@ -89,7 +121,8 @@
                     <form class="layui-form" action="">
                         <div class="layui-form-item" style="margin-bottom: 0px;">
                             <div class="layui-inline">
-                                <select name="modules" lay-verify="required" lay-filter="addDepartName" lay-search="" id="addDepartName">
+                                <select name="modules" lay-verify="required" lay-filter="addDepartName" lay-search=""
+                                        id="addDepartName">
                                 </select>
                             </div>
                         </div>
@@ -103,10 +136,12 @@
                     <form class="layui-form" action="">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <select name="modules" lay-verify="required" lay-filter="addTypeName" lay-search="" id="addTypeName">
+                                <select name="modules" lay-verify="required" lay-filter="addTypeName" lay-search=""
+                                        id="addTypeName">
                                     <option value="0">请选择</option>
                                     <option value="1">人工</option>
                                     <option value="2">AI</option>
+                                    <option value="3">维护</option>
                                 </select>
                             </div>
                         </div>
@@ -115,7 +150,9 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <button class="layui-btn" onclick="saveAddData()" id="save">确定</button>&nbsp;<button class="layui-btn" onclick="cancel()">取消</button>
+                    <button class="layui-btn" onclick="saveAddData()" id="save">确定</button>&nbsp;<button
+                        class="layui-btn" onclick="cancel()">取消
+                </button>
                 </td>
             </tr>
         </table>
@@ -133,16 +170,20 @@
                     <form class="layui-form" action="">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <select name="modules" lay-verify="required" lay-filter="updDepartName" lay-search="" id="updDepartName">
+                                <select name="modules" lay-verify="required" lay-filter="updDepartName" lay-search=""
+                                        id="updDepartName">
                                 </select>
                             </div>
                         </div>
                     </form>
                 </td>
             </tr>
+
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <button class="layui-btn" onclick="saveUpdData()" id="saveUpd">确定</button>&nbsp;<button class="layui-btn" onclick="cancel()">取消</button>
+                    <button class="layui-btn" onclick="saveUpdData()" id="saveUpd">确定</button>&nbsp;<button
+                        class="layui-btn" onclick="cancel()">取消
+                </button>
                 </td>
             </tr>
         </table>

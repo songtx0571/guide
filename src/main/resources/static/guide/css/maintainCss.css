@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "PingFang SC", "Lantinghei SC", "Microsoft YaHei", "HanHei SC", "Helvetica Neue", "Open Sans", Arial, "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+.warp{
+    width: 100%;
+    height: 100%;
+}
+.top{
+    width: 420px;
+    margin: 0 auto;
+    height: 80px;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+.content{
+    width: 100%;
+    height: calc(100% - 80px);
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+/*
+创建维护点
+*/
+.createMaintain .saveMaintainPoint {
+    width: 100%;
+    display: none;
+    padding-top: 38px;
+    box-sizing: border-box;
+}
+.createMaintain .saveMaintainPoint table{
+    width: 100%;
+}
+.createMaintain .saveMaintainPoint table tr td{
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+.createMaintain .saveMaintainPoint table tr td:first-child{
+    text-align: right;
+    width: 150px;
+}
+.createMaintain .saveMaintainPoint .input{
+    width: 280px;
+    height: 38px;
+    border: 1px solid #E6E6E6;
+    text-indent: 10px;
+}
+/*下拉框高度*/
+.createMaintain .saveMaintainPoint .layui-anim-upbit{
+    height: 190px;
+}
+/*
+维护配置
+*/
+.maintainConfig .maintainConfigUl li{
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+.maintainConfig .maintainConfigUl li span{
+    display: inline-block;
+}
+.maintainConfig .maintainConfigUl li .ulSystemName{
+    width: 200px;
+}
+.maintainConfig .maintainConfigUl li .ulWorkContent{
+    width: 200px;
+}
+.maintainConfig .maintainConfigUl li .ulEquipmentName{
+    width: 200px;
+}
+.maintainConfig .maintainConfigUl li .ulMaintainPointName{
+    width: 150px;
+}
+.maintainConfig .maintainConfigUl li .ulPlanedWorkingHour{
+    width: 150px;
+}
+.maintainConfig .maintainConfigUl li .ulCycle{
+    width: 100px;
+}
+.maintainConfig .maintainConfigUl li .ulCountDown{
+    width: 100px;
+}
+.maintainConfig .maintainConfigUl li .ulOperation{
+    width: 200px;
+}
+.maintainConfig .saveMaintainConfig{
+    display: none;
+}
+.maintainConfig .saveMaintainConfig table{
+    width: 600px;
+    margin: 0 auto;
+}
+.maintainConfig .saveMaintainConfig table tr td{
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+.maintainConfig .saveMaintainConfig table tr td:first-child{
+    text-align: right;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+.maintainConfig .maintainConfigDiv {
+    display: none;
+}
+.maintainConfig .maintainConfigDiv table{
+    margin: 0 auto;
+    width: 700px;
+}
+.maintainConfig .maintainConfigDiv table tr{
+    line-height: 50px;
+}
+/*下拉框高度*/
+.maintainConfig .saveMaintainConfig .layui-anim-upbit{
+    height: 250px;
+}
+
+/*
+维护工作
+*/
+.maintainWork .head{
+    padding: 20px 10px;
+    box-sizing: border-box;
+    height: 80px;
+}
+.maintainWork .handleMaintainWork,.maintainWork .saveMaintainWork{
+    display: none;
+}
+.maintainWork .handleMaintainWork table,.maintainWork .saveMaintainWork table{
+    width: 600px;
+    margin: 0 auto;
+}
+.maintainWork .handleMaintainWork table tr td,.maintainWork .saveMaintainWork table tr td{
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+.maintainWork .handleMaintainWork table tr td:first-child,.maintainWork .saveMaintainWork table tr td:first-child{
+    text-align: right;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+/*下拉框高度*/
+.maintainWork .handleMaintainWork .layui-anim-upbit,.maintainWork .saveMaintainWork .layui-anim-upbit{
+    height: 250px;
+}
