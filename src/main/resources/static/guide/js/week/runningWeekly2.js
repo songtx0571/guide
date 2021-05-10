@@ -468,7 +468,6 @@ function addAuditor(){
 	var week = sessionStorage.runningWeeklyYearWeek;
 	var project = sessionStorage.runningWeeklyProject;
 	var Auditor = sessionStorage.runningWeeklyAuditor;
-	console.log(Auditor);
 	if(Auditor != ""&&Auditor != null){
 		var Auditors = Auditor.split(";");
 		for(var i=0;i<Auditors.length;i++){

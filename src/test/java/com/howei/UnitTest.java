@@ -1,15 +1,13 @@
 package com.howei;
 
 import com.howei.controller.TemplateController;
-import com.howei.pojo.Defect;
-import com.howei.pojo.Unit;
-import com.howei.pojo.Users;
-import com.howei.pojo.WorkPerator;
+import com.howei.pojo.*;
 import com.howei.service.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.convert.DataSizeUnit;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,7 +20,7 @@ import java.util.*;
 
 @SpringBootTest(classes = GuideApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@DisplayName("Junit5单元测试")
+@DisplayName("测试")
 public class UnitTest {
 
     @Autowired
@@ -52,12 +50,18 @@ public class UnitTest {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EmployeeService employeeService;
+
+    @Autowired
+    DefectService defectService;
+
     /**
      * 获取测点类型
      * @return
      */
-    @Test
-    @DisplayName("测试组合断言")
+    //@Test
+    @DisplayName("巡检数据来源")
     public void test(){
         String type="2";
         String postPeratorId="956";
@@ -95,7 +99,8 @@ public class UnitTest {
         }
     }
 
-    @Test
+    //@Test
+    @DisplayName("获取周期")
     public void a(){
         String today = "2021-04-16";
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
@@ -136,26 +141,104 @@ public class UnitTest {
         System.out.println(dateEnd);
     }
 
-    @Test
-    public void getWeeklyByThisYear() {
+   // @Test
+    @DisplayName("获取管理用户")
+    public void getUserMap(){
+        Integer employeeId=230;
+        String empIdStr = "";
+        List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
+        if (rootList != null) {
+            empIdStr += employeeId + ",";
+            List<Employee> empList = employeeService.getEmployeeByManager(0);
+            for (Employee employee : rootList) {
+                empIdStr += employee.getId() + ",";
+                empIdStr += getUsersId(employee.getId(), empList);
+            }
+        }
+        if (empIdStr != null && !empIdStr.equals("")) {
+            empIdStr = empIdStr.substring(0, empIdStr.lastIndexOf(","));
+        }
         Map map = new HashMap();
-        map.put("departmentId", 17);
-        map.put("startDate", "2021-04-12");
-        map.put("endDate", "2021-04-18");
-        List<Defect> list = weeklyService.getDefectList(map);
-        for (Defect defect : list) {
-            String[] arr = defect.getEmpIds().split(",");
-            String empIdsName = "";
-            for (String str : arr) {
-                Users users = userService.findByEmpId(str);
-                if (users != null) {
-                    empIdsName += users.getUserName() + "、";
-                    System.out.println(empIdsName);
+        map.put("empId", empIdStr);
+        List<Map<String,Object>> list=employeeService.getEmpMap(map);
+        for (int i = 0; i < list.size(); i++) {
+            Map map2=list.get(i);
+            System.out.println(map2.get("text"));
+        }
+    }
+
+    public String getUsersId(Integer empId,List<Employee> empList){
+        List<String> result=new ArrayList<>();
+        String userId="";
+        String usersId="";
+        for(Employee employee:empList){
+            if(employee.getManager()!=null||employee.getManager()!=0){
+                if(employee.getManager().equals(empId)){
+                    usersId+=employee.getId()+",";
+                    result.add(employee.getId()+"");
                 }
             }
-            empIdsName = empIdsName != null ? empIdsName.substring(0, empIdsName.length() - 1) : null;
-            System.out.println(empIdsName);
         }
+        for(String str:result){
+            String userId1=getUsersId(Integer.parseInt(str),empList);
+            if(userId1!=null&&!userId1.equals("")){
+                userId+=userId1;
+            }
+        }
+        if(userId!=null&&!userId.equals("null")){
+            usersId+=userId;
+        }
+        return usersId;
+    }
+
+    //@Test
+    @DisplayName("修改工时")
+    public void upd()throws ParseException{
+
+        List<Defect> list=defectService.getDefectList(new HashMap());
+        if(list!=null){
+            for (int i = 0; i <list.size() ; i++) {
+                Defect defect=list.get(i);
+                if(defect!=null){
+                    String sTime=defect.getRealSTime();//开始时间
+                    String eTime=defect.getRealETime();//结束时间
+                    Double planndeTime=defect.getPlannedWork();
+                    if(sTime!=null && eTime!=null && !sTime.equals("") && !eTime.equals("")){
+                        Double bothNH=com.howei.util.DateFormat.getBothNH(sTime,eTime);
+                        if(planndeTime!=null && !planndeTime.equals("")){
+                            if(planndeTime<bothNH){
+                                defect.setRealExecuteTime(planndeTime);
+                            }else{
+                                defect.setRealExecuteTime(bothNH);
+                            }
+                        }else{
+                            defect.setRealExecuteTime(bothNH);
+                        }
+                        System.out.println("执行记录:"+i+" ;id="+defect.getId());
+                        defectService.updDefect(defect);
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("修改工时")
+    public void updEqu(){
+        Integer departmentId=17;
+        Integer type=1;
+        String nameB="氨水储存";//修改前名称
+        String nameA="氨水储存系统";//修改后名称
+        Map map=new HashMap();
+        map.put("departmentId",departmentId);
+        map.put("type",type);
+        map.put("nameB",nameB);
+        map.put("nameA",nameA);
+        /*workPeratorService.getTemplateChildList();
+
+        if(result>0){
+            System.out.println("修改成功！");
+        }*/
     }
 
 }

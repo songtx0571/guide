@@ -9,15 +9,14 @@
 <script type="text/javascript"  src="../js/week/ScrDailyAdd.js"></script>
 <link rel="stylesheet" href="../css/iframe.css"/>
 <link rel="stylesheet" href="../css/tr2.css"/>
-
 <style type="text/css">
 #content1{width: 160px;background-position: 95% 50%}
 </style>
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'type' value="${param.type}" style="display: none;"/>
-		<input type="text" id = 'scrDailyId' value="${param.scrDailyId}" style="display: none;"/>
+		<input type="text" id = 'type' value="${type}" style="display: none;"/>
+		<input type="text" id = 'scrDailyId' value="${scrDailyId}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:90%; rules:'all';border-collapse:collapse;">
 			<tr>
 				<th id='th1'>时间</th>

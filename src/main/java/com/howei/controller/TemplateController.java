@@ -375,16 +375,24 @@ public class TemplateController {
     @RequestMapping("/getSightType")
     @ResponseBody
     public List<Map<String,Object>> getSightType(HttpServletRequest request){
-        String type=request.getParameter("type");
+        String type=request.getParameter("type");//测点/单位
         String postPeratorId=request.getParameter("id");
         String dataType=request.getParameter("dataType");
-        String name=request.getParameter("name");
+        String name=request.getParameter("name");//系统、设备名称
+        String systemId=request.getParameter("systemId");//系统Id
+        String equipId=request.getParameter("equipId");//设备Id
         List<Map<String,Object>> list=new ArrayList<>();
         List<?> unitList=new ArrayList<>();
         WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
         Map map1=new HashMap();
         if(name!=null&&!name.equals("")){
             map1.put("equipment",name);
+        }
+        if(systemId!=null&&!systemId.equals("")){
+            map1.put("systemId",systemId);
+        }
+        if(equipId!=null&&!equipId.equals("")){
+            map1.put("equipId",equipId);
         }
         if(workPerator!=null) {
             map1.put("department",workPerator.getProjectDepartment());

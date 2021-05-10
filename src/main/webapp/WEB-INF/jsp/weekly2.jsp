@@ -14,6 +14,22 @@
 	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
 	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+	<style>
+		.detailedInfoDiv{
+			display: none;
+			background: #fff;
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+		}
+		.img-change:hover{
+			transform: scale(5);
+		}
+		body::-webkit-scrollbar{
+			display: none;
+		}
+	</style>
 <title>周报</title>
 </head>
 <body>

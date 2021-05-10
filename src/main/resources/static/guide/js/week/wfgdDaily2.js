@@ -23,7 +23,6 @@ function getUserName() {
         "url": "../WeeklyController/getParamList",
         "success":function(Json){
         	var info=Json.data.userName;
-        	alert(info);
             sessionStorage.Username=info;
         }
     });
@@ -71,15 +70,11 @@ function getProject(){
     		//document.getElementById('project').length = 0;
     		var project = document.getElementById('project');
     		var projectId = sessionStorage.wfgdDailyProject;
+    		var option = "";
     		for(var i = 0;i<data.length;i++){
-    			var opt1 = new Option(data[i].projectTeam, data[i].id); 
-    			if(data[i].id == projectId){
-    				if(project!=null){
-                        project.options.add(opt1);
-					}
-    				opt1.selected = true;
-    			}
+				option += "<option value='"+data[i].id+"'>"+data[i].projectTeam+"</option>";
     		}
+			project.innerHTML = option;
     		change();
     	}
 	});

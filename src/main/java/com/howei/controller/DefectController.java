@@ -1,10 +1,7 @@
 package com.howei.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.howei.pojo.Company;
-import com.howei.pojo.Defect;
-import com.howei.pojo.Equipment;
-import com.howei.pojo.Users;
+import com.howei.pojo.*;
 import com.howei.service.CompanyService;
 import com.howei.service.DefectService;
 import com.howei.service.EmployeeService;
@@ -49,6 +46,17 @@ public class DefectController {
         Subject subject=SecurityUtils.getSubject();
         Users users=(Users) subject.getPrincipal();
         return users;
+    }
+
+    /**
+     * 跳转缺陷详单页面
+     * @return
+     */
+    @RequestMapping("/toDefectDetailed")
+    public ModelAndView toDefectDetailed(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("defectDetailed");
+        return modelAndView;
     }
 
     /**
@@ -281,18 +289,25 @@ public class DefectController {
             return JSON.toJSONString(Type.NOUSER);//用户验证过期,重新登录
         }
         if(id!=null){
-            Defect defect1=defectService.getDefectById(id);
-            if(defect1!=null){
-                //判断当前登录人是否有权限修改这条记录
-                if(String.valueOf(defect1.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId()))<0){
-                    return JSON.toJSONString(Type.NOPERMISSION);
+            if(type==1){//未认领状态
+                if(defect.getCreatedBy()==users.getEmployeeId()){
+                    defectService.updDefect(defect);
+                    return JSON.toJSONString(Type.SUCCESS);
                 }
+                return JSON.toJSONString(Type.NOPERMISSION);//无权限
             }
-            //判断记录是否被修改，驳回
-            if(defect1.getRealETime()!=null && !defect1.getRealETime().trim().equals("")){
-                return JSON.toJSONString(Type.REJECT);
-            }
-            if(type.equals(2)){      //'消缺中'状态修改为'已完成'状态
+            else if(type.equals(2)){      //'消缺中'状态修改为'已完成'状态
+                Defect defect1=defectService.getDefectById(id);
+                if(defect1!=null){
+                    //判断当前登录人是否有权限修改这条记录
+                    if(String.valueOf(defect1.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId()))<0){
+                        return JSON.toJSONString(Type.NOPERMISSION);
+                    }
+                }
+                //判断记录是否被修改，驳回
+                if(defect1.getRealETime()!=null && !defect1.getRealETime().trim().equals("")){
+                    return JSON.toJSONString(Type.REJECT);
+                }
                 defect.setType(3);//已消缺
                 defect.setCompleter(users.getEmployeeId());
                 String realETime=DateFormat.getYMDHMS(new Date());//实际结束时间
@@ -425,7 +440,7 @@ public class DefectController {
      * @return
      */
     @RequestMapping(value = "/dutyConfirmation",method = RequestMethod.PUT)
-    public String dutyConfirmation(Integer id){
+    public String dutyConfirmation(Integer id,Integer result){
         Users users=this.getPrincipal();
         if(users==null){
             return JSON.toJSONString(Type.NOUSER);
@@ -433,12 +448,28 @@ public class DefectController {
         if(id!=null){
             Defect defect=defectService.getDefectById(id);
             if(defect!=null){
-                if(defect.getConfirmer1Time()!=null){
-                    return JSON.toJSONString(Type.REJECT);//已完成不可再确认
+                //驳回
+                if(result==2){
+                    defect.setType(1);//未认领
+                    defect.setEmpIds("");
+                    defect.setOrderReceivingTime("");
+                    defect.setPlanedTime("");
+                    defect.setRealSTime("");
+                    defect.setRealETime("");
+                    defect.setRealExecuteTime(0.0);
+                    defect.setPlannedWork(0.0);
+                    defect.setMethod("");
+                    defect.setProblem("");
+                    defect.setRemark("");
+                    defect.setaPlc("");
+                }else if(result==1){
+                    if(defect.getConfirmer1Time()!=null){
+                        return JSON.toJSONString(Type.REJECT);//已完成不可再确认
+                    }
+                    defect.setType(4);//已完成
+                    defect.setConfirmer1(users.getEmployeeId());
+                    defect.setConfirmer1Time(DateFormat.getYMDHMS(new Date()));
                 }
-                defect.setType(4);//已完成
-                defect.setConfirmer1(users.getEmployeeId());
-                defect.setConfirmer1Time(DateFormat.getYMDHMS(new Date()));
                 defectService.updDefect(defect);
                 return JSON.toJSONString(Type.SUCCESS);
             }
@@ -477,14 +508,53 @@ public class DefectController {
     @RequestMapping("/getEmpMap")
     public List<Map<String,Object>> getEmpMap(){
         Users users=this.getPrincipal();
-
-        Map souMap=new HashMap();
-        if(users!=null){
-            souMap.put("departmentId",users.getDepartmentId());
+        //用户信息过期
+        if(users==null){
+            return new ArrayList<>();
         }
-        souMap.put("state",1);
-        List<Map<String,Object>> list=employeeService.getEmpMap(souMap);
+
+        String empIdStr = "";
+        Integer employeeId=users.getEmployeeId();
+        List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
+        if (rootList != null) {
+            empIdStr += employeeId + ",";
+            List<Employee> empList = employeeService.getEmployeeByManager(0);
+            for (Employee employee : rootList) {
+                empIdStr += employee.getId() + ",";
+                empIdStr += getUsersId(employee.getId(), empList);
+            }
+        }
+        if (empIdStr != null && !empIdStr.equals("")) {
+            empIdStr = empIdStr.substring(0, empIdStr.lastIndexOf(","));
+        }
+        Map map = new HashMap();
+        map.put("empId", empIdStr);
+        List<Map<String,Object>> list=employeeService.getEmpMap(map);
         return list;
+    }
+
+    public String getUsersId(Integer empId,List<Employee> empList){
+        List<String> result=new ArrayList<>();
+        String userId="";
+        String usersId="";
+        for(Employee employee:empList){
+            if(employee.getManager()!=null||employee.getManager()!=0){
+                if(employee.getManager().equals(empId)){
+                    usersId+=employee.getId()+",";
+                    result.add(employee.getId()+"");
+                }
+            }
+        }
+        for(String str:result){
+            String userId1=getUsersId(Integer.parseInt(str),empList);
+            if(userId1!=null&&!userId1.equals("")){
+                userId+=userId1;
+            }
+        }
+        if(userId!=null&&!userId.equals("null")){
+            usersId+=userId;
+        }
+        return usersId;
     }
 
     /**

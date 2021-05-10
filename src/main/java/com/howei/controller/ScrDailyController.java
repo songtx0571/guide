@@ -1,5 +1,6 @@
 package com.howei.controller;
 
+import com.howei.pojo.Defect;
 import com.howei.pojo.ScrDaily;
 import com.howei.pojo.ScrDailyRecord;
 import com.howei.pojo.Users;
@@ -18,8 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 @RestController
 @RequestMapping("/guide/ScrDailyController")
@@ -407,4 +407,5 @@ public class ScrDailyController {
         }
         return new JsonResult(scrDaily);
     }
+
 }

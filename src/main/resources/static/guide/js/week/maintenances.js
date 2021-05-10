@@ -7,12 +7,13 @@ $(document).ready( function () {
     	"data":{userName:userName}, 
     	"success":function(Json){
     		var data = Json.data;
-    		document.getElementById('project').length = 0;
+    		//document.getElementById('project').length = 0;
     		var project = document.getElementById('project');
-    		for(var i = 0;i<data.length;i++){
-    			var opt1 = new Option(data[i].projectTeam, data[i].id); 
-    			project.options.add(opt1);
-    		}
+			var option = "";
+			for(var i = 0;i<data.length;i++){
+				option += "<option value='"+data[i].id+"'>"+data[i].projectTeam+"</option>";
+			}
+			project.innerHTML = option;
     		bigDataTable($('#project').val(),$('#other').val());
     		$('#DataTable tbody').on('click','tr td:nth-child(2)', function (e) {
        	    	var index = $(this).siblings(":first").text();
@@ -28,6 +29,10 @@ function change(){
 	bigDataTable(project);
 }
 function bigDataTable(project){
+	if (project == null) {
+		project = 0;
+	}
+	console.log(project)
 	oTable = $('#DataTable').DataTable({
     	"oLanguage": {  
     		"sProcessing": "正在抓取数据，请稍后...",  

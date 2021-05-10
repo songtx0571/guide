@@ -322,14 +322,34 @@ function fillA(year,dateDay,project){
 				tr = "<tr><td colspan='10'>无</td></tr>"
 			} else {
 				for (var i = 0; i < data.length; i ++) {
-					tr += "<tr></tr><td>"+(i+1)+"</td><td>"+data[i].number+"</td><td colspan='2'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>"+data[i].confirmer1Time+"</td></tr>";
+					tr += "<tr></tr><td>"+(i+1)+"</td><td style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+")'>"+data[i].number+"</td><td colspan='2'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>"+data[i].confirmer1Time+"</td></tr>";
 				}
 			}
 			tbody0.innerHTML = tr;
 		}
 	});
 }
-
+//点击缺陷号显示详细信息
+function showDetailedInfoDiv (id) {
+	$.ajax({
+		type: 'GET',
+		url: "/guide/defect/getDefectById",
+		data: {id:id},
+		success: function (data) {
+			layer.open({
+				type: 2,
+				title: ["缺陷详情页面", 'font-size:20px;font-weight:bold;text-align:center;'],
+				area: ['100%', '100%'],
+				fixed: false, //不固定
+				maxmin: true,
+				content: '../defect/toDefectDetailed?id=' + data.id
+			});
+		}
+	})
+}
+function cancel () {
+	$(".detailedInfoDiv").css("display","none");
+}
 function add(type){
 	var weekId = sessionStorage.weekId;
 	if(weekId==0){
@@ -428,7 +448,7 @@ function addFillIn(){
 		FillIn = userName;
 	}
 
-	debugger;
+
 	if(project==null){
 		project=0;
 	}
@@ -537,7 +557,6 @@ function addAuditor(){
 }
 //删除批准人
 function delAuditor(index){
-	debugger;
 	var userName = _userName;
 	var weekId = sessionStorage.weekId;
 	var Auditor = sessionStorage.weeklyAuditor;

@@ -43,4 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return result;
     }
+
+    @Override
+    public List<Employee> getEmployeeByManager(int employeeId) {
+        return employeeMapper.getEmployeeByManager(employeeId);
+    }
 }

@@ -9,6 +9,15 @@
 <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 <link rel="stylesheet" href="../css/iframe.css" media="screen"/>
 <link rel="stylesheet" href="../css/tr.css"/>
+	<style>
+		.detailedInfoDiv{
+			display: none;
+		}
+		.img-change:hover{
+			 transform: scale(5);
+		 }
+
+	</style>
 <title>检修日志</title>
 </head>
 <body>
@@ -20,7 +29,6 @@
 			<input id='query' onclick="change()" type="button" value="查询"/>
 		</shiro:hasPermission>
 		</span>
-		
 		<table  style="width: 80%;margin-top: 50px;">
 			<thead >
 				<tr>

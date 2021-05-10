@@ -94,6 +94,9 @@
             <if test="realETime!=null">
                 realETime=#{realETime},
             </if>
+            <if test="abs!=null">
+                abs=#{abs},
+            </if>
             <if test="confirmer1!=null">
                 confirmer1=#{confirmer1},
             </if>

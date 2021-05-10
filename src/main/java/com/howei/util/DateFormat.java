@@ -237,7 +237,7 @@ public class DateFormat {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long bt=sdf.parse(beginTime).getTime();
         long et=sdf.parse(endTime).getTime();
-        long diff=(bt-et);
+        long diff=(et-bt);
         // 计算差多少小时
         long hour = diff / nh;
         // 计算差多少分钟

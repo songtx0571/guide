@@ -4,11 +4,6 @@
 <head>
 <meta charset="UTF-8" content="width=device-width" name="viewport"/>
 <title>检修日志记录查询</title>
-	<!--easyui-->
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="../DataTables-1.10.15/media/css/jquery.dataTables.css"/>
 <link rel="stylesheet" type="text/css" href="../Buttons-1.4.2/css/buttons.dataTables.min.css"/>

@@ -2,7 +2,6 @@ package com.howei.controller;
 
 import com.howei.pojo.Company;
 import com.howei.pojo.Department;
-import com.howei.pojo.Equipment;
 import com.howei.pojo.Unit;
 import com.howei.service.CompanyService;
 import com.howei.service.DepartmentService;
@@ -162,8 +161,6 @@ public class UnitController {
             unit.setType(type);
             unit.setCode(0);
             unit.setMold(Integer.parseInt(mold));
-            String english=PinYin.ToPinyin(type);
-            unit.setEnglish(english);
             unit.setDepartment(Integer.parseInt(depart));
             unit.setBothType(Integer.parseInt(bothType));
             int key=unitService.addUnit(unit);
@@ -192,34 +189,6 @@ public class UnitController {
                 Map<String,Object> map= new HashMap<>();
                 map.put("type",u.getType());
                 map.put("id",i);
-                list.add(map);
-            }
-        }
-        return list;
-    }
-
-    /**
-     * 下拉框动态赋值
-     * @param request
-     * @return
-     */
-    @RequestMapping("/getUnitLike")
-    @ResponseBody
-    public List<Map<String,Object>> getUnitLike(HttpServletRequest request){
-        String type=request.getParameter("q");
-        List<Unit> unit;
-        List<Map<String,Object>> list=new ArrayList<>();
-        if(type==null||type.equals("")){
-            unit=unitService.getUnitMap();
-        }else{
-            String english=PinYin.ToPinyin(type);
-            unit=unitService.getUnitMap2(type,english);
-        }
-
-        if(unit!=null){
-            for(Unit u:unit){
-                Map<String,Object> map= new HashMap<>();
-                map.put("type",u.getType());
                 list.add(map);
             }
         }

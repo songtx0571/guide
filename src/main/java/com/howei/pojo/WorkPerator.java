@@ -23,6 +23,9 @@ public class WorkPerator {
     private String projectDepartment;//项目部
     private int parent;// 父类
     private int dataType;//1为人工，2为ai
+    private int systemId;//系统Id
+    private int equipId;//设备Id
+
     // 虚字段
     private int edit;
     private String userName;//专工Name
@@ -259,5 +262,21 @@ public class WorkPerator {
 
     public void setDataType(int dataType) {
         this.dataType = dataType;
+    }
+
+    public int getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(int systemId) {
+        this.systemId = systemId;
+    }
+
+    public int getEquipId() {
+        return equipId;
+    }
+
+    public void setEquipId(int equipId) {
+        this.equipId = equipId;
     }
 }

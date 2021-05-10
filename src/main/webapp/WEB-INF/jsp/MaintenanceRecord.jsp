@@ -16,16 +16,12 @@
 <link rel="stylesheet" href="../css/print.css" media="screen"/>
 <link rel="stylesheet" href="../css/print1.css" media="print"/>
 <link rel="stylesheet" href="../css/iframeprint.css" media="print"/>
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 
 <title>检修日志详情</title>
 </head>
 <body>
 	<div>
-		<input type="text" id='id' value="${param.id}" style="display: none;"/>
+		<input type="text" id='id' value="${id}" style="display: none;"/>
 		<span>
 			<input type="button" value="上一篇" onclick='last()'/>
 			<input type="button" value="下一篇" onclick='next()'/>

@@ -18,27 +18,9 @@ import java.util.*;
 @SpringBootTest
 class GuideApplicationTests {
 
-    /*@Test
-    void contextLoads() {
-
-    }*/
     @Test
     public void a(){
-        String today = "2013-01-14";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = format.parse(today);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(Calendar.MONDAY);
-        calendar.setTime(date);
-
-        System.out.println(calendar.get(Calendar.WEEK_OF_YEAR));
     }
 
 }

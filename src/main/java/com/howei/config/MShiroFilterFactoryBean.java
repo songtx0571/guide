@@ -7,6 +7,7 @@ import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.springframework.beans.factory.BeanInitializationException;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,7 +30,7 @@ public class MShiroFilterFactoryBean extends ShiroFilterFactoryBean{
     public MShiroFilterFactoryBean() {
         super();
         ignoreExt = new HashSet<>();
-        ignoreExt.add(".jsp");
+        //ignoreExt.add(".jsp");
     }
 
     @Override

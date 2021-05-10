@@ -9,11 +9,6 @@
 <script type="text/javascript"  src="../js/week/runningWeeklyAdd.js"></script>
 <link rel="stylesheet" href="../css/iframe.css"/>
 <link rel="stylesheet" href="../css/tr2.css"/>
-	<!--easyui-->
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <style type="text/css">
 
 input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 98%;height: 30px;line-height: 100%;background-color: #FFF;}
@@ -21,17 +16,17 @@ input[type='text']{border: none;padding: 0px;padding-left:2%;margin: 0px;width: 
 </head>
 <body>
 	<div style="margin: auto;">
-		<input type="text" id = 'type' value="${param.type}" style="display: none;"/>
-		<input type="text" id = 'weekId' value="${param.weekId}" style="display: none;"/>
+		<input type="text" id = 'type' value="${type}" style="display: none;"/>
+		<input type="text" id = 'weekId' value="${weekId}" style="display: none;"/>
 		<table id='table' border="1" style="margin:auto;width:50%; rules:'all';border-collapse:collapse;">
 			<tr> 
-				<th colspan="2" if="${param.type} == 1">入口SO2浓度(mg/Nm³)</th>
-				<th colspan="2" if="${param.type} == 2">入口NOX浓度(mg/Nm³)</th>
-				<th colspan="2" if="${param.type} == 3">出口SO2浓度(mg/Nm³)</th>
-				<th colspan="2" if="${param.type} == 4">出口NOX浓度(mg/Nm³)</th>
-				<th colspan="2" if="${param.type} == 5">出口粉尘浓度(mg/Nm³)</th>
-				<th colspan="2" if="${param.type} == 6">石灰石耗量(T)</th>
-				<th colspan="2" if="${param.type} == 7">氨水耗量(T)</th>
+				<th colspan="2" if="${type} == 1">入口SO2浓度(mg/Nm³)</th>
+				<th colspan="2" if="${type} == 2">入口NOX浓度(mg/Nm³)</th>
+				<th colspan="2" if="${type} == 3">出口SO2浓度(mg/Nm³)</th>
+				<th colspan="2" if="${type} == 4">出口NOX浓度(mg/Nm³)</th>
+				<th colspan="2" if="${type} == 5">出口粉尘浓度(mg/Nm³)</th>
+				<th colspan="2" if="${type} == 6">石灰石耗量(T)</th>
+				<th colspan="2" if="${type} == 7">氨水耗量(T)</th>
 			</tr>
 			<tr>
 				<th id='th1'>1#</th>

@@ -30,7 +30,7 @@
 			<input id='query' onclick="change()" type="button" value="查询"/>
 		</shiro:hasPermission>
 		</span>
-		
+
 		<table  style="width: 60%;margin-top: 50px;">
 			<thead >
 				<tr>
@@ -50,7 +50,7 @@
 				</tr>
 			</thead>
 			<tbody id='tbody1'>
-				
+
 			</tbody>
 			<thead>
 				<tr><td colspan="7">主要运行参数</td></tr>
@@ -84,7 +84,7 @@
 					<td colspan="2">5#</td><td id='5-1'>0</td><td id='5-2'>0</td><td id='5-3'>0</td><td id='5-4'>0</td>
 					<td id='5-5'><img src='img/week/update.png' onclick='add1(5)'/></td>
 				</tr>
-				
+
 				<tr>
 					<td colspan="2">6#</td><td id='6-1'>0</td><td id='6-2'>0</td><td id='6-3'>0</td><td id='6-4'>0</td>
 					<td id='6-5'><img src='img/week/update.png' onclick='add1(6)'/></td>
@@ -100,7 +100,7 @@
 				</tr>
 			</thead>
 			<tbody id='tbody3'>
-				
+
 			</tbody>
 			<thead>
 				<tr><td colspan="7">本班氨水耗量统计</td></tr>
@@ -115,7 +115,7 @@
 				</tr>
 			</thead>
 			<tbody id='tbody4'>
-				
+
 			</tbody>
 		</table>
 	</div>

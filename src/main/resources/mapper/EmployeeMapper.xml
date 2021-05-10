@@ -8,18 +8,36 @@
         left join user_role ur on ur.userId=u.id
         LEFT JOIN role_authority ra on ra.roleId=ur.roleId
         <where>
-            <if test="departmentId!=null">
-                and u.departmentId=#{departmentId}
-            </if>
-            <if test="state!=null">
-                and u.state=#{state}
+            u.state=1
+            <if test="empId!=null">
+                and FIND_IN_SET(e.id,#{empId})
             </if>
             and ra.authorityId=162
         </where>
     </select>
 
+    <select id="getEmployeeList" parameterType="java.util.HashMap" resultType="com.howei.pojo.Employee">
+        select e.id,e.`name` from employee e
+        LEFT JOIN users u on u.employeeId=e.id
+        where
+        u.state=1
+        <if test="empId!=null">
+            and FIND_IN_SET(e.id,#{empId})
+        </if>
+    </select>
+
     <select id="getUsersMap" resultType="com.howei.pojo.Employee">
         select id,`name` from employee
+    </select>
+
+    <select id="getEmployeeByManager" parameterType="int" resultType="com.howei.pojo.Employee">
+        select e1.id as id,e1.name as name,e1.manager as manager from employee e
+        join users u on u.employeeId=e.id
+        join employee e1 on e1.manager=e.id
+        where u.state=1
+        <if test="empId!=null and empId!=0">
+            and e.id=#{empId} or e.id=#{empId}
+        </if>
     </select>
 
 </mapper>

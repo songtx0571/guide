@@ -3,15 +3,11 @@ package com.howei.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.howei.pojo.Menu;
-import com.howei.pojo.Permission;
 import com.howei.pojo.Users;
 import com.howei.service.MenuService;
 import com.howei.service.PermissionService;
 import com.howei.service.UserService;
 import com.howei.util.MD5;
-import com.howei.util.WebSocket;
-import eu.bitwalker.useragentutils.OperatingSystem;
-import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -19,23 +15,19 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-//@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8082","http://192.168.1.27:8848"},allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -51,6 +43,9 @@ public class UserController {
     public static final String SESSION_USER = "sessionUser";
     public ObjectMapper jsonTranster = new ObjectMapper();
 
+    @Value("${shiro.loginUrl}")
+    private String masterLoginUrl;
+
     public Users getPrincipal(){
         Subject subject=SecurityUtils.getSubject();
         Users users=(Users)subject.getPrincipal();
@@ -59,11 +54,11 @@ public class UserController {
 
     @RequestMapping("/")
     public String login(){
-//        Users users=this.getPrincipal();
-//        if(users!=null){
+        Users users=this.getPrincipal();
+        if(users!=null){
             return "home";
-//        }
-//        return "redirect:/login";
+        }
+        return "redirect:/login";
     }
 
     @RequestMapping("/login")

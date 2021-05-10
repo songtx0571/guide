@@ -1,7 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2b732dd-75f9-488f-bee8-be343311c674" name="Default" comment="" />
+    <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/redis/MyRedisManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/redis/ShiroFormAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/img/defectAdd.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/img/defectReduce.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/img/noImg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/img/week/defectAdd.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/img/week/defectReduce.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/img/week/noImg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/laydate/default/font.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/html/chatlog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/html/find.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/html/getmsg.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/html/msgbox.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/layim.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/mobile/layim.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/skin/1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/skin/2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/skin/3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/skin/4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/skin/5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/skin/logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layim/voice/default.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/dtreefont.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/dtreefont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/dtreefont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/dtreefont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/dtreefont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/icons.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/formSelects-v4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/formSelects-v4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/all-mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/layim.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/mobile/layer-mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/mobile/layim-mobile-open.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/mobile/layim-mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/mobile/zepto.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/transfer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/ajaxfileupload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defectDetailed.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/config/MShiroFilterFactoryBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/MShiroFilterFactoryBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/config/NoPermissionException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/config/RedisSessionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/redis/RedisSessionDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/ScrDailyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/ScrDailyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/EmployeeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/EmployeeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/EmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EmployeeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/util/PinYin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/layui.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/layui.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/layui.mobile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/layui.mobile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/code.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/code.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/laydate/default/laydate.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/laydate/default/laydate.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layer/default/layer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/css/modules/layer/default/layer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/font/iconfont.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/carousel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/carousel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/colorpicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/colorpicker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/element.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/element.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/flow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/flow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/jquery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/laydate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/laydate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/layedit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/layedit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/layer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/laypage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/laypage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/laytpl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/laytpl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/mobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/mobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/rate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/rate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/slider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/slider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/tree.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/tree.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/lay/modules/util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/layui.all.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/layui.all.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/layui.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/layui/layui.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/runningWeekly2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/runningWeekly2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailys.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailys.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/staffhome.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/staffhome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDailyRecord.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDailyRecord.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceChange.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceChange.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecord.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecord.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordAdd.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordAdd.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordAdd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordAdd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordUpd.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordUpd.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordUpd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordUpd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordUpd3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/MaintenanceRecordUpd3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenances.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenances.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDaily.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDaily.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyRecord.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyRecord.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd4.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd4.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd4.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyupd4.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyRecord.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyRecord.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyadd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyadd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyadd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyadd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyupd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyupd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyupd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDailyupd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyRecord2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyRecord2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd4.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyadd4.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd4.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd4.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/scrDailyupd.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/scrDailyupd.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyRecord2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyRecord2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd4.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd4.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd5.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd5.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd6.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd6.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd4.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd4.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd5.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd5.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd6.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyupd6.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,47 +200,106 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DefectMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml">
+      <file leaf-file-name="TemplateController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1701">
-              <caret line="63" column="39" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="39" />
+            <state relative-caret-position="289">
+              <caret line="390" column="8" selection-start-line="390" selection-start-column="8" selection-end-line="395" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Defect.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java">
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1431">
-              <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="54" selection-end-column="39" />
+            <state relative-caret-position="266">
+              <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefectController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
+      <file leaf-file-name="DataConfigurationMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DataConfigurationMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="413" column="17" selection-start-line="413" selection-start-column="17" selection-end-line="413" selection-end-column="17" />
+            <state relative-caret-position="468">
+              <caret line="55" column="42" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeeklyController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java">
+      <file leaf-file-name="UnitService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/UnitService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="425" column="55" selection-start-line="425" selection-start-column="44" selection-end-line="425" selection-end-column="55" />
+            <state relative-caret-position="626">
+              <caret line="33" column="15" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Usersmapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/Usersmapper.xml">
+      <file leaf-file-name="UnitServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/UnitServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="916">
-              <caret line="44" column="113" selection-start-line="44" selection-start-column="113" selection-end-line="44" selection-end-column="113" />
+            <state relative-caret-position="653">
+              <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+              <folding>
+                <element signature="e#1496#1497#0" expanded="true" />
+                <element signature="e#1546#1547#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnitMapper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/UnitMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnitMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UnitMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="383">
+              <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OperationController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/OperationController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="22" column="23" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorkPeratorMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="94" column="41" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorkPerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="26" column="23" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="23" />
+              <folding>
+                <element signature="e#5460#5461#0" expanded="true" />
+                <element signature="e#5491#5492#0" expanded="true" />
+                <element signature="e#5536#5537#0" expanded="true" />
+                <element signature="e#5576#5577#0" expanded="true" />
+                <element signature="e#5607#5608#0" expanded="true" />
+                <element signature="e#5637#5638#0" expanded="true" />
+                <element signature="e#5680#5681#0" expanded="true" />
+                <element signature="e#5718#5719#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,33 +311,17 @@
       <list>
         <option value="Interface" />
         <option value="Jsp File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getPermissionByPermissionId</find>
-      <find>getMaintenanceRecord</find>
-      <find>updMaintenanceRecord</find>
-      <find>selAll</find>
-      <find>getAiConfigureDataList</find>
-      <find>getMeasuringTypeMap</find>
-      <find>test</find>
-      <find>getSightType</find>
-      <find>selByEquipment</find>
-      <find>getPostChildList</find>
-      <find>getUnityMap</find>
-      <find>addDataConfiguration</find>
-      <find>运行专工</find>
-      <find>find</find>
-      <find>findRecord</find>
-      <find>getMaintenanceByProject</find>
-      <find>getProject1</find>
       <find>getProject2</find>
       <find>WfgdDaily</find>
       <find>shiro:hasPermission</find>
-      <find>getTemplateChildList</find>
       <find>operation</find>
       <find>values</find>
       <find>addAuditor</find>
@@ -104,8 +329,26 @@
       <find>8:00</find>
       <find>getConfirmTimeMills</find>
       <find>init</find>
-      <find>getEquipmentByName</find>
       <find>findByEmpId</find>
+      <find>getEmployeeByManager</find>
+      <find>getDefectList</find>
+      <find>updDefect</find>
+      <find>getEquMap</find>
+      <find>getTemplate</find>
+      <find>selByUser</find>
+      <find>getEquipmentByName</find>
+      <find>getTemplateChildList</find>
+      <find>commons</find>
+      <find>getPrincipal</find>
+      <find>shiroFilter</find>
+      <find>weeekly2</find>
+      <find>rememberme</find>
+      <find>dev</find>
+      <find>getUnitLike</find>
+      <find>addDefect</find>
+      <find>getUnityMap</find>
+      <find>getMeasuringType</find>
+      <find>getSightType</find>
     </findStrings>
     <replaceStrings>
       <replace>src=&quot;../</replace>
@@ -114,63 +357,62 @@
     </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd2.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeklyadd1.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailyadd1.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd3.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/runningWeeklyupd1.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/Week.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/runningWeekly2.js" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailys.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailys.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2P.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/MaintenanceService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/MaintenanceServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/MaintenanceMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/Maintenancemapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/WeeklyService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/WeeklyServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/WeeklyMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/UserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/UsersMapper.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/Usersmapper.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/ScrDailyController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/Weeklymapper.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDaily.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailyRecord.js" />
         <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDailyRecord.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/DefectMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/service/DefectService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/DefectServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EmployeeMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/EmployeeService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EmployeeServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/util/ResultObject.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/util/Type.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/util/ImgUploadUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/EquipmentService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/EmployeeService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EmployeeServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/Employee.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EmployeeMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/EquipmentService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/RedisSessionDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/RedisSessionDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/MyRedisManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/MShiroFilterFactoryBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/ShiroFormAuthenticationFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/PinYin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" />
       </list>
     </option>
   </component>
@@ -213,7 +455,7 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1273" />
+    <option name="x" value="-7" />
     <option name="width" value="1294" />
     <option name="height" value="1447" />
   </component>
@@ -226,19 +468,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="guide" type="b2602c69:ProjectViewProjectNode" />
               <item name="guide" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="guide" type="b2602c69:ProjectViewProjectNode" />
@@ -284,6 +519,17 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="howei" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guide" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="howei" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="redis" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="guide" type="b2602c69:ProjectViewProjectNode" />
@@ -423,11 +669,43 @@
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guide" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guide" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guide" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guide" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="howei" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -445,7 +723,8 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.gitignore" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/company/howei" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="SDKs" />
@@ -460,18 +739,31 @@
       <recent name="com.howei.pojo" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\product\guide\src\main\resources\mapper" />
-      <recent name="D:\product\guide\src\main\webapp\WEB-INF\jsp" />
       <recent name="D:\product\guide\src\main\resources\static\guide\js\week" />
+      <recent name="D:\product\guide\src\main\java\com\howei\config\redis" />
+      <recent name="D:\product\guide\src\main\webapp\WEB-INF\jsp" />
       <recent name="D:\product\guide\src\main\resources\static\guide\css" />
+      <recent name="D:\product\guide\src\main\java\com\howei\controller" />
+      <recent name="D:\project\guide\src\main\resources\mapper" />
+      <recent name="D:\project\guide\src\main\java\com\howei\service\impl" />
+      <recent name="D:\project\guide\src\main\java\com\howei\mapper" />
+      <recent name="D:\project\guide\src\main\java\com\howei\controller" />
+      <recent name="D:\project\guide\src\main\resources\static\guide\js\week" />
+      <recent name="D:\project\guide\src\main\resources\static\guide\img\week" />
+      <recent name="D:\project\guide\src\main\resources\static\guide\img" />
+      <recent name="D:\project\guide\src\main\resources\static\guide\js" />
+      <recent name="D:\project\guide\src\main\resources\static\guide\js\layui" />
+      <recent name="D:\project\guide\src\main\java\com\howei\util" />
+      <recent name="D:\project\guide\src\main\java\com\howei\pojo" />
+      <recent name="D:\product\guide\src\main\resources\mapper" />
       <recent name="D:\product\guide" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.howei.util" />
-      <recent name="com.howei.service.impl" />
+      <recent name="com.howei.config.redis" />
+      <recent name="com.howei.config" />
+      <recent name="com.howei.pojo" />
       <recent name="com.howei.service" />
-      <recent name="com.howei.mapper" />
-      <recent name="com.howei.controller" />
+      <recent name="com.howei.util" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\product\guide\src\main\resources\static\guide" />
@@ -499,7 +791,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UnitTest.getWeeklyByThisYear" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <configuration name="UnitTest.upd" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="guide" />
       <extension name="coverage">
         <pattern>
@@ -511,30 +803,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.howei" />
       <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
-      <option name="METHOD_NAME" value="getWeeklyByThisYear" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="UnitTest.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="guide" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.howei.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.howei" />
-      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
-      <option name="METHOD_NAME" value="test" />
+      <option name="METHOD_NAME" value="upd" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" />
@@ -560,19 +829,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-      <method>
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="" />
       <method>
         <option name="Make" enabled="true" />
       </method>
@@ -607,17 +863,17 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.UnitTest.getWeeklyByThisYear" />
-      <item itemvalue="JUnit.UnitTest.test" />
+      <item itemvalue="JUnit.UnitTest.upd" />
       <item itemvalue="Spring Boot.GuideApplication" />
     </list>
   </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c2b732dd-75f9-488f-bee8-be343311c674" name="Default" comment="" />
+      <changelist id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="" />
       <created>1592873945038</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -726,6 +982,37 @@
       <workItem from="1611624267467" duration="111000" />
       <workItem from="1611638319395" duration="1286000" />
       <workItem from="1611803487797" duration="1658000" />
+      <workItem from="1611885850208" duration="6114000" />
+      <workItem from="1613789421812" duration="1183000" />
+      <workItem from="1615165426044" duration="2369000" />
+      <workItem from="1615337092682" duration="2620000" />
+      <workItem from="1615423502635" duration="970000" />
+      <workItem from="1615437628247" duration="2487000" />
+      <workItem from="1615525623529" duration="6789000" />
+      <workItem from="1615772607894" duration="883000" />
+      <workItem from="1615857663282" duration="1544000" />
+      <workItem from="1616042953043" duration="567000" />
+      <workItem from="1616376367411" duration="255000" />
+      <workItem from="1616460500778" duration="153000" />
+      <workItem from="1616487795265" duration="474000" />
+      <workItem from="1616748037686" duration="870000" />
+      <workItem from="1616749188567" duration="161000" />
+      <workItem from="1616749389871" duration="23000" />
+      <workItem from="1616985675209" duration="1265000" />
+      <workItem from="1617073334533" duration="7000" />
+      <workItem from="1617073358582" duration="1452000" />
+      <workItem from="1617079011499" duration="138000" />
+      <workItem from="1617153699564" duration="19000" />
+      <workItem from="1617155434479" duration="1409000" />
+      <workItem from="1617673747841" duration="2375000" />
+      <workItem from="1617684756341" duration="358000" />
+      <workItem from="1617687846263" duration="10261000" />
+      <workItem from="1617932051269" duration="1023000" />
+      <workItem from="1618552314166" duration="10113000" />
+      <workItem from="1618792291608" duration="7994000" />
+      <workItem from="1618878532565" duration="1683000" />
+      <workItem from="1618906554679" duration="6454000" />
+      <workItem from="1618986519824" duration="7902000" />
       <workItem from="1611816232468" duration="256000" />
       <workItem from="1611884034811" duration="1930000" />
       <workItem from="1611908650815" duration="693000" />
@@ -750,6 +1037,25 @@
       <workItem from="1619056738678" duration="2281000" />
       <workItem from="1619137849916" duration="11779000" />
       <workItem from="1619310826563" duration="5750000" />
+      <workItem from="1619327589791" duration="4219000" />
+      <workItem from="1619398047438" duration="9758000" />
+      <workItem from="1619485196254" duration="7010000" />
+      <workItem from="1619571288143" duration="8272000" />
+      <workItem from="1619658134378" duration="2788000" />
+      <workItem from="1619672113823" duration="5251000" />
+      <workItem from="1619685009702" duration="1204000" />
+      <workItem from="1619744133143" duration="4674000" />
+      <workItem from="1619759374064" duration="2649000" />
+      <workItem from="1620261751385" duration="3448000" />
+      <workItem from="1620269216590" duration="1295000" />
+      <workItem from="1620272863232" duration="2729000" />
+      <workItem from="1620287402434" duration="2876000" />
+      <workItem from="1620347678410" duration="1096000" />
+      <workItem from="1620363396871" duration="644000" />
+      <workItem from="1620453654069" duration="751000" />
+      <workItem from="1620454717722" duration="2953000" />
+      <workItem from="1620459968326" duration="1371000" />
+      <workItem from="1620607802133" duration="10107000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -769,39 +1075,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UnitTest_a - 2021.04.19 at 09h 04m 30s.xml">
-      <configuration name="UnitTest.a" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 02s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 28m 21s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 22s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 29m 41s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 54s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 04s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 07s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 23s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 31s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 34s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 34s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 32m 06s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 51s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_b - 2021.04.19 at 09h 33m 59s.xml">
-      <configuration name="UnitTest.b" configurationId="JUnit" />
+    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 58m 09s.xml">
+      <configuration name="UnitTest.upd" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 34m 38s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 59m 45s.xml">
+      <configuration name="UnitTest.upd" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 59m 20s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_upd - 2021.04.27 at 17h 01m 15s.xml">
+      <configuration name="UnitTest.upd" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1003450000" />
+    <option name="totallyTimeSpent" value="1076545000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -817,8 +1123,8 @@
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.10691574" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5008104" side_tool="true" weight="0.4193303" />
+      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.21780604" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="2" />
@@ -826,19 +1132,20 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="5" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.34240362" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.34164777" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32804233" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32728648" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32939914" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.24489796" />
-      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32703927" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.21617536" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49918962" visible="true" weight="0.42101285" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.32939914" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20945945" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13036565" />
       <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="MyBatis Log" order="11" />
@@ -849,12 +1156,12 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Maven" order="3" weight="0.32995737" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Maven" order="3" weight="0.32995737" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.32939914" />
       <window_info id="Image Layers" order="3" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24716553" />
@@ -875,7 +1182,6 @@
       <window_info anchor="bottom" id="Database Changes" order="14" />
       <window_info anchor="bottom" id="Version Control" order="15" weight="0.32728648" />
       <window_info anchor="right" id="Maven Projects" order="6" weight="0.10696921" />
-      <window_info anchor="bottom" id="MyBatis Log" order="12" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1526232" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -883,7 +1189,7 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="MyBatis Log" order="12" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.34013605" />
     </layout-to-restore>
@@ -935,142 +1241,177 @@
     <MESSAGE value="周报及日志修复一些已知bug" />
     <option name="LAST_COMMIT_MESSAGE" value="周报及日志修复一些已知bug" />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="906" y="398" key="#Inspections" timestamp="1617695971825">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="906" y="398" key="#Inspections/0.0.2560.1440@0.0.2560.1440" timestamp="1617695971825" />
+    <state width="441" height="466" key="DebuggerActiveHint" timestamp="1619313140773">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="441" height="466" key="DebuggerActiveHint/0.0.2560.1440@0.0.2560.1440" timestamp="1619313140773" />
+    <state x="92" y="92" width="2376" height="1256" key="DiffContextDialog" timestamp="1619158181198">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="92" y="92" width="2376" height="1256" key="DiffContextDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1619158181198" />
+    <state x="1060" y="474" key="FileChooserDialogImpl" timestamp="1619311583807">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1060" y="474" key="FileChooserDialogImpl/0.0.2560.1440@0.0.2560.1440" timestamp="1619311583807" />
+    <state width="2517" height="622" key="GridCell.Tab.0.bottom" timestamp="1619317668032">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
+    <state width="2517" height="622" key="GridCell.Tab.0.center" timestamp="1619317668031">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
+    <state width="2517" height="622" key="GridCell.Tab.0.left" timestamp="1619317668031">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
+    <state width="2517" height="622" key="GridCell.Tab.0.right" timestamp="1619317668031">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
+    <state width="2517" height="622" key="GridCell.Tab.1.bottom" timestamp="1619317668032">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.1.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
+    <state width="2517" height="622" key="GridCell.Tab.1.center" timestamp="1619317668032">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.1.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
+    <state width="2517" height="622" key="GridCell.Tab.1.left" timestamp="1619317668032">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.1.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
+    <state width="2517" height="622" key="GridCell.Tab.1.right" timestamp="1619317668032">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="622" key="GridCell.Tab.1.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
+    <state width="2517" height="575" key="GridCell.Tab.2.bottom" timestamp="1619317141755">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.2.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="575" key="GridCell.Tab.2.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
+    <state width="2517" height="575" key="GridCell.Tab.2.center" timestamp="1619317141755">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.2.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="575" key="GridCell.Tab.2.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
+    <state width="2517" height="575" key="GridCell.Tab.2.left" timestamp="1619317141755">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.2.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="575" key="GridCell.Tab.2.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
+    <state width="2517" height="575" key="GridCell.Tab.2.right" timestamp="1619317141755">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1877" height="413" key="GridCell.Tab.2.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="575" key="GridCell.Tab.2.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
+    <state x="1290" y="376" width="998" height="710" key="SettingsEditor" timestamp="1617688206242">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1290" y="376" width="998" height="710" key="SettingsEditor/0.0.2560.1440@0.0.2560.1440" timestamp="1617688206242" />
+    <state x="1083" y="633" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619317701020">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1083" y="633" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1440@0.0.2560.1440" timestamp="1619317701020" />
+    <state x="982" y="186" width="967" height="802" key="find.popup" timestamp="1619152730541">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="982" y="186" width="967" height="802" key="find.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1619152730541" />
+    <state x="943" y="325" width="672" height="678" key="search.everywhere.popup" timestamp="1619156979164">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="943" y="325" width="672" height="678" key="search.everywhere.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1619156979164" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="19" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java</url>
+          <line>41</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java</url>
+          <line>29</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/ShiroFormAuthenticationFilter.java</url>
+          <line>37</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java</url>
+          <line>65</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2P.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/PostPeratorDataServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="102" column="15" lean-forward="true" selection-start-line="102" selection-start-column="15" selection-end-line="102" selection-end-column="15" />
+        <state relative-caret-position="864">
+          <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/MaintenanceService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/MaintenanceServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="204" column="42" selection-start-line="204" selection-start-column="42" selection-end-line="204" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/MaintenanceMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="57" column="40" lean-forward="true" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
-          <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/UsersMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="999">
-          <caret line="41" column="60" selection-start-line="41" selection-start-column="60" selection-end-line="41" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/text/Format.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="155" column="23" selection-start-line="155" selection-start-column="17" selection-end-line="155" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/util/Calendar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="1827" column="5" lean-forward="true" selection-start-line="1827" selection-start-column="5" selection-end-line="1827" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="37" column="52" lean-forward="true" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/WeeklyMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="40" column="28" lean-forward="true" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/WeeklyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1051">
-          <caret line="228" column="35" selection-start-line="228" selection-start-column="35" selection-end-line="228" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/WeeklyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1078">
-          <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/ScrDailyController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/PostperatorDataMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
-          <caret line="20" column="26" lean-forward="true" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+          <caret line="24" column="25" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="155" column="90" lean-forward="true" selection-start-line="155" selection-start-column="90" selection-end-line="155" selection-end-column="90" />
+        <state relative-caret-position="324">
+          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="530" column="42" lean-forward="true" selection-start-line="530" selection-start-column="42" selection-end-line="530" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="860">
+          <caret line="254" column="17" selection-start-line="254" selection-start-column="17" selection-end-line="254" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defectDetailed.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenance.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
-          <caret line="8" column="79" lean-forward="true" selection-start-line="8" selection-start-column="79" selection-end-line="8" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDaily.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailyRecord.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2970">
-          <caret line="110" column="63" selection-start-line="110" selection-start-column="63" selection-end-line="110" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDailyRecord.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2970">
-          <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+          <caret line="8" column="79" selection-start-line="8" selection-start-column="79" selection-end-line="8" selection-end-column="79" />
         </state>
       </provider>
     </entry>
@@ -1083,225 +1424,309 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/Weeklymapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="15" column="79" selection-start-line="15" selection-start-column="79" selection-end-line="15" selection-end-column="79" />
-          <folding>
-            <element signature="e#4974#4978#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/Maintenancemapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3510">
-          <caret line="130" column="13" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7047">
-          <caret line="283" column="38" selection-start-line="283" selection-start-column="38" selection-end-line="283" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/DefectMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="22" column="31" lean-forward="true" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/DefectService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/DefectServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="621">
-          <caret line="40" column="33" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="224" column="5" selection-start-line="224" selection-start-column="5" selection-end-line="224" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/EmployeeServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/ResultObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding>
-            <element signature="e#339#340#0" expanded="true" />
-            <element signature="e#366#367#0" expanded="true" />
-            <element signature="e#406#407#0" expanded="true" />
-            <element signature="e#438#439#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/Image.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/Type.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/ImgUploadUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="20" column="21" lean-forward="true" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/EmployeeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="38" lean-forward="true" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/EmployeeMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="13" column="33" lean-forward="true" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/staffhome.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="369" column="11" lean-forward="true" selection-start-line="369" selection-start-column="11" selection-end-line="369" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="19" column="44" lean-forward="true" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1701">
-          <caret line="63" column="39" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="39" />
+        <state relative-caret-position="972">
+          <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1431">
-          <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="54" selection-end-column="39" />
+        <state relative-caret-position="6291">
+          <caret line="239" column="26" selection-start-line="239" selection-start-column="26" selection-end-line="239" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/EquipmentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="710">
+          <caret line="101" column="54" selection-start-line="101" selection-start-column="45" selection-end-line="101" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="75" column="67" selection-start-line="75" selection-start-column="67" selection-end-line="75" selection-end-column="67" />
+        <state relative-caret-position="2052">
+          <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/EquipmentService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
-          <caret line="34" column="32" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="32" />
+        <state relative-caret-position="918">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/InquiriesDataController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3078">
+          <caret line="137" column="55" selection-start-line="137" selection-start-column="44" selection-end-line="137" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/PostPeratorDataMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2349">
+          <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="191" column="5" selection-start-line="191" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/HomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-54">
+          <caret line="31" column="29" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/NoPermissionException.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/MyRedisManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="53" column="66" lean-forward="true" selection-start-line="53" selection-start-column="66" selection-end-line="53" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="425" column="55" selection-start-line="425" selection-start-column="44" selection-end-line="425" selection-end-column="55" />
+        <state relative-caret-position="440">
+          <caret line="120" column="31" lean-forward="true" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/Usersmapper.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/RedisSessionDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="916">
-          <caret line="44" column="113" selection-start-line="44" selection-start-column="113" selection-end-line="44" selection-end-column="113" />
+        <state relative-caret-position="270">
+          <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/MShiroFilterFactoryBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1647">
+          <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/ShiroFormAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1323">
+          <caret line="54" column="51" selection-start-line="54" selection-start-column="45" selection-end-line="54" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2133">
+          <caret line="79" column="21" selection-start-line="75" selection-start-column="8" selection-end-line="79" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/GuideApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/equipment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2052">
+          <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/PinYin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <folding>
-            <element signature="e#6053#6059#0" expanded="true" />
-          </folding>
+          <caret column="23" selection-start-column="23" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="297">
+          <caret line="23" column="45" lean-forward="true" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="208" column="54" lean-forward="true" selection-start-line="208" selection-start-column="54" selection-end-line="208" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="413" column="17" selection-start-line="413" selection-start-column="17" selection-end-line="413" selection-end-column="17" />
+        <state relative-caret-position="532">
+          <caret line="251" column="49" selection-start-line="251" selection-start-column="49" selection-end-line="251" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="764">
+          <caret line="131" column="59" selection-start-line="131" selection-start-column="59" selection-end-line="131" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/OperationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="22" column="23" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="94" column="41" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/UnitService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="626">
+          <caret line="33" column="15" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/UnitServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="653">
+          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+          <folding>
+            <element signature="e#1496#1497#0" expanded="true" />
+            <element signature="e#1546#1547#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UnitMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="65" column="13" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DataConfigurationMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="55" column="42" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="390" column="8" selection-start-line="390" selection-start-column="8" selection-end-line="395" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="26" column="23" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="23" />
+          <folding>
+            <element signature="e#5460#5461#0" expanded="true" />
+            <element signature="e#5491#5492#0" expanded="true" />
+            <element signature="e#5536#5537#0" expanded="true" />
+            <element signature="e#5576#5577#0" expanded="true" />
+            <element signature="e#5607#5608#0" expanded="true" />
+            <element signature="e#5637#5638#0" expanded="true" />
+            <element signature="e#5680#5681#0" expanded="true" />
+            <element signature="e#5718#5719#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/UnitMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
