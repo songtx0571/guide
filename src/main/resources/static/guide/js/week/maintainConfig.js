@@ -119,10 +119,7 @@ function showMaintainWork(departmentId) {
                     "<td><span class='ulPlanedWorkingHour'>" + data[i].planedWorkingHour + "</span></td>" +
                     "<td><span class='ulCycle cycle" + i + "'>" + data[i].cycle + "</span></td>" +
                     "<td><span class='ulCountDown ulCountDown1' id='ulCountDown" + i + "'></span><span style='display: none;' class='inspectionEndTime" + i + "'>" + data[i].startTime + "</span></td>" +
-                    "<td><span class='ulOperation'>" +
-                    "<button class='layui-btn layui-btn-sm' onclick='openMaintainConfig(" + data[i].id + ")'>修改</button>" +
-                    "<button class='layui-btn layui-btn-sm' onclick='resetMaintainConfig(" + data[i].id + ")'>重置</button>" +
-                    "<button class='layui-btn layui-btn-sm' onclick='distributionMaintainConfig(" + data[i].id + ")'>分配</button></span></td></tr>";
+                    "<td><span class='ulOperation'>"+getPermission(data[i].id) +"</span></td></tr>";
                 var h = data[i].cycle;//周期
                 var startTime = data[i].startTime;//开始时间
                 if (data[i].startTime != "" || data[i].startTime != null) {
@@ -136,6 +133,8 @@ function showMaintainWork(departmentId) {
         }
     });
 }
+
+
 //倒计时
 function a (startTime,h,i,assignmentStatus) {
    var timer= setInterval(function () {
@@ -197,13 +196,13 @@ function openMaintainConfig(id) {
                     saveId = data.id;
                     $("#selSysName").val(data.systemId);
                     $("#selEquipmentName").val(data.equipmentId);
-                    $("#selMaintainPointName").val(data.maintainPointId);
+                    $("#selMaintainPointName").val(data.unitId);
                     $("#selCycle").val(data.cycle);
                     $("#selPlanedWorkingHour").val(data.planedWorkingHour);
                     $("#selWorkContent").val(data.workContent);
                     $("#selSysNameHidden").val(data.systemId);
                     $("#selEquipmentNameHidden").val(data.equipmentId);
-                    $("#selMaintainPointNameHidden").val(data.maintainPointId);
+                    $("#selMaintainPointNameHidden").val(data.unitId);
                     $("#selCycleHidden").val(data.cycle);
                     $("#selPlanedWorkingHourHidden").val(data.planedWorkingHour);
                     form.render();

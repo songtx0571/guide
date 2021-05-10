@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>维护配置</title>
@@ -23,11 +24,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="layui-inline" style="float:left;width: 220px;">
-                    <button type="button" class="layui-btn layui-btn-fluid  layui-btn-normal"
-                            onclick="openMaintainConfig('')">创建
-                    </button>
-                </div>
+                <shiro:hasPermission name="创建维护配置">
+                    <div class="layui-inline" style="float:left;width: 220px;">
+                        <button type="button" class="layui-btn layui-btn-fluid  layui-btn-normal"
+                                onclick="openMaintainConfig('')">创建
+                        </button>
+                    </div>
+                </shiro:hasPermission>
+
             </div>
         </form>
     </div>
@@ -175,7 +179,8 @@
             </tr>
             <tr>
                 <th>工作内容</th>
-                <td colspan="8" id="maintainConfigMaintainPointName" style="padding-left: 10px;box-sizing: border-box;"></td>
+                <td colspan="8" id="maintainConfigMaintainPointName"
+                    style="padding-left: 10px;box-sizing: border-box;"></td>
             </tr>
             <tr>
                 <th>执行人</th>
@@ -191,7 +196,9 @@
             <thead>
             <tr>
                 <td colspan="9" align="center">
-                    <button type="button" class="layui-btn layui-btn-normal" id="maintainConfigOkBtn"  onclick="maintainConfigOk()">确定</button>
+                    <button type="button" class="layui-btn layui-btn-normal" id="maintainConfigOkBtn"
+                            onclick="maintainConfigOk()">确定
+                    </button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
             </tr>
@@ -200,4 +207,21 @@
     </div>
 </div>
 </body>
+
+<script type="text/javascript">
+    //操作按钮权限控制
+    function getPermission(id) {
+        var str = '';
+        <shiro:hasPermission name="修改维护配置">
+        str += "<button class='layui-btn layui-btn-sm' onclick='openMaintainConfig(" + id + ")'>修改</button>";
+        </shiro:hasPermission>
+        <shiro:hasPermission name="重置维护配置">
+        str += "<button class='layui-btn layui-btn-sm' onclick='resetMaintainConfig(" + id + ")'>重置</button>";
+        </shiro:hasPermission>
+        <shiro:hasPermission name="分配维护配置">
+        str += "<button class='layui-btn layui-btn-sm' onclick='distributionMaintainConfig(" + id + ")'>分配</button>";
+        </shiro:hasPermission>
+        return str;
+    }
+</script>
 </html>
