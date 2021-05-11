@@ -128,7 +128,7 @@ public class MaintainController {
         int count = maintainService.deleteMaintainById(id);
         String result = "SUCCESS";
         if (count < 0) {
-            result = "false";
+            result = "False";
         }
         return result;
     }
@@ -141,7 +141,7 @@ public class MaintainController {
         Maintain maintain = maintainService.getMaintainById(maintainId);
         String assignmentStatus = maintain.getAssignmentStatus();
         if (!assignmentStatus.equals("0")) {
-            return "该任务已分配";
+            return "DISTRIBUTED";
         }
         Date date = new Date();
         //更新时间
