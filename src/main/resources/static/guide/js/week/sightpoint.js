@@ -30,6 +30,10 @@ function showDepartName() {
             $("#selDepartNameHidden").val(data.value);
             showPoint();
         });
+        form.on('select(selTypeName)', function (data) {
+            $("#selTypeNameHidden").val(data.value);
+            showPoint();
+        })
         form.on('select(addDepartName)', function (data) {
             $("#addDepartNameHidden").val(data.value);
         });
@@ -47,6 +51,8 @@ function showPoint() {
     if (department == "" || department == "0"){
         department = ""
     }
+
+    var typeName = $("#selTypeName").val();
     // 显示查询的模板
     layui.use('table', function(){
         var table = layui.table;
@@ -54,7 +60,7 @@ function showPoint() {
             elem: '#demo'
             ,height: 'full-200'
             ,toolbar: true
-            ,url: path + '/guide/unit/getUnitList?mold=2&department='+department//数据接口
+            ,url: path + '/guide/unit/getUnitList?mold=2&department='+department+"&bothType="+typeName//数据接口
             ,page: true //开启分页
             ,limit: 50
             ,limits: [50, 100, 150]

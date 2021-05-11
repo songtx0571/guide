@@ -20,6 +20,8 @@ public class OperationRecord {
     private String longTime;
     private String sendName;
     private String confirmTime;
+    private String userNumber;
+    private String url;
 
     @Override
     public String toString() {
@@ -36,7 +38,26 @@ public class OperationRecord {
                 ", longTime='" + longTime + '\'' +
                 ", sendName='" + sendName + '\'' +
                 ", confirmTime='" + confirmTime + '\'' +
+                ", userNumber='" + userNumber + '\'' +
+                ", url='" + url + '\'' +
                 '}';
+    }
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUserNumber() {
+        return userNumber;
+    }
+
+    public void setUserNumber(String userNumber) {
+        this.userNumber = userNumber;
     }
 
     public String getConfirmTime() {

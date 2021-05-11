@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
-@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8080","http://192.168.1.27:8848"},allowCredentials = "true")
+@CrossOrigin
 @RequestMapping("/guide/template")
 //@RequestMapping("/template")
 public class TemplateController {

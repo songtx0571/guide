@@ -64,6 +64,6 @@
     </select>
 
     <select id="findByEmpId" resultType="com.howei.pojo.Users">
-        select userName from users where employeeId=#{employeeId}
+        select * from users where employeeId=#{employeeId}
     </select>
 </mapper>

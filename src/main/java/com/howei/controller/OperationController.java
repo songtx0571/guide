@@ -1,5 +1,6 @@
 package com.howei.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.howei.config.Sender;
 import com.howei.pojo.OperationRecord;
 import com.howei.pojo.Users;
@@ -37,29 +38,36 @@ public class OperationController {
                              @RequestParam(required = false) String content,
                              @RequestParam(required = false) String type,
                              @RequestParam(required = false) String remark,
-                             @RequestParam(required = false) Integer id
+                             @RequestParam(required = false) String url
                              ) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
         Subject subject = SecurityUtils.getSubject();
         Users users = (Users) subject.getPrincipal();
+        if(users==null){
+            return "用户失效";
+        }
         int sendId = users.getEmployeeId();
         String userName = users.getUserName();
         Long timeMillis = System.currentTimeMillis();
         OperationRecord record = new OperationRecord();
         record.setSendId(sendId);
+        record.setUserNumber(users.getUserNumber());
         record.setSendName(userName);
         record.setVerb(verb);
         record.setContent(content);
         record.setType(type);
         record.setRemark(remark);
+        record.setUrl(url);
         record.setLongTime(timeMillis.toString());
         record.setCreateTime(sdf.format(timeMillis));
 
+        String level ="5";
         Map<String, Object> userSettinMap = userService.getUserSettingByEmployeeId(sendId);
-
-        String level = (String) userSettinMap.get(type + "_level");
+        if(userSettinMap!=null&& userSettinMap.get(type + "_level")!=null){
+            level = (String) userSettinMap.get(type + "_level");
+        }
 
         Long confirmTime = DateFormat.getConfirmTimeMills(timeMillis, level);
         if (confirmTime != null) {
