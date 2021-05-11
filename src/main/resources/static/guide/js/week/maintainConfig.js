@@ -231,7 +231,7 @@ function saveMaintainConfig() {
     maintainWork.id = saveId;
     maintainWork.systemId = Number($("#selSysNameHidden").val());
     maintainWork.equipmentId = Number($("#selEquipmentNameHidden").val());
-    maintainWork.maintainPointId = Number($("#selMaintainPointNameHidden").val());
+    maintainWork.unitId = Number($("#selMaintainPointNameHidden").val());
     maintainWork.cycle = $("#selCycleHidden").val();
     maintainWork.planedWorkingHour = $("#selPlanedWorkingHourHidden").val();
     maintainWork.workContent = $("#selWorkContent").val();
@@ -360,6 +360,8 @@ function maintainConfigOk() {
                 layer.alert("分配成功");
                 layer.closeAll();
                 showMaintainWork($("#selDepartNameHidden").val());
+            }else if(date="DISTRIBUTED"){
+                layer.alert("该任务已分配")
             }
         }
     });

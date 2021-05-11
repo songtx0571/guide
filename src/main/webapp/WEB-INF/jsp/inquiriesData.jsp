@@ -85,6 +85,7 @@
                                 <option value="0">请选择</option>
                                 <option value="1">人工</option>
                                 <option value="2">AI</option>
+                                <option value="3">维护</option>
                             </select>
                         </div>
                         <div class="layui-input-inline" style="float: left;">

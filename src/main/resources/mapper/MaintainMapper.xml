@@ -147,8 +147,8 @@
         LEFT JOIN unit u ON u.id = m.unit_id
         WHERE
         1 = 1
-        <if test="map.departmentId!=null">and m.department_id=#{map.departmentId}</if>
-        <if test="map.id!=null">and m.id=#{map.id}</if>
+        <if test="map.departmentId!=null">and mr.department_id=#{map.departmentId}</if>
+        <if test="map.id!=null">and mr.id=#{map.id}</if>
         <if test="map.employeeId!=null">and mr.employee_id=#{map.employeeId}</if>
         <if test="map.status!=null and map.status==1">
             and mr.status!='2'

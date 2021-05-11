@@ -128,7 +128,7 @@ public class InquiriesDataController {
         List<Map<String,Object>> result=new ArrayList<>();
         String depart=request.getParameter("departName");//项目
         String equipment=request.getParameter("name");//系统名+设备名
-        String type=request.getParameter("type");//1:人工；2:ai
+        String type=request.getParameter("type");//1:人工；2:ai,3维护
         Map map=new HashMap();
         map.put("department",depart);
         map.put("equipment",equipment);
@@ -138,6 +138,8 @@ public class InquiriesDataController {
                 list=postPeratorDataService.getUnityMap(map);
             }else if(type.equals("2")){//ai
                 list=dataConfigurationService.getMeasuringTypeMap(map);
+            }else if(type.equals("3")){
+                //维护
             }
         }
         for (int i=0;i<list.size();i++){
