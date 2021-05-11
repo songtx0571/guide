@@ -23,28 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/MaintainMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Maintain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/MaintainRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/MaintainService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/MaintainPointServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/css/maintainCss.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainWork.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainConfig.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainWork.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/OperationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/OperationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/OperationRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/OperationRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UnitMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UnitMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/Usersmapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/Usersmapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/sightpoint.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/sightpoint.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sightpoint.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sightpoint.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefectController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DefectController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1296">
-              <caret line="69" column="47" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
+            <state relative-caret-position="378">
+              <caret line="173" column="41" lean-forward="true" selection-start-line="173" selection-start-column="41" selection-end-line="173" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -137,11 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="27">
-              <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+              <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -238,7 +217,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" />
         <option value="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java" />
@@ -264,6 +242,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" />
       </list>
     </option>
   </component>
@@ -893,7 +872,7 @@
       <workItem from="1620459968326" duration="1371000" />
       <workItem from="1620607802133" duration="12253000" />
       <workItem from="1620634306323" duration="2063000" />
-      <workItem from="1620701020352" duration="231000" />
+      <workItem from="1620701020352" duration="573000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -945,7 +924,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1080985000" />
+    <option name="totallyTimeSpent" value="1081327000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1510,13 +1489,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1296">
-          <caret line="69" column="47" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/OperationController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
@@ -1544,7 +1516,14 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
-          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="173" column="41" lean-forward="true" selection-start-line="173" selection-start-column="41" selection-end-line="173" selection-end-column="41" />
         </state>
       </provider>
     </entry>

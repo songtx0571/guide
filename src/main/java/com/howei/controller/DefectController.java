@@ -168,7 +168,7 @@ public class DefectController {
                 empIdsName=empIdsName.equals("")||empIdsName==null ? "":empIdsName.substring(0,empIdsName.length()-1);
                 defect.setEmpIdsName(empIdsName);
             }
-            if(defect.getaPlc()!=null){
+            /*if(defect.getaPlc()!=null){
                 String aPlc64=ImageToBase64ByLocal("/home/defect/img/"+defect.getaPlc());
                 if(aPlc64.equals("")){
                     defect.setaPlc64("");
@@ -183,7 +183,7 @@ public class DefectController {
                 }else{
                     defect.setbPlc64(bPlc64);
                 }
-            }
+            }*/
             if(defect.getRealExecuteTime()==null){
                 String realETime=defect.getRealETime();//实际结束时间
                 Double plannedWork=defect.getPlannedWork()==null?0.0:defect.getPlannedWork();//计划完成时间
