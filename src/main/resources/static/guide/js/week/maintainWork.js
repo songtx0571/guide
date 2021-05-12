@@ -58,6 +58,7 @@ function showMaintainWork(departmentId,status) {
                 , limits: [50, 100, 150]
                 , cols: [[ //表头
                     {field: 'id', title: '编号', align: 'center', hide: true}
+                    , {field: 'maintainRecordNo', title: '维护编号', sort: true, align: 'center'}
                     , {field: 'systemName', title: '系统', sort: true, align: 'center'}
                     , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
                     , {field: 'unitName', title: '维护点', sort: true, align: 'center'}

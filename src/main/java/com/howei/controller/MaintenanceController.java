@@ -1,8 +1,7 @@
 package com.howei.controller;
 
 
-import com.howei.pojo.Defect;
-import com.howei.pojo.Users;
+import com.howei.pojo.*;
 import com.howei.service.UserService;
 import com.howei.util.DateFormat;
 import org.apache.shiro.SecurityUtils;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.howei.service.MaintenanceService;
-import com.howei.pojo.Maintenance;
-import com.howei.pojo.MaintenanceRecord;
 
 import com.howei.util.JsonResult;
 
@@ -268,23 +265,59 @@ public class MaintenanceController {
     @RequestMapping("getDefectList")
     public JsonResult getDefectList(Integer departmentId,String date){
         if(departmentId!=null && !date.equals("")){
+            List<Map<String,Object>> mapList=new ArrayList<>();
             Map map=new HashMap();
+
             map.put("departmentId",departmentId);
             map.put("date",date);
-            List<Defect> list=maintenanceService.getDefectList(map);
-            for (Defect defect:list){
-                String[] arr=defect.getEmpIds().split(",");
-                String empIdsName="";
-                for (String str:arr){
-                    Users users=userService.findByEmpId(str);
-                    if(users!=null){
-                        empIdsName+=users.getUserName()+"、";
+            List<Defect> defectLis=maintenanceService.getDefectList(map);
+            List<MaintainRecord> maintainRecordList=maintenanceService.getMaintainRecordList(map);
+            if(defectLis!=null&&defectLis.size()>0){
+                for (Defect defect:defectLis){
+                    map=new HashMap();
+                    map.put("number",defect.getNumber());
+                    map.put("abs",defect.getAbs());
+                    String[] arr=defect.getEmpIds().split(",");
+                    String empIdsName="";
+                    for (String str:arr){
+                        Users users=userService.findByEmpId(str);
+                        if(users!=null){
+                            empIdsName+=users.getUserName()+"、";
+                        }
                     }
+                    empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
+                    map.put("id",defect.getId());
+                    map.put("empIdsName",empIdsName);
+                    map.put("realExecuteTime",defect.getRealExecuteTime());
+                    map.put("confirmer1Time",defect.getConfirmer1Time());
+                    map.put("type",0);
+                    mapList.add(map);
                 }
-                empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
-                defect.setEmpIdsName(empIdsName);
             }
-            return new JsonResult(list);
+
+            if (maintainRecordList!=null&&maintainRecordList.size()>0){
+                for (MaintainRecord maintainRecord : maintainRecordList) {
+                    map=new HashMap();
+                    map.put("number",maintainRecord.getMaintainRecordNo());
+                    map.put("abs",maintainRecord.getSystemName()+maintainRecord.getEquipmentName()+maintainRecord.getUnitName());
+                    String[] arr=maintainRecord.getEmployeeId().split(",");
+                    String empIdsName="";
+                    for (String str:arr){
+                        Users users=userService.findByEmpId(str);
+                        if(users!=null){
+                            empIdsName+=users.getUserName()+"、";
+                        }
+                    }
+                    empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
+                    map.put("empIdsName",empIdsName);
+                    map.put("realExecuteTime",maintainRecord.getWorkingHour());
+                    map.put("confirmer1Time",maintainRecord.getEndTime());
+                    map.put("type",1);
+                    mapList.add(map);
+                }
+            }
+
+            return new JsonResult(mapList);
         }
         return new JsonResult(null);
     }

@@ -1,8 +1,6 @@
 package com.howei.service.impl;
 
-import com.howei.pojo.Defect;
-import com.howei.pojo.Maintenance;
-import com.howei.pojo.MaintenanceRecord;
+import com.howei.pojo.*;
 import com.howei.mapper.MaintenanceMapper;
 import com.howei.mapper.UsersMapper;
 import com.howei.service.MaintenanceService;
@@ -203,5 +201,10 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     @Override
     public List<Defect> getDefectList(Map map) {
         return maintenancemapper.getDefectList(map);
+    }
+
+    @Override
+    public List<MaintainRecord> getMaintainRecordList(Map map) {
+        return maintenancemapper.getMaintainRecordList(map);
     }
 }

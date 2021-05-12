@@ -22,17 +22,28 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="">
+    <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="优化：维护引导是否有所有部门权限&#10;修复：维护配置分配给多人出现的异常">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/util/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/util/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/MaintenanceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/MaintenanceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/MaintainRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/MaintainRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/MaintenanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/MaintenanceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/MaintenanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/MaintenanceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/Maintenancemapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/Maintenancemapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/css/maintainCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/css/maintainCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainWork.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainWork.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainConfig.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainConfig.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainWork.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainWork.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,474 +52,36 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="guide" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DefectController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="654" column="9" selection-start-line="654" selection-start-column="9" selection-end-line="654" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EquipmentController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/EquipmentController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Result.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/Result.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Defect.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="23" column="33" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefectMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WeeklyController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11286">
-              <caret line="435" column="70" selection-start-line="435" selection-start-column="60" selection-end-line="435" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="defect.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3294">
-              <caret line="122" column="42" selection-start-line="122" selection-start-column="42" selection-end-line="122" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="defect.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6210">
-              <caret line="230" column="16" selection-start-line="230" selection-start-column="16" selection-end-line="230" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InquiriesDataController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/InquiriesDataController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3510">
-              <caret line="153" column="5" selection-start-line="34" selection-start-column="4" selection-end-line="153" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MaintainController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6237">
-              <caret line="254" column="7" selection-start-line="254" selection-start-column="7" selection-end-line="254" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Class" />
         <option value="Jsp File" />
         <option value="JavaScript File" />
         <option value="CSS File" />
-        <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>getProject2</find>
-      <find>WfgdDaily</find>
-      <find>shiro:hasPermission</find>
-      <find>operation</find>
-      <find>values</find>
-      <find>addAuditor</find>
-      <find>findWeek</find>
-      <find>8:00</find>
-      <find>getConfirmTimeMills</find>
-      <find>init</find>
-      <find>findByEmpId</find>
-      <find>getEmployeeByManager</find>
-      <find>getDefectList</find>
-      <find>updDefect</find>
-      <find>getEquMap</find>
-      <find>getTemplate</find>
-      <find>selByUser</find>
-      <find>getEquipmentByName</find>
-      <find>getTemplateChildList</find>
-      <find>commons</find>
-      <find>getPrincipal</find>
-      <find>shiroFilter</find>
-      <find>weeekly2</find>
-      <find>rememberme</find>
-      <find>dev</find>
-      <find>getUnitLike</find>
-      <find>addDefect</find>
-      <find>getUnityMap</find>
-      <find>getMeasuringType</find>
-      <find>getSightType</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>src=&quot;../</replace>
-      <replace>c.uesrName</replace>
-      <replace>c.userName</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/Weeklymapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDaily.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailyRecord.js" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDailyRecord.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/DefectMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/DefectService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/DefectServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/ResultObject.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/Type.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/ImgUploadUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/EmployeeService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EmployeeServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/Employee.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EmployeeMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/service/EquipmentService.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/RedisSessionDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/RedisSessionDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/MyRedisManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig1.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/MShiroFilterFactoryBean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/ShiroFormAuthenticationFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/PinYin.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/util/Result.java" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="localRepository" value="D:\Maven\MavenRepository" />
+        <option name="mavenHome" value="D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.4\plugins\maven\lib\maven3" />
         <option name="userSettingsFile" value="D:\Maven\apache-maven-3.3.3\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="guide" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="guide" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
-        </path>
-      </expand>
-      <select />
-    </treeState>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="1273" />
-    <option name="width" value="1294" />
-    <option name="height" value="1447" />
   </component>
   <component name="ProjectId" id="1jaS4G7TfGg2PO2ztNgvapxZBZH" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="redis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="pojo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="howei" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="week" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="jsp" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="MyBatisLogPluginindexNum" value="53584" />
@@ -525,7 +98,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.gitignore" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="D:/company/guide" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/mapper" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -533,19 +106,16 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/.idea/workspace.xml" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.howei.pojo" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\product\guide\src\main\webapp\WEB-INF\jsp" />
-      <recent name="D:\product\guide\src\main\resources\static\guide\js\week" />
-      <recent name="D:\product\guide\src\main\java\com\howei\config\redis" />
-      <recent name="D:\product\guide\src\main\resources\static\guide\css" />
-      <recent name="D:\product\guide\src\main\java\com\howei\controller" />
       <recent name="D:\project\guide\src\main\resources\mapper" />
       <recent name="D:\project\guide\src\main\java\com\howei\service\impl" />
       <recent name="D:\project\guide\src\main\java\com\howei\mapper" />
@@ -558,14 +128,17 @@
       <recent name="D:\project\guide\src\main\java\com\howei\util" />
       <recent name="D:\project\guide\src\main\java\com\howei\pojo" />
       <recent name="D:\product\guide\src\main\resources\mapper" />
+      <recent name="D:\product\guide\src\main\webapp\WEB-INF\jsp" />
+      <recent name="D:\product\guide\src\main\resources\static\guide\js\week" />
+      <recent name="D:\product\guide\src\main\resources\static\guide\css" />
       <recent name="D:\product\guide" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.howei.config.redis" />
-      <recent name="com.howei.config" />
-      <recent name="com.howei.pojo" />
       <recent name="com.howei.service" />
       <recent name="com.howei.util" />
+      <recent name="com.howei.service.impl" />
+      <recent name="com.howei.mapper" />
+      <recent name="com.howei.controller" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\product\guide\src\main\resources\static\guide" />
@@ -574,26 +147,25 @@
       <recent name="F:\product\guide\src\main\resources\static\js\bootstrap" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Spring Boot.GuideApplication">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UnitTest.upd" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuideApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="guide" />
       <extension name="coverage">
         <pattern>
@@ -601,75 +173,129 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.howei" />
-      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
-      <option name="METHOD_NAME" value="upd" />
+      <option name="MAIN_CLASS_NAME" value="com.howei.GuideApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
+    <configuration name="UnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="guide" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.howei.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.howei" />
+      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-      <method>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UnitTest.a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UnitTest.getSightType (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="guide" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.howei.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.howei" />
+      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
+      <option name="METHOD_NAME" value="getSightType" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UnitTest.getWeeklyByThisYear" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="guide" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.howei.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.howei" />
+      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
+      <option name="METHOD_NAME" value="a" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UnitTest.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="guide" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.howei.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.howei" />
+      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="GuideApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="guide" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.howei.GuideApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
+    <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.UnitTest.upd" />
+      <item itemvalue="JUnit.UnitTest.getWeeklyByThisYear" />
+      <item itemvalue="JUnit.UnitTest.test" />
+      <item itemvalue="JUnit.UnitTest" />
+      <item itemvalue="JUnit.UnitTest.getSightType (1)" />
+      <item itemvalue="JUnit.GuideApplicationTests.contextLoads" />
+      <item itemvalue="JUnit.UnitTest.a" />
       <item itemvalue="Spring Boot.GuideApplication" />
     </list>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -837,33 +463,8 @@
       <workItem from="1618906510666" duration="603000" />
       <workItem from="1618967281725" duration="4573000" />
       <workItem from="1619056738678" duration="2281000" />
-      <workItem from="1619137849916" duration="11779000" />
-      <workItem from="1619310826563" duration="5750000" />
-      <workItem from="1619327589791" duration="4219000" />
-      <workItem from="1619398047438" duration="9758000" />
-      <workItem from="1619485196254" duration="7010000" />
-      <workItem from="1619571288143" duration="8272000" />
-      <workItem from="1619658134378" duration="2788000" />
-      <workItem from="1619672113823" duration="5251000" />
-      <workItem from="1619685009702" duration="1204000" />
-      <workItem from="1619744133143" duration="4674000" />
-      <workItem from="1619759374064" duration="2649000" />
-      <workItem from="1620261751385" duration="3448000" />
-      <workItem from="1620269216590" duration="1295000" />
-      <workItem from="1620272863232" duration="2729000" />
-      <workItem from="1620287402434" duration="2876000" />
-      <workItem from="1620347678410" duration="1096000" />
-      <workItem from="1620363396871" duration="644000" />
-      <workItem from="1620453654069" duration="751000" />
-      <workItem from="1620454717722" duration="2953000" />
-      <workItem from="1620459968326" duration="1371000" />
-      <workItem from="1620607802133" duration="12253000" />
-      <workItem from="1620634306323" duration="2063000" />
-      <workItem from="1620701020352" duration="573000" />
-      <workItem from="1620701954835" duration="2590000" />
-      <workItem from="1620720414664" duration="593000" />
-      <workItem from="1620796096627" duration="4105000" />
-      <workItem from="1620800629072" duration="1064000" />
+      <workItem from="1619137849916" duration="2159000" />
+      <workItem from="1619311183060" duration="6345000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -883,39 +484,36 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 02s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
+    <history-entry file="UnitTest_a - 2021.04.19 at 09h 04m 30s.xml">
+      <configuration name="UnitTest.a" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 22s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 28m 21s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 54s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 29m 41s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 07s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 04s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 31s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 23s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 34s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 34s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 51s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 32m 06s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 58m 09s.xml">
-      <configuration name="UnitTest.upd" configurationId="JUnit" />
+    <history-entry file="UnitTest_b - 2021.04.19 at 09h 33m 59s.xml">
+      <configuration name="UnitTest.b" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 59m 45s.xml">
-      <configuration name="UnitTest.upd" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 34m 38s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_upd - 2021.04.27 at 17h 01m 15s.xml">
-      <configuration name="UnitTest.upd" configurationId="JUnit" />
+    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 59m 20s.xml">
+      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
     </history-entry>
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1089679000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -926,84 +524,8 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1456" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5008104" side_tool="true" weight="0.4193303" />
-      <window_info anchor="right" id="Maven Projects" order="5" weight="0.22416534" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="5" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.34164777" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
-      <window_info anchor="bottom" id="Messages" order="11" visible="true" weight="0.32728648" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info id="Image Layers" order="3" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32939914" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="bottom" id="Version Control" order="14" weight="0.30612245" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49918962" weight="0.42101285" />
-      <window_info anchor="bottom" id="Spring" order="7" weight="0.32939914" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16573927" />
-      <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="MyBatis Log" order="11" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.32995737" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
-    </layout>
-    <layout-to-restore>
-      <window_info anchor="right" id="Maven" order="3" weight="0.32995737" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Spring" order="7" weight="0.32939914" />
-      <window_info id="Image Layers" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24716553" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32804233" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32939914" />
-      <window_info anchor="bottom" id="Database Changes" order="14" />
-      <window_info anchor="bottom" id="Version Control" order="15" weight="0.32728648" />
-      <window_info anchor="right" id="Maven Projects" order="6" weight="0.10696921" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1526232" />
-      <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="MyBatis Log" order="12" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.34013605" />
-    </layout-to-restore>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -1020,29 +542,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="运行引导系统测试版1.0.0.RELEASE" />
@@ -1066,45 +571,53 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1060" y="474" key="FileChooserDialogImpl/0.0.2560.1440@0.0.2560.1440" timestamp="1619311583807" />
-    <state width="2517" height="622" key="GridCell.Tab.0.bottom" timestamp="1619317668032">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.0.bottom" timestamp="1620805101714">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
     <state width="2517" height="622" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="622" key="GridCell.Tab.0.center" timestamp="1619317668031">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.0.center" timestamp="1620805101714">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
     <state width="2517" height="622" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
-    <state width="2517" height="622" key="GridCell.Tab.0.left" timestamp="1619317668031">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.0.left" timestamp="1620805101714">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
     <state width="2517" height="622" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
-    <state width="2517" height="622" key="GridCell.Tab.0.right" timestamp="1619317668031">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.0.right" timestamp="1620805101714">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
     <state width="2517" height="622" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
-    <state width="2517" height="622" key="GridCell.Tab.1.bottom" timestamp="1619317668032">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.1.bottom" timestamp="1620805101715">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101715" />
     <state width="2517" height="622" key="GridCell.Tab.1.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="622" key="GridCell.Tab.1.center" timestamp="1619317668032">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.1.center" timestamp="1620805101714">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
     <state width="2517" height="622" key="GridCell.Tab.1.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="622" key="GridCell.Tab.1.left" timestamp="1619317668032">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.1.left" timestamp="1620805101714">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
     <state width="2517" height="622" key="GridCell.Tab.1.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="622" key="GridCell.Tab.1.right" timestamp="1619317668032">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="476" key="GridCell.Tab.1.right" timestamp="1620805101714">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
+    <state width="2517" height="476" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
     <state width="2517" height="622" key="GridCell.Tab.1.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
     <state width="2517" height="575" key="GridCell.Tab.2.bottom" timestamp="1619317141755">
       <screen x="0" y="0" width="2560" height="1440" />
@@ -1134,9 +647,10 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1083" y="633" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1440@0.0.2560.1440" timestamp="1619317701020" />
-    <state x="982" y="186" width="967" height="802" key="find.popup" timestamp="1619152730541">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="982" y="181" width="967" height="780" key="find.popup" timestamp="1620804891801">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
+    <state x="982" y="181" width="967" height="780" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1620804891801" />
     <state x="982" y="186" width="967" height="802" key="find.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1619152730541" />
     <state x="943" y="325" width="672" height="678" key="search.everywhere.popup" timestamp="1619156979164">
       <screen x="0" y="0" width="2560" height="1440" />
@@ -1147,385 +661,12 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java</url>
-          <line>41</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java</url>
-          <line>29</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/ShiroFormAuthenticationFilter.java</url>
-          <line>37</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java</url>
-          <line>65</line>
-          <properties />
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java</url>
+          <line>219</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="9" />
     </breakpoint-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6291">
-          <caret line="239" column="26" selection-start-line="239" selection-start-column="26" selection-end-line="239" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/EquipmentMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2052">
-          <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/EquipmentMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/EquipmentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/EquipmentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="89" selection-start-line="89" selection-end-line="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/PostPeratorDataMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2349">
-          <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="191" column="5" selection-start-line="191" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/HomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="31" column="29" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/NoPermissionException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/MyRedisManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="53" column="66" lean-forward="true" selection-start-line="53" selection-start-column="66" selection-end-line="53" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/RedisSessionDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/MShiroFilterFactoryBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1647">
-          <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/ShiroFormAuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1323">
-          <caret line="54" column="51" selection-start-line="54" selection-start-column="45" selection-end-line="54" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2133">
-          <caret line="79" column="21" selection-start-line="75" selection-start-column="8" selection-end-line="79" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/GuideApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/equipment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2052">
-          <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/PinYin.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="23" column="45" lean-forward="true" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="131" column="59" selection-start-line="131" selection-start-column="59" selection-end-line="131" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/WorkPeratorMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="94" column="41" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/UnitService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="626">
-          <caret line="33" column="15" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/UnitServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1107">
-          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UnitMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1971">
-          <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DataConfigurationMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1485">
-          <caret line="55" column="42" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10098">
-          <caret line="390" column="8" selection-start-line="390" selection-start-column="8" selection-end-line="395" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="26" column="23" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/mapper/UnitMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/OperationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="37" column="76" selection-start-line="37" selection-start-column="76" selection-end-line="37" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1944">
-          <caret line="93" column="9" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3645">
-          <caret line="135" column="70" selection-start-line="135" selection-start-column="70" selection-end-line="135" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/InquiriesDataController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3510">
-          <caret line="153" column="5" selection-start-line="34" selection-start-column="4" selection-end-line="153" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6237">
-          <caret line="254" column="7" selection-start-line="254" selection-start-column="7" selection-end-line="254" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11286">
-          <caret line="435" column="70" selection-start-line="435" selection-start-column="60" selection-end-line="435" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3294">
-          <caret line="122" column="42" selection-start-line="122" selection-start-column="42" selection-end-line="122" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6210">
-          <caret line="230" column="16" selection-start-line="230" selection-start-column="16" selection-end-line="230" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/ResultObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="23" column="33" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="654" column="9" selection-start-line="654" selection-start-column="9" selection-end-line="654" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/EquipmentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>
