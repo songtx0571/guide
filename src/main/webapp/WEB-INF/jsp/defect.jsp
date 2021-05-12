@@ -71,6 +71,13 @@
             <span style="color: green;">{{d.number}}</span>
             {{#  } }}
         </script>
+        <script type="text/html" id="tbSourceTypeBar">
+            {{#  if(d.sourceType == 1){ }}
+            <span>缺陷</span>
+            {{#  } else if(d.sourceType == 2) { }}
+            <span>巡检</span>
+            {{#  } }}
+        </script>
         <script type="text/html" id="tbTypeBar">
             {{#  if(d.type == 1){ }}
             <span style="color: red;">未认领</span>
@@ -218,7 +225,6 @@
     </div>
     <!-- 认领 -->
     <div class="claimInfoDiv">
-        <p id="claimInfoP" style="display: none;"></p>
         <input type="hidden" id="claimMaintenanceCategory">
         <table>
             <thead>
@@ -341,8 +347,8 @@
             <thead>
             <tr>
                 <td colspan="10" align="center">
-                    <button type="button" class="layui-btn layui-btn-normal" id="claimOkBtn"  onclick="claimOk()">确定</button>
-                    <button type="button" class="layui-btn layui-btn-warm"  id="claimBelay1Btn" onclick="claimBelay1()">延期</button>
+                    <button type="button" class="layui-btn layui-btn-normal"  onclick="claimOk()">确定</button>
+                    <button type="button" class="layui-btn layui-btn-warm"  onclick="claimBelay1()">延期</button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
             </tr>
@@ -351,7 +357,6 @@
     </div>
     <!--开始执行-->
     <div class="implementInfoDiv">
-        <p id="implementInfoP" style="display: none;"></p>
         <table>
             <thead>
             <tr>
@@ -422,7 +427,7 @@
             <tr>
                 <td colspan="4" style="text-align: center;">
                     <button type="button" class="layui-btn layui-btn-normal"  onclick="startFeedback()" id="startFeedbackBtn">开始执行</button>
-                    <button type="button" class="layui-btn layui-btn-warm" id="claimBelay2Btn"  onclick="claimBelay2()">延期</button>
+                    <button type="button" class="layui-btn layui-btn-warm"  onclick="claimBelay2()">延期</button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
             </tr>
@@ -431,7 +436,6 @@
     </div>
     <!-- 消缺反馈 -->
     <div class="handleInfoDiv">
-        <p id="handleInfoP" style="display: none;"></p>
         <input type="hidden" id="feedbackLevel">
         <input type="hidden" id="feedbackSys">
         <input type="hidden" id="feedbackEquipment">
@@ -489,6 +493,7 @@
             <thead>
             <tr>
                 <td colspan="5" style="text-align: center;">
+                    <!--<button type="button" class="layui-btn layui-btn-warm"  onclick="startFeedback()" id="startFeedbackBtn">开始执行</button>-->
                     <button type="button" class="layui-btn layui-btn-normal"  onclick="insertFeedback()" id="insertFeedbackBtn">确定</button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>

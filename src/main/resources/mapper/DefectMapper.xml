@@ -28,6 +28,9 @@
             <if test="departmentId!=null">
                 and de.departmentId=#{departmentId}
             </if>
+            <if test="month!=null">
+                and de.confirmer1Time=#{month}
+            </if>
             <if test="employeeId!=null">
                 and (de.createdBy=#{employeeId} or de.claimant=#{employeeId} or de.confirmer1=#{employeeId} or locate(#{employeeId},de.empIds))
             </if>

@@ -40,4 +40,14 @@ public class Result {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public Result(int count, List data, int code, String msg) {
+        this.count = count;
+        this.data = data;
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public Result() {
+    }
 }

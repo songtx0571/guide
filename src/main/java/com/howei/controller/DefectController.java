@@ -60,6 +60,28 @@ public class DefectController {
     }
 
     /**
+     * 跳转缺陷数据页面
+     * @return
+     */
+    @RequestMapping("/toDefectData")
+    public ModelAndView toDefectData(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("defectData");
+        return modelAndView;
+    }
+
+    /**
+     * 跳转缺陷单登记页面
+     * @return
+     */
+    @RequestMapping("/toDefect")
+    public ModelAndView toDefect(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("defect");
+        return modelAndView;
+    }
+
+    /**
      * 获取当前登录人信息
      * @return
      */
@@ -78,17 +100,6 @@ public class DefectController {
     }
 
     /**
-     * 跳转缺陷单页面
-     * @return
-     */
-    @RequestMapping("/toDefect")
-    public ModelAndView toDefect(){
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("defect");
-        return modelAndView;
-    }
-
-    /**
      * 获取用户Map
      * @return
      */
@@ -96,6 +107,8 @@ public class DefectController {
         Map<Integer,String> map=employeeService.getUsersMap();
         return map;
     }
+
+    /**------------------------------------------------缺陷单列表登记页面-----------------------------------------------------/
 
     /**
      * 查询缺陷单列表
@@ -168,22 +181,6 @@ public class DefectController {
                 empIdsName=empIdsName.equals("")||empIdsName==null ? "":empIdsName.substring(0,empIdsName.length()-1);
                 defect.setEmpIdsName(empIdsName);
             }
-            /*if(defect.getaPlc()!=null){
-                String aPlc64=ImageToBase64ByLocal("/home/defect/img/"+defect.getaPlc());
-                if(aPlc64.equals("")){
-                    defect.setaPlc64("");
-                }else {
-                    defect.setaPlc64(aPlc64);
-                }
-            }
-            if(defect.getbPlc()!=null){
-                String bPlc64=ImageToBase64ByLocal("/home/defect/img/"+defect.getbPlc());
-                if(bPlc64.equals("")){
-                    defect.setbPlc64("");
-                }else{
-                    defect.setbPlc64(bPlc64);
-                }
-            }*/
             if(defect.getRealExecuteTime()==null){
                 String realETime=defect.getRealETime();//实际结束时间
                 Double plannedWork=defect.getPlannedWork()==null?0.0:defect.getPlannedWork();//计划完成时间
@@ -641,6 +638,63 @@ public class DefectController {
             return defect;
         }
         return null;
+    }
+
+    /**------------------------------------------------------缺陷详情KPI（缺陷数据页面）--------------------------------------------------------*/
+
+    /**
+     * 查询指定月份缺陷数据
+     * @throws ParseException
+     */
+    @RequestMapping(value = "/getDefectDataList",method = RequestMethod.GET)
+    public Result getDefectDataList(String month,Integer departmentId) throws ParseException{
+        Users users=this.getPrincipal();
+        if(users==null){
+            Result result=new Result(0,new ArrayList<>(),0,"NoUser");
+            return result;
+        }
+        //加载用户Map
+        Map empMap=getUsersMap();
+
+        Map map=new HashMap();
+        map.put("type",4);//查询已完成缺陷数据
+        if(departmentId!=null && !departmentId.equals("") && !departmentId.equals("-1")){
+            map.put("departmentId",departmentId);
+        }
+        if(month!=null && !month.equals("")){
+            month=month+"-01";
+            map.put("month",month);
+        }
+        List<Defect> list=defectService.getDefectList(map);
+        Iterator<Defect> iterator = list.iterator();
+        while(iterator.hasNext()) {
+            Defect defect = iterator.next();
+            //获取执行人
+            String[] strs=(defect.getEmpIds()!=null&&(!defect.getEmpIds().equals("")))? defect.getEmpIds().split(","):null;
+            if(strs!=null){
+                String empIdsName="";
+                for (String str:strs){
+                    empIdsName+=empMap.get(Integer.parseInt(str))+",";
+                }
+                empIdsName=empIdsName.equals("")||empIdsName==null ? "":empIdsName.substring(0,empIdsName.length()-1);
+                defect.setEmpIdsName(empIdsName);
+            }
+            if(defect.getRealExecuteTime()==null){
+                String realETime=defect.getRealETime();//实际结束时间
+                Double plannedWork=defect.getPlannedWork()==null?0.0:defect.getPlannedWork();//计划完成时间
+                String realSTime=defect.getRealSTime();//实际开始时间
+                if(realETime!=null&&realSTime!=null){
+                    double diff2=DateFormat.getBothNH(realSTime,realETime);
+                    if(plannedWork<=diff2){
+                        defect.setRealExecuteTime(plannedWork);
+                    }else{
+                        defect.setRealExecuteTime(diff2);
+                    }
+                }
+            }
+        }
+        Result result=new Result(list.size(),list,0,"success");
+        return result;
     }
 
 
