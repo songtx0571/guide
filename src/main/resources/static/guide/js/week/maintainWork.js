@@ -87,7 +87,6 @@ function showMaintainWork(departmentId,status) {
                     , {field: 'status', title: '状态', toolbar: '#tbDemoStatusBar ', sort: true, align: 'center'}
                     , {field: 'workingHour', title: '工作时间', sort: true, align: 'center'}
                     , {field: 'workFeedback', title: '工作反馈', sort: true, align: 'center'}
-                    , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 150, align: 'center'}
                 ]]
                 , done: function (res, curr, count) {
                 }

@@ -1,19 +1,21 @@
 var path = "";
 var saveId;
-var timer=[]
+var timer = [];
+var departmentId = "";
 $(function () {
     showDepartName();
-    showMaintainWork("","");
+    showMaintainWork("", "");
     showFormSelects();
+    showSystemNameAndEquipmentName("");
 });
 
 //查询按钮
-function search(){
-    var searchWord=$("#searchWord").val();
-    var departmentId=$("#addDepartNameHidden").val()
+function search() {
+    var searchWord = $("#searchWord").val();
+    var departmentId = $("#addDepartNameHidden").val()
 
-    console.log(searchWord,departmentId);
-    showMaintainWork(departmentId,searchWord);
+    console.log(searchWord, departmentId);
+    showMaintainWork(departmentId, searchWord);
 }
 
 
@@ -40,27 +42,38 @@ function showDepartName() {
         });
         form.on('select(addDepartName)', function (data) {
             $("#addDepartNameHidden").val(data.value);
-            showMaintainWork($("#addDepartNameHidden").val(),$("#searchWord").val() );
+            showSystemNameAndEquipmentName(data.value)
         });
 
         form.on('select(selDepartName)', function (data) {
             $("#selDepartNameHidden").val(data.value);
+            showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
 
-            showMaintainWork($("#selDepartNameHidden").val(),$("#searchWord").val());
         });
 
+
+    });
+}
+//查询设备名称和系统名称
+function showSystemNameAndEquipmentName(department) {
+    layui.use(['form'], function () {
+        var form = layui.form;
         $.ajax({
             type: "GET",
-            url: "/guide/defect/getEquMap?type=1",
+            url: "/guide/maintain/getEquipments?type=1&department="+department,
             dataType: "json",
             success: function (data) {
-                $("#selSysName").empty();
-                var option = "<option value='0' >请选择系统</option>";
-                for (var i = 0; i < data.length; i++) {
-                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+
+                if(data.code==0){
+                    $("#selSysName").empty();
+                    var option = "<option value='0' >请选择系统</option>";
+                    for (var i = 0; i < data.data.length; i++) {
+                        option += "<option value='" + data.data[i].id + "'>" + data.data[i].text + "</option>"
+                    }
+                    $('#selSysName').html(option);
+                    form.render();//菜单渲染 把内容加载进去
                 }
-                $('#selSysName').html(option);
-                form.render();//菜单渲染 把内容加载进去
+
             }
         });
         form.on('select(selSysName)', function (data) {
@@ -68,16 +81,19 @@ function showDepartName() {
         });
         $.ajax({
             type: "GET",
-            url: "/guide/defect/getEquMap?type=2",
+            url: "/guide/maintain/getEquipments?type=2&department="+department,
             dataType: "json",
             success: function (data) {
-                $("#selEquipmentName").empty();
-                var option = "<option value='0' >请选择设备</option>";
-                for (var i = 0; i < data.length; i++) {
-                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                if(data.code==0){
+                    $("#selEquipmentName").empty();
+                    var option = "<option value='0' >请选择设备</option>";
+                    for (var i = 0; i < data.data.length; i++) {
+                        option += "<option value='" + data.data[i].id + "'>" +  data.data[i].text + "</option>"
+                    }
+                    $('#selEquipmentName').html(option);
+                    form.render();//菜单渲染 把内容加载进去
                 }
-                $('#selEquipmentName').html(option);
-                form.render();//菜单渲染 把内容加载进去
+
             }
         });
         form.on('select(selEquipmentName)', function (data) {
@@ -85,7 +101,7 @@ function showDepartName() {
         });
         $.ajax({
             type: "GET",
-            url: path + "/guide/unit/getUnitList?mold=2&bothType=3&department=",
+            url: path + "/guide/unit/getUnitList?mold=2&bothType=3&department="+department,
             dataType: "json",
             success: function (data) {
                 data = data.data;
@@ -105,12 +121,14 @@ function showDepartName() {
             $("#selPlanedWorkingHourHidden").val(data.value);
         });
     });
+
 }
 
+
 //查询数据
-function showMaintainWork(departmentId,searchWord) {
+function showMaintainWork(departmentId, searchWord) {
     console.log(timer.length)
-    for (let i=0;i<timer.length;i++){
+    for (let i = 0; i < timer.length; i++) {
         clearInterval(timer[i]);
     }
     if (departmentId == "0") {
@@ -118,7 +136,7 @@ function showMaintainWork(departmentId,searchWord) {
     }
     $.ajax({
         type: "GET",
-        url: path + '/guide/maintain/getMaintains?departmentId=' + departmentId+"&searchWord="+searchWord,//数据接口
+        url: path + '/guide/maintain/getMaintains?departmentId=' + departmentId + "&searchWord=" + searchWord,//数据接口
         dataType: "json",
         success: function (data) {
             data = data.data;
@@ -157,7 +175,7 @@ function showMaintainWork(departmentId,searchWord) {
 
 //倒计时
 function a(startTime, d, i, assignmentStatus) {
-     timer[i] = setInterval(function () {
+    timer[i] = setInterval(function () {
         var sDate = new Date(startTime);//开始时间
         var sTime = sDate.getTime();//开始时间的毫秒数
         sTime = sTime + (d * 24 * 60 * 60 * 1000)//开始时间的毫秒数+周期的毫秒数
@@ -188,16 +206,15 @@ function a(startTime, d, i, assignmentStatus) {
                 $("#ulCountDown" + i).html('<samp style="color: orange;">' + shi + "时" + fen + "分" + miao + '秒</samp>');
             } else if (fen > 0) {
                 $("#ulCountDown" + i).html('<samp style="color: orange;">' + fen + "分" + miao + '秒</samp>');
-            }else if(miao>0){
-                $("#ulCountDown" + i).html('<samp style="color: orange;">'  + miao + '秒</samp>');
-            }else{
+            } else if (miao > 0) {
+                $("#ulCountDown" + i).html('<samp style="color: orange;">' + miao + '秒</samp>');
+            } else {
                 $("#ulCountDown" + i).html("<samp style='color: green;'>待分配</samp>");
                 $(".resetBtn" + i).css("display", "revert");
                 $(".distribution" + i).css("display", "revert");
                 $(".edit" + i).css("width", "44px");
                 clearInterval(timer[i]);
             }
-
 
 
         }
@@ -286,7 +303,7 @@ function saveMaintainConfig() {
             if (data == "SUCCESS") {
                 layer.alert("保存成功");
                 layer.closeAll();
-                showMaintainWork($("#selDepartNameHidden").val(),$("#searchWord").val());
+                showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
                 location.href = "/guide/maintain/toMaintainConfig";
             }
         }
@@ -316,7 +333,7 @@ function resetMaintainConfig(id) {
         contentType: "application/json; charset=utf-8",
         "success": function (data) {
             if (data == "SUCCESS") {
-                showMaintainWork($("#selDepartNameHidden").val(),$("#searchWord").val());
+                showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
                 location.href = "/guide/maintain/toMaintainConfig";
             }
         }
@@ -337,7 +354,7 @@ function stopMaintainConfig(id) {
         contentType: "application/json; charset=utf-8",
         "success": function (data) {
             if (data == "SUCCESS") {
-                showMaintainWork($("#selDepartNameHidden").val(),$("#searchWord").val());
+                showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
                 location.href = "/guide/maintain/toMaintainConfig";
             }
         }
@@ -423,7 +440,7 @@ function maintainConfigOk() {
             if (data == "SUCCESS") {
                 layer.alert("分配成功");
                 layer.closeAll();
-                showMaintainWork($("#selDepartNameHidden").val(),$("#searchWord").val());
+                showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
             } else if (data == "DISTRIBUTED") {
                 layer.alert("该任务已分配")
             } else if (data == "STOPED") {

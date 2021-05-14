@@ -44,8 +44,8 @@
 		</tr>
 		<tr>
 			<td width='8%'>序号</td>
-			<td width='12%'>缺陷号</td>
-			<td width='42%' colspan="4">缺陷名称和处理方法</td>
+			<td width='12%'>编号</td>
+			<td width='42%' colspan="4">内容</td>
 			<td width='18%'>人员</td>
 			<td width="5">工时</td>
 			<td width='15%' colspan="2">完成时间</td>
