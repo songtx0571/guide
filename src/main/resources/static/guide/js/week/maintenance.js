@@ -338,7 +338,7 @@ function fillA(datetime,project){
 				tr = "<tr><td colspan='10'>无</td></tr>"
 			} else {
 				for (var i = 0; i < data.length; i ++) {
-					tr += "<tr1><td>"+(i+1)+"</td><td style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='4'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td colspan='2'>"+data[i].confirmer1Time+"</td></tr>";
+					tr += "<tr><td>"+(i+1)+"</td><td style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='4'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td colspan='2'>"+data[i].confirmer1Time+"</td></tr>";
 				}
 			}
 			tbody0.innerHTML = tr;

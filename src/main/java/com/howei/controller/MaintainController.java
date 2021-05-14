@@ -2,6 +2,7 @@ package com.howei.controller;
 
 import com.howei.pojo.*;
 import com.howei.service.CompanyService;
+import com.howei.service.EquipmentService;
 import com.howei.service.MaintainService;
 import com.howei.service.UserService;
 import com.howei.util.Result;
@@ -35,6 +36,9 @@ public class MaintainController {
 
     @Autowired
     CompanyService companyService;
+
+    @Autowired
+    EquipmentService equipmentService;
 
 
     @GetMapping("/toMaintainWork")
@@ -99,7 +103,7 @@ public class MaintainController {
     public Result getMaintainList(
             @RequestParam(required = false) Integer departmentId,
             @RequestParam(required = false) Integer id,
-            @RequestParam(required = false)String searchWord
+            @RequestParam(required = false) String searchWord
     ) {
         Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
@@ -119,8 +123,8 @@ public class MaintainController {
         if (id != null) {
             map.put("id", id);
         }
-        if(searchWord!=null&&!"".equals(searchWord.trim())){
-            map.put("searchWord", "%"+searchWord+"%");
+        if (searchWord != null && !"".equals(searchWord.trim())) {
+            map.put("searchWord", "%" + searchWord + "%");
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<Maintain> maintains = maintainService.getMaintainByMap(map);
@@ -157,17 +161,14 @@ public class MaintainController {
         String assignmentStatus = maintain.getAssignmentStatus();
         if ("1".equals(assignmentStatus)) {
             return "DISTRIBUTED";
-        }else if("2".equals(assignmentStatus)){
+        } else if ("2".equals(assignmentStatus)) {
             return "STOPED";
         }
         Date date = new Date();
         //更新时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String employeeId = maintainRecord.getEmployeeId();
-        Users userByEmpId = userService.findByEmpId(employeeId.toString());
-        Integer departmentId = userByEmpId.getDepartmentId();
+        Integer departmentId = maintainRecord.getDepartmentId();
         maintainRecord.setDepartmentId(departmentId);
-
 
         //设置维护编号
         Map<String, Object> map = new HashMap<>();
@@ -248,7 +249,6 @@ public class MaintainController {
         //维护记录修改成功且2为完成时间,则将维护配置修改为未分配
         if (updateMaintainRecordFlag > 0 && "2".equals(status)) {
             Maintain maintain = new Maintain();
-            System.out.println(maintainRecord.getMaintainId());
             maintain.setId(maintainRecord.getMaintainId());
             maintain.setAssignmentStatus("0");
             maintain.setStartTime(sdf.format(new Date()));
@@ -281,15 +281,6 @@ public class MaintainController {
             result.setMsg("用户失效");
             return result;
         }
-        if (subject.isPermitted("查询所有部门维护引导")) {
-            departmentId = null;
-        } else {
-            departmentId = String.valueOf(users.getDepartmentId());
-        }
-        if (departmentId != null) {
-            map.put("departmentId", departmentId);
-        }
-
 
         employeeId = users.getEmployeeId();
 
@@ -308,6 +299,46 @@ public class MaintainController {
         result.setCount(maintainRecords.size());
         result.setData(maintainRecords);
         result.setMsg("成功");
+        return result;
+    }
+
+    /**
+     * 获取设备/系统
+     *
+     * @return
+     */
+    @GetMapping("/getEquipments")
+    @ResponseBody
+    public Result getEquMap(
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String department
+    ) {
+        Result result = new Result();
+        Map<String, Object> map = new HashMap<>();
+        Subject subject = SecurityUtils.getSubject();
+        Users user = (Users) subject.getPrincipal();
+        if (user == null) {
+            result.setCode(500);
+            result.setMsg("用户失效");
+            return result;
+        }
+        if (subject.isPermitted("查询所有部门维护引导")) {
+            map.put("department", department);
+
+        } else {
+            map.put("department", user.getDepartmentId());
+        }
+
+        if (!StringUtils.isEmpty(type)) {
+            map.put("type", type);
+        }
+        if (!StringUtils.isEmpty(department)) {
+
+        }
+        List<Map<String, Object>> list = equipmentService.getEquMap1(map);
+        result.setData(list);
+        result.setCount(list.size());
+        result.setCode(0);
         return result;
     }
 
