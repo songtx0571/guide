@@ -53,9 +53,9 @@
     </insert>
     <insert id="insertMaintainRecord">
 
-        insert into maintain_record (maintain_id,employee_id,claim_time,create_time,update_time,department_id)
+        insert into maintain_record (maintain_id,employee_id,claim_time,create_time,update_time,department_id,maintain_record_no)
         value
-        (#{record.maintainId},#{record.employeeId},#{record.claimTime},#{record.createTime},#{record.updateTime},#{record.departmentId})
+        (#{record.maintainId},#{record.employeeId},#{record.claimTime},#{record.createTime},#{record.updateTime},#{record.departmentId},#{record.maintainRecordNo})
 
 
     </insert>
@@ -132,6 +132,16 @@
         where 1=1
         <if test="map.departmentId!=null">and m.department_id=#{map.departmentId}</if>
         <if test="map.id!=null">and m.id=#{map.id}</if>
+        <if test="map.searchWord!=null">
+            AND (
+            e.`name` LIKE #{map.searchWord}
+            OR e1.`name` LIKE  #{map.searchWord}
+            OR u.nuit LIKE  #{map.searchWord}
+            OR m.work_content  LIKE  #{map.searchWord}
+            )
+        </if>
+
+        order by m.create_time desc
     </select>
     <select id="getMaintainRecordByMap" resultMap="maintainRecordMap">
         SELECT
@@ -149,7 +159,7 @@
         1 = 1
         <if test="map.departmentId!=null">and mr.department_id=#{map.departmentId}</if>
         <if test="map.id!=null">and mr.id=#{map.id}</if>
-        <if test="map.employeeId!=null">and mr.employee_id=#{map.employeeId}</if>
+        <if test="map.employeeId!=null">and mr.employee_id like #{map.employeeId}</if>
         <if test="map.status!=null and map.status==1">
             and mr.status!='2'
         </if>

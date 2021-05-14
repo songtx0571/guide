@@ -63,7 +63,10 @@ public class MaintainController {
             return "用户失效,请重新登陆";
         }
         int companyId = user.getCompanyId();
-        int departmentId = user.getDepartmentId();
+        if (maintain.getDepartmentId() == null) {
+            int departmentId = user.getDepartmentId();
+            maintain.setDepartmentId(departmentId);
+        }
         int employeeId = user.getEmployeeId();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -72,7 +75,6 @@ public class MaintainController {
         System.out.println("id::" + id);
         if (StringUtils.isEmpty(id)) {
             maintain.setCompanyId(companyId);
-            maintain.setDepartmentId(departmentId);
             maintain.setEmployeeId(employeeId);
             maintain.setCreateTime(date);
             maintain.setUpdateTime(date);
@@ -96,9 +98,20 @@ public class MaintainController {
     @ResponseBody
     public Result getMaintainList(
             @RequestParam(required = false) Integer departmentId,
-            @RequestParam(required = false) Integer id
+            @RequestParam(required = false) Integer id,
+            @RequestParam(required = false)String searchWord
     ) {
         Result result = new Result();
+        Subject subject = SecurityUtils.getSubject();
+        Users users = (Users) subject.getPrincipal();
+        if (users == null) {
+            result.setMsg("用户失效");
+            return result;
+        }
+        if (!subject.isPermitted("查询所有部门维护引导")) {
+            departmentId = users.getDepartmentId();
+        }
+
         Map<String, Object> map = new HashMap<>();
         if (departmentId != null) {
             map.put("departmentId", departmentId);
@@ -106,11 +119,13 @@ public class MaintainController {
         if (id != null) {
             map.put("id", id);
         }
+        if(searchWord!=null&&!"".equals(searchWord.trim())){
+            map.put("searchWord", "%"+searchWord+"%");
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<Maintain> maintains = maintainService.getMaintainByMap(map);
         result.setCode(0);
         result.setCount(maintains.size());
-        System.out.println(maintains);
         result.setData(maintains);
         result.setMsg("成功");
         return result;
@@ -140,19 +155,38 @@ public class MaintainController {
         Integer maintainId = maintainRecord.getMaintainId();
         Maintain maintain = maintainService.getMaintainById(maintainId);
         String assignmentStatus = maintain.getAssignmentStatus();
-        if (!assignmentStatus.equals("0")) {
+        if ("1".equals(assignmentStatus)) {
             return "DISTRIBUTED";
+        }else if("2".equals(assignmentStatus)){
+            return "STOPED";
         }
         Date date = new Date();
         //更新时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Integer employeeId = maintainRecord.getEmployeeId();
+        String employeeId = maintainRecord.getEmployeeId();
         Users userByEmpId = userService.findByEmpId(employeeId.toString());
-        int departmentId = userByEmpId.getDepartmentId();
+        Integer departmentId = userByEmpId.getDepartmentId();
         maintainRecord.setDepartmentId(departmentId);
+
+
+        //设置维护编号
+        Map<String, Object> map = new HashMap<>();
+        map.put("departmentId", departmentId);
+        List<MaintainRecord> maintainRecordByMap = maintainService.getMaintainRecordByMap(map);
+
+        Integer count = 0;
+        if (maintainRecordByMap != null) {
+            count = maintainRecordByMap.size() + 1;
+        }
+        Company company = companyService.getCompanyById(departmentId.toString());
+        DecimalFormat df = new DecimalFormat("00000");
+        String maintainRecoreNo = company.getCodeName() + "W" + df.format(count);
+        maintainRecord.setMaintainRecordNo(maintainRecoreNo);
+
         maintainRecord.setClaimTime(sdf.format(new Date()));
         maintainRecord.setCreateTime(date);
         maintainRecord.setUpdateTime(date);
+
         //插入记录
         int insertMaintainRecordFlag = maintainService.insertMaintainRecord(maintainRecord);
         //插入成功则修改维护配置状态为已分配
@@ -206,20 +240,6 @@ public class MaintainController {
             String workingHour = df.format(((endDateTime - startDateTime) * 1.0 / (60 * 60 * 1000)));
             maintainRecord.setWorkingHour(workingHour);
 
-            //设置维护编号
-            Integer departmentId = maintainRecord1.getDepartmentId();
-            Map<String, Object> map = new HashMap<>();
-            map.put("departmentId", departmentId);
-            map.put("status", 2);
-            List<MaintainRecord> maintainRecordByMap = maintainService.getMaintainRecordByMap(map);
-            Integer count = 0;
-            if (maintainRecordByMap != null) {
-                count = maintainRecordByMap.size() + 1;
-            }
-            Company company = companyService.getCompanyById(departmentId.toString());
-            df = new DecimalFormat("00000");
-            String maintainRecoreNo = company.getCodeName() + "W" + df.format(count);
-            maintainRecord.setMaintainRecordNo(maintainRecoreNo);
         }
         //执行修改操作
         int updateMaintainRecordFlag = maintainService.updateMaintainRecordById(maintainRecord);
@@ -248,28 +268,34 @@ public class MaintainController {
     @GetMapping("/getMaintainRecords")
     @ResponseBody
     public Result getMaintainRecords(
-            @RequestParam(required = false) Integer departmentId,
+            @RequestParam(required = false) String departmentId,
             @RequestParam(required = false) Integer employeeId,
             @RequestParam(required = false) Integer status,
             @RequestParam(required = false) Integer id
     ) {
         Result result = new Result();
-
-        Map<String, Object> map = new HashMap<>();
-        if (departmentId != null) {
-            map.put("departmentId", departmentId);
-        }
         Subject subject = SecurityUtils.getSubject();
         Users users = (Users) subject.getPrincipal();
-        if(users==null){
+        Map<String, Object> map = new HashMap<>();
+        if (users == null) {
             result.setMsg("用户失效");
             return result;
         }
+        if (subject.isPermitted("查询所有部门维护引导")) {
+            departmentId = null;
+        } else {
+            departmentId = String.valueOf(users.getDepartmentId());
+        }
+        if (departmentId != null) {
+            map.put("departmentId", departmentId);
+        }
+
+
         employeeId = users.getEmployeeId();
 
 
         if (employeeId != null) {
-            map.put("employeeId", employeeId);
+            map.put("employeeId", "%" + employeeId + "%");
         }
         if (id != null) {
             map.put("id", id);

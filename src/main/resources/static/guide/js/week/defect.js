@@ -311,7 +311,18 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             $.ajax({
                                 "type": 'put',
                                 "url": path + "/defect/dutyConfirmation",
-                                data: {id: data.id},
+                                data: {id: data.id, result:1},
+                                dataType: "json",
+                                "success": function (data) {
+                                    ajaxFun(data, "值班确认成功!");
+                                }
+                            });
+                        });
+                        btn.find('.layui-layer-btn1').click(function () {
+                            $.ajax({
+                                "type": 'put',
+                                "url": path + "/defect/dutyConfirmation",
+                                data: {id: data.id, result:2},
                                 dataType: "json",
                                 "success": function (data) {
                                     ajaxFun(data, "值班确认成功!");

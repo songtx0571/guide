@@ -10,10 +10,10 @@
     height: 100%;
 }
 .top{
-    width: 420px;
+    width: 100%;
     margin: 0 auto;
     height: 80px;
-    padding-top: 20px;
+    padding: 20px 10px;
     box-sizing: border-box;
 }
 .content{
@@ -121,11 +121,6 @@
 /*
 维护工作
 */
-.maintainWork .head{
-    padding: 20px 10px;
-    box-sizing: border-box;
-    height: 80px;
-}
 .maintainWork .handleMaintainWork,.maintainWork .saveMaintainWork{
     display: none;
 }

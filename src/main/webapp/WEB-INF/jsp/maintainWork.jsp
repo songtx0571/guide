@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>维护工作</title>
@@ -10,19 +11,21 @@
 </head>
 <body>
 <div class="warp maintainWork">
-    <div class="head">
-        <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;float: left;">
-            <input type="hidden" id="selDepartNameHidden">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <div class="layui-input-inline" style="margin: 0;">
-                        <select name="modules" lay-verify="required" lay-filter="selDepartName" lay-search=""
-                                id="selDepartName">
-                        </select>
+    <div class="top">
+        <shiro:hasPermission name="查询所有部门维护引导">
+            <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;float: left;">
+                <input type="hidden" id="selDepartNameHidden">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline" style="margin: 0;">
+                            <select name="modules" lay-verify="required" lay-filter="selDepartName" lay-search=""
+                                    id="selDepartName">
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </shiro:hasPermission>
         <div class="layui-inline" style="margin: 0 0 0 20px;float:left;">
             <button class="layui-btn" onclick="showMaintainWorkBtn('2')">已完成</button>
         </div>

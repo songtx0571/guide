@@ -129,5 +129,42 @@
 	<select id="getDefectList" resultType="com.howei.pojo.Defect">
 		select * from defect where company=1 and `type`=4 and DATE_FORMAT(confirmer1Time,'%Y-%m-%d')=DATE_FORMAT(#{date},'%Y-%m-%d') and departmentId=#{departmentId}
 	</select>
-	
+	<select id="getMaintainRecordList" resultMap="maintainRecordMap">
+		   SELECT
+        e.`name` AS system_name,
+        e1.`name` AS equipment_name,
+        u.nuit AS unit_name,
+        mr.*
+        FROM
+        maintain_record mr
+        JOIN maintain m ON m.id = mr.maintain_id
+        LEFT JOIN equipment e ON e.id = m.system_id
+        LEFT JOIN equipment e1 ON e1.id = m.equipment_id
+        LEFT JOIN unit u ON u.id = m.unit_id
+ 		WHERE
+			mr. STATUS = '2'
+			and DATE_FORMAT(mr.end_time,'%Y-%m-%d')=DATE_FORMAT(#{date},'%Y-%m-%d')
+			and mr.department_id=#{departmentId}
+	</select>
+	<resultMap id="maintainRecordMap" type="com.howei.pojo.MaintainRecord">
+		<id column="id" property="id"/>
+		<result column="maintain_id" property="maintainId"/>
+		<result column="maintain_record_no" property="maintainRecordNo"/>
+		<result column="department_id" property="departmentId"/>
+		<result column="employee_id" property="employeeId"/>
+
+		<result column="work_feedback" property="workFeedback"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="working_hour" property="workingHour"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="start_time" property="startTime"/>
+
+		<result column="system_name" property="systemName"/>
+		<result column="equipment_name" property="equipmentName"/>
+		<result column="unit_name" property="unitName"/>
+	</resultMap>
+
 </mapper>

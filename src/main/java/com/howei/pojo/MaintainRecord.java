@@ -9,7 +9,7 @@ public class MaintainRecord {
     private Integer maintainId;
     private String maintainRecordNo;
     private Integer departmentId;
-    private Integer employeeId;
+    private String employeeId;
     private String workFeedback;
     private String claimTime;
     private String startTime;
@@ -109,11 +109,11 @@ public class MaintainRecord {
         this.maintainRecordNo = maintainRecordNo;
     }
 
-    public Integer getEmployeeId() {
+    public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(Integer employeeId) {
+    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 

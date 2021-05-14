@@ -62,38 +62,30 @@ function showTable(departmentId, month) {
         table.render({
             elem: '#demo'
             , height: height
-            , totalRow: true
+            , toolbar: true
             , url: path + '/defect/getDefectDataList?departmentId=' + departmentId + '&month=' + month//数据接口
             , page: true //开启分页
             , limit: 50
             , limits: [50, 100, 150]
             , id: 'demoInfo'
             , cols: [[ //表头
-                {
-                    field: 'number',
-                    title: '缺陷号',
-                    toolbar: '#tbNumberBar',
-                    align: 'center',
-                    sort: true,
-                    event: 'detailed',
-                    style: 'cursor: pointer;',
-                    width: 85
-                }
+                {field: 'number',title: '缺陷号',toolbar: '#tbNumberBar',align: 'center',sort: true, event: 'detailed',style: 'cursor: pointer;',width: 85}
                 , {field: 'sourceType', title: '来源', width: 70, toolbar: '#tbSourceTypeBar'}
+                , {field: 'type', title: '状态', toolbar: '#tbTypeBar', align: 'center', width: 100, sort: true}
                 , {field: 'sysName', title: '系统', sort: true}
                 , {field: 'equipmentName', title: '设备', sort: true}
-                , {field: 'abs', title: '缺陷描述'}
                 , {field: 'level', title: '级别', toolbar: "#tbLevelBar", sort: true, width: 75}
-                , {field: 'abs', title: '类别', toolbar: "#tbCategoryBar", sort: true, width: 75}
+                , {field: 'maintenanceCategory', title: '类别', toolbar: "#tbCategoryBar", sort: true, width: 75}
                 , {field: 'created', title: '创建时间'}
                 , {field: 'createdByName', title: '创建人'}
-                , {field: 'realSTime', title: '开始时间'}
-                , {field: 'type', title: '状态', toolbar: '#tbTypeBar', align: 'center', width: 100, sort: true}
-                , {field: 'realETime', title: '完成时间'}
                 , {field: 'plannedWork', title: '计划工时'}
                 , {field: 'realExecuteTime', title: '实际工时'}
                 , {field: 'empIdsName', title: '消缺人', width: 150}
-                , {field: 'created', title: '申请时间', align: 'center', minWidth: 120, sort: true}
+                , {field: 'orderReceivingTime', title: '接单开始时间'}
+                , {field: 'planedTime', title: '预估完成时间'}
+                , {field: 'realSTime', title: '实际检修开启日期'}
+                , {field: 'realETime', title: '实际检修结束日期'}
+                , {field: 'confirmer1Time', title: '值班确认时间'}
             ]]
             ,
             parseData: function (res) {

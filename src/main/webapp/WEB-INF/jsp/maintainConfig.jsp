@@ -14,26 +14,35 @@
 <body>
 <div class="warp maintainConfig">
     <div class="top">
-        <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;">
+        <form class="layui-form" action=""  style="display: inline-block;margin-bottom: 10px;float: left;">
             <input type="hidden" id="selDepartNameHidden">
             <div class="layui-form-item">
-                <div class="layui-inline" style="margin: 0;float:left;">
-                    <div class="layui-input-inline" style="margin: 0;">
-                        <select name="modules" lay-verify="required" lay-filter="selDepartName" lay-search=""
-                                id="selDepartName">
-                        </select>
-                    </div>
-                </div>
-                <shiro:hasPermission name="创建维护配置">
-                    <div class="layui-inline" style="float:left;width: 220px;">
-                        <button type="button" class="layui-btn layui-btn-fluid  layui-btn-normal"
-                                onclick="openMaintainConfig('')">创建
-                        </button>
+
+                <shiro:hasPermission name="查询所有部门维护引导">
+                    <div class="layui-inline" style="margin: 0;float:left;">
+                        <div class="layui-input-inline" style="margin: 0;width: 220px;">
+                            <select name="modules" lay-verify="required" lay-filter="selDepartName" lay-search=""
+                                    id="selDepartName">
+                            </select>
+                        </div>
                     </div>
                 </shiro:hasPermission>
 
+                <div class="layui-inline" style="margin: 0px;float:left;">
+                    <input class="layui-input" id="searchWord" name="searchWord" placeholder="请输入关键字">
+                </div>
             </div>
         </form>
+        <div class="layui-inline" style="margin: 0px;float:left;">
+            <button class="layui-btn " onclick="search()">查询</button>
+        </div>
+        <shiro:hasPermission name="创建维护配置">
+            <div class="layui-inline" style="float:left;">
+                <button type="button" class="layui-btn layui-btn-normal"
+                        onclick="openMaintainConfig('')">创建
+                </button>
+            </div>
+        </shiro:hasPermission>
     </div>
     <div class="content">
 
@@ -41,6 +50,25 @@
     <%--保存--%>
     <div class="saveMaintainConfig">
         <table>
+            <shiro:hasPermission name="查询所有部门维护引导">
+
+                <tr>
+                    <td>部门</td>
+                    <td>
+                        <input type="hidden" id="addDepartNameHidden">
+                        <form class="layui-form" action="">
+                            <div style="margin: 0;width: 400px;">
+                                <select name="modules" lay-verify="required" lay-filter="addDepartName" lay-search=""
+                                        id="addDepartName">
+                                </select>
+                            </div>
+                        </form>
+
+                    </td>
+                </tr>
+            </shiro:hasPermission>
+
+
             <tr>
                 <td>系统</td>
                 <td>
@@ -81,24 +109,9 @@
                 </td>
             </tr>
             <tr>
-                <td>周期</td>
+                <td>周期/天</td>
                 <td>
-                    <input type="hidden" id="selCycleHidden">
-                    <form class="layui-form" action="">
-                        <div class="layui-input-inline" style="margin: 0;width: 400px;">
-                            <select name="modules" lay-verify="required" lay-filter="selCycle" lay-search=""
-                                    id="selCycle">
-                                <option value="0.5">0.5小时</option>
-                                <option value="1">1小时</option>
-                                <option value="1.5">1.5小时</option>
-                                <option value="2">2小时</option>
-                                <option value="2.5">2.5小时</option>
-                                <option value="3">3小时</option>
-                                <option value="3.5">3.5小时</option>
-                                <option value="4">4小时</option>
-                            </select>
-                        </div>
-                    </form>
+                    <input type="text" id="selCycleHidden" class="layui-input" style="margin: 0;width: 400px;">
                 </td>
             </tr>
             <tr>
@@ -217,6 +230,7 @@
         </shiro:hasPermission>
         <shiro:hasPermission name="重置维护配置">
         str += "<button class='layui-btn layui-btn-sm' onclick='resetMaintainConfig(" + id + ")'>重置</button>";
+        str += "<button class='layui-btn layui-btn-sm' onclick='stopMaintainConfig(" + id + ")'>暂停</button>";
         </shiro:hasPermission>
         <shiro:hasPermission name="分配维护配置">
         str += "<button class='layui-btn layui-btn-sm' onclick='distributionMaintainConfig(" + id + ")'>分配</button>";
