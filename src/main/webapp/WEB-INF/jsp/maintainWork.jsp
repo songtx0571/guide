@@ -47,9 +47,9 @@
         </script>
         <script type="text/html" id="tbDemoBar">
             {{#  if(d.status == 0){ }}
-            <a class="layui-btn layui-btn-xs" lay-event="start">开始</a>
+            <a class="layui-btn  layui-btn-normal editBtn" style="line-height:31px;"   lay-event="start">开始</a>
             {{#  } else if(d.status == 1) { }}
-            <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="feedback">完成</a>
+            <a class="layui-btn  layui-btn-normal editBtn" style="line-height:31px;"   lay-event="feedback">完成</a>
             {{#  } else if(d.status == 2) { }}
             <span style="color: green;">已完成</span>
             {{#  } }}

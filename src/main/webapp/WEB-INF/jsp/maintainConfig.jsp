@@ -14,7 +14,7 @@
 <body>
 <div class="warp maintainConfig">
     <div class="top">
-        <form class="layui-form" action=""  style="display: inline-block;margin-bottom: 10px;float: left;">
+        <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;float: left;">
             <input type="hidden" id="selDepartNameHidden">
             <div class="layui-form-item">
 
@@ -223,14 +223,17 @@
 
 <script type="text/javascript">
     //操作按钮权限控制
-    function getPermission(id) {
+    function getPermission(id, status) {
         var str = '';
         <shiro:hasPermission name="修改维护配置">
         str += "<button class='layui-btn layui-btn-sm' onclick='openMaintainConfig(" + id + ")'>修改</button>";
         </shiro:hasPermission>
         <shiro:hasPermission name="重置维护配置">
-        str += "<button class='layui-btn layui-btn-sm' onclick='resetMaintainConfig(" + id + ")'>重置</button>";
-        str += "<button class='layui-btn layui-btn-sm' onclick='stopMaintainConfig(" + id + ")'>暂停</button>";
+        if (status == "2") {
+            str += "<button class='layui-btn layui-btn-sm layui-btn-normal' onclick='resetMaintainConfig(" + id + ")'>开始</button>";
+        } else {
+            str += "<button class='layui-btn layui-btn-sm layui-btn-warm' onclick='stopMaintainConfig(" + id + ")'>暂停</button>";
+        }
         </shiro:hasPermission>
         <shiro:hasPermission name="分配维护配置">
         str += "<button class='layui-btn layui-btn-sm' onclick='distributionMaintainConfig(" + id + ")'>分配</button>";

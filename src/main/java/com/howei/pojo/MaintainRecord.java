@@ -22,6 +22,8 @@ public class MaintainRecord {
     private String systemName;
     private String equipmentName;
     private String unitName;
+    private String workContent;
+    private String employeeName;
 
     @Override
     public String toString() {
@@ -30,7 +32,7 @@ public class MaintainRecord {
                 ", maintainId=" + maintainId +
                 ", maintainRecordNo='" + maintainRecordNo + '\'' +
                 ", departmentId=" + departmentId +
-                ", employeeId=" + employeeId +
+                ", employeeId='" + employeeId + '\'' +
                 ", workFeedback='" + workFeedback + '\'' +
                 ", claimTime='" + claimTime + '\'' +
                 ", startTime='" + startTime + '\'' +
@@ -42,7 +44,25 @@ public class MaintainRecord {
                 ", systemName='" + systemName + '\'' +
                 ", equipmentName='" + equipmentName + '\'' +
                 ", unitName='" + unitName + '\'' +
+                ", workContent='" + workContent + '\'' +
+                ", employeeName='" + employeeName + '\'' +
                 '}';
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getWorkContent() {
+        return workContent;
+    }
+
+    public void setWorkContent(String workContent) {
+        this.workContent = workContent;
     }
 
     public String getStatus() {

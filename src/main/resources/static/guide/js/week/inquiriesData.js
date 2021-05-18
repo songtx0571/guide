@@ -119,29 +119,6 @@ function selSysName(departName) {
             });
             form.on('select(selType)', function (data) {
                 $("#selTypeNameHidden").val(data.value);
-                var type = $("#selTypeNameHidden").val();
-                if (type != "0" || type != ""){
-                    //显示测点类型
-                    $.ajax({
-                        type: "GET",
-                        url: path + "/guide/inquiries/getUnityMap",
-                        data: {'departName':departName,'name':name,'type':type},
-                        dataType: "json",
-                        success: function (data) {
-                            $("#selMeasuringType").empty();
-                            var option = "<option value='-1' >请选择测点类型</option>";
-                            for (var i = 0; i < data.length; i++) {
-                                option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
-                            }
-                            $('#selMeasuringType').html(option);
-                            form.render();//菜单渲染 把内容加载进去
-                        }
-                    });
-                    form.on('select(selMeasuringType)', function (data) {
-                        $("#selMeasuringTypeHidden").val(data.value);
-                        measuringType = data.elem[data.elem.selectedIndex].text;
-                    })
-                }
             });
         });
     });
@@ -153,6 +130,8 @@ function selShowInquiriesDataList() {
     $('#daochuBtn').after('<table class="flow-default item" id="LAY_demo1" cellpadding=\'0\'><thead id="itemHead"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead></table>');*/
     var departName =  $("#selDepartNameHidden").val();
     var type = $("#selTypeNameHidden").val();
+    var selSysNameHidden=$("#selSysNameHidden").val();
+    var selEquNameHidden=$("#selEquNameHidden").val();
     var selStartTimeHidden = $("#selStartTimeHidden").val();
     var selEndTimeHidden = $("#selEndTimeHidden").val();
     if (departName == "0" || departName == ""){
@@ -167,78 +146,44 @@ function selShowInquiriesDataList() {
         layer.alert("请选择设备号");
         return;
     }
-    if ($("#selTypeNameHidden").val() == "0" || $("#selTypeNameHidden").val() == ""){
-        layer.alert("请选择测点类型");
-        return;
-    }
-    if ($("#selMeasuringTypeHidden").val() == "-1" || $("#selMeasuringTypeHidden").val() == ""){
-        layer.alert("请选择测点类型");
-        return;
-    }
     $(".center").css("display","block");
-    /*layui.use(['jquery','flow'], function() {
-        var flow = layui.flow,
-            $=layui.jquery;
-        flow.load({
-            elem: '#LAY_demo1' //流加载容器
-            , scrollElem: '#LAY_demo1' //滚动条所在元素，一般不用填，此处只是演示需要。
-            , done: function (page, next) { //执行下一页的回调
-                setTimeout(function() {
-                    $.ajax({
-                        url: path + "/guide/inquiries/getInquiriesData",	    //请求数据路径
-                        type: 'get',										//请求数据最好用get，上传数据用post
-                        data: {
-                            page: page,
-                            departName: departName,
-                            name: name,
-                            measuringType: measuringType,
-                            type: type,
-                            limit: 10000
-                        },   //传参
-                        dataType: 'json',
-                        success: function (res) {
-                            var lis = [];
-                            layui.each(res.data, function (index, item) {
-                                //这里遍历数据
-                                lis.push(
-                                     "<tr><td>" + res.data[index].measuringType + "</td><td>" + res.data[index].measuringTypeData + "</td><td>" + res.data[index].unit + "</td><td>" + res.data[index].createdByName + "</td><td>" + res.data[index].created + "</td></tr>"
-                                );
-                            });
-                            var tr = $(".item").children("tr").length;
-                            if (tr >= res.count){
-                                $(".layui-flow-more").html("没有更多了");
-                            }
-                            next(lis.join(','), page < res.count);	//pages是后台返回的总页数
-                        }
+        $.ajax({
+            url: path + "/guide/inquiries/getInquiriesData",	    //请求数据路径
+            type: 'get',										//请求数据最好用get，上传数据用post
+            data: {
+                page:1,
+                limit:100,
+                departName: departName,
+                name: name,
+                systemId: selSysNameHidden,
+                equipmentId: selEquNameHidden,
+                measuringType: measuringType,
+                type: type,
+                startTime: selStartTimeHidden,
+                endTime: selEndTimeHidden
+            },   //传参
+            dataType: 'json',
+            success: function (res) {
+                var tableDiv = $("#tableDiv");
+                tableDiv.html("");
+                var table ="";
+                if(type==3){
+                    table = "<table class='flow-default item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>维护编号</th><th>维护点</th><th>工作内容</th><th>维护人</th><th>时间</th></thead>";
+                    layui.each(res.data, function (index, item) {
+                        table  += "<tr><td>" + res.data[index].maintainRecordNo + "</td><td>" + res.data[index].unitName + "</td><td>" + res.data[index].workContent + "</td><td>" + res.data[index].employeeName + "</td><td>" + res.data[index].endTime + "</td></tr>"
                     });
-                },500)
+                }else{
+                     table = "<table class='flow-default item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
+                    layui.each(res.data, function (index, item) {
+                        table  += "<tr><td>" + res.data[index].measuringType + "</td><td>" + res.data[index].measuringTypeData + "</td><td>" + res.data[index].unit + "</td><td>" + res.data[index].createdByName + "</td><td>" + res.data[index].created + "</td></tr>"
+                    });
+                }
+
+                table += "</table>"
+                tableDiv.append(table)
             }
         });
-    })*/
-    $.ajax({
-        url: path + "/guide/inquiries/getInquiriesData",	    //请求数据路径
-        type: 'get',										//请求数据最好用get，上传数据用post
-        data: {
-            page:1,
-            limit:100,
-            departName: departName,
-            name: name,
-            measuringType: measuringType,
-            type: type,
-            startTime: selStartTimeHidden,
-            endTime: selEndTimeHidden
-        },   //传参
-        dataType: 'json',
-        success: function (res) {
-            var tableDiv = $("#tableDiv");
-            tableDiv.html("");
-            var table = "<table class='flow-default item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
-            layui.each(res.data, function (index, item) {
-                table  += "<tr><td>" + res.data[index].measuringType + "</td><td>" + res.data[index].measuringTypeData + "</td><td>" + res.data[index].unit + "</td><td>" + res.data[index].createdByName + "</td><td>" + res.data[index].created + "</td></tr>"
-            });
-            table += "</table>"
-            tableDiv.append(table)
-        }
-    });
+
+
 
 }
