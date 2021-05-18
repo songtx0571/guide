@@ -145,10 +145,10 @@ function showMaintainWork(departmentId, searchWord) {
                 "<th><span class='ulEquipmentName'>设备</span></th>" +
                 "<th><span class='ulMaintainPointName'>维护点</span></th>" +
                 "<th><span class='ulPlanedWorkingHour'>工作内容</span></th>" +
-                "<th><span class='ulPlanedWorkingHour'>计划时间/时</span></th>" +
+                "<th><span class='ulPlanedWorkingHour'>计划工时/时</span></th>" +
                 "<th><span class='ulCycle'>周期/天</span></th>" +
                 "<th><span class='ulCountDown' class='ulCountDown'>倒计时</span></th>" +
-                "<th><span class='ulOperation'>操作</span></th></thead>";
+                "<th style='width: 160px;'><span class='ulOperation'>操作</span></th></thead>";
             for (var i = 0; i < data.length; i++) {
                 li += "<tr class='ulLi'><td><span class='ulSystemName'>" + data[i].systemName + "</span></td>" +
                     "<td><span class='ulEquipmentName'>" + data[i].equipmentName + "</span></td>" +

@@ -55,38 +55,6 @@
 /*
 维护配置
 */
-.maintainConfig .maintainConfigUl li{
-    line-height: 50px;
-    font-size: 20px;
-    text-align: center;
-}
-.maintainConfig .maintainConfigUl li span{
-    display: inline-block;
-}
-.maintainConfig .maintainConfigUl li .ulSystemName{
-    width: 200px;
-}
-.maintainConfig .maintainConfigUl li .ulWorkContent{
-    width: 200px;
-}
-.maintainConfig .maintainConfigUl li .ulEquipmentName{
-    width: 200px;
-}
-.maintainConfig .maintainConfigUl li .ulMaintainPointName{
-    width: 150px;
-}
-.maintainConfig .maintainConfigUl li .ulPlanedWorkingHour{
-    width: 150px;
-}
-.maintainConfig .maintainConfigUl li .ulCycle{
-    width: 100px;
-}
-.maintainConfig .maintainConfigUl li .ulCountDown{
-    width: 100px;
-}
-.maintainConfig .maintainConfigUl li .ulOperation{
-    width: 200px;
-}
 .maintainConfig .saveMaintainConfig{
     display: none;
 }

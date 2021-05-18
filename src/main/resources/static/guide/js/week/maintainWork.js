@@ -1,8 +1,16 @@
 var path = "";
 var saveId;
+var userName = "";
 $(function () {
     showDepartName();
     showMaintainWork("",'1');
+    $.ajax({
+        type: 'GET',
+        url: path + "/guide/defect/getLoginUserInfo",
+        success: function (data) {
+            userName = data.userName;
+        }
+    })
 });
 
 //查询部门
@@ -62,8 +70,7 @@ function showMaintainWork(departmentId,status) {
                     , {field: 'systemName', title: '系统', sort: true, align: 'center'}
                     , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
                     , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
-                    , {field: 'workContent', title: '工作内容', sort: true, align: 'center'}
-                    , {field: 'status', title: '状态', toolbar: '#tbDemoStatusBar ', sort: true, align: 'center'}
+                    , {field: 'workContent', title: '工作内容', sort: true, align: 'center',width:400}
                     , {field: 'employeeName', title: '执行人', sort: true, align: 'center'}
                     , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 150, align: 'center'}
                 ]]
@@ -85,11 +92,9 @@ function showMaintainWork(departmentId,status) {
                     , {field: 'systemName', title: '系统', sort: true, align: 'center'}
                     , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
                     , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
-                    , {field: 'workContent', title: '工作内容', sort: true, align: 'center'}
                     , {field: 'endTime', title: '结束时间', sort: true, align: 'center'}
-                    , {field: 'status', title: '状态', toolbar: '#tbDemoStatusBar ', sort: true, align: 'center'}
                     , {field: 'workingHour', title: '工作时间', sort: true, align: 'center'}
-                    , {field: 'workFeedback', title: '工作反馈', sort: true, align: 'center'}
+                    , {field: 'workFeedback', title: '工作反馈', sort: true, align: 'center',width:400}
                     , {field: 'employeeName', title: '执行人', sort: true, align: 'center'}
                 ]]
                 , done: function (res, curr, count) {
@@ -110,6 +115,10 @@ function showMaintainWork(departmentId,status) {
             $(".selStartTimeTd").text(data.startTime);
             $("#selFeedback").val(data.workFeedback);
             if (obj.event === 'feedback') { //反馈
+                if (data.employeeName.indexOf(userName) == -1) {
+                    layer.alert("无反馈权限");
+                    return false;
+                }
                 layui.use('layer', function () { //独立版的layer无需执行这一句
                     var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
                     layer.open({
@@ -128,6 +137,12 @@ function showMaintainWork(departmentId,status) {
                 maintainRecord.id = data.id;
 
                 maintainRecord.status = '1'
+
+                if (data.employeeName.indexOf(userName) == -1) {
+                    layer.alert("无开始权限");
+                    return false;
+                }
+
                 $.ajax({
                     type: "POST",
                     url: path + "/guide/maintain/updateMaintainRecord",
