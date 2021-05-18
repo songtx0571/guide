@@ -44,7 +44,6 @@
         <input type="hidden" id="selSysNameHidden">
         <input type="hidden" id="selEquNameHidden">
         <input type="hidden" id="selTypeNameHidden">
-        <input type="hidden" id="selMeasuringTypeHidden">
         <input type="hidden" id="selStartTimeHidden">
         <input type="hidden" id="selEndTimeHidden">
 
@@ -67,8 +66,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div style="width: 765px;margin: 0px auto 10px;">
             <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;">
                 <div class="layui-form-item" style="width: 765px;">
                     <div class="layui-inline">
@@ -88,15 +85,9 @@
                                 <option value="3">维护</option>
                             </select>
                         </div>
-                        <div class="layui-input-inline" style="float: left;">
-                            <select name="modules" lay-verify="required" lay-filter="selMeasuringType" lay-search="" id="selMeasuringType">
-                            </select>
-                        </div>
                     </div>
                 </div>
             </form>
-        </div>
-        <div style="width: 765px;margin: 10px auto;">
             <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;">
                 <div class="layui-form-item" style="width: 765px;">
                     <div class="layui-inline">

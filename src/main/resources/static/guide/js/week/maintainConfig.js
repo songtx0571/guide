@@ -157,7 +157,7 @@ function showMaintainWork(departmentId, searchWord) {
                     "<td><span class='ulPlanedWorkingHour'>" + data[i].planedWorkingHour + "</span></td>" +
                     "<td><span class='ulCycle cycle" + i + "'>" + data[i].cycle + "</span></td>" +
                     "<td><span class='ulCountDown ulCountDown1' id='ulCountDown" + i + "'></span><span style='display: none;' class='inspectionEndTime" + i + "'>" + data[i].startTime + "</span></td>" +
-                    "<td><span class='ulOperation'>" + getPermission(data[i].id) + "</span></td></tr>";
+                    "<td><span class='ulOperation'>" + getPermission(data[i].id,data[i].assignmentStatus) + "</span></td></tr>";
                 var h = data[i].cycle;//周期
                 var startTime = data[i].startTime;//开始时间
                 if (data[i].startTime != "" || data[i].startTime != null) {

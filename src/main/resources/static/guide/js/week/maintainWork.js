@@ -62,7 +62,9 @@ function showMaintainWork(departmentId,status) {
                     , {field: 'systemName', title: '系统', sort: true, align: 'center'}
                     , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
                     , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
+                    , {field: 'workContent', title: '工作内容', sort: true, align: 'center'}
                     , {field: 'status', title: '状态', toolbar: '#tbDemoStatusBar ', sort: true, align: 'center'}
+                    , {field: 'employeeName', title: '执行人', sort: true, align: 'center'}
                     , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 150, align: 'center'}
                 ]]
                 , done: function (res, curr, count) {
@@ -83,10 +85,12 @@ function showMaintainWork(departmentId,status) {
                     , {field: 'systemName', title: '系统', sort: true, align: 'center'}
                     , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
                     , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
+                    , {field: 'workContent', title: '工作内容', sort: true, align: 'center'}
                     , {field: 'endTime', title: '结束时间', sort: true, align: 'center'}
                     , {field: 'status', title: '状态', toolbar: '#tbDemoStatusBar ', sort: true, align: 'center'}
                     , {field: 'workingHour', title: '工作时间', sort: true, align: 'center'}
                     , {field: 'workFeedback', title: '工作反馈', sort: true, align: 'center'}
+                    , {field: 'employeeName', title: '执行人', sort: true, align: 'center'}
                 ]]
                 , done: function (res, curr, count) {
                 }

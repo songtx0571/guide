@@ -1,10 +1,7 @@
 package com.howei.controller;
 
 import com.howei.pojo.*;
-import com.howei.service.CompanyService;
-import com.howei.service.EquipmentService;
-import com.howei.service.MaintainService;
-import com.howei.service.UserService;
+import com.howei.service.*;
 import com.howei.util.Result;
 import org.apache.jasper.security.SecurityUtil;
 import org.apache.shiro.SecurityUtils;
@@ -17,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 维护引导管理
@@ -35,10 +29,12 @@ public class MaintainController {
     private UserService userService;
 
     @Autowired
-    CompanyService companyService;
+    private CompanyService companyService;
 
     @Autowired
-    EquipmentService equipmentService;
+    private EquipmentService equipmentService;
+    @Autowired
+    private EmployeeService employeeService;
 
 
     @GetMapping("/toMaintainWork")
@@ -283,11 +279,26 @@ public class MaintainController {
         }
 
         employeeId = users.getEmployeeId();
-
-
+        List<String> employeeIdList = new ArrayList<>();
         if (employeeId != null) {
-            map.put("employeeId", "%" + employeeId + "%");
+            employeeIdList.add(users.getEmployeeId() + "");
+            List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
+            if (rootList != null) {
+                List<Employee> empList = employeeService.getEmployeeByManager(0);
+                for (Employee employee : rootList) {
+                    employeeIdList.add(String.valueOf(employee.getId()));
+                    String[] employeeIds = getUsersId(employee.getId(), empList).split(",");
+                    List<String> newEmployeeIdList = Arrays.asList(employeeIds);
+                    if (newEmployeeIdList.size() > 0) {
+                        employeeIdList.addAll(newEmployeeIdList);
+                    }
+                }
+            }
         }
+        if (employeeIdList.size() > 0) {
+            map.put("employeeIdList", employeeIdList);
+        }
+
         if (id != null) {
             map.put("id", id);
         }
@@ -295,6 +306,24 @@ public class MaintainController {
             map.put("status", status);
         }
         List<MaintainRecord> maintainRecords = maintainService.getMaintainRecordByMap(map);
+        if (maintainRecords.size() > 0) {
+
+            for (MaintainRecord maintainRecord : maintainRecords) {
+                String[] maintainRecordEmployeeIds = maintainRecord.getEmployeeId().split(",");
+                String employeeNames = "";
+                for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
+                    Users userByEmpId = userService.findByEmpId(maintainRecordEmployeeId);
+                    if (userByEmpId != null) {
+                        employeeNames += userByEmpId.getUserName() + "、";
+                    }
+                }
+                employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
+                maintainRecord.setEmployeeName(employeeNames);
+
+            }
+
+        }
+
         result.setCode(0);
         result.setCount(maintainRecords.size());
         result.setData(maintainRecords);
@@ -342,4 +371,35 @@ public class MaintainController {
         return result;
     }
 
+
+    /**
+     * 查询员工业绩:所有被绩效管理的员工
+     *
+     * @param empId
+     * @param empList
+     * @return
+     */
+    public String getUsersId(Integer empId, List<Employee> empList) {
+        List<String> result = new ArrayList<>();
+        String userId = "";
+        String usersId = "";
+        for (Employee employee : empList) {
+            if (employee.getManager() != null || employee.getManager() != 0) {
+                if (employee.getManager().equals(empId)) {
+                    usersId += employee.getId() + ",";
+                    result.add(employee.getId() + "");
+                }
+            }
+        }
+        for (String str : result) {
+            String userId1 = getUsersId(Integer.parseInt(str), empList);
+            if (userId1 != null && !userId1.equals("")) {
+                userId += userId1;
+            }
+        }
+        if (userId != null && !userId.equals("null")) {
+            usersId += userId;
+        }
+        return usersId;
+    }
 }

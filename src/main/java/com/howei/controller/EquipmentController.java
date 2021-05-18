@@ -105,7 +105,7 @@ public class EquipmentController {
                 Equipment equipment=equ.get(i);
                 Map<String,Object> map= new HashMap<>();
                 map.put("text",equipment.getName());
-                map.put("id",i);
+                map.put("id",equipment.getId());
                 list.add(map);
             }
         }
