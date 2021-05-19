@@ -22,27 +22,20 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="优化：维护引导是否有所有部门权限&#10;修复：维护配置分配给多人出现的异常">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defectData.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defectData.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/MaintenanceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/MaintenanceMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/MaintainRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/MaintainRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/MaintenanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/MaintenanceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/MaintenanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/MaintenanceServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MaintainMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/Maintenancemapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/Maintenancemapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/css/maintainCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/css/maintainCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/exhibition.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/exhibition.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainWork.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainWork.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainConfig.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainConfig.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainWork.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainWork.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily2.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,10 +49,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Jsp File" />
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -70,13 +63,12 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="localRepository" value="D:\Maven\MavenRepository" />
-        <option name="mavenHome" value="D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.4\plugins\maven\lib\maven3" />
         <option name="userSettingsFile" value="D:\Maven\apache-maven-3.3.3\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
   <component name="ProjectId" id="1jaS4G7TfGg2PO2ztNgvapxZBZH" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -98,7 +90,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.gitignore" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/mapper" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -106,16 +98,25 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/.idea/workspace.xml" />
   </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.howei.pojo" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\product\guide\src\main\resources\static\guide" />
+      <recent name="F:\product\guide\src\main\resources\static\guide\js" />
+      <recent name="F:\product\guide\src\main\resources\static\img" />
+      <recent name="F:\product\guide\src\main\resources\static\js\bootstrap" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\product\guide\src\main\webapp\WEB-INF\jsp" />
+      <recent name="D:\product\guide\src\main\resources\static\guide\js\week" />
+      <recent name="D:\product\guide\src\main\java\com\howei\config\redis" />
+      <recent name="D:\product\guide\src\main\resources\static\guide\css" />
+      <recent name="D:\product\guide\src\main\java\com\howei\controller" />
       <recent name="D:\project\guide\src\main\resources\mapper" />
       <recent name="D:\project\guide\src\main\java\com\howei\service\impl" />
       <recent name="D:\project\guide\src\main\java\com\howei\mapper" />
@@ -128,23 +129,17 @@
       <recent name="D:\project\guide\src\main\java\com\howei\util" />
       <recent name="D:\project\guide\src\main\java\com\howei\pojo" />
       <recent name="D:\product\guide\src\main\resources\mapper" />
-      <recent name="D:\product\guide\src\main\webapp\WEB-INF\jsp" />
-      <recent name="D:\product\guide\src\main\resources\static\guide\js\week" />
-      <recent name="D:\product\guide\src\main\resources\static\guide\css" />
       <recent name="D:\product\guide" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.howei.config.redis" />
+      <recent name="com.howei.config" />
+      <recent name="com.howei.pojo" />
       <recent name="com.howei.service" />
       <recent name="com.howei.util" />
-      <recent name="com.howei.service.impl" />
-      <recent name="com.howei.mapper" />
-      <recent name="com.howei.controller" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\product\guide\src\main\resources\static\guide" />
-      <recent name="F:\product\guide\src\main\resources\static\guide\js" />
-      <recent name="F:\product\guide\src\main\resources\static\img" />
-      <recent name="F:\product\guide\src\main\resources\static\js\bootstrap" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.howei.pojo" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.GuideApplication">
@@ -154,36 +149,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GuideApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="guide" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.howei.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.howei" />
-      <option name="MAIN_CLASS_NAME" value="com.howei.GuideApplicationTests" />
-      <option name="METHOD_NAME" value="contextLoads" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UnitTest.upd" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="guide" />
       <extension name="coverage">
         <pattern>
@@ -193,66 +159,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.howei" />
       <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UnitTest.a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UnitTest.getSightType (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="guide" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.howei.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.howei" />
-      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
-      <option name="METHOD_NAME" value="getSightType" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UnitTest.getWeeklyByThisYear" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="guide" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.howei.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.howei" />
-      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
-      <option name="METHOD_NAME" value="a" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UnitTest.test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="guide" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.howei.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.howei" />
-      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
-      <option name="METHOD_NAME" value="test" />
+      <option name="METHOD_NAME" value="upd" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -286,12 +193,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.UnitTest.getWeeklyByThisYear" />
-      <item itemvalue="JUnit.UnitTest.test" />
-      <item itemvalue="JUnit.UnitTest" />
-      <item itemvalue="JUnit.UnitTest.getSightType (1)" />
-      <item itemvalue="JUnit.GuideApplicationTests.contextLoads" />
-      <item itemvalue="JUnit.UnitTest.a" />
+      <item itemvalue="JUnit.UnitTest.upd" />
       <item itemvalue="Spring Boot.GuideApplication" />
     </list>
   </component>
@@ -463,8 +365,38 @@
       <workItem from="1618906510666" duration="603000" />
       <workItem from="1618967281725" duration="4573000" />
       <workItem from="1619056738678" duration="2281000" />
-      <workItem from="1619137849916" duration="2159000" />
-      <workItem from="1619311183060" duration="6345000" />
+      <workItem from="1619137849916" duration="11779000" />
+      <workItem from="1619310826563" duration="5750000" />
+      <workItem from="1619327589791" duration="4219000" />
+      <workItem from="1619398047438" duration="9758000" />
+      <workItem from="1619485196254" duration="7010000" />
+      <workItem from="1619571288143" duration="8272000" />
+      <workItem from="1619658134378" duration="2788000" />
+      <workItem from="1619672113823" duration="5251000" />
+      <workItem from="1619685009702" duration="1204000" />
+      <workItem from="1619744133143" duration="4674000" />
+      <workItem from="1619759374064" duration="2649000" />
+      <workItem from="1620261751385" duration="3448000" />
+      <workItem from="1620269216590" duration="1295000" />
+      <workItem from="1620272863232" duration="2729000" />
+      <workItem from="1620287402434" duration="2876000" />
+      <workItem from="1620347678410" duration="1096000" />
+      <workItem from="1620363396871" duration="644000" />
+      <workItem from="1620453654069" duration="751000" />
+      <workItem from="1620454717722" duration="2953000" />
+      <workItem from="1620459968326" duration="1371000" />
+      <workItem from="1620607802133" duration="12253000" />
+      <workItem from="1620634306323" duration="2063000" />
+      <workItem from="1620701020352" duration="573000" />
+      <workItem from="1620701954835" duration="2590000" />
+      <workItem from="1620720414664" duration="593000" />
+      <workItem from="1620796096627" duration="4105000" />
+      <workItem from="1620800629072" duration="1064000" />
+      <workItem from="1620895634056" duration="700000" />
+      <workItem from="1620953173098" duration="592000" />
+      <workItem from="1620955536459" duration="12000" />
+      <workItem from="1620957105863" duration="4598000" />
+      <workItem from="1621319968278" duration="2732000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -484,35 +416,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UnitTest_a - 2021.04.19 at 09h 04m 30s.xml">
-      <configuration name="UnitTest.a" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 02s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 28m 21s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 22s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 29m 41s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 54s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 04s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 07s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 23s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 31s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 30m 34s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 34s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 32m 06s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 51s.xml">
+      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_b - 2021.04.19 at 09h 33m 59s.xml">
-      <configuration name="UnitTest.b" configurationId="JUnit" />
+    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 58m 09s.xml">
+      <configuration name="UnitTest.upd" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 34m 38s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 59m 45s.xml">
+      <configuration name="UnitTest.upd" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UnitTest_getWeeklyByThisYear - 2021.04.19 at 09h 59m 20s.xml">
-      <configuration name="UnitTest.getWeeklyByThisYear" configurationId="JUnit" />
+    <history-entry file="UnitTest_upd - 2021.04.27 at 17h 01m 15s.xml">
+      <configuration name="UnitTest.upd" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -571,86 +503,94 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1060" y="474" key="FileChooserDialogImpl/0.0.2560.1440@0.0.2560.1440" timestamp="1619311583807" />
-    <state width="2517" height="476" key="GridCell.Tab.0.bottom" timestamp="1620805101714">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.0.bottom" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
-    <state width="2517" height="622" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="476" key="GridCell.Tab.0.center" timestamp="1620805101714">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.0.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
+    <state width="2517" height="479" key="GridCell.Tab.0.center" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
-    <state width="2517" height="622" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
-    <state width="2517" height="476" key="GridCell.Tab.0.left" timestamp="1620805101714">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.0.center/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
+    <state width="2517" height="479" key="GridCell.Tab.0.left" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
-    <state width="2517" height="622" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
-    <state width="2517" height="476" key="GridCell.Tab.0.right" timestamp="1620805101714">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.0.left/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
+    <state width="2517" height="479" key="GridCell.Tab.0.right" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
-    <state width="2517" height="622" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668031" />
-    <state width="2517" height="476" key="GridCell.Tab.1.bottom" timestamp="1620805101715">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.0.right/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
+    <state width="2517" height="479" key="GridCell.Tab.1.bottom" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101715" />
-    <state width="2517" height="622" key="GridCell.Tab.1.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="476" key="GridCell.Tab.1.center" timestamp="1620805101714">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.1.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.1.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state width="2517" height="479" key="GridCell.Tab.1.center" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
-    <state width="2517" height="622" key="GridCell.Tab.1.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="476" key="GridCell.Tab.1.left" timestamp="1620805101714">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.1.center/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.1.center/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state width="2517" height="479" key="GridCell.Tab.1.left" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
-    <state width="2517" height="622" key="GridCell.Tab.1.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="476" key="GridCell.Tab.1.right" timestamp="1620805101714">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="2517" height="479" key="GridCell.Tab.1.left/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.1.left/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state width="2517" height="479" key="GridCell.Tab.1.right" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="476" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1620805101714" />
-    <state width="2517" height="622" key="GridCell.Tab.1.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317668032" />
-    <state width="2517" height="575" key="GridCell.Tab.2.bottom" timestamp="1619317141755">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="479" key="GridCell.Tab.1.right/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.1.right/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state width="2517" height="479" key="GridCell.Tab.2.bottom" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.2.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="575" key="GridCell.Tab.2.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
-    <state width="2517" height="575" key="GridCell.Tab.2.center" timestamp="1619317141755">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="479" key="GridCell.Tab.2.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.2.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state width="2517" height="479" key="GridCell.Tab.2.center" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.2.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="575" key="GridCell.Tab.2.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
-    <state width="2517" height="575" key="GridCell.Tab.2.left" timestamp="1619317141755">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="479" key="GridCell.Tab.2.center/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.2.center/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state width="2517" height="479" key="GridCell.Tab.2.left" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.2.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="575" key="GridCell.Tab.2.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
-    <state width="2517" height="575" key="GridCell.Tab.2.right" timestamp="1619317141755">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2517" height="479" key="GridCell.Tab.2.left/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.2.left/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state width="2517" height="479" key="GridCell.Tab.2.right" timestamp="1621386882147">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="413" key="GridCell.Tab.2.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="575" key="GridCell.Tab.2.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619317141755" />
+    <state width="2517" height="479" key="GridCell.Tab.2.right/0.0.2560.1410@0.0.2560.1410" timestamp="1621386882147" />
+    <state width="2517" height="565" key="GridCell.Tab.2.right/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
+    <state x="248" y="123" key="MergeDialog" timestamp="1621320162540">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="248" y="123" key="MergeDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1621320162540" />
     <state x="1290" y="376" width="998" height="710" key="SettingsEditor" timestamp="1617688206242">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1290" y="376" width="998" height="710" key="SettingsEditor/0.0.2560.1440@0.0.2560.1440" timestamp="1617688206242" />
-    <state x="1083" y="633" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619317701020">
+    <state x="1083" y="620" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1621320006462">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1083" y="620" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1410@0.0.2560.1410" timestamp="1621320006462" />
+    <state x="1083" y="633" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1440@0.0.2560.1440" timestamp="1619317701020" />
+    <state x="982" y="186" width="967" height="802" key="find.popup" timestamp="1619152730541">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="1083" y="633" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1440@0.0.2560.1440" timestamp="1619317701020" />
-    <state x="982" y="181" width="967" height="780" key="find.popup" timestamp="1620804891801">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="982" y="181" width="967" height="780" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1620804891801" />
     <state x="982" y="186" width="967" height="802" key="find.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1619152730541" />
     <state x="943" y="325" width="672" height="678" key="search.everywhere.popup" timestamp="1619156979164">
       <screen x="0" y="0" width="2560" height="1440" />
@@ -661,12 +601,25 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java</url>
-          <line>219</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/FormAuthenticationFilter.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/guide$GuideApplication.ic" NAME="GuideApplication Coverage Results" MODIFIED="1620269910586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="masterDetails">
     <states>

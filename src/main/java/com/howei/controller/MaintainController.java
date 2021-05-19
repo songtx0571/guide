@@ -94,7 +94,7 @@ public class MaintainController {
      * @param id
      * @return
      */
-    @GetMapping("/getMaintains")
+    @RequestMapping("/getMaintains")
     @ResponseBody
     public Result getMaintainList(
             @RequestParam(required = false) Integer departmentId,

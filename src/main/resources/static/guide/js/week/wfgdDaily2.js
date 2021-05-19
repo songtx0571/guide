@@ -57,26 +57,26 @@ function compareTime() {
 	}else {
 		return true;   
 	}
-}   
+}
 
 function getProject(){
 	var userName = sessionStorage.Username;
 	$.ajax({
-		"type" : 'post', 
-    	"url": "../WeeklyController/getProject2",
+		"type" : 'post',
+		"url": "../WeeklyController/getProject2",
 		"data":{userName:userName},
-    	"success":function(Json){
-    		var data = Json.data;
-    		//document.getElementById('project').length = 0;
-    		var project = document.getElementById('project');
-    		var projectId = sessionStorage.wfgdDailyProject;
-    		var option = "";
-    		for(var i = 0;i<data.length;i++){
+		"success":function(Json){
+			var data = Json.data;
+			//document.getElementById('project').length = 0;
+			var project = document.getElementById('project');
+			var projectId = sessionStorage.wfgdDailyProject;
+			var option = "";
+			for(var i = 0;i<data.length;i++){
 				option += "<option value='"+data[i].id+"'>"+data[i].projectTeam+"</option>";
-    		}
+			}
 			project.innerHTML = option;
-    		change();
-    	}
+			change();
+		}
 	});
 }
 

@@ -13,8 +13,6 @@ $(function () {
 function search() {
     var searchWord = $("#searchWord").val();
     var departmentId = $("#addDepartNameHidden").val()
-
-    console.log(searchWord, departmentId);
     showMaintainWork(departmentId, searchWord);
 }
 
@@ -127,7 +125,6 @@ function showSystemNameAndEquipmentName(department) {
 
 //查询数据
 function showMaintainWork(departmentId, searchWord) {
-    console.log(timer.length)
     for (let i = 0; i < timer.length; i++) {
         clearInterval(timer[i]);
     }
@@ -141,13 +138,14 @@ function showMaintainWork(departmentId, searchWord) {
         success: function (data) {
             data = data.data;
             var li = "<table class='maintainConfigUl layui-table'>" +
+                "<colgroup><col width='150'><col width='130'><col width='130'><col></colgroup>" +
                 "<thead><th><span class='ulSystemName'>系统</span></th>" +
                 "<th><span class='ulEquipmentName'>设备</span></th>" +
                 "<th><span class='ulMaintainPointName'>维护点</span></th>" +
                 "<th><span class='ulPlanedWorkingHour'>工作内容</span></th>" +
-                "<th><span class='ulPlanedWorkingHour'>计划工时/时</span></th>" +
-                "<th><span class='ulCycle'>周期/天</span></th>" +
-                "<th><span class='ulCountDown' class='ulCountDown'>倒计时</span></th>" +
+                "<th style='width: 77px;'><span class='ulPlanedWorkingHour'>计划工时/时</span></th>" +
+                "<th style='width: 55px;'><span class='ulCycle'>周期/天</span></th>" +
+                "<th style='width: 95px;'><span class='ulCountDown' class='ulCountDown'>倒计时</span></th>" +
                 "<th style='width: 160px;'><span class='ulOperation'>操作</span></th></thead>";
             for (var i = 0; i < data.length; i++) {
                 li += "<tr class='ulLi'><td><span class='ulSystemName'>" + data[i].systemName + "</span></td>" +
@@ -292,7 +290,16 @@ function saveMaintainConfig() {
     maintainWork.planedWorkingHour = $("#selPlanedWorkingHourHidden").val();
     maintainWork.workContent = $("#selWorkContent").val();
     maintainWork.departmentId = $("#addDepartNameHidden").val();
-    console.log(maintainWork)
+    if (maintainWork.systemId == "0"){
+        layer.alert("请选择系统");
+        return false;
+    } else if (maintainWork.equipmentId == "0"){
+        layer.alert("请选择设备");
+        return false;
+    } else if (maintainWork.unitId == "0"){
+        layer.alert("请选择维护点");
+        return false;
+    }
     $.ajax({
         "type": 'post',
         "url": path + "/guide/maintain/saveMaintain",
@@ -436,7 +443,6 @@ function maintainConfigOk() {
         dataType: "text",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            console.log("121111")
             if (data == "SUCCESS") {
                 layer.alert("分配成功");
                 layer.closeAll();

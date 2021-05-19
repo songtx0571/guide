@@ -35,7 +35,7 @@
 		LEFT JOIN maintenance b ON b.id = a.maintenanceId
 		WHERE b.datetime = #{datetime} AND b.project_id = #{project}
 	</select>
-	
+
 	<select id='getMaintenanceRecord' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT id,maintenanceId,type,content,IFNULL(datetime,0) datetime,
 		IFNULL(people,0) people,IFNULL(workingHours,0) workingHours,IFNULL(defectNumber,0) defectNumber,
@@ -43,7 +43,7 @@
 		FROM maintenanceRecord a  
 		WHERE id = #{id}
 	</select>
-	
+
 	<select id='getMaintenanceRecordsByMaintenanceId' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT id ,maintenanceId,type,content,IFNULL(datetime,0) datetime,IFNULL(people,0) people,
 		IFNULL(workingHours,0) workingHours,IFNULL(defectNumber,0) defectNumber,
@@ -51,7 +51,7 @@
 		FROM maintenanceRecord a
 		WHERE maintenanceId = #{maintenanceId}
 	</select>
-	
+
 	<select id='getMaintenanceRecordsByMaintenanceId1' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT id ,maintenanceId,type,content,IFNULL(datetime,0) datetime,IFNULL(people,0) people,
 		IFNULL(workingHours,0) workingHours,IFNULL(defectNumber,0) defectNumber,
@@ -59,15 +59,15 @@
 		FROM maintenanceRecord a
 		WHERE type = 1 AND maintenanceId = #{maintenanceId}
 	</select>
-	
+
 	<select id='getAttendance' resultType="java.lang.String">
 		SELECT GROUP_CONCAT(people) FROM  maintenanceRecord WHERE maintenanceId = #{maintenanceId} AND TYPE = 1;
 	</select>
-	
+
 	<update id="updateMaintenanceAttendance">
 		UPDATE maintenance SET attendance = #{attendance} WHERE id = #{id}
 	</update>
-	
+
 	<update id="updateMaintenanceTotalTime">
 		UPDATE maintenance SET totalTime = #{totalTime} WHERE id = #{id}
 	</update>
@@ -75,26 +75,26 @@
 		UPDATE maintenance SET leader = #{maintenance.leader}, num = #{maintenance.num},attendance = ${maintenance.attendance} 
 		WHERE id = #{maintenance.id}
 	</update>
-	
+
 	<insert id="insertMaintenance"  parameterType="com.howei.pojo.Maintenance">
 		INSERT ignore INTO maintenance(datetime,project_id,leader,num,attendance)
 		VALUES(#{maintenance.datetime},#{maintenance.projectId},#{maintenance.leader},#{maintenance.num},#{maintenance.attendance})
 			
 	</insert>
-	
-	
-	
+
+
+
 	<insert id="insertMaintenanceRecord" parameterType="com.howei.pojo.MaintenanceRecord">
 		INSERT ignore INTO maintenanceRecord(maintenanceId,type,content)
 		VALUES(#{maintenanceRecord.maintenanceId},#{maintenanceRecord.type},#{maintenanceRecord.content})
 	</insert>
-	
+
 	<insert id="insertMaintenanceRecordALL" parameterType="com.howei.pojo.MaintenanceRecord">
 		INSERT ignore INTO maintenanceRecord(maintenanceId,type,content,datetime,people,workingHours,defectNumber)
 		VALUES(#{maintenanceRecord.maintenanceId},#{maintenanceRecord.type},#{maintenanceRecord.content},
 		#{maintenanceRecord.datetime},#{maintenanceRecord.people},#{maintenanceRecord.workingHours},#{maintenanceRecord.defectNumber})
 	</insert>
-	
+
 	<update  id="updateMaintenanceRecord" parameterType="com.howei.pojo.MaintenanceRecord">
 		UPDATE maintenanceRecord SET content = #{maintenanceRecord.content} WHERE id = #{maintenanceRecord.id}
 	</update>
@@ -107,7 +107,7 @@
 		UPDATE maintenanceRecord SET workingHours = #{maintenanceRecord.workingHours}
 		WHERE id = #{maintenanceRecord.id}
 	</update>
-	
+
 	<delete id="delMaintenance">
 		delete from maintenance where id = #{id}
 	</delete>
@@ -117,7 +117,7 @@
 	<delete id="delMaintenanceRecordByMaintenanceId">
 		delete from maintenanceRecord where maintenanceId = = #{maintenanceId}
 	</delete>
-	
+
 	<insert id='insertMaintenanceByLeader'  parameterType="com.howei.pojo.MaintenanceRecord">
 		INSERT ignore INTO maintenance(datetime,project_id,leader)
 		VALUES(#{maintenance.datetime},#{maintenance.projectId},#{maintenance.leader})

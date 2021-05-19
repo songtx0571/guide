@@ -32,7 +32,6 @@ function bigDataTable(project){
 	if (project == null) {
 		project = 0;
 	}
-	console.log(project)
 	oTable = $('#DataTable').DataTable({
     	"oLanguage": {  
     		"sProcessing": "正在抓取数据，请稍后...",  
