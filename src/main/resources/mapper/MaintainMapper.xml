@@ -138,7 +138,6 @@
             e.`name` LIKE #{map.searchWord}
             OR e1.`name` LIKE #{map.searchWord}
             OR u.nuit LIKE #{map.searchWord}
-            OR m.work_content LIKE #{map.searchWord}
             )
         </if>
 
