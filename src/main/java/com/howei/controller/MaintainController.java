@@ -47,6 +47,12 @@ public class MaintainController {
         return "maintainConfig";
     }
 
+    public Users getPrincipal(){
+        Subject subject=SecurityUtils.getSubject();
+        Users users=(Users) subject.getPrincipal();
+        return users;
+    }
+
 
     /**
      * 保存维护配置
@@ -94,7 +100,7 @@ public class MaintainController {
      * @param id
      * @return
      */
-    @GetMapping("/getMaintains")
+    @RequestMapping("/getMaintains")
     @ResponseBody
     public Result getMaintainList(
             @RequestParam(required = false) Integer departmentId,
@@ -103,7 +109,7 @@ public class MaintainController {
     ) {
         Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
-        Users users = (Users) subject.getPrincipal();
+        Users users = this.getPrincipal();
         if (users == null) {
             result.setMsg("用户失效");
             return result;
