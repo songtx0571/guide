@@ -840,7 +840,6 @@ function insertFeedback() {
         }
     });
 }
-
 //动态区域
 function operationSend(verb, content, remark) {
     $.ajax({

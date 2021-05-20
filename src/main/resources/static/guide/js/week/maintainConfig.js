@@ -1,6 +1,7 @@
 var path = "";
 var saveId;
-var timer = [];
+// 该map可以定义在最上面
+var tasks = new Map();
 var departmentId = "";
 $(function () {
     showDepartName();
@@ -13,8 +14,6 @@ $(function () {
 function search() {
     var searchWord = $("#searchWord").val();
     var departmentId = $("#addDepartNameHidden").val()
-
-    console.log(searchWord, departmentId);
     showMaintainWork(departmentId, searchWord);
 }
 
@@ -54,17 +53,18 @@ function showDepartName() {
 
     });
 }
+
 //查询设备名称和系统名称
 function showSystemNameAndEquipmentName(department) {
     layui.use(['form'], function () {
         var form = layui.form;
         $.ajax({
             type: "GET",
-            url: "/guide/maintain/getEquipments?type=1&department="+department,
+            url: "/guide/maintain/getEquipments?type=1&department=" + department,
             dataType: "json",
             success: function (data) {
 
-                if(data.code==0){
+                if (data.code == 0) {
                     $("#selSysName").empty();
                     var option = "<option value='0' >请选择系统</option>";
                     for (var i = 0; i < data.data.length; i++) {
@@ -81,14 +81,14 @@ function showSystemNameAndEquipmentName(department) {
         });
         $.ajax({
             type: "GET",
-            url: "/guide/maintain/getEquipments?type=2&department="+department,
+            url: "/guide/maintain/getEquipments?type=2&department=" + department,
             dataType: "json",
             success: function (data) {
-                if(data.code==0){
+                if (data.code == 0) {
                     $("#selEquipmentName").empty();
                     var option = "<option value='0' >请选择设备</option>";
                     for (var i = 0; i < data.data.length; i++) {
-                        option += "<option value='" + data.data[i].id + "'>" +  data.data[i].text + "</option>"
+                        option += "<option value='" + data.data[i].id + "'>" + data.data[i].text + "</option>"
                     }
                     $('#selEquipmentName').html(option);
                     form.render();//菜单渲染 把内容加载进去
@@ -101,7 +101,7 @@ function showSystemNameAndEquipmentName(department) {
         });
         $.ajax({
             type: "GET",
-            url: path + "/guide/unit/getUnitList?mold=2&bothType=3&department="+department,
+            url: path + "/guide/unit/getUnitList?mold=2&bothType=3&department=" + department,
             dataType: "json",
             success: function (data) {
                 data = data.data;
@@ -125,109 +125,136 @@ function showSystemNameAndEquipmentName(department) {
 }
 
 
-//查询数据
+
 function showMaintainWork(departmentId, searchWord) {
-    console.log(timer.length)
-    for (let i = 0; i < timer.length; i++) {
-        clearInterval(timer[i]);
-    }
     if (departmentId == "0") {
         departmentId = "";
     }
-    $.ajax({
-        type: "GET",
-        url: path + '/guide/maintain/getMaintains?departmentId=' + departmentId + "&searchWord=" + searchWord,//数据接口
-        dataType: "json",
-        success: function (data) {
-            data = data.data;
-            var li = "<table class='maintainConfigUl layui-table'>" +
-                "<thead><th><span class='ulSystemName'>系统</span></th>" +
-                "<th><span class='ulEquipmentName'>设备</span></th>" +
-                "<th><span class='ulMaintainPointName'>维护点</span></th>" +
-                "<th><span class='ulPlanedWorkingHour'>工作内容</span></th>" +
-                "<th><span class='ulPlanedWorkingHour'>计划工时/时</span></th>" +
-                "<th><span class='ulCycle'>周期/天</span></th>" +
-                "<th><span class='ulCountDown' class='ulCountDown'>倒计时</span></th>" +
-                "<th style='width: 160px;'><span class='ulOperation'>操作</span></th></thead>";
-            for (var i = 0; i < data.length; i++) {
-                li += "<tr class='ulLi'><td><span class='ulSystemName'>" + data[i].systemName + "</span></td>" +
-                    "<td><span class='ulEquipmentName'>" + data[i].equipmentName + "</span></td>" +
-                    "<td><span class='ulMaintainPointName'>" + data[i].unitName + "</span></td>" +
-                    "<td><span class='ulWorkContent'>" + data[i].workContent + "</span></td>" +
-                    "<td><span class='ulPlanedWorkingHour'>" + data[i].planedWorkingHour + "</span></td>" +
-                    "<td><span class='ulCycle cycle" + i + "'>" + data[i].cycle + "</span></td>" +
-                    "<td><span class='ulCountDown ulCountDown1' id='ulCountDown" + i + "'></span><span style='display: none;' class='inspectionEndTime" + i + "'>" + data[i].startTime + "</span></td>" +
-                    "<td><span class='ulOperation'>" + getPermission(data[i].id,data[i].assignmentStatus) + "</span></td></tr>";
-                var h = data[i].cycle;//周期
-                var startTime = data[i].startTime;//开始时间
-                if (data[i].startTime != "" || data[i].startTime != null) {
-                    a(startTime, h, i, data[i].assignmentStatus)
-                } else {
-                    $("#ulCountDown" + i).html("无");
+    layui.use(['table'], function () {
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            , toolbar: true
+            , url: path + '/guide/maintain/getMaintains?departmentId=' + departmentId + '&searchWord=' + searchWord
+            , page: true //开启分页
+            , limit: 50
+            , limits: [50, 100, 150]
+            , cols: [[ //表头
+                {field: 'id', title: '编号', align: 'center', hide: true}
+                , {field: 'systemName', title: '系统', sort: true, align: 'center'}
+                , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
+                , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
+                , {field: 'workContent', title: '工作内容', sort: true, align: 'center', width: 400}
+                , {field: 'planedWorkingHour', title: '计划工时/时', sort: true, align: 'center'}
+                , {field: 'cycle', title: '周期/天', sort: true, align: 'center'}
+                , {
+                    field: 'startTime', title: '倒计时', sort: true, align: 'center',
+                    templet: function (a) {
+
+                        // 根据后端返回的时间在延长 周期时间,计算出还剩下多少秒
+                        var t = parseInt((new Date(a.startTime).getTime() + parseInt(a.cycle) * 24 * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
+                        // 设置每一条数据唯一的key
+                        var key = 'key_' + a.id;
+
+                        var day1 = parseInt(t / (60 * 60 * 24));//天
+                        var shi1 = parseInt(t / (60 * 60) % 24);//小时
+                        var fen1 = parseInt((t / 60) % 60);//分钟
+                        var miao1 = parseInt(t % 60);//秒
+
+                        var time2 = "";
+
+                        if (day1 > 0) {
+                            time2 = day1 + "天";
+                        } else if (shi1 > 0) {
+                            time2 = shi1 + "时" + fen1 + "分" + miao1 + "秒";
+                        } else if (fen1 > 0) {
+                            time2 = fen1 + "分" + miao1 + "秒";
+                        } else if (miao1 > 0) {
+                            time2 = miao1 + "秒";
+                        }
+
+                        // 这里初始值计算显示的倒计时只是为了 如页面有刷新操作，只是把这个初始值也显示为倒计时
+                        var html = `<label id=${key} style="color: orange;">${time2}</label>`;
+                        if (a.assignmentStatus == '2') {
+                            return `<label  id=${key} style='color:red;'>已暂停</label>`;
+                        } else if (a.assignmentStatus == '1') {
+                            return `<label  id=${key} style='color:blue;'>已分配</label>`;
+                        } else if (t <= 0) {
+                            return `<label  id=${key} style='color:green;'>待分配</label>`;
+                        }
+                        addTask(key, function () {
+                            t--;
+                            var day = parseInt(t / (60 * 60 * 24));//天
+                            var shi = parseInt(t / (60 * 60) % 24);//小时
+                            var fen = parseInt((t / 60) % 60);//分钟
+                            var miao = parseInt(t % 60);//秒
+
+                            if (t == 0) {
+                                $('#' + key).html("<label style='color:green;'>待分配</label>");
+                                delTask(key);
+                            } else if (day > 0) {
+                                $('#' + key).text(day + "天");
+                            } else if (shi > 0) {
+                                $('#' + key).text(shi + "时" + fen + "分" + miao + "秒");
+                            } else if (fen > 0) {
+                                $('#' + key).text(fen + "分" + miao + "秒");
+                            } else {
+                                $('#' + key).text(miao + "秒");
+                            }
+
+                        });
+                        return html;
+                    }
+
                 }
+                , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 200, align: 'center'}
+            ]]
+            , done: function (res, curr, count) {
             }
-            li += "</table>";
-            $(".content").html(li);
-        }
+        });
+        table.on('tool(test)', function(obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                openMaintainConfig(data.id)
+            } else if (obj.event === 'start') {
+                resetMaintainConfig(data.id)
+            } else if (obj.event === 'stop') {
+                stopMaintainConfig(data.id)
+            } else if (obj.event === 'distribution') {
+                distributionMaintainConfig(data.id)
+            }
+        });
     });
+
+}
+
+// 定时计时任务，这里是1秒执行一次
+setInterval(function () {
+    for (var key in tasks) {
+        tasks[key]();
+    }
+}, 1000)
+
+// 添加定时任务
+function addTask(key, value) {
+    if (typeof value === "function") {
+        tasks[key] = value;
+    }
+}
+
+// 删除定时任务
+function delTask(task) {
+    delete tasks[task];
 }
 
 
-//倒计时
-function a(startTime, d, i, assignmentStatus) {
-    timer[i] = setInterval(function () {
-        var sDate = new Date(startTime);//开始时间
-        var sTime = sDate.getTime();//开始时间的毫秒数
-        sTime = sTime + (d * 24 * 60 * 60 * 1000)//开始时间的毫秒数+周期的毫秒数
-        var nDate = new Date();//当前时间
-        var nTime = nDate.getTime();//当前时间毫秒数
-        var time = sTime - nTime;//两者毫秒相差
-        time = time / 1000;//将相差值换为秒数
-        var day = parseInt(time / (60 * 60 * 24))
-        var shi = parseInt(time / (60 * 60) % 24);//小时
-        var fen = parseInt((time / 60) % 60);//分钟
-        var miao = parseInt(time % 60);//秒
-        if (assignmentStatus == '2') {
-            $("#ulCountDown" + i).html("<samp style='color:red;'>已暂停</samp>");
-            $(".resetBtn" + i).css("display", "revert");
-            $(".distribution" + i).css("display", "revert");
-            $(".edit" + i).css("width", "44px");
-            clearInterval(timer[i]);
-        } else if (assignmentStatus == '1') {
-            $("#ulCountDown" + i).html("<samp style='color: blue;'>已分配</samp>");
-            $(".resetBtn" + i).css("display", "none");
-            $(".distribution" + i).css("display", "none");
-            $(".edit" + i).css("width", "152px");
-            clearInterval(timer[i]);
-        } else {
-            if (day > 0) {
-                $("#ulCountDown" + i).html('<samp style="color: orange;">' + day + "天" + '</samp>');
-            } else if (shi > 0) {
-                $("#ulCountDown" + i).html('<samp style="color: orange;">' + shi + "时" + fen + "分" + miao + '秒</samp>');
-            } else if (fen > 0) {
-                $("#ulCountDown" + i).html('<samp style="color: orange;">' + fen + "分" + miao + '秒</samp>');
-            } else if (miao > 0) {
-                $("#ulCountDown" + i).html('<samp style="color: orange;">' + miao + '秒</samp>');
-            } else {
-                $("#ulCountDown" + i).html("<samp style='color: green;'>待分配</samp>");
-                $(".resetBtn" + i).css("display", "revert");
-                $(".distribution" + i).css("display", "revert");
-                $(".edit" + i).css("width", "44px");
-                clearInterval(timer[i]);
-            }
-
-
-        }
-
-
-    }, 1000);
-}
 
 //打开添加
 function openMaintainConfig(id) {
     layui.use(['table', 'form'], function () {
         var form = layui.form;
         if (id == "") {
+            $(".departSelectTr").css("display", "revert");
             $("#selSysName").val('0');
             $("#selEquipmentName").val('0');
             $("#selMaintainPointName").val('0');
@@ -243,6 +270,7 @@ function openMaintainConfig(id) {
             form.render();
 
         } else {
+            $(".departSelectTr").css("display", "none");
             $.ajax({
                 type: "GET",
                 url: path + '/guide/maintain/getMaintains?id=' + id,//数据接口
@@ -292,7 +320,16 @@ function saveMaintainConfig() {
     maintainWork.planedWorkingHour = $("#selPlanedWorkingHourHidden").val();
     maintainWork.workContent = $("#selWorkContent").val();
     maintainWork.departmentId = $("#addDepartNameHidden").val();
-    console.log(maintainWork)
+    if (maintainWork.systemId == "0") {
+        layer.alert("请选择系统");
+        return false;
+    } else if (maintainWork.equipmentId == "0") {
+        layer.alert("请选择设备");
+        return false;
+    } else if (maintainWork.unitId == "0") {
+        layer.alert("请选择维护点");
+        return false;
+    }
     $.ajax({
         "type": 'post',
         "url": path + "/guide/maintain/saveMaintain",
@@ -436,7 +473,6 @@ function maintainConfigOk() {
         dataType: "text",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            console.log("121111")
             if (data == "SUCCESS") {
                 layer.alert("分配成功");
                 layer.closeAll();

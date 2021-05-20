@@ -45,36 +45,33 @@
         </shiro:hasPermission>
     </div>
     <div class="content">
+        <div> <table id="demo" class="layui-table" lay-filter="test"></table></div>
 
     </div>
     <%--保存--%>
     <div class="saveMaintainConfig">
         <table>
             <shiro:hasPermission name="查询所有部门维护引导">
-
-                <tr>
+                <tr class="departSelectTr">
                     <td>部门</td>
                     <td>
                         <input type="hidden" id="addDepartNameHidden">
                         <form class="layui-form" action="">
-                            <div style="margin: 0;width: 400px;">
+                            <div style="margin: 0;width: 540px;">
                                 <select name="modules" lay-verify="required" lay-filter="addDepartName" lay-search=""
                                         id="addDepartName">
                                 </select>
                             </div>
                         </form>
-
                     </td>
                 </tr>
             </shiro:hasPermission>
-
-
             <tr>
                 <td>系统</td>
                 <td>
                     <input type="hidden" id="selSysNameHidden">
                     <form class="layui-form" action="">
-                        <div class="layui-input-inline" style="margin: 0;width: 400px;">
+                        <div class="layui-input-inline" style="margin: 0;width: 540px;">
                             <select name="modules" lay-verify="required" lay-filter="selSysName" lay-search=""
                                     id="selSysName">
                             </select>
@@ -87,7 +84,7 @@
                 <td>
                     <input type="hidden" id="selEquipmentNameHidden">
                     <form class="layui-form" action="">
-                        <div class="layui-input-inline" style="margin: 0;width: 400px;">
+                        <div class="layui-input-inline" style="margin: 0;width: 540px;">
                             <select name="modules" lay-verify="required" lay-filter="selEquipmentName" lay-search=""
                                     id="selEquipmentName">
                             </select>
@@ -100,7 +97,7 @@
                 <td>
                     <input type="hidden" id="selMaintainPointNameHidden">
                     <form class="layui-form" action="">
-                        <div class="layui-input-inline" style="margin: 0;width: 400px;">
+                        <div class="layui-input-inline" style="margin: 0;width: 540px;">
                             <select name="modules" lay-verify="required" lay-filter="selMaintainPointName" lay-search=""
                                     id="selMaintainPointName">
                             </select>
@@ -111,7 +108,7 @@
             <tr>
                 <td>周期/天</td>
                 <td>
-                    <input type="text" id="selCycleHidden" class="layui-input" style="margin: 0;width: 400px;">
+                    <input type="text" id="selCycleHidden" class="layui-input" style="margin: 0;width: 540px;">
                 </td>
             </tr>
             <tr>
@@ -119,7 +116,7 @@
                 <td>
                     <input type="hidden" id="selPlanedWorkingHourHidden">
                     <form class="layui-form" action="">
-                        <div class="layui-input-inline" style="margin: 0;width: 400px;">
+                        <div class="layui-input-inline" style="margin: 0;width: 540px;">
                             <select name="modules" lay-verify="required" lay-filter="selPlanedWorkingHour" lay-search=""
                                     id="selPlanedWorkingHour">
                                 <option value="0.5">0.5小时</option>
@@ -138,7 +135,7 @@
             <tr>
                 <td>工作内容描述</td>
                 <td>
-                    <textarea style="margin: 0;width: 400px;" class="layui-textarea" id="selWorkContent"></textarea>
+                    <textarea style="margin: 0;width: 540px;height: 300px;" class="layui-textarea" id="selWorkContent"></textarea>
                 </td>
             </tr>
             <tr>
@@ -221,24 +218,21 @@
 </div>
 </body>
 
-<script type="text/javascript">
-    //操作按钮权限控制
-    function getPermission(id, status) {
-        var str = '';
-        <shiro:hasPermission name="修改维护配置">
-        str += "<button class='layui-btn layui-btn-sm' onclick='openMaintainConfig(" + id + ")'>修改</button>";
-        </shiro:hasPermission>
-        <shiro:hasPermission name="重置维护配置">
-        if (status == "2") {
-            str += "<button class='layui-btn layui-btn-sm layui-btn-normal' onclick='resetMaintainConfig(" + id + ")'>开始</button>";
-        } else {
-            str += "<button class='layui-btn layui-btn-sm layui-btn-warm' onclick='stopMaintainConfig(" + id + ")'>暂停</button>";
-        }
-        </shiro:hasPermission>
-        <shiro:hasPermission name="分配维护配置">
-        str += "<button class='layui-btn layui-btn-sm' onclick='distributionMaintainConfig(" + id + ")'>分配</button>";
-        </shiro:hasPermission>
-        return str;
-    }
+
+<script type="text/html" id="tbDemoBar">
+    <shiro:hasPermission name="修改维护配置">
+       <button class='layui-btn layui-btn-sm' lay-event="edit">修改</button>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="重置维护配置">
+        {{# if(d.assignmentStatus==2){ }}
+        <button class='layui-btn layui-btn-sm layui-btn-normal' lay-event="start">开始</button>
+        {{# }else{ }}
+        <button class='layui-btn layui-btn-sm layui-btn-warm' lay-event="stop">暂停</button>
+        {{# } }}
+    </shiro:hasPermission>
+    <shiro:hasPermission name="分配维护配置">
+        <button class='layui-btn layui-btn-sm' lay-event="distribution">分配</button>
+    </shiro:hasPermission>
+
 </script>
 </html>

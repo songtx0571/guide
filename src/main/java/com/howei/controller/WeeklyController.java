@@ -81,8 +81,11 @@ public class WeeklyController {
 
     @RequestMapping("getWeeks")
     public JsonResult getWeeks(int project) {
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Week[] weeks = weeklyService.getWeeks(project);
@@ -92,7 +95,6 @@ public class WeeklyController {
 
     @RequestMapping("WeeklyRecord")
     public ModelAndView WeeklyRecord() {
-
         ModelAndView view = new ModelAndView();
         view.setViewName("weeks2");
         return view;
@@ -101,8 +103,11 @@ public class WeeklyController {
 
     @RequestMapping("find")
     public JsonResult find(int year, int week, int type, int project) {
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Weekly[] weeklys = weeklyService.getWeeklys(year, week, type, project);
@@ -120,8 +125,11 @@ public class WeeklyController {
 
     @RequestMapping("findWeek")
     public JsonResult findWeek(int year, int week, int type, int project) {
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Week weeks = weeklyService.getWeek(year, week, type, project);
@@ -185,8 +193,13 @@ public class WeeklyController {
 
     @RequestMapping("updWeek")
     public ModelAndView updWeek(int year, int week, int type, int project) {
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                ModelAndView view = new ModelAndView();
+                view.addObject("data", Type.noUser);
+                view.setViewName("error");
+            }
             project=users.getDepartmentId();
         }
         ModelAndView view = new ModelAndView();
@@ -288,8 +301,11 @@ public class WeeklyController {
 
     @RequestMapping("changeWeek")
     public JsonResult changeWeek(int id, int type, int project, int week, int year, String name, String fillIn, String auditor) {
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Week weeks = new Week(id, name, project, year, week, type, fillIn, auditor);
@@ -352,8 +368,11 @@ public class WeeklyController {
 
     @RequestMapping("next")
     public JsonResult next(int type, int week, int year, int project) {
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Week weeks = weeklyService.getWeek(year, week + 1, type, project);
@@ -362,8 +381,11 @@ public class WeeklyController {
 
     @RequestMapping("last")
     public JsonResult last(int type, int week, int year, int project) {
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Week weeks = weeklyService.getWeek(year, week - 1, type, project);
@@ -433,8 +455,14 @@ public class WeeklyController {
                 String realETime=DateFormat.getYMDHMS(new Date());//实际结束时间
                 String planedTime=defect.getPlanedTime();//计划完成时间
                 String realSTime=defect.getRealSTime();//实际开始时间
-                double diff1=DateFormat.getBothNH(realSTime,planedTime);
-                double diff2=DateFormat.getBothNH(realSTime,realETime);
+                double diff1=0.0;
+                double diff2=0.0;
+                if(planedTime!=null&&realSTime!=null){
+                    diff1=DateFormat.getBothNH(realSTime,planedTime);
+                }
+                if(realETime!=null&&realSTime!=null){
+                    diff2=DateFormat.getBothNH(realSTime,realETime);
+                }
                 if(diff1<=diff2){
                     defect.setRealExecuteTime(diff1);
                 }else{

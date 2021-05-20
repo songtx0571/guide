@@ -11,7 +11,7 @@ public class Unit {
     private String english;//拼音
     private Integer mold;//区分测点与单位 1:单位 2:测点
     private int department;//项目部
-    private Integer bothType;//1:人工；2:ai
+    private Integer bothType;//1:人工；2:ai；3:维护
 
     //虚字段
     private String departmentName;//项目部

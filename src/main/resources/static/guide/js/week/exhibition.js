@@ -5,6 +5,10 @@ var index1 = 1;
 var index2 = 2;
 var temChildId = "";
 var roadName = "";
+var addSystemName = "";//系统
+var addEquipName = "";//设备
+var updSystemName = "";//系统
+var updEquipName = "";//设备
 $(function(){
     showDepartName();
     showExhibitionList();
@@ -279,12 +283,14 @@ function getSysEquName(id) {
             }
         });
         form.on('select(addTemBarSysName)', function (data) {
-            $("#addTemBarSysHidden").val(data.elem[data.elem.selectedIndex].text);
-            roadName = $("#addTemBarSysHidden").val()+","+$("#addTemBarEquNameHidden").val();
+            addSystemName = data.elem[data.elem.selectedIndex].text;//系统
+            $("#addTemBarSysHidden").val(data.value);
+            roadName = addSystemName+","+addEquipName;
         });
         form.on('select(updTemBarSysName)', function (data) {
-            $("#updTemBarSysHidden").val(data.elem[data.elem.selectedIndex].text);
-            roadName = $("#updTemBarSysHidden").val()+","+$("#updTemBarEquNameHidden").val();
+            $("#updTemBarSysHidden").val(data.value);
+            updSystemName = data.elem[data.elem.selectedIndex].text;//系统
+            roadName = updSystemName+","+updEquipName;
         });
         $.ajax({
             type: "GET",
@@ -303,13 +309,15 @@ function getSysEquName(id) {
             }
         });
         form.on('select(addTemBarEquName)', function (data) {
-            $("#addTemBarEquNameHidden").val(data.elem[data.elem.selectedIndex].text);
-            roadName = $("#addTemBarSysHidden").val()+","+$("#addTemBarEquNameHidden").val();
+            $("#addTemBarEquNameHidden").val(data.value);
+            addEquipName = data.elem[data.elem.selectedIndex].text;//设备
+            roadName = addSystemName+","+addEquipName;
             getSightTypeUnit(id)
         });
         form.on('select(updTemBarEquName)', function (data) {
-            $("#updTemBarEquNameHidden").val(data.elem[data.elem.selectedIndex].text);
-            roadName = $("#updTemBarSysHidden").val()+","+$("#updTemBarEquNameHidden").val();
+            $("#updTemBarEquNameHidden").val(data.value);
+            updEquipName = data.elem[data.elem.selectedIndex].text;//设备
+            roadName = updSystemName+","+updEquipName;
             getSightTypeUnit(id)
         });
         //单位
@@ -517,8 +525,10 @@ function getSelect (id1,data) {
         $(".temBarDivTable").css("display","none");
         $(".updTemBarDiv").css("display","block");
         var dou = (data.equipment).indexOf(",");
-        $('#updTemBarSysHidden').val(data.equipment.substr(0,dou));
-        $('#updTemBarEquNameHidden').val(data.equipment.substr((dou+1)));
+        $('#updTemBarSysHidden').val(data.sysId);
+        $('#updTemBarEquNameHidden').val(data.equipmentId);
+        updSystemName = data.equipment.substr(0,dou);
+        updEquipName = data.equipment.substr((dou+1));
         $('#updTemBarUnitHidden').val(data.unit);
         $("#updTemBarTypeHidden").val(data.dataType);
         $('#updTemBarSightTypeHidden').val(data.measuringType);
@@ -538,6 +548,10 @@ function openTemBar() {
         $("#addTemBarSysName").val("0");
         $("#addTemBarEquName").val("0");
         $("#addTemBarUnit").val("-1");
+        $('#addTemBarSysHidden').val("");
+        $('#addTemBarEquNameHidden').val("");
+        $('#addTemBarSightTypeHidden').val("");
+        $('#addTemBarUnitHidden').val("");
         form.render('select');
         form.render(); //更新全部
     });
@@ -548,7 +562,21 @@ function openTemBar() {
 //创建路线
 function addTemBar() {
     var workId=id1;
-    var sysName= $('#addTemBarSysHidden').val();
+    var systemId= Number($('#addTemBarSysHidden').val());
+    var equipId= Number($('#addTemBarEquNameHidden').val());
+    var sightType= $('#addTemBarSightTypeHidden').val();
+    var unitType= $('#addTemBarUnitHidden').val();
+    var dataType = $("#addTemBarTypeHidden").val();
+    temChildId="";
+    if (systemId.trim() == "" || equipId.trim() == "" || sightType.trim() == "" || unitType.trim() == ""){
+        $(".addTemBarSpan").css("display","block");
+        return;
+    }
+    var data={'systemId':systemId,'equipId':equipId,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType,'sysName':addSystemName,'equName':addEquipName};
+
+    console.log(data)
+    /*var workId=id1;
+     var sysName= $('#addTemBarSysHidden').val();
     var equName= $('#addTemBarEquNameHidden').val();
     var sightType= $('#addTemBarSightTypeHidden').val();
     var unitType= $('#addTemBarUnitHidden').val();
@@ -558,7 +586,8 @@ function addTemBar() {
         $(".addTemBarSpan").css("display","block");
         return;
     }
-    $.ajax({
+    var data={'sysName':sysName,'equName':equName,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType};
+     $.ajax({
         url: '/guide/template/addWorkPeratorChild',
         type: 'GET',
         dataType: 'json',
@@ -569,16 +598,18 @@ function addTemBar() {
             $(".addTemBarDiv").css("display","none");
             $(".temBarDivTable").css("display","block");
         }
-    });
+    });*/
 }
 //修改路线
 function updTemBar() {
     var workId=id1;
-    var sysName= $('#updTemBarSysHidden').val();
-    var equName= $('#updTemBarEquNameHidden').val();
+    var systemId= Number($('#updTemBarSysHidden').val());
+    var equipId= Number($('#updTemBarEquNameHidden').val());
     var sightType= $('#updTemBarSightTypeHidden').val();
     var unitType= $('#updTemBarUnitHidden').val();
-    $.ajax({
+    var data={'systemId':systemId,'equipId':equipId,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'sysName':updSystemName,'equName':updEquipName};
+    console.log(data)
+    /*$.ajax({
         url: '/guide/template/addWorkPeratorChild',
         type: 'GET',
         dataType: 'json',
@@ -589,7 +620,7 @@ function updTemBar() {
             $(".updTemBarDiv").css("display","none");
             $(".temBarDivTable").css("display","block");
         }
-    });
+    });*/
 }
 //取消
 function cancel1() {

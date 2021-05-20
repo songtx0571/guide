@@ -4,6 +4,7 @@ package com.howei.controller;
 import com.howei.pojo.*;
 import com.howei.service.UserService;
 import com.howei.util.DateFormat;
+import com.howei.util.Type;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class MaintenanceController {
     }
 
     @RequestMapping("Maintenance")
-    public ModelAndView Maintenance(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+    public ModelAndView Maintenance(){
         ModelAndView view = new ModelAndView();
         view.setViewName("Maintenance");
         return view;
@@ -55,11 +56,13 @@ public class MaintenanceController {
 
     @RequestMapping("addLeader")
     public JsonResult addSuccessor(int id, Integer projectId, String datetime, String userName) {
+        Users users=this.getPrincipal();
         if(projectId==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             projectId=users.getDepartmentId();
         }
-        Users users=this.getPrincipal();
         userName=users.getUserNumber();
         Maintenance maintenance = new Maintenance();
         maintenance.setProjectId(projectId);
@@ -78,9 +81,12 @@ public class MaintenanceController {
 
 
     @RequestMapping("find")
-    public JsonResult find(HttpServletRequest request, HttpServletResponse response, String datetime, int project) throws IOException {
+    public JsonResult find(String datetime, int project){
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Maintenance maintenance = maintenanceService.getMaintenanceByProject(datetime, project);
@@ -89,9 +95,12 @@ public class MaintenanceController {
     }
 
     @RequestMapping("findRecord")
-    public JsonResult findRecord(HttpServletRequest request, HttpServletResponse response, String datetime, int project) throws IOException {
+    public JsonResult findRecord(String datetime, int project){
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         MaintenanceRecord[] maintenanceRecords = maintenanceService.getMaintenanceRecords(datetime, project);
@@ -99,9 +108,12 @@ public class MaintenanceController {
     }
 
     @RequestMapping("getMaintenances")
-    public JsonResult getMaintenances(HttpServletRequest request, HttpServletResponse response, int project) throws IOException {
+    public JsonResult getMaintenances(int project){
+        Users users=this.getPrincipal();
         if(project==0){
-            Users users=this.getPrincipal();
+            if(users==null){
+                return new JsonResult(Type.noUser);
+            }
             project=users.getDepartmentId();
         }
         Maintenance[] maintenances = maintenanceService.getMaintenances(project);
@@ -110,7 +122,7 @@ public class MaintenanceController {
     }
 
     @RequestMapping("addMaintenanceRecord")
-    public ModelAndView addMaintenanceRecord(HttpServletRequest request, HttpServletResponse response, int type, int maintenanceId) throws IOException, ParseException {
+    public ModelAndView addMaintenanceRecord(int type, int maintenanceId){
         ModelAndView view = new ModelAndView();
         view.addObject("maintenanceId", maintenanceId);
         view.addObject("type", type);
@@ -123,7 +135,7 @@ public class MaintenanceController {
     }
 
     @RequestMapping("updMaintenanceRecord")
-    public ModelAndView updMaintenanceRecord(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ParseException {
+    public ModelAndView updMaintenanceRecord(int id){
         ModelAndView view = new ModelAndView();
         MaintenanceRecord maintenanceRecord = maintenanceService.getMaintenanceRecord(id);
         System.out.println(maintenanceRecord.toString());
@@ -140,7 +152,7 @@ public class MaintenanceController {
 
 
     @RequestMapping("updMaintenanceRecord1")
-    public ModelAndView updMaintenanceRecord1(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ParseException {
+    public ModelAndView updMaintenanceRecord1(int id){
         ModelAndView view = new ModelAndView();
         MaintenanceRecord maintenanceRecord = maintenanceService.getMaintenanceRecord(id);
         view.addObject("maintenanceRecord", maintenanceRecord);
@@ -149,20 +161,20 @@ public class MaintenanceController {
     }
 
     @RequestMapping("delMaintenanceRecord")
-    public JsonResult delMaintenanceRecord(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+    public JsonResult delMaintenanceRecord(int id){
         int num = maintenanceService.delMaintenanceRecord(id);
         return new JsonResult(num);
     }
 
     @RequestMapping("delMaintenance")
-    public JsonResult delMaintenance(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+    public JsonResult delMaintenance(int id){
         int num = maintenanceService.delMaintenance(id);
         return new JsonResult(num);
     }
 
 
     @RequestMapping("changeMaintenance")
-    public ModelAndView changeMaintenance(HttpServletRequest request, HttpServletResponse response, String datetime, int project) throws IOException, ParseException {
+    public ModelAndView changeMaintenance(String datetime, int project){
         ModelAndView view = new ModelAndView();
         Maintenance maintenance = maintenanceService.getMaintenanceByProject(datetime, project);
         view.addObject("Maintenance", maintenance);
@@ -171,35 +183,33 @@ public class MaintenanceController {
     }
 
     @RequestMapping("maintenanceChange")
-    public JsonResult maintenanceChange(HttpServletRequest request, HttpServletResponse response, Maintenance maintenance) throws IOException {
+    public JsonResult maintenanceChange(Maintenance maintenance){
         int num = maintenanceService.change(maintenance);
         return new JsonResult(num);
     }
 
 
     @RequestMapping("insertMaintenanceRecord")
-    public JsonResult insertMaintenanceRecord(HttpServletRequest request, HttpServletResponse response, MaintenanceRecord MaintenanceRecord) throws IOException {
+    public JsonResult insertMaintenanceRecord(MaintenanceRecord MaintenanceRecord){
         int num = maintenanceService.insertMaintenanceRecord(MaintenanceRecord);
         return new JsonResult(num);
     }
 
     @RequestMapping("updateMaintenanceRecord")
-    public JsonResult updateMaintenanceRecord(HttpServletRequest request, HttpServletResponse response, MaintenanceRecord MaintenanceRecord) throws IOException {
-        System.out.println(MaintenanceRecord);
+    public JsonResult updateMaintenanceRecord(MaintenanceRecord MaintenanceRecord){
         int num = maintenanceService.updateMaintenanceRecord(MaintenanceRecord);
         return new JsonResult(num);
     }
 
     @RequestMapping("updateMaintenanceRecord1")
-    public JsonResult updateMaintenanceRecord1(HttpServletRequest request, HttpServletResponse response, MaintenanceRecord MaintenanceRecord) throws IOException {
-        System.out.println(MaintenanceRecord);
+    public JsonResult updateMaintenanceRecord1(MaintenanceRecord MaintenanceRecord){
         int num = maintenanceService.updateMaintenanceRecord1(MaintenanceRecord);
         return new JsonResult(num);
     }
 
 
     @RequestMapping("Maintenances")
-    public ModelAndView Maintenances(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+    public ModelAndView Maintenances(){
         ModelAndView view = new ModelAndView();
         view.setViewName("Maintenances");
         return view;
@@ -207,7 +217,7 @@ public class MaintenanceController {
 
 
     @RequestMapping("MaintenanceRecord")
-    public ModelAndView MaintenanceRecord(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ParseException {
+    public ModelAndView MaintenanceRecord(int id){
         ModelAndView view = new ModelAndView();
         view.addObject("id", id);
         view.setViewName("MaintenanceRecord");
@@ -215,20 +225,19 @@ public class MaintenanceController {
     }
 
     @RequestMapping("find1")
-    public JsonResult find1(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+    public JsonResult find1(int id){
         Maintenance maintenance = maintenanceService.getMaintenanceById(id);
         return new JsonResult(maintenance);
     }
 
     @RequestMapping("findRecord1")
-    public JsonResult findRecord1(HttpServletRequest request, HttpServletResponse response, int maintenanceId) throws IOException {
+    public JsonResult findRecord1(int maintenanceId){
         MaintenanceRecord[] maintenanceRecords = maintenanceService.getMaintenanceRecordsByMaintenanceId(maintenanceId);
         return new JsonResult(maintenanceRecords);
     }
 
     @RequestMapping("next")
-    public JsonResult next(HttpServletRequest request, HttpServletResponse response, String datetime, int project) throws IOException, ParseException {
-        System.out.println("aa");
+    public JsonResult next(String datetime, int project) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
         Date date = sdf.parse(datetime);
         Calendar calendar = Calendar.getInstance();
@@ -244,7 +253,7 @@ public class MaintenanceController {
     }
 
     @RequestMapping("last")
-    public JsonResult last(HttpServletRequest request, HttpServletResponse response, String datetime, int project) throws IOException, ParseException {
+    public JsonResult last(String datetime, int project) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
         Date date = sdf.parse(datetime);
         Calendar calendar = Calendar.getInstance();

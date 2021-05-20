@@ -98,7 +98,6 @@ public class DefectController {
         }
         return map;
     }
-
     /**
      * 获取用户Map
      * @return
@@ -110,7 +109,7 @@ public class DefectController {
 
     /**------------------------------------------------缺陷单列表登记页面-----------------------------------------------------/
 
-    /**
+     /**
      * 查询缺陷单列表
      * @param request
      * @return
@@ -180,6 +179,22 @@ public class DefectController {
                 }
                 empIdsName=empIdsName.equals("")||empIdsName==null ? "":empIdsName.substring(0,empIdsName.length()-1);
                 defect.setEmpIdsName(empIdsName);
+            }
+            if(defect.getaPlc()!=null){
+                String aPlc64=ImageToBase64ByLocal("/home/defect/img/"+defect.getaPlc());
+                if(aPlc64.equals("")){
+                    defect.setaPlc64("");
+                }else {
+                    defect.setaPlc64(aPlc64);
+                }
+            }
+            if(defect.getbPlc()!=null){
+                String bPlc64=ImageToBase64ByLocal("/home/defect/img/"+defect.getbPlc());
+                if(bPlc64.equals("")){
+                    defect.setbPlc64("");
+                }else{
+                    defect.setbPlc64(bPlc64);
+                }
             }
             if(defect.getRealExecuteTime()==null){
                 String realETime=defect.getRealETime();//实际结束时间
