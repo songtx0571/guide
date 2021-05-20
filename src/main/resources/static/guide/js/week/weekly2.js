@@ -80,9 +80,13 @@ function change(){
 		"url": "../WeeklyController/find",
 		"data":{year:year,week:week,type:type,project:project},
 		"success":function(Json){
-			fill(Json.data);
+			if (Json.data == "noUser") {
+				layer.alert("请重新登录");
+			} else {
+				fill(Json.data);
+			}
 		},
-		"error":function(){
+		"error":function(data){
 			layer.alert("系统繁忙");
 		}
 	});
@@ -407,10 +411,14 @@ function getPermissionId(index){
 }
 
 function updWeek(){
-	var projectId = $("#project").val();
+	var projectId = 0;
 	var year = $('#year').val();
 	var week = sessionStorage.weeklyYearWeek;
 	var type = $('#type').val();
+	if ($("#project").val() == "" || $("#project").val() == null) {
+	} else {
+		projectId = $("#project").val();
+	}
 	layer.open({
 		type: 2,
 		title:["修改周报信息",'font-size:20px;font-weight:bold;'],

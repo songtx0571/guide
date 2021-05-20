@@ -64,7 +64,11 @@ function bigDataTable(project) {
                 "data": {project: project, other: 2},
                 "url": sSource,
                 "success": function (Json) {
-                    fnCallback(Json);
+                    if (Json.data == "noUser") {
+                        layer.alert("请重新登录");
+                    } else {
+                        fnCallback(Json);
+                    }
                 }
             });
         },

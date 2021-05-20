@@ -68,7 +68,12 @@ function change(){
 		"url": "../WeeklyController/find",  
 		"data":{year:year,week:week,type:3,project:project},
 		"success":function(Json){
-			fill(Json.data);
+			if (Json.data == "noUser") {
+				layer.alert("请重新登录");
+			} else {
+				fill(Json.data);
+			}
+
 		},
 		"error":function(){
 			layer.alert("系统繁忙");
