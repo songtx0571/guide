@@ -72,7 +72,7 @@ function change(){
 	sessionStorage.weeklyyear = year;
 	sessionStorage.weeklyYearWeek = week;
 	sessionStorage.weeklyProject = project;
-	if(project==null){
+	if(project==null || project == ''){
 		project=0;
 	}
 	$.ajax({

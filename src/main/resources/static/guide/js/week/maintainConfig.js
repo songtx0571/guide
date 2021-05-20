@@ -125,7 +125,7 @@ function showSystemNameAndEquipmentName(department) {
 }
 
 
-
+//查询数据
 function showMaintainWork(departmentId, searchWord) {
     if (departmentId == "0") {
         departmentId = "";
