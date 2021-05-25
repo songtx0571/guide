@@ -416,6 +416,7 @@ function distributionMaintainConfig(id) {
             $("#maintainConfigMaintainPointName").text(data.workContent);//工作内容
             $("#maintainConfigExecutorId").val("");
             $("#maintainConfigDepartmentId").val(data.departmentId)
+            $("#maintainConfigExecutorId").val("");
             layui.use(['jquery', 'formSelects'], function () {
                 var formSelects = layui.formSelects;
                 formSelects.config('tags', {
@@ -465,6 +466,10 @@ function maintainConfigOk() {
     maintainRecord.employeeId = $("#maintainConfigExecutorId").val();
     maintainRecord.departmentId = $("#maintainConfigDepartmentId").val();
     maintainRecord.status = "1";
+    if (maintainRecord.employeeId == "") {
+        layer.alert("请选择执行人");
+        return false;
+    }
     // assignment_status 分配状态 0未分配  1已分配  2执行中  3已完成
     $.ajax({
         type: 'post',
