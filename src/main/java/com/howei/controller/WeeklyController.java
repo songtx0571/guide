@@ -248,9 +248,9 @@ public class WeeklyController {
         if(users==null){
             new JsonResult(Type.noUser);
         }
-        if(userName==null||userName.equals("")){
+        /*if(userName==null||userName.equals("")){
             userName=users.getUserNumber();
-        }
+        }*/
         int num = weeklyService.delAuditor(id, userName);
         return new JsonResult(num);
     }
@@ -290,9 +290,13 @@ public class WeeklyController {
      */
     @RequestMapping("delFillIn")
     public JsonResult delFillIn(int id, String userName) {
-        Users users=this.getPrincipal();
+        /*Users users=this.getPrincipal();
         if(userName==null||userName.equals("")){
             userName=users.getUserNumber();
+        }*/
+        Users users=this.getPrincipal();
+        if(users==null){
+            new JsonResult(Type.noUser);
         }
         int num = weeklyService.delFillIn(id, userName);
         return new JsonResult(num);

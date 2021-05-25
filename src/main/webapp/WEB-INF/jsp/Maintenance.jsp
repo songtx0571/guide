@@ -26,8 +26,8 @@
 		日期选择<input type="text" id="datetime"  onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="Wdate"/>
 		<shiro:hasPermission name='项目部选择'>
 			项目组选择:<select id='project'></select>
-			<input id='query' onclick="change()" type="button" value="查询"/>
 		</shiro:hasPermission>
+		<input id='query' onclick="change()" type="button" value="查询"/>
 		</span>
 	<table  style="width: 80%;margin-top: 50px;">
 		<thead >

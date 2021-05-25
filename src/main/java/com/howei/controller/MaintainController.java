@@ -15,6 +15,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 维护引导管理
@@ -105,7 +106,9 @@ public class MaintainController {
     public Result getMaintainList(
             @RequestParam(required = false) Integer departmentId,
             @RequestParam(required = false) Integer id,
-            @RequestParam(required = false) String searchWord
+            @RequestParam(required = false) String searchWord,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer limit
     ) {
         Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
@@ -128,10 +131,14 @@ public class MaintainController {
         if (searchWord != null && !"".equals(searchWord.trim())) {
             map.put("searchWord", "%" + searchWord + "%");
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         List<Maintain> maintains = maintainService.getMaintainByMap(map);
-        result.setCode(0);
         result.setCount(maintains.size());
+
+        if (page != null && limit != null) {
+            maintains = maintains.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
+        }
+
+        result.setCode(0);
         result.setData(maintains);
         result.setMsg("成功");
         return result;
@@ -263,15 +270,14 @@ public class MaintainController {
     /**
      * 查询维护记录
      *
-     * @param departmentId
      * @param id
      * @return
      */
     @GetMapping("/getMaintainRecords")
     @ResponseBody
     public Result getMaintainRecords(
-            @RequestParam(required = false) String departmentId,
-            @RequestParam(required = false) Integer employeeId,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer status,
             @RequestParam(required = false) Integer id
     ) {
@@ -284,7 +290,7 @@ public class MaintainController {
             return result;
         }
 
-        employeeId = users.getEmployeeId();
+        Integer employeeId = users.getEmployeeId();
         List<String> employeeIdList = new ArrayList<>();
         if (employeeId != null) {
             employeeIdList.add(users.getEmployeeId() + "");
@@ -332,6 +338,12 @@ public class MaintainController {
 
         result.setCode(0);
         result.setCount(maintainRecords.size());
+
+
+        if (page != null && limit != null) {
+            maintainRecords = maintainRecords.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
+        }
+
         result.setData(maintainRecords);
         result.setMsg("成功");
         return result;

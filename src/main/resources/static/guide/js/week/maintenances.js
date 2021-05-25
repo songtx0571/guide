@@ -29,7 +29,7 @@ function change(){
 	bigDataTable(project);
 }
 function bigDataTable(project){
-	if (project == null) {
+	if (project == null || project == '') {
 		project = 0;
 	}
 	oTable = $('#DataTable').DataTable({

@@ -438,6 +438,7 @@ function insert() {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 "success": function (data) {
+                    $(".loading").css("display",'block');
                     ajaxFun(data, "缺陷添加成功!", '新增');
                 }
             });
@@ -506,6 +507,8 @@ function getDetailedInfo(id, type) {
                         layer.alert("请先认领！");
                         return;
                     }
+                    $("#claimBelayBtn2").css("display","revert");
+                    $("#startFeedback").text("开始执行");
                     $("#implementId").val(data.id);//id
                     $("#implementType").val(data.type);//type
                     $("#implementLevel").text(data.level + "类");//级别
@@ -535,6 +538,8 @@ function getDetailedInfo(id, type) {
                         , yes: function () {
                         }
                     });
+                    $("#startFeedbackBtn").css("display", "revert");
+                    $(".claimInfoBelayTr2").css("display","none");
                 } else if (type == "handle") { //消缺反馈
                     $("#feedbackId").val(data.id);//id
                     $("#feedbackType").val(data.type);//type
@@ -602,6 +607,8 @@ function getDetailedInfo(id, type) {
                     $("#claimInfoBelay1").val("0");
                     $("#claimInfoBelayHidden1").val("");
                     $(".claimInfoBelayTr1").css("display", "none");
+                    $("#claimBelayBtn1").css("display","revert");
+                    $("#claimOkBtn").text("确定");
                     form.render(); //更新全部
                     $.ajax({
                         "type": 'post',
@@ -780,11 +787,16 @@ function startFeedback() {
 function claimBelay1() {
     $(".claimInfoBelayTr1").css("display", "revert");
     var id = $("#claimId").val();
+    $("#claimBelayBtn1").css("display","none");
+    $("#claimOkBtn").text("确定延期");
+
 }
 
 function claimBelay2() {
     $(".claimInfoBelayTr2").css("display", "revert");
     var id = $("#claimId").val();
+    $("#claimBelayBtn2").css("display","none");
+    $("#startFeedbackBtn").text("确定延期");
 }
 
 //处理反馈
@@ -857,6 +869,7 @@ function ajaxFun(data, tips, operation) {
     var content = "";
     if (data == "SUCCESS") {
         if (operation == "新增") {
+            $(".loading").css("display",'none');
             if (maintenanceCategoryName == "") {
                 maintenanceCategoryName = "机务";
             }

@@ -36,8 +36,8 @@ body{width:98%;height: 98%;}
 		<span>
 			<shiro:hasPermission name='项目部选择'>
 			项目组选择:<select id='project'></select>
-			<input id='query' onclick="change()" type="button" value="查询"/>
 			</shiro:hasPermission>
+			<input id='query' onclick="change()" type="button" value="查询"/>
 		</span>
         <div id="divTable" style="height: 90%;">
         	<table class="display" id="DataTable" >
