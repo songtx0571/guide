@@ -3,7 +3,7 @@
 <mapper namespace="com.howei.mapper.EmployeeMapper" >
 
     <select id="getEmpMap" resultType="com.howei.pojo.Employee" parameterType="java.util.HashMap">
-        select e.id,e.`name` from employee e
+        select DISTINCT e.id,e.`name` from employee e
         left join users u on u.employeeId=e.id
         left join user_role ur on ur.userId=u.id
         LEFT JOIN role_authority ra on ra.roleId=ur.roleId

@@ -541,6 +541,7 @@ public class DefectController {
         }
         Map map = new HashMap();
         map.put("empId", empIdStr);
+        System.out.println(empIdStr);
         List<Map<String,Object>> list=employeeService.getEmpMap(map);
         return list;
     }

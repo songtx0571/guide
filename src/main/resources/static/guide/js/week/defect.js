@@ -139,8 +139,8 @@ function getHis(sysId, euqipmentId) {
         $("#addDefectDiv table").css("margin-left", "10px");
         var width = ((w - 450 - 15) - 10) + "px";
     } else {
-        $("#addDefectDiv table").css("margin", "0 auto");
-        var width = ((w - 450) / 2 - 10) + "px";
+        $("#addDefectDiv table").css("margin-left", "10px");
+        var width = ((w - 560) - 20) + "px";
     }
     $(".addHistory").css("display", "block");
     $(".addHistory").css("width", width);
@@ -152,22 +152,23 @@ function getHis(sysId, euqipmentId) {
         success: function (json) {
             ul.html("");
             var li = "";
+            var detailed = '"detailed"';//刚给路径加上双引号，存放到点击事件里
             for (var i = 0; i < json.length; i++) {
                 if (json[i].type == 1) {
                     json[i].type = "未认领";
-                    li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 2) {
                     json[i].type = "消缺中";
-                    li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 3) {
                     json[i].type = "已消缺";
-                    li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><<span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 4) {
                     json[i].type = "已完成";
-                    li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 5) {
                     json[i].type = "已认领";
-                    li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 }
             }
             ul.html(li)

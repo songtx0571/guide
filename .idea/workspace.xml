@@ -24,20 +24,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="优化：维护引导是否有所有部门权限&#10;修复：维护配置分配给多人出现的异常">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailys.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/scrDailys.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weeks2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weeks2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenances.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenances.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailys.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDailys.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weekly2.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeks2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/weeks2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,92 +47,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="weekly2.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12204">
-              <caret line="452" column="18" selection-start-line="452" selection-start-column="18" selection-end-line="452" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MaintenanceController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1188">
-              <caret line="64" column="9" selection-start-line="58" selection-start-column="8" selection-end-line="64" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WeeklyController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7182">
-              <caret line="283" selection-start-line="283" selection-end-line="283" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginInterceptor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/redis/LoginInterceptor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1377">
-              <caret line="63" column="87" selection-start-line="63" selection-start-column="87" selection-end-line="63" selection-end-column="87" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="application.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+            <state relative-caret-position="54">
+              <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="DefectController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6102">
-              <caret line="226" column="55" selection-start-line="226" selection-start-column="55" selection-end-line="226" selection-end-column="55" />
+            <state relative-caret-position="594">
+              <caret line="544" column="63" selection-start-line="544" selection-start-column="54" selection-end-line="544" selection-end-column="63" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RabbitConstant.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/RabbitConstant.java">
+      <file leaf-file-name="EmployeeMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="459">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeeklyService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/WeeklyService.java">
+      <file leaf-file-name="defect.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="defect.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="972">
-              <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+            <state relative-caret-position="759">
+              <caret line="321" column="36" selection-start-line="321" selection-start-column="36" selection-end-line="321" selection-end-column="36" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#2;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeeklyServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/service/impl/WeeklyServiceImpl.java">
+      <file leaf-file-name="defect.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5049">
-              <caret line="202" column="47" selection-start-line="202" selection-start-column="47" selection-end-line="202" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Weeklymapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/Weeklymapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2862">
-              <caret line="106" column="45" selection-start-line="106" selection-start-column="45" selection-end-line="106" selection-end-column="45" />
+            <state relative-caret-position="540">
+              <caret line="249" column="21" lean-forward="true" selection-start-line="249" selection-start-column="21" selection-end-line="249" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -160,8 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getEmployeeByManager</find>
-      <find>getDefectList</find>
       <find>updDefect</find>
       <find>getEquMap</find>
       <find>getTemplate</find>
@@ -190,6 +155,8 @@
       <find>delFillIn</find>
       <find>delAuditor</find>
       <find>findWeek</find>
+      <find>新增</find>
+      <find>getEmpMap</find>
     </findStrings>
     <replaceStrings>
       <replace>src=&quot;../</replace>
@@ -203,7 +170,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/DefectMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/service/DefectService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/service/impl/DefectServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/util/ResultObject.java" />
@@ -214,7 +180,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/Employee.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/howei/GuideApplicationTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/mapper/EmployeeMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" />
@@ -239,7 +204,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/howei/pojo/WorkPerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/TemplateController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/UnitController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/util/Result.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defectData.js" />
@@ -253,6 +217,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/MaintenanceController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/guide/js/week/weekly2.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/WeeklyController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
       </list>
     </option>
@@ -295,11 +262,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1456" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-7" />
+    <option name="width" value="1294" />
+    <option name="height" value="1447" />
   </component>
   <component name="ProjectId" id="1jaS4G7TfGg2PO2ztNgvapxZBZH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -553,8 +519,11 @@
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.howei.pojo" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\product\guide\src\main\resources\static\guide" />
+      <recent name="F:\product\guide\src\main\resources\static\guide\js" />
+      <recent name="F:\product\guide\src\main\resources\static\img" />
+      <recent name="F:\product\guide\src\main\resources\static\js\bootstrap" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\product\guide\src\main\webapp\WEB-INF\jsp" />
@@ -583,11 +552,8 @@
       <recent name="com.howei.service" />
       <recent name="com.howei.util" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\product\guide\src\main\resources\static\guide" />
-      <recent name="F:\product\guide\src\main\resources\static\guide\js" />
-      <recent name="F:\product\guide\src\main\resources\static\img" />
-      <recent name="F:\product\guide\src\main\resources\static\js\bootstrap" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.howei.pojo" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1036,6 +1002,9 @@
       <workItem from="1621816429912" duration="6423000" />
       <workItem from="1621906742501" duration="2562000" />
       <workItem from="1621911591170" duration="692000" />
+      <workItem from="1621918492270" duration="1458000" />
+      <workItem from="1621924685466" duration="2158000" />
+      <workItem from="1622006005678" duration="1743000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -1094,7 +1063,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1137143000" />
+    <option name="totallyTimeSpent" value="1142502000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1106,39 +1075,39 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1456" extended-state="1" />
+    <frame x="-7" y="0" width="1294" height="1447" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info id="Image Layers" order="3" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32939914" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5008104" side_tool="true" weight="0.4193303" />
-      <window_info anchor="right" id="Maven Projects" order="5" weight="0.14158577" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.2884927" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49918962" weight="0.23431595" />
-      <window_info anchor="bottom" id="Version Control" order="14" weight="0.1904762" />
-      <window_info anchor="bottom" id="Spring" order="7" weight="0.32939914" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21925566" />
-      <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="5" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.3409437" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32728648" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32939914" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.4436886" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49918962" weight="0.23592085" />
+      <window_info anchor="bottom" id="Spring" order="7" weight="0.32939914" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32939914" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3006483" />
+      <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.34164777" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="MyBatis Log" order="11" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32728648" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Maven" order="3" weight="0.32995737" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1148,6 +1117,7 @@
       <window_info anchor="right" id="Maven" order="3" weight="0.32995737" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.32939914" />
       <window_info id="Image Layers" order="3" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24716553" />
@@ -1168,7 +1138,6 @@
       <window_info anchor="bottom" id="Database Changes" order="14" />
       <window_info anchor="bottom" id="Version Control" order="15" weight="0.32728648" />
       <window_info anchor="right" id="Maven Projects" order="6" weight="0.10696921" />
-      <window_info anchor="bottom" id="MyBatis Log" order="12" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1526232" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1176,7 +1145,7 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="MyBatis Log" order="12" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.34013605" />
     </layout-to-restore>
@@ -1376,39 +1345,11 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/GuideApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintenances.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/equipment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2052">
-          <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/util/PinYin.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="23" column="45" lean-forward="true" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="131" column="59" selection-start-line="131" selection-start-column="59" selection-end-line="131" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -1489,9 +1430,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/Usersmapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1285" />
@@ -1563,16 +1501,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="48" column="5" selection-start-line="44" selection-start-column="4" selection-end-line="48" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="891">
@@ -1604,13 +1532,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3429">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/maintainConfig.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="702">
@@ -1629,20 +1550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8667">
-          <caret line="321" column="36" selection-start-line="321" selection-start-column="36" selection-end-line="321" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="251" column="16" selection-start-line="251" selection-start-column="16" selection-end-line="251" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -1709,10 +1616,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="18" column="78" selection-start-line="18" selection-start-column="78" selection-end-line="18" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13014">
+          <caret line="482" column="33" selection-start-line="482" selection-start-column="33" selection-end-line="482" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/staffhome.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10206">
+          <caret line="378" column="42" selection-start-line="378" selection-start-column="42" selection-end-line="378" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/staffhome.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4968">
+          <caret line="184" column="17" selection-start-line="184" selection-start-column="17" selection-end-line="184" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="58" column="7" lean-forward="true" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="544" column="63" selection-start-line="544" selection-start-column="54" selection-end-line="544" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="759">
+          <caret line="321" column="36" selection-start-line="321" selection-start-column="36" selection-end-line="321" selection-end-column="36" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#2;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#li#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="249" column="21" lean-forward="true" selection-start-line="249" selection-start-column="21" selection-end-line="249" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+        <state relative-caret-position="54">
+          <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
         </state>
       </provider>
     </entry>

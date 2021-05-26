@@ -27,7 +27,7 @@
 }
 .addDefectDiv table{
     width: 550px;
-    margin: 0 auto;
+    margin-left: 10px;
 }
 .claimInfoDiv table{
     width: 750px;
@@ -92,4 +92,27 @@
 }
 .layui-table-cell  .layui-btn-fluid{
     line-height: 30px;
+}
+.loading{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.8;
+    text-align: center;
+    padding-top: 300px;
+    z-index: 19891020;
+    display: none;
+}
+.loading div{
+    animation:turn 1s linear infinite;
+}
+@keyframes turn{
+    0%{-webkit-transform:rotate(0deg);}
+    25%{-webkit-transform:rotate(90deg);}
+    50%{-webkit-transform:rotate(180deg);}
+    75%{-webkit-transform:rotate(270deg);}
+    100%{-webkit-transform:rotate(360deg);}
 }

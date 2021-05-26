@@ -176,7 +176,7 @@
     <%--内容首页--%>
     <div class="bodyDiv" id="bodyDiv"></div>
     <div class="bodyDiv1" id="bodyDiv2">
-        <button class="layui-btn layui-btn-lg" style="margin: 10px 0;" onclick="addDefect()">新增</button>
+        <button class="layui-btn layui-btn-lg" style="margin: 10px 0;" onclick="addDefect()">新增缺陷</button>
         <table class="div1Table" cellpadding="0">
             <thead>
             <tr style="background-color: #f2f2f2;font-size: 30px;">
