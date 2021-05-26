@@ -59,7 +59,11 @@ function bigDataTable(project){
         	 "url": sSource, 
         	 'data':{project:project},
         	"success":function(Json){
-        		fnCallback(Json);
+				if (Json.data == "noUser") {
+					layer.alert("请重新登录");
+				} else {
+					fnCallback(Json);
+				}
         	}
         	 });
         }, 
