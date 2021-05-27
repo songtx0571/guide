@@ -1,5 +1,6 @@
 package com.howei.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.howei.pojo.*;
 import com.howei.service.*;
 import com.howei.util.Result;
@@ -16,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 维护引导管理
@@ -102,7 +104,9 @@ public class MaintainController {
             @RequestParam(required = false) Integer id,
             @RequestParam(required = false) String searchWord,
             @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer limit
+            @RequestParam(required = false) Integer limit,
+            @RequestParam(required = false) String field,
+            @RequestParam(required = false) String order
     ) {
         Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
@@ -127,6 +131,16 @@ public class MaintainController {
         }
         List<Maintain> maintains = maintainService.getMaintainByMap(map);
         result.setCount(maintains.size());
+        //排序
+        if (field != null && order != null) {
+            maintains = maintains.stream().sorted(new Comparator<Maintain>() {
+                @Override
+                public int compare(Maintain o1, Maintain o2) {
+                    return getCompareByM1AndM2(o1, o2, field, order);
+                }
+
+            }).collect(Collectors.toList());
+        }
 
         if (page != null && limit != null) {
             maintains = maintains.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
@@ -136,6 +150,101 @@ public class MaintainController {
         result.setData(maintains);
         result.setMsg("成功");
         return result;
+    }
+
+    /**
+     * 倒计时排序
+     *
+     * @param o1
+     * @param o2
+     * @param field
+     * @param order
+     * @return
+     */
+    private int getCompareByM1AndM2(Maintain o1, Maintain o2, String field, String order) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String o1Str = JSONObject.toJSONString(o1);
+        JSONObject maintainJsonObject1 = JSONObject.parseObject(o1Str);
+        String o2Str = JSONObject.toJSONString(o2);
+        JSONObject maintainJsonObject2 = JSONObject.parseObject(o2Str);
+        //1.按照倒计时排序
+        if ("startTime".equals(field)) {
+            //获取状态
+            Integer status1 = Integer.valueOf((String) maintainJsonObject1.get("assignmentStatus"));
+            Integer status2 = Integer.valueOf((String) maintainJsonObject2.get("assignmentStatus"));
+            //获取周期
+            Integer cycle1 = Integer.valueOf((String) maintainJsonObject1.get("cycle"));
+            Integer cycle2 = Integer.valueOf((String) maintainJsonObject2.get("cycle"));
+            //获取开始时间
+            String startTime1 = (String) maintainJsonObject1.get("startTime");
+            String startTime2 = (String) maintainJsonObject2.get("startTime");
+
+            Date startTimeStamp1 = new Date();
+            Date startTimeStamp2 = new Date();
+            try {
+                startTimeStamp1 = sdf.parse(startTime1);
+                startTimeStamp2 = sdf.parse(startTime2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Date date = new Date();
+            //下次最近的开始时间戳
+            long startTimeStampLong1 = startTimeStamp1.getTime() + cycle1 * 24 * 60 * 60 * 1000;
+            long startTimeStampLong2 = startTimeStamp2.getTime() + cycle2 * 24 * 60 * 60 * 1000;
+            //升序
+            if ("asc".equals(order)) {
+                if (status1 > status2) {
+                    return 1;
+                } else if (status1 == status2) {
+
+                    if (startTimeStampLong2 > date.getTime() && date.getTime() > startTimeStampLong1) {
+                        return -1;
+                    } else {
+                        return startTimeStampLong2 > startTimeStampLong1 ? -1 : 1;
+                    }
+                } else if (status1 < status2) {
+                    return -1;
+                }
+            } else
+                //降序
+                if ("desc".equals(order)) {
+                    if (status1 > status2) {
+                        return -1;
+                    } else if (status1 == status2) {
+                        if (startTimeStampLong2 > date.getTime() && date.getTime() > startTimeStampLong1) {
+                            return 1;
+                        } else {
+                            return startTimeStampLong2 > startTimeStampLong1 ? 1 : -1;
+                        }
+                    } else if (status1 < status2) {
+                        return 1;
+                    }
+
+                }
+        }
+        //2.按照其他数字字段排序
+        else if ("planedWorkingHour".equals(field) || "cycle".equals(field) || "id".equals(field)) {
+            Double field1 = Double.valueOf((String) maintainJsonObject1.get(field));
+            Double field2 = Double.valueOf((String) maintainJsonObject2.get(field));
+            if ("asc".equals(order)) {
+                return field1.compareTo(field2);
+            } else if ("desc".equals(order)) {
+                return field2.compareTo(field1);
+            }
+        }
+        //3.按照其他字符串字段排序
+        else {
+            String field1 = (String) maintainJsonObject1.get(field);
+            String field2 = (String) maintainJsonObject2.get(field);
+            if ("asc".equals(order)) {
+                return field1.compareTo(field2);
+            } else if ("desc".equals(order)) {
+                return field2.compareTo(field1);
+            }
+        }
+        return 0;
+
     }
 
     /**
@@ -326,8 +435,8 @@ public class MaintainController {
         if (status != null) {
             map.put("status", status);
         }
-        if(departmentId!=null){
-            map.put("departmentId",departmentId);
+        if (!subject.isPermitted("查询所有部门维护引导")) {
+            map.put("departmentId", departmentId);
         }
         List<MaintainRecord> maintainRecords = maintainService.getMaintainRecordByMap(map);
         if (maintainRecords.size() > 0) {

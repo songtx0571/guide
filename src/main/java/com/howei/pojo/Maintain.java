@@ -12,7 +12,7 @@ public class Maintain {
     private Integer equipmentId;
     private Integer unitId;
     private String workContent;
-    private Float cycle;
+    private String cycle;
     private String assignmentStatus;
     private String planedWorkingHour;
     private Date createTime;
@@ -143,11 +143,11 @@ public class Maintain {
         this.workContent = workContent;
     }
 
-    public Float getCycle() {
+    public String getCycle() {
         return cycle;
     }
 
-    public void setCycle(Float cycle) {
+    public void setCycle(String cycle) {
         this.cycle = cycle;
     }
 
