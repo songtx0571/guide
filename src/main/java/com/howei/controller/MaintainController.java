@@ -232,6 +232,13 @@ public class MaintainController {
             //
             MaintainRecord maintainRecord1 = maintainService.getMaintainRecordById(maintainRecord.getId());
 
+            Integer maintainId = maintainRecord1.getMaintainId();
+
+            Maintain maintain = maintainService.getMaintainById(maintainId);
+            //得到计划工时
+            double planedWorkingHour = Double.valueOf(maintain.getPlanedWorkingHour());
+
+
             //得到开始时间
             String startTime = maintainRecord1.getStartTime();
             //声明开始时间时间戳,并赋初始值
@@ -247,7 +254,13 @@ public class MaintainController {
             Long endDateTime = endDate.getTime();
             maintainRecord.setEndTime(sdf.format(endDate));
             //计算工时
-            String workingHour = df.format(((endDateTime - startDateTime) * 1.0 / (60 * 60 * 1000)));
+            double workingHourDouble = (endDateTime - startDateTime) * 1.0 / (60 * 60 * 1000);
+            if (workingHourDouble > planedWorkingHour) {
+                workingHourDouble = planedWorkingHour;
+            }
+            String workingHour = df.format(workingHourDouble);
+
+
             maintainRecord.setWorkingHour(workingHour);
 
         }
@@ -291,6 +304,8 @@ public class MaintainController {
         }
 
         Integer employeeId = users.getEmployeeId();
+        Integer departmentId = users.getDepartmentId();
+
         List<String> employeeIdList = new ArrayList<>();
         if (employeeId != null) {
             employeeIdList.add(users.getEmployeeId() + "");
@@ -316,6 +331,9 @@ public class MaintainController {
         }
         if (status != null) {
             map.put("status", status);
+        }
+        if (!subject.isPermitted("查询所有部门维护引导")){
+            map.put("departmentId",departmentId);
         }
         List<MaintainRecord> maintainRecords = maintainService.getMaintainRecordByMap(map);
         if (maintainRecords.size() > 0) {
