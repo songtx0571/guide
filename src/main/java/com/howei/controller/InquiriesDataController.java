@@ -70,8 +70,8 @@ public class InquiriesDataController {
         String equipmentId = request.getParameter("equipmentId");
         int rows = Page.getOffSet(page, limit);
         Result result = new Result();
-        List<?> list = new ArrayList<>();
         int total = 0;
+        Map<String, Object> resultMap = new HashMap<>();
         if (name != null && !name.equals("")) {
             Map map = new HashMap();
             if (startTime != null && !startTime.equals("")) {
@@ -81,17 +81,17 @@ public class InquiriesDataController {
                 map.put("endTime", endTime);
             }
 
-            if (type.equals("1")) {//人工数据
+            if (type.contains("1")) {//人工数据
                 map.put("equipment", name);
                 map.put("projectDepartment", depart);
-                list = postPeratorDataService.selByName(map);
+                List<PostPeratorData> list = postPeratorDataService.selByName(map);
                 total = list.size();
                 list.clear();
                 map.put("pageSize", limit);
                 map.put("page", rows);
                 list = postPeratorDataService.selByName(map);
                 for (int i = 0; i < list.size(); i++) {
-                    PostPeratorData postPeratorData = (PostPeratorData) list.get(i);
+                    PostPeratorData postPeratorData = list.get(i);
                     Users user = userService.findById(postPeratorData.getCreatedBy() + "");
                     if (user != null) {
                         postPeratorData.setCreatedByName(user.getUserName());
@@ -99,13 +99,14 @@ public class InquiriesDataController {
                         postPeratorData.setCreatedByName("");
                     }
                 }
-                result.setCount(total);
-                result.setData(list);
-            } else if (type.equals("2")) {//ai数据
+                resultMap.put("RGTotal", total);
+                resultMap.put("RGData", list);
+            }
+
+            if (type.contains("2")) {//ai数据
                 map.put("equipment", name);
                 map.put("projectDepartment", depart);
-
-                list = aiConfigurationDataService.getAiConfigureDataList(map);
+                List<AiConfigurationData> list = aiConfigurationDataService.getAiConfigureDataList(map);
                 total = list.size();
                 list.clear();
                 if (startTime == null || startTime.equals("") && endTime == null || endTime.equals("")) {
@@ -114,15 +115,17 @@ public class InquiriesDataController {
                 }
                 list = aiConfigurationDataService.getAiConfigureDataList(map);
 
-                result.setCount(total);
-                result.setData(list);
-            } else if (type.equals("3")) {
-                map.put("departmentId",depart);
-                map.put("systemId",systemId);
-                map.put("equipmentId",equipmentId);
+                resultMap.put("AITotal", total);
+                resultMap.put("AIData", list);
+            }
+
+            if (type.contains("3")) {
+                map.put("departmentId", depart);
+                map.put("systemId", systemId);
+                map.put("equipmentId", equipmentId);
                 map.put("status", 2);
                 List<MaintainRecord> maintainRecordList = maintainService.getMaintainRecordByMap(map);
-                maintainRecordList.stream().forEach(maintainRecord->{
+                maintainRecordList.stream().forEach(maintainRecord -> {
                     String[] maintainRecordEmployeeIds = maintainRecord.getEmployeeId().split(",");
                     String employeeNames = "";
                     for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
@@ -135,13 +138,17 @@ public class InquiriesDataController {
                     maintainRecord.setEmployeeName(employeeNames);
                 });
                 total = maintainRecordList.size();
-                result.setCount(total);
-                result.setData(maintainRecordList);
+
+                resultMap.put("WHTotal", total);
+                resultMap.put("WHData", maintainRecordList);
             }
         }
+        result.setData(resultMap);
+        result.setMsg("查询成功");
         result.setCode(0);
         return result;
     }
+
 
     /**
      * 获取员工模板执行的测点类型数据

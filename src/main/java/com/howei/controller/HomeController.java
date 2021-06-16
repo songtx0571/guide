@@ -23,7 +23,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/guide/home")
 //@RequestMapping("/home")
-@CrossOrigin(origins={"http://192.168.1.27:8082","http:localhost:8080","http://192.168.1.27:8848"},allowCredentials = "true")
+@CrossOrigin
 public class HomeController {
 
     @Autowired

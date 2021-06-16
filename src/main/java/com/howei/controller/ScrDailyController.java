@@ -113,6 +113,7 @@ public class ScrDailyController {
         if(projectId==0){
             projectId=user.getDepartmentId();
         }
+
         ScrDaily scrDaily = new ScrDaily();
         scrDaily.setProjectId(projectId);
         scrDaily.setId(id);
@@ -121,7 +122,7 @@ public class ScrDailyController {
         scrDaily.setSuccessor(userName);
         scrDaily.setRecorder(name);
         if(successorTime!=null && !"".equals(successorTime.trim())){
-            successorTime=successorTime+";"+DateFormat.getYMDHM();
+            successorTime=successorTime+";"+ DateFormat.getYMDHM();
         }else{
             successorTime=DateFormat.getYMDHM();
         }
@@ -177,7 +178,7 @@ public class ScrDailyController {
             Users users=this.getPrincipal();
             projectId=users.getDepartmentId();
         }
-        
+
         ScrDaily scrDaily = new ScrDaily();
         scrDaily.setProjectId(projectId);
         scrDaily.setId(id);

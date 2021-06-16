@@ -9,11 +9,6 @@
 <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 <link rel="stylesheet" href="../css/iframe.css" media="screen"/>
 <link rel="stylesheet" href="../css/tr.css"/>
-	<!--easyui-->
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <title>运行日志</title>
 </head>
 <body>
@@ -21,8 +16,8 @@
 		<span class='span'>
 		日期选择<input type="text" id="datetime" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-M-d',maxDate:'%y-%M-{%d+1}'})" class="Wdate"/>
 		班次<select id="type">
-			<option value="3" selected="selected">夜班</option>
-			<option value="1">白班</option>
+			<option value="3">夜班</option>
+			<option value="1" selected="selected">白班</option>
 			<option value="2">中班</option>
 		</select>
 		<shiro:hasPermission name='项目部选择'>
@@ -31,7 +26,7 @@
 			<input id='query' onclick="change()" type="button" value="查询"/>
 		</span>
 
-		<table  style="width: 60%;margin-top: 50px;">
+		<table  style="width: 96%;margin-top: 50px;">
 			<thead >
 				<tr>
 					<!-- <td>班组</td>

@@ -3,8 +3,11 @@ $(function(){
 	var D = tmpDate.getDate();
 	var M = tmpDate.getMonth() + 1;
 	var Y = tmpDate.getFullYear();
+	var h = tmpDate.getHours();
+	var min = tmpDate.getMinutes();
+	var s = tmpDate.getSeconds();
 	
-	document.getElementById("datetime").value = Y+"-"+M+"-"+D;
+	document.getElementById("datetime").value = Y+"-"+M+"-"+D+" "+h+":"+min+":"+s;
 	var type = sessionStorage.wfgdDailyType;
 	var datetime = sessionStorage.wfgdDailydatetime;
 	

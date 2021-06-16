@@ -93,8 +93,8 @@
 		<span class='span'>
 		日期选择<input type="text" id="datetime" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-M-d',maxDate:'%y-%M-{%d+1}'})" class="Wdate"/>
 		班次<select id="type">
-			<option value="3" selected="selected">夜班</option>
-			<option value="1">白班</option>
+			<option value="3">夜班</option>
+			<option value="1" selected="selected">白班</option>
 			<option value="2">中班</option>
 		</select>
 		    项目组选择:<select id='project'></select>

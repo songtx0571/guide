@@ -5,7 +5,7 @@ import java.util.List;
 public class Result {
 
     private int count;//总数
-    private List data;//数据
+    private Object data;//数据
     private int code;
     private String msg;
 
@@ -17,11 +17,11 @@ public class Result {
         this.count = count;
     }
 
-    public List getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(List data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
@@ -49,5 +49,26 @@ public class Result {
     }
 
     public Result() {
+    }
+
+    public static Result ok(int count, Object data) {
+        Result result = new Result();
+        result.setCount(count);
+        result.setData(data);
+        result.setMsg("成功");
+        return result;
+    }
+    public static Result ok() {
+        return ok(0,null);
+    }
+
+    public static Result fail(String msg) {
+        Result result = new Result();
+        result.setMsg(msg);
+        return result;
+    }
+
+    public static Result fail() {
+        return fail("操作失败");
     }
 }

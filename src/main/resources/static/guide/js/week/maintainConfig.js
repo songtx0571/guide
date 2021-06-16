@@ -431,8 +431,7 @@ function distributionMaintainConfig(id) {
             $("#maintainConfigPlanedWorkingHour").text(data.planedWorkingHour);//预估工时
             $("#maintainConfigMaintainPointName").text(data.workContent);//工作内容
             $("#maintainConfigExecutorId").val("");
-            $("#maintainConfigDepartmentId").val(data.departmentId)
-            $("#maintainConfigExecutorId").val("");
+            $("#maintainConfigDepartmentId").val(data.departmentId);
             layui.use(['jquery', 'formSelects'], function () {
                 var formSelects = layui.formSelects;
                 formSelects.config('tags', {

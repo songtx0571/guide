@@ -29,7 +29,7 @@
 		</shiro:hasPermission>
 		<input id='query' onclick="change()" type="button" value="查询"/>
 		</span>
-	<table  style="width: 80%;margin-top: 50px;">
+	<table  style="width: 96%;margin-top: 50px;">
 		<thead >
 		<tr>
 			<td width='8%'>负责人</td>

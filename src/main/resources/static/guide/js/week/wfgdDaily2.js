@@ -115,6 +115,8 @@ function change(){
 			sessionStorage.wfgdDailySuccessor = data.successor;
 			sessionStorage.wfgdDailyTraders = data.traders;
 			sessionStorage.wfgdDailyRecorder = data.recorder;
+			sessionStorage.successorTime = data.successorTime;
+			sessionStorage.tradersTime = data.tradersTime
 			//document.getElementById("name").innerHTML = data.name;
 
             var aa = "";
@@ -177,6 +179,7 @@ function addSuccessor(){
 	var wfgdDailyId = sessionStorage.wfgdDailyId;
 	var type = sessionStorage.wfgdDailyType;
 	var datetime = sessionStorage.wfgdDailydatetime;
+	var successorTime = sessionStorage.successorTime;
 
 	var projectId = $("#project").val();
 	if(!compareTime()){
@@ -209,12 +212,14 @@ function addSuccessor(){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/addSuccessor",
-                    "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder},
+                    "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder,successorTime:successorTime},
                     "success":function(Json){
-                        if(Json.data==1){WfgdDaily
+                        if(Json.data==1){
                             layer.alert('添加成功',{icon:1});
                             setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
-                        }
+                        } else if(Json.data=="noUser"){
+							layer.alert("登录失效！");
+						}
                     }
                 });
 				return;
@@ -228,12 +233,14 @@ function addSuccessor(){
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/addSuccessor",
-        "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder},
+        "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder,successorTime:successorTime},
         "success":function(Json){
             if(Json.data==1){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
-            }
+            } else if(Json.data=="noUser"){
+				layer.alert("登录失效！");
+			}
         }
     });
 	
@@ -247,8 +254,12 @@ function delSuccessor(index){
 	var wfgdDailyId = sessionStorage.wfgdDailyId;
 	var Successor = sessionStorage.wfgdDailySuccessor;
 	var Successors = Successor.split(";");
+	var successorTime = sessionStorage.successorTime;
+	var successorTimes = successorTime.split(";");
 	var name = "";
 	var num = 0;
+	var timeName = "";
+	var timeNum = 0;
 	for(var i=0;i<Successors.length;i++){
 		if(i!=index){
 			if(num!=0){
@@ -259,15 +270,26 @@ function delSuccessor(index){
 		}
 	}
 
+	for (var j = 0; j < successorTimes.length; j ++) {
+		if(j != index){
+			if(timeNum!=0){
+				timeName += ";";
+			}
+			timeName +=  successorTimes[j];
+			timeNum ++;
+		}
+	}
+
 	var Recorder=sessionStorage.wfgdDailyRecorder;
 	if(Recorder != ""&&Recorder != null){
 		var Recorders = Recorder.split(";");
 		for(var i=0;i<Recorders.length;i++){
+			// successorTime
 			if(userName==Recorders[i]){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/delSuccessor",
-                    "data":{userName:name,id:wfgdDailyId,name:Recorder},
+                    "data":{userName:name,id:wfgdDailyId,name:Recorder,successorTime:timeName},
                     "success":function(Json){
                         if(Json.data==1){
                             layer.alert('删除成功',{icon:1});
@@ -284,7 +306,7 @@ function delSuccessor(index){
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/delSuccessor",
-        "data":{userName:name,id:wfgdDailyId,name:Recorder},
+        "data":{userName:name,id:wfgdDailyId,name:Recorder,successorTime:timeName},
         "success":function(Json){
             if(Json.data==1){
                 layer.alert('删除成功',{icon:1});
@@ -304,6 +326,7 @@ function addTrader(){
 	var datetime = sessionStorage.wfgdDailydatetime;
 	var projectId = $("#project").val();
 	var Trader = sessionStorage.wfgdDailyTraders;
+	var tradersTime = sessionStorage.tradersTime;
 
 	if(Trader != ""&&Trader != null){
 		var Traders = Trader.split(";");
@@ -328,7 +351,7 @@ function addTrader(){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/addTrader",
-                    "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder},
+                    "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
                     "success":function(Json){
                         if(Json.data==1){
                             layer.alert('添加成功',{icon:1});
@@ -347,7 +370,7 @@ function addTrader(){
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/addTrader",
-        "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder},
+        "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
         "success":function(Json){
             if(Json.data==1){
                 layer.alert('添加成功',{icon:1});
@@ -364,10 +387,13 @@ function delTrader(index){
 	var userName = sessionStorage.Username;
 	var wfgdDailyId = sessionStorage.wfgdDailyId;
 	var Trader = sessionStorage.wfgdDailyTraders;
+	var tradersTime = sessionStorage.tradersTime;
+	var tradersTimes = tradersTime.split(";");
 	var Traders = Trader.split(";");
 	var name = "";
 	var num = 0;
-
+	var timeName = "";
+	var timeNum = "";
 	for(var i=0;i<Traders.length;i++){
 		if(i!=index){
 			if(num!=0){
@@ -378,17 +404,26 @@ function delTrader(index){
 		}
 	}
 
+	for (var j = 0; j < tradersTimes.length; j ++) {
+		if(j != index){
+			if(timeNum!=0){
+				timeName += ";";
+			}
+			timeName +=  tradersTimes[j];
+			timeNum ++;
+		}
+	}
+
 	var Recorder=sessionStorage.wfgdDailyRecorder;
 	if(Recorder != ""&&Recorder != null){
 		var Recorders = Recorder.split(";");
 		for(var i=0;i<Recorders.length;i++){
 			if(userName==Recorders[i]){
 				if(userName.toUpperCase()==Traders[index].toUpperCase()){
-					console.log(Recorder);
 					$.ajax({
 						"type" : 'post',
 						"url": "../ScrDailyController/delTrader",
-						"data":{userName:name,id:wfgdDailyId,name:Recorder},
+						"data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
 						"success":function(Json){
 							if(Json.data==1){
 								layer.alert('添加成功',{icon:1});
@@ -402,7 +437,7 @@ function delTrader(index){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/delTrader",
-                    "data":{userName:name,id:wfgdDailyId,name:Recorder},
+                    "data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
                     "success":function(Json){
                         if(Json.data==1){
                             layer.alert('添加成功',{icon:1});
