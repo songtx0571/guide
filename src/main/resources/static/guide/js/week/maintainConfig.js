@@ -138,13 +138,14 @@ function showMaintainWork(departmentId, searchWord) {
             , url: path + '/guide/maintain/getMaintains?departmentId=' + departmentId + '&searchWord=' + searchWord
             , page: true //开启分页
             , limit: 50
+            , autoSort: false
             , limits: [50, 100, 150]
             , cols: [[ //表头
                 {field: 'id', title: '编号', align: 'center', hide: true}
                 , {field: 'systemName', title: '系统', sort: true, align: 'center'}
                 , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
                 , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
-                , {field: 'workContent', title: '工作内容', sort: true, align: 'center', width: 400}
+                , {field: 'workContent', title: '工作内容',  align: 'center', width: 400}
                 , {field: 'planedWorkingHour', title: '计划工时/时', sort: true, align: 'center'}
                 , {field: 'cycle', title: '周期/天', sort: true, align: 'center'}
                 , {
@@ -161,17 +162,17 @@ function showMaintainWork(departmentId, searchWord) {
                         var fen1 = parseInt((t / 60) % 60);//分钟
                         var miao1 = parseInt(t % 60);//秒
 
-                        var time2 = "";
+                        var time2 =  day1 + "天";
 
-                        if (day1 > 0) {
-                            time2 = day1 + "天";
-                        } else if (shi1 > 0) {
-                            time2 = shi1 + "时" + fen1 + "分" + miao1 + "秒";
-                        } else if (fen1 > 0) {
-                            time2 = fen1 + "分" + miao1 + "秒";
-                        } else if (miao1 > 0) {
-                            time2 = miao1 + "秒";
-                        }
+                        // if (day1 > 0) {
+                        //     time2 = day1 + "天";
+                        // } else if (shi1 > 0) {
+                        //     time2 = shi1 + "时" + fen1 + "分" + miao1 + "秒";
+                        // } else if (fen1 > 0) {
+                        //     time2 = fen1 + "分" + miao1 + "秒";
+                        // } else if (miao1 > 0) {
+                        //     time2 = miao1 + "秒";
+                        // }
 
                         // 这里初始值计算显示的倒计时只是为了 如页面有刷新操作，只是把这个初始值也显示为倒计时
                         var html = `<label id=${key} style="color: orange;">${time2}</label>`;
@@ -192,15 +193,18 @@ function showMaintainWork(departmentId, searchWord) {
                             if (t == 0) {
                                 $('#' + key).html("<label style='color:green;'>待分配</label>");
                                 delTask(key);
-                            } else if (day > 0) {
-                                $('#' + key).text(day + "天");
-                            } else if (shi > 0) {
-                                $('#' + key).text(shi + "时" + fen + "分" + miao + "秒");
-                            } else if (fen > 0) {
-                                $('#' + key).text(fen + "分" + miao + "秒");
                             } else {
-                                $('#' + key).text(miao + "秒");
+                                $('#' + key).text(day + "天");
                             }
+                            // } else if (day > 0) {
+                            //     $('#' + key).text(day + "天");
+                            // } else if (shi > 0) {
+                            //     $('#' + key).text(shi + "时" + fen + "分" + miao + "秒");
+                            // } else if (fen > 0) {
+                            //     $('#' + key).text(fen + "分" + miao + "秒");
+                            // } else {
+                            //     $('#' + key).text(miao + "秒");
+                            // }
 
                         });
                         return html;
@@ -212,7 +216,7 @@ function showMaintainWork(departmentId, searchWord) {
             , done: function (res, curr, count) {
             }
         });
-        table.on('tool(test)', function(obj) {
+        table.on('tool(test)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
                 openMaintainConfig(data.id)
@@ -223,6 +227,19 @@ function showMaintainWork(departmentId, searchWord) {
             } else if (obj.event === 'distribution') {
                 distributionMaintainConfig(data.id)
             }
+        });
+
+        table.on('sort(test)', function (obj) { //注：sort 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            //尽管我们的 table 自带排序功能，但并没有请求服务端。
+            //有些时候，你可能需要根据当前排序的字段，重新向服务端发送请求，从而实现服务端排序，如：
+            table.reload('demo', {
+                initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。
+                , where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+                    field: obj.field //排序字段
+                    , order: obj.type //排序方式
+                }
+            });
+
         });
     });
 
@@ -246,7 +263,6 @@ function addTask(key, value) {
 function delTask(task) {
     delete tasks[task];
 }
-
 
 
 //打开添加

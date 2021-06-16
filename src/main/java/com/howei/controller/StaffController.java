@@ -107,13 +107,16 @@ public class StaffController {
 
     /**
      * 页面初始化数据
+     * 同步方法
+     * 防止项目覆盖
      * @return
      */
     @RequestMapping("/init")
     @ResponseBody
-    public List<Object> init(HttpServletRequest request){
+    public synchronized List<Object> init(HttpServletRequest request){
         String departmentId=request.getParameter("departmentId");
-        Users user=this.getPrincipal();
+        Subject subject=SecurityUtils.getSubject();
+        Users user=(Users) subject.getPrincipal();
         Integer projectId=null;
         Map<String,Object> map=new HashMap<>();
         Users users =null;

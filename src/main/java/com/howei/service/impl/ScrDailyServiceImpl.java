@@ -114,18 +114,18 @@ public class ScrDailyServiceImpl implements ScrDailyService {
     public int addSuccessor(ScrDaily scrDaily) {
         System.out.println(scrDaily);
         if (scrDaily.getId() == 0) {
-
+            //添加
             ScrDaily scrDailys = scrDailymapper.getScrDaily(scrDaily.getDatetime(), scrDaily.getType(), scrDaily.getProjectId(), 2);
             if (scrDailys == null) {
                 int num = scrDailymapper.insertScrDailyBySuccessor(scrDaily);
                 return num;
             } else {
+                //更新
                 scrDaily.setId(scrDailys.getId());
                 int num = scrDailymapper.addSuccessor(scrDaily);
                 return num;
             }
-
-
+        //更新
         } else {
             int num = scrDailymapper.addSuccessor(scrDaily);
             return num;
@@ -135,21 +135,18 @@ public class ScrDailyServiceImpl implements ScrDailyService {
 
     @Override
     public int addSuccessor2(ScrDaily scrDaily) {
-        System.out.println(scrDaily);
-
         int num = scrDailymapper.addSuccessor2(scrDaily);
         return num;
-
-
     }
 
 
     @Override
-    public int delSuccessor(int id, String userName, String name) {
+    public int delSuccessor(int id, String userName, String name,String successorTime) {
         ScrDaily scrDaily = new ScrDaily();
         scrDaily.setId(id);
         scrDaily.setSuccessor(userName);
         scrDaily.setRecorder(name);
+        scrDaily.setSuccessorTime(successorTime);
         int num = scrDailymapper.addSuccessor(scrDaily);
         return num;
     }
@@ -173,11 +170,12 @@ public class ScrDailyServiceImpl implements ScrDailyService {
     }
 
     @Override
-    public int delTrader(int id, String userName, String name) {
+    public int delTrader(int id, String userName, String name,String tradersTime) {
         ScrDaily scrDaily = new ScrDaily();
         scrDaily.setId(id);
         scrDaily.setTraders(userName);
         scrDaily.setRecorder(name);
+        scrDaily.setTradersTime(tradersTime);
         int num = scrDailymapper.addTrader(scrDaily);
         return num;
     }

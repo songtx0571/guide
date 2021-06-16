@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="getScrDaily" resultType="com.howei.pojo.ScrDaily">
-		SELECT id,`datetime`,project_id projectId,`group`,`type`,IFNULL(traders,"") traders,IFNULL(successor,"") successor,IFNULL(recorder,"") recorder,other
+		SELECT id,`datetime`,project_id projectId,`group`,`type`,IFNULL(traders,"") traders,IFNULL(tradersTime, "") tradersTime,IFNULL(successor,"") successor,IFNULL(successorTime, "") successorTime,IFNULL(recorder,"") recorder,other
 		,(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',','))  ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.traders,';',',')) ) AS tradersName, 
 		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.successor,';',',')) ) AS successorName,
 		(SELECT GROUP_CONCAT(c.userName ORDER BY c.userName) FROM users c WHERE FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ORDER BY FIND_IN_SET(c.userNumber,REPLACE(s.recorder,';',',')) ) AS recorderName
@@ -80,12 +80,14 @@
 	</delete>
 	
 	<insert id="insertScrDailyBySuccessor"  parameterType="com.howei.pojo.ScrDaily">
-		INSERT IGNORE INTO scrdaily(`datetime`,`group`,project_id,`type`,successor,recorder,other)
+		INSERT IGNORE INTO scrdaily(`datetime`,`group`,project_id,`type`,successor,recorder,other,
+		successorTime)
 		VALUES(#{scrDaily.datetime},#{scrDaily.group},#{scrDaily.projectId},
-		#{scrDaily.type},#{scrDaily.successor},#{scrDaily.recorder},2)
+		#{scrDaily.type},#{scrDaily.successor},#{scrDaily.recorder},2,#{scrDaily.successorTime})
 	</insert>
+
 	<update id='addSuccessor' parameterType="com.howei.pojo.ScrDaily">
-		UPDATE scrdaily SET successor =#{scrDaily.successor} ,recorder =#{scrDaily.recorder}
+		UPDATE scrdaily SET successor =#{scrDaily.successor} ,recorder =#{scrDaily.recorder},successorTime=#{scrDaily.successorTime}
 		WHERE id = #{scrDaily.id}
 	</update>
 
@@ -95,12 +97,12 @@
 	</update>
 
 	<insert id="insertScrDailyByTrader"  parameterType="com.howei.pojo.ScrDaily">
-		INSERT IGNORE INTO scrdaily(`datetime`,`group`,project_id,`type`,traders,recorder,other)
+		INSERT IGNORE INTO scrdaily(`datetime`,`group`,project_id,`type`,traders,recorder,other,tradersTime)
 		VALUES(#{scrDaily.datetime},#{scrDaily.group},#{scrDaily.projectId},
-		#{scrDaily.type},#{scrDaily.traders},#{scrDaily.recorder},2)
+		#{scrDaily.type},#{scrDaily.traders},#{scrDaily.recorder},2,#{scrDaily.tradersTime})
 	</insert>
 	<update id='addTrader' parameterType="com.howei.pojo.ScrDaily">
-		UPDATE scrdaily SET traders =#{scrDaily.traders} ,recorder =#{scrDaily.recorder}
+		UPDATE scrdaily SET traders =#{scrDaily.traders} ,recorder =#{scrDaily.recorder},tradersTime=#{scrDaily.tradersTime}
 		WHERE id = #{scrDaily.id}
 	</update>
 	

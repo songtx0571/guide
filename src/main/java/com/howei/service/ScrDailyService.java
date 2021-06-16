@@ -33,9 +33,9 @@ public interface ScrDailyService {
 
     int addSuccessor2(ScrDaily scrDaily);
 
-    int delSuccessor(int id, String userName, String name);
+    int delSuccessor(int id, String userName, String name,String successorTime);
 
     int addTrader(ScrDaily scrDaily);
 
-    int delTrader(int id, String userName, String name);
+    int delTrader(int id, String userName, String name,String tradersTime);
 }

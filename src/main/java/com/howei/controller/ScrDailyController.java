@@ -5,7 +5,9 @@ import com.howei.pojo.ScrDaily;
 import com.howei.pojo.ScrDailyRecord;
 import com.howei.pojo.Users;
 import com.howei.service.ScrDailyService;
+import com.howei.util.DateFormat;
 import com.howei.util.JsonResult;
+import com.howei.util.Type;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,72 +91,121 @@ public class ScrDailyController {
         return view;
     }
 
-
+    /**
+     * 添加接班人
+     * @param id
+     * @param type
+     * @param projectId
+     * @param datetime
+     * @param userName
+     * @param name
+     * @param successorTime
+     * @return
+     */
     @RequestMapping("addSuccessor")
-    public JsonResult addSuccessor(int id, int type, Integer projectId, String datetime, String userName, String name) {
+    public JsonResult addSuccessor(int id, int type, Integer projectId, String datetime, String userName, String name,String successorTime) {
+        //用户信息过期
+        Users user=this.getPrincipal();
+        if(user==null){
+            return new JsonResult(Type.noUser);
+        }
+
         if(projectId==0){
-            Users users=this.getPrincipal();
-            projectId=users.getDepartmentId();
+            projectId=user.getDepartmentId();
         }
-        Users users=this.getPrincipal();
-        userName=users.getUserNumber();
-        if(name==null||name.equals("undefined")){
-            name=userName;
+        ScrDaily scrDaily = new ScrDaily();
+        scrDaily.setProjectId(projectId);
+        scrDaily.setId(id);
+        scrDaily.setType(type);
+        scrDaily.setDatetime(datetime);
+        scrDaily.setSuccessor(userName);
+        scrDaily.setRecorder(name);
+        if(successorTime!=null && !"".equals(successorTime.trim())){
+            successorTime=successorTime+";"+DateFormat.getYMDHM();
+        }else{
+            successorTime=DateFormat.getYMDHM();
         }
-        ScrDaily ScrDaily = new ScrDaily();
-        ScrDaily.setProjectId(projectId);
-        ScrDaily.setId(id);
-        ScrDaily.setType(type);
-        ScrDaily.setDatetime(datetime);
-        ScrDaily.setSuccessor(userName);
-        ScrDaily.setRecorder(name);
-        int num = ScrDailyService.addSuccessor(ScrDaily);
+        scrDaily.setSuccessorTime(successorTime);//接班时间
+        int num = ScrDailyService.addSuccessor(scrDaily);
         return new JsonResult(num);
     }
 
+    /**
+     * 添加接班人
+     * @param id
+     * @param datetime
+     * @param name
+     * @return
+     */
     @RequestMapping("addSuccessor2")
     public JsonResult addSuccessor2(int id, String datetime, String name) {
         ScrDaily ScrDaily = new ScrDaily();
         ScrDaily.setId(id);
         ScrDaily.setDatetime(datetime);
-        ScrDaily.setRecorder(name);
+        ScrDaily.setRecorder(name);//添加记录人
         int num = ScrDailyService.addSuccessor2(ScrDaily);
         return new JsonResult(num);
     }
 
-
+    /**
+     * 删除接班人
+     * 前台传入交班人时间与交班人
+     * @param id
+     * @param userName
+     * @param name
+     * @return
+     */
     @RequestMapping("delSuccessor")
-    public JsonResult delSuccessor(int id, String userName, String name) {
-        int num = ScrDailyService.delSuccessor(id, userName, name);
+    public JsonResult delSuccessor(int id, String userName, String name,String successorTime) {
+        int num = ScrDailyService.delSuccessor(id, userName, name,successorTime);
         return new JsonResult(num);
     }
 
-
+    /**
+     * 添加交班人
+     * @param id
+     * @param type
+     * @param projectId
+     * @param datetime
+     * @param userName
+     * @param Name
+     * @return
+     */
     @RequestMapping("addTrader")
-    public JsonResult addTrader(int id, int type, Integer projectId, String datetime, String userName, String Name) {
+    public JsonResult addTrader(int id, int type, Integer projectId, String datetime, String userName, String Name,String tradersTime) {
         if(projectId==0){
             Users users=this.getPrincipal();
             projectId=users.getDepartmentId();
         }
-        Users users=this.getPrincipal();
-        userName=users.getUserNumber();
-        if(Name==null||Name.equals("undefined")){
-            Name=userName;
+        
+        ScrDaily scrDaily = new ScrDaily();
+        scrDaily.setProjectId(projectId);
+        scrDaily.setId(id);
+        scrDaily.setType(type);
+        scrDaily.setDatetime(datetime);
+        scrDaily.setTraders(userName);
+        scrDaily.setRecorder(Name);
+        if(tradersTime!=null && !"".equals(tradersTime.trim())){
+            tradersTime=tradersTime+";"+DateFormat.getYMDHM();
+        }else{
+            tradersTime=DateFormat.getYMDHM();
         }
-        ScrDaily ScrDaily = new ScrDaily();
-        ScrDaily.setProjectId(projectId);
-        ScrDaily.setId(id);
-        ScrDaily.setType(type);
-        ScrDaily.setDatetime(datetime);
-        ScrDaily.setTraders(userName);
-        ScrDaily.setRecorder(Name);
-        int num = ScrDailyService.addTrader(ScrDaily);
+        scrDaily.setTradersTime(tradersTime);//接班时间
+        int num = ScrDailyService.addTrader(scrDaily);
         return new JsonResult(num);
     }
 
+    /**
+     * 删除交班人
+     * 前台传入交班人时间与交班人
+     * @param id
+     * @param userName
+     * @param name
+     * @return
+     */
     @RequestMapping("delTrader")
-    public JsonResult delTrader(int id, String userName, String name) {
-        int num = ScrDailyService.delTrader(id, userName, name);
+    public JsonResult delTrader(int id, String userName, String name,String tradersTime) {
+        int num = ScrDailyService.delTrader(id, userName, name,tradersTime);
         return new JsonResult(num);
     }
 

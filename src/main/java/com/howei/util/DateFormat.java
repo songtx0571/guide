@@ -23,6 +23,18 @@ public class DateFormat {
     }
 
     /**
+     * 获取当前时间
+     * yyyy-MM-dd HH:mm
+     * @return
+     */
+    public static String getYMDHM(){
+        Date date=new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String created=sdf.format(date);
+        return created;
+    }
+
+    /**
      * 当前时间加上Hour
      * @param Hour
      * @return

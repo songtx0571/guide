@@ -4,21 +4,23 @@ public class ScrDaily {
 
     private int id;
 
-    private String datetime;
+    private String datetime;//登记日期
 
-    private int projectId;
+    private int projectId;//项目部
 
     private int group;
 
-    private int type;
+    private int type;//白班，夜班，中班
 
-    private String traders;
+    private String traders;//交班人
     private String tradersName;
+    private String tradersTime;//交班人时间
 
-    private String successor;
+    private String successor;//接班人
     private String successorName;
+    private String successorTime;//接班时间
 
-    private String recorder;
+    private String recorder;//记录人
     private String recorderName;
 
     private int other;
@@ -155,5 +157,19 @@ public class ScrDaily {
         this.successorName = successorName;
     }
 
+    public String getTradersTime() {
+        return tradersTime;
+    }
 
+    public void setTradersTime(String tradersTime) {
+        this.tradersTime = tradersTime;
+    }
+
+    public String getSuccessorTime() {
+        return successorTime;
+    }
+
+    public void setSuccessorTime(String successorTime) {
+        this.successorTime = successorTime;
+    }
 }
