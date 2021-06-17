@@ -9,8 +9,8 @@ public class Defect {
     private Integer company;//公司
     private Integer createdBy;
     private Integer level;//缺陷等级
-    private String created;
-    private Integer type;//缺陷状态
+    private String created;//创建时间
+    private Integer type;//缺陷状态 1.未认领 2,消缺中 3已消缺,4已完成,5已认领,6延期中 ,7工时确认中,
     private Integer departmentId;//部门
     private String abs;//故障描述
     private String orderReceivingTime;//接单开始时间
@@ -38,11 +38,13 @@ public class Defect {
     private String delaySTime;//延期开始时间
     private String delayETime;//延期结束时间
     private Integer delayBy;//延期申请人
-    private Integer delayReason;//延期理由
+    private Integer delayReason;//延期理由 1,等待备件 2无法安措 3停炉处理 4继续观察
     private Double realExecuteTime;//实际工时
     private Double plannedWork;//计划工时
     private Integer sourceType;//来源类型:1是defect项目创建；2是guide项目创建的
-
+    private Double overtime;//加班工时
+    private String workTimeConfirmTime;//加班工时确认时间
+    private String timeoutType;//超时类型,  A认领超时,  B开工超时, C反馈超时,D验收超时, E结束超时, Z缺陷处理超时
     //虚字段
     private String createdByName;//创建人
     private String departmentName;//部门
@@ -56,6 +58,30 @@ public class Defect {
     private String empIdsName;//执行人员名称
     private String aPlc64;
     private String bPlc64;
+
+    public String getTimeoutType() {
+        return timeoutType;
+    }
+
+    public void setTimeoutType(String timeoutType) {
+        this.timeoutType = timeoutType;
+    }
+
+    public String getWorkTimeConfirmTime() {
+        return workTimeConfirmTime;
+    }
+
+    public void setWorkTimeConfirmTime(String workTimeConfirmTime) {
+        this.workTimeConfirmTime = workTimeConfirmTime;
+    }
+
+    public Double getOvertime() {
+        return overtime;
+    }
+
+    public void setOvertime(Double overtime) {
+        this.overtime = overtime;
+    }
 
     public Integer getId() {
         return id;

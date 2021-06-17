@@ -1,8 +1,11 @@
 var path = "/guide";
+// var path = "http://192.168.1.186:8082/guide";
 var index = 0;
 var addSystemName = "";
 var addEquipmentName = "";
 var maintenanceCategoryName = "";
+// 该map可以定义在最上面
+var tasks = new Map();
 $(function () {
     showSelect();
     showTable("", "", "", "");
@@ -156,19 +159,19 @@ function getHis(sysId, euqipmentId) {
             for (var i = 0; i < json.length; i++) {
                 if (json[i].type == 1) {
                     json[i].type = "未认领";
-                    li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 2) {
                     json[i].type = "消缺中";
-                    li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 3) {
                     json[i].type = "已消缺";
-                    li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><<span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 4) {
                     json[i].type = "已完成";
-                    li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 5) {
                     json[i].type = "已认领";
-                    li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 }
             }
             ul.html(li)
@@ -255,25 +258,169 @@ function showTable(type, sysId, equipmentId, departmentId) {
             elem: '#demo'
             ,height: height
             ,url: path + '/defect/getDefectList?type=' + type + '&sysId=' + sysId + '&equipmentId=' + equipmentId + '&departmentId=' + departmentId//数据接口
-            ,page: true //开启分页
-            ,limit: 50
-            ,limits: [50, 100, 150]
             ,id: 'demoInfo'
             ,cols: [[ //表头
-                {
-                    field: 'number',
-                    title: '缺陷号',
-                    toolbar: '#tbNumberBar',
-                    align: 'center',
-                    sort: true,
-                    event: 'detailed',
-                    style: 'cursor: pointer;',
-                    width: 85
-                }
+                {field: 'number',title: '缺陷号',toolbar: '#tbNumberBar',align: 'center',sort: true,event: 'detailed',style: 'cursor: pointer;',width: 85}
                 , {field: 'sourceType', title: '来源', width: 70, toolbar: '#tbSourceTypeBar'}
                 , {field: 'type', title: '状态', toolbar: '#tbTypeBar', align: 'center', width: 100, sort: true}
                 , {field: 'abs', title: '缺陷描述'}
                 , {field: 'empIdsName', title: '消缺人', width: 150}
+                , {
+                    field: '', title: '总倒计时', sort: true, align: 'center', hide:true,
+                    templet: function (a) {
+                        if(a.type==4){
+                            return "已完成"
+                        }
+                        if(a.timeoutType!=null&&a.timeoutType!=""&&a.timeoutType.indexOf("E")!=-1){
+                            return "缺陷处理超时";
+                        }
+                        var tmiao = 0;
+                        if (a.level == "0") {
+                            tmiao = 4;
+                        } else if (a.level == "1") {
+                            tmiao = 12;
+                        } else if (a.level == "2") {
+                            tmiao = 24;
+                        } else if (a.level == "3") {
+                            tmiao = 48;
+                        } else if (a.level == "4") {
+                            tmiao = 96;
+                        }
+                        // 根据后端返回的时间在延长 周期时间,计算出还剩下多少秒
+                        var t = parseInt((new Date(a.created).getTime() + tmiao * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
+                        // 设置每一条数据唯一的key
+                        var key = 'key_' + a.id;
+
+                        var day1 = parseInt(t / (60 * 60 * 24));//天
+                        var shi1 = parseInt(t / (60 * 60) % 24);//小时
+                        var fen1 = parseInt((t / 60) % 60);//分钟
+                        var miao1 = parseInt(t % 60);//秒
+
+                        var time1 = day1 + "天" + shi1 + "时" + fen1 + "分" + miao1 + "秒";
+
+                        // 这里初始值计算显示的倒计时只是为了 如页面有刷新操作，只是把这个初始值也显示为倒计时
+                        var html = `<label id=${key} style="color: red;">${time1}</label>`;
+                        if (t <= 0) {
+                            $('#' + key).html("<label >缺陷处理超时</label>");
+                            updateDefectTimeoutType(a.id,"E");
+                            delTask(key);
+                        } else {
+                            $('#' + key).text(html);
+                        }
+
+                        addTask(key, function () {
+                            var nowHour=new Date().getHours();
+
+                            if(nowHour>=9 &&nowHour<17){
+                                t--;
+                            }
+
+                            var day = parseInt(t / (60 * 60 * 24));//天
+                            var shi = parseInt(t / (60 * 60) % 24);//小时
+                            var fen = parseInt((t / 60) % 60);//分钟
+                            var miao = parseInt(t % 60);//秒
+                            if (t <= 0) {
+                                $('#' + key).html("<label >缺陷处理超时</label>");
+                                updateDefectTimeoutType(a.id,"Z");
+                                delTask(key);
+                            } else {
+                                $('#' + key).text(day + "天" + shi + "时" + fen + "分" + miao + "秒");
+                            }
+
+                        });
+                        return html;
+                    }
+
+                }
+                , {
+                    field: '', title: '分倒计时', sort: true, align: 'center',hide:true,
+                    templet: function (a) {
+                        if(a.type==4){
+                            return "已完成"
+                        }
+                        var tmiao = 0;
+                        var timeoutType = "";
+                        var timeoutTypeName = "";
+                        var startTime = "";
+                        if (a.type == "1") {
+                            tmiao = 2;
+                            timeoutType = "A"
+                            timeoutTypeName = "认领超时";
+                            startTime = a.created;
+                        } else if (a.type == "5") {//开始执行
+                            tmiao = 4;
+                            timeoutType = "B";
+                            timeoutTypeName = "开工超时";
+                            startTime = a.orderReceivingTime;
+                        }  else if (a.type == "2") {//验收超时
+                            tmiao = 4;
+                            timeoutType = "C";
+                            timeoutTypeName = "反馈超时";
+                            startTime = a.realSTime;
+                        } else if (a.type == "7") {//验收超时
+                            tmiao = 4;
+                            timeoutType = "D";
+                            timeoutTypeName = "验收超时";
+                            startTime = a.realETime;
+                        } else if (a.type == "3") {//结束超时
+                            tmiao = 2;
+                            timeoutType = "E";
+                            timeoutTypeName = "结束超时";
+                            startTime = a.workTimeConfirmTime;
+                        }
+                        if(a.timeoutType!=null&&a.timeoutType!=""&&a.timeoutType.indexOf(timeoutType)!=-1){
+                            return timeoutTypeName;
+                        }
+
+                        // 根据后端返回的时间在延长 周期时间,计算出还剩下多少秒
+                        if (startTime == undefined || startTime == "") {
+                            return "<label>未记录时间"+timeoutType+"</label>"
+                        }
+                        var t = parseInt((new Date(startTime).getTime() + tmiao * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
+                        // 设置每一条数据唯一的key
+                        var key = 'key_part_' + a.id;
+
+                        var day1 = parseInt(t / (60 * 60 * 24));//天
+                        var shi1 = parseInt(t / (60 * 60) % 24);//小时
+                        var fen1 = parseInt((t / 60) % 60);//分钟
+                        var miao1 = parseInt(t % 60);//秒
+
+                        var time1 = day1 + "d" + shi1 + "h" + fen1 + "m" + miao1 + "s";
+                        var html ="";
+                        if (t <= 0) {
+                            time1 = timeoutType + ":" + timeoutTypeName
+                            html = `<label id=${key} style="color: red;">${time1}</label>`;
+                            updateDefectTimeoutType(a.id,timeoutType);
+                            delTask(key);
+                        } else {
+                            time1 = day1 + "天" + shi1 + "时" + fen1 + "分" + miao1 + "秒";
+                            html = `<label id=${key}  >${time1}</label>`;
+                        }
+                        console.log(time1);
+                        addTask(key, function () {
+                            var nowHour=new Date().getHours();
+
+                            if(nowHour>=9 &&nowHour<17){
+                                t--;
+                            }
+                            var day = parseInt(t / (60 * 60 * 24));//天
+                            var shi = parseInt(t / (60 * 60) % 24);//小时
+                            var fen = parseInt((t / 60) % 60);//分钟
+                            var miao = parseInt(t % 60);//秒
+
+                            if (t <= 0) {
+                                $('#' + key).html("<label >" + timeoutType + ":" + timeoutTypeName + "</label>");
+                                updateDefectTimeoutType(a.id,timeoutType);
+                                delTask(key);
+                            } else {
+                                $('#' + key).text(day + "天" + shi + "时" + fen + "分" + miao + "秒");
+                            }
+
+                        });
+                        return html;
+                    }
+
+                }
                 , {field: 'created', title: '申请时间', align: 'center', minWidth: 120, sort: true}
                 , {fixed: 'right', title: '操作', toolbar: '#tbOperationBar', align: 'center', width: 200}
             ]]
@@ -323,26 +470,79 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             $.ajax({
                                 "type": 'put',
                                 "url": path + "/defect/dutyConfirmation",
-                                data: {id: data.id, result:2},
+                                data: {id: data.id, result: 2},
                                 dataType: "json",
                                 "success": function (data) {
-                                    ajaxFun(data, "值班确认成功!");
+                                    ajaxFun(data, "值班确认已驳回!");
                                 }
                             });
                         });
                     }
                 });
             } else if (obj.event === 'claim') { //认领
+                $(".loading").css("display", "block");
                 getDetailedInfo(data.id, 'claim');
             } else if (obj.event === 'handle') { //消缺反馈
+                $(".loading").css("display", "block");
                 getDetailedInfo(data.id, 'handle');
             } else if (obj.event === 'detailed') { //缺陷详情
                 getDetailedInfo(data.id, 'detailed');
             } else if (obj.event === 'implement') { //开始执行
+                $(".loading").css("display", "block");
                 getDetailedInfo(data.id, 'implement');
+            } else if (obj.event === 'del') { //删除
+
+
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '300px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确定', '取消']
+                    ,btnAlign: 'c'
+                    , moveType: 1 //拖拽模式，0或者1
+                    ,content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #a1aec7; color: #000; font-weight: 500;font-size: 18px;">确认已完成本次消缺吗？</div>'
+                    ,success: function (layero) {
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').click(function () {
+                            $.ajax({
+                                type: 'GET',
+                                url: path + "/defect/delete?id=" + data.id,
+                                success: function (data) {
+                                    layer.alert("删除成功！");
+                                    showTable('', $("#systemHidden").val(), $("#equipmentHidden").val(), $("#departmentHidden").val());
+                                }
+                            })
+                        });
+                    }
+                });
+            } else if (obj.event === 'workHours') { //工时确认
+                $(".loading").css("display", "block");
+                getDetailedInfo(data.id, 'workHours');
             }
         });
     });
+}
+
+// 定时计时任务，这里是1秒执行一次
+setInterval(function () {
+    for (var key in tasks) {
+        tasks[key]();
+    }
+}, 1000)
+
+// 添加定时任务
+function addTask(key, value) {
+    if (typeof value === "function") {
+        tasks[key] = value;
+    }
+}
+
+// 删除定时任务
+function delTask(task) {
+    delete tasks[task];
 }
 
 //显示新增页面
@@ -432,6 +632,7 @@ function insert() {
             if ($("#img-change1").attr("src") == "") {
                 defect.bPlc = null;
             }
+            $(".loading").css("display", 'block');
             $.ajax({
                 "type": 'post',
                 "url": path + "/defect/addDefect",
@@ -439,7 +640,6 @@ function insert() {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 "success": function (data) {
-                    $(".loading").css("display",'block');
                     ajaxFun(data, "缺陷添加成功!", '新增');
                 }
             });
@@ -508,8 +708,7 @@ function getDetailedInfo(id, type) {
                         layer.alert("请先认领！");
                         return;
                     }
-                    $("#claimBelayBtn2").css("display","revert");
-                    $("#startFeedback").text("开始执行");
+                    $("#claimBelayBtn2").css("display", "revert");
                     $("#implementId").val(data.id);//id
                     $("#implementType").val(data.type);//type
                     $("#implementLevel").text(data.level + "类");//级别
@@ -539,6 +738,15 @@ function getDetailedInfo(id, type) {
                         , yes: function () {
                         }
                     });
+                    $("#startFeedbackBtn").css("display", "revert");
+                    $("#startFeedbackBtn").text("开始执行");
+                    $(".claimInfoBelayTr2").css("display", "none");
+                    $("#test5").val("");
+                    $("#test6").val("");
+                    $("#claimInfoBelay2").val("0");
+                    $("#claimInfoBelayHidden2").val("0");
+                    form.render(); //更新全部
+                    $(".loading").css("display", "none");
                     $("#startFeedbackBtn").css("display", "revert");
                     $(".claimInfoBelayTr2").css("display","none");
                 } else if (type == "handle") { //消缺反馈
@@ -608,8 +816,6 @@ function getDetailedInfo(id, type) {
                     $("#claimInfoBelay1").val("0");
                     $("#claimInfoBelayHidden1").val("");
                     $(".claimInfoBelayTr1").css("display", "none");
-                    $("#claimBelayBtn1").css("display","revert");
-                    $("#claimOkBtn").text("确定");
                     form.render(); //更新全部
                     $.ajax({
                         "type": 'post',
@@ -671,6 +877,28 @@ function getDetailedInfo(id, type) {
                             }
                         }
                     });
+                    $(".loading").css("display", "none");
+                } else if (type == "workHours") {
+                    $("#workHoursId").val(id);
+                    $("#workHoursSys").text(data.sysName);
+                    $("#workHoursEquipment").text(data.equipmentName);
+                    $("#workHoursAbs").val(data.abs);
+                    $("#workHoursRealSTime").text(data.realSTime);
+                    $("#workHoursRealETime").text(data.realETime);
+                    $("#workHoursPlannedWork").text(data.plannedWork);
+                    $("#workHoursRealExecuteTime").text(data.realExecuteTime);
+                    $("#workHoursOvertime").text(data.overtime);
+                    layer.open({
+                        type: 1
+                        , id: 'workHoursDiv' //防止重复弹出
+                        , content: $(".workHoursDiv")
+                        , btnAlign: 'c' //按钮居中
+                        , shade: 0.4 //不显示遮罩
+                        , area: ['100%', '100%']
+                        , yes: function () {
+                        }
+                    });
+                    $(".loading").css("display", "none");
                 }
             })
         }
@@ -721,6 +949,14 @@ function claimOk() {
         // planedTime = "";
         type = "6";
     }
+    var data = {
+        empIds: empIds,
+        id: id,
+        plannedWork: plannedWork,
+        delayETime: claimInfoBelayTime,
+        delayReason: claimInfoBelay,
+        type: type
+    }
     $.ajax({
         "type": 'post',
         "url": path + "/defect/claim",
@@ -744,9 +980,10 @@ function claimOk() {
 function startFeedback() {
     $("#startFeedbackBtn").css("display", "revert");
     var id = Number($("#implementId").val());
-    var claimInfoBelayTime = $("#test5").val() + " " + $("#test4").val();
+    var claimInfoBelayTime = $("#test5").val() + " " + $("#test6").val();
     var claimInfoBelay = Number($("#claimInfoBelayHidden2").val());
     var type = "";
+
     if (claimInfoBelayTime.trim() == "" && claimInfoBelay == 0) {
         type = "5";
     } else {
@@ -788,7 +1025,7 @@ function startFeedback() {
 function claimBelay1() {
     $(".claimInfoBelayTr1").css("display", "revert");
     var id = $("#claimId").val();
-    $("#claimBelayBtn1").css("display","none");
+    $("#claimBelayBtn1").css("display", "none");
     $("#claimOkBtn").text("确定延期");
 
 }
@@ -796,8 +1033,9 @@ function claimBelay1() {
 function claimBelay2() {
     $(".claimInfoBelayTr2").css("display", "revert");
     var id = $("#claimId").val();
-    $("#claimBelayBtn2").css("display","none");
+    $("#claimBelayBtn2").css("display", "none");
     $("#startFeedbackBtn").text("确定延期");
+
 }
 
 //处理反馈
@@ -853,6 +1091,39 @@ function insertFeedback() {
         }
     });
 }
+
+//工时确认
+function workHoursOk() {
+    var id = Number($("#workHoursId").val());
+    $.ajax({
+        "type": 'post',
+        "url": path + "/defect/postWorkTimeConfirm",
+        data: {id: id, confirmResult: 0},
+        dataType: "json",
+        "success": function (data) {
+            layer.closeAll();
+            layer.alert("确认" + data.msg);
+            showTable('', $("#systemHidden").val(), $("#equipmentHidden").val(), $("#departmentHidden").val());
+        }
+    });
+}
+
+//工时驳回
+function workHoursNo() {
+    var id = Number($("#workHoursId").val());
+    $.ajax({
+        "type": 'post',
+        "url": path + "/defect/postWorkTimeConfirm",
+        data: {id: id, confirmResult: 1},
+        dataType: "json",
+        "success": function (data) {
+            layer.closeAll();
+            layer.alert("驳回" + data.msg);
+            showTable('', $("#systemHidden").val(), $("#equipmentHidden").val(), $("#departmentHidden").val());
+        }
+    });
+}
+
 //动态区域
 function operationSend(verb, content, remark) {
     $.ajax({
@@ -911,4 +1182,18 @@ function cancel() {
 
 function cancel1() {
     layer.close(index)
+}
+
+function  updateDefectTimeoutType(id,timeoutType){
+    $.ajax({
+        url:path+"/defect/updateTimeoutType",
+        method:"get",
+        data:{
+            id:id,
+            type:timeoutType
+        },
+        success:function(res){
+            console.log(res)
+        }
+    });
 }

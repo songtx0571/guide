@@ -21,4 +21,6 @@ public interface DefectMapper {
     int getDefectCountByDep(int departmentId);
 
     List<Defect> getDefectHistiryByEqu(Map map);
+
+    void deleteById(Integer id);
 }

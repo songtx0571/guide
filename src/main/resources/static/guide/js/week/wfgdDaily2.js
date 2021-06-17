@@ -1,176 +1,177 @@
-$(function(){
-	var tmpDate = new Date();
-	var D = tmpDate.getDate();
-	var M = tmpDate.getMonth() + 1;
-	var Y = tmpDate.getFullYear();
-	
-	document.getElementById("datetime").value = Y+"-"+M+"-"+D;
-	var type = sessionStorage.wfgdDailyType;
-	var datetime = sessionStorage.wfgdDailydatetime;
-	
-	if(type){
-		$('#type').val(type);
-	}
-	if(datetime){
-		document.getElementById('datetime').value = datetime;
-	}
+$(function () {
+    var tmpDate = new Date();
+    var D = tmpDate.getDate();
+    var M = tmpDate.getMonth() + 1;
+    var Y = tmpDate.getFullYear();
+    var h = tmpDate.getHours();
+    var min = tmpDate.getMinutes();
+    var s = tmpDate.getSeconds();
+
+    document.getElementById("datetime").value = Y + "-" + M + "-" + D + " " + h + ":" + min + ":" + s;
+
+    var type = sessionStorage.wfgdDailyType;
+    var datetime = sessionStorage.wfgdDailydatetime;
+
+    if (type) {
+        $('#type').val(type);
+    }
+    if (datetime) {
+        document.getElementById('datetime').value = datetime;
+    }
     getUserName();
-	getProject();
+    getProject();
 });
 
 function getUserName() {
     $.ajax({
         "url": "../WeeklyController/getParamList",
-        "success":function(Json){
-        	var info=Json.data.userName;
-            sessionStorage.Username=info;
+        "success": function (Json) {
+            var info = Json.data.userName;
+            sessionStorage.Username = info;
         }
     });
 }
 
 function compareTime() {
-	var type = $("#type").val();
-	var startDate = $("#datetime").val();
-	var	endDate = $("#datetime").val();
-	var arrStartDate = startDate.split("-");   
-	var arrEndDate = endDate.split("-"); 
-	var allStartDate;
-	var allEndDate;
-	var date = new Date();
-	if(type==1){
-		allStartDate = new Date(arrStartDate[0], parseInt(arrStartDate[1]-1), arrStartDate[2],7,0,0);   
-		allEndDate = new Date(arrEndDate[0], parseInt(arrStartDate[1]-1), arrEndDate[2], 17,0,0);   
-	}else if(type==2){
-		allStartDate = new Date(arrStartDate[0], parseInt(arrStartDate[1]-1), arrStartDate[2],15,0,0);   
-		allEndDate = new Date(arrEndDate[0], parseInt(arrStartDate[1]-1), parseInt(arrStartDate[2]+1),1,0,0);   
-	}else{
-		allStartDate = new Date(arrStartDate[0], parseInt(arrStartDate[1]-1), parseInt(arrStartDate[2]-1),23,0,0);   
-		allEndDate = new Date(arrEndDate[0], parseInt(arrStartDate[1]-1), arrEndDate[2],9,0,0);   
-	}
+    var type = $("#type").val();
+    var startDate = $("#datetime").val();
+    var endDate = $("#datetime").val();
+    var arrStartDate = startDate.split("-");
+    var arrEndDate = endDate.split("-");
+    var allStartDate;
+    var allEndDate;
+    var date = new Date();
+    if (type == 1) {
+        allStartDate = new Date(arrStartDate[0], parseInt(arrStartDate[1] - 1), arrStartDate[2], 7, 0, 0);
+        allEndDate = new Date(arrEndDate[0], parseInt(arrStartDate[1] - 1), arrEndDate[2], 17, 0, 0);
+    } else if (type == 2) {
+        allStartDate = new Date(arrStartDate[0], parseInt(arrStartDate[1] - 1), arrStartDate[2], 15, 0, 0);
+        allEndDate = new Date(arrEndDate[0], parseInt(arrStartDate[1] - 1), parseInt(arrStartDate[2] + 1), 1, 0, 0);
+    } else {
+        allStartDate = new Date(arrStartDate[0], parseInt(arrStartDate[1] - 1), parseInt(arrStartDate[2] - 1), 23, 0, 0);
+        allEndDate = new Date(arrEndDate[0], parseInt(arrStartDate[1] - 1), arrEndDate[2], 9, 0, 0);
+    }
 
-	if (date.getTime() < allStartDate.getTime()) {
-		layer.alert("当前时间未到该班的工作时间,不可修改运行日志",{icon : 2});
-		return false;   
-	} else if(date.getTime() > allEndDate.getTime()) {
-		layer.alert("当前时间已超过该班的工作时间,不可修改运行日志",{icon : 2});
-		return false;   
-	}else {
-		return true;   
-	}
+    if (date.getTime() < allStartDate.getTime()) {
+        layer.alert("当前时间未到该班的工作时间,不可修改运行日志", {icon: 2});
+        return false;
+    } else if (date.getTime() > allEndDate.getTime()) {
+        layer.alert("当前时间已超过该班的工作时间,不可修改运行日志", {icon: 2});
+        return false;
+    } else {
+        return true;
+    }
 }
 
-function getProject(){
-	var userName = sessionStorage.Username;
-	$.ajax({
-		"type" : 'post',
-		"url": "../WeeklyController/getProject2",
-		"data":{userName:userName},
-		"success":function(Json){
-			var data = Json.data;
-			//document.getElementById('project').length = 0;
-			var project = document.getElementById('project');
-			var projectId = sessionStorage.wfgdDailyProject;
-			var option = "";
-			for(var i = 0;i<data.length;i++){
-				option += "<option value='"+data[i].id+"'>"+data[i].projectTeam+"</option>";
-			}
-			project.innerHTML = option;
-			change();
-		}
-	});
+function getProject() {
+    var userName = sessionStorage.Username;
+    $.ajax({
+        "type": 'post',
+        "url": "../WeeklyController/getProject2",
+        "data": {userName: userName},
+        "success": function (Json) {
+            var data = Json.data;
+            //document.getElementById('project').length = 0;
+            var project = document.getElementById('project');
+            var projectId = sessionStorage.wfgdDailyProject;
+            var option = "";
+            for (var i = 0; i < data.length; i++) {
+                option += "<option value='" + data[i].id + "'>" + data[i].projectTeam + "</option>";
+            }
+            project.innerHTML = option;
+            change();
+        }
+    });
 }
 
-function change(){
-	$("tbody tr").remove("tr[id=123]");
-	var datetime = $('#datetime').val();
-	var type = $('#type').val();
-	var project = $('#project').val();
-	sessionStorage.wfgdDailyType = type;
-	sessionStorage.wfgdDailydatetime = datetime;
-	sessionStorage.wfgdDailyProject = project;
-	if(project==null){
-        project=0;
-	}
-	$.ajax({ 
-		"type" : 'post', 
-		"url": "../ScrDailyController/find",  
-		"data":{datetime:datetime,type:type,project:project,other:2},
-		"success":function(Json){
-			if (Json.data == "noUser") {
-				layer.alert("请重新登录");
-			} else {
-				fill(Json.data);
-			}
-		},
-		"error":function(){
-			layer.alert("系统繁忙");
-		}	
-	});
-	$.ajax({ 
-		"type" : 'post', 
-		"url": "../ScrDailyController/findscrDaily",  
-		"data":{datetime:datetime,type:type,project:project,other:2},
-		"success":function(Json){
-			var data = Json.data;
-			sessionStorage.wfgdDailySuccessor = data.successor;
-			sessionStorage.wfgdDailyTraders = data.traders;
-			sessionStorage.wfgdDailyRecorder = data.recorder;
-			sessionStorage.successorTime = data.successorTime;
-			sessionStorage.tradersTime = data.tradersTime
-			//document.getElementById("name").innerHTML = data.name;
+function change() {
+    $("tbody tr").remove("tr[id=123]");
+    var datetime = $('#datetime').val();
+    var type = $('#type').val();
+    var project = $('#project').val();
+    sessionStorage.wfgdDailyType = type;
+    sessionStorage.wfgdDailydatetime = datetime;
+    sessionStorage.wfgdDailyProject = project;
+    if (project == null) {
+        project = 0;
+    }
+    $.ajax({
+        "type": 'post',
+        "url": "../ScrDailyController/find",
+        "data": {datetime: datetime, type: type, project: project, other: 2},
+        "success": function (Json) {
+            if (Json.data == "noUser") {
+                layer.alert("请重新登录");
+            } else {
+                fill(Json.data);
+            }
+        },
+        "error": function () {
+            layer.alert("系统繁忙");
+        }
+    });
+    $.ajax({
+        "type": 'post',
+        "url": "../ScrDailyController/findscrDaily",
+        "data": {datetime: datetime, type: type, project: project, other: 2},
+        "success": function (Json) {
+            var data = Json.data;
+            sessionStorage.wfgdDailySuccessor = data.successor;
+            sessionStorage.wfgdDailyTraders = data.traders;
+            sessionStorage.wfgdDailyRecorder = data.recorder;
+            //document.getElementById("name").innerHTML = data.name;
 
             var aa = "";
-			if(data.successor != ""&&data.successor != null){
-				var successors = data.successorName.split(",");
-				for(var i=0;i<successors.length;i++){
-					aa += successors[i]+"<img src='../img/reduce.png' onclick='delSuccessor("+i+")'>";
-				}
-				
-			}
-			aa += "<img src='../img/and.png' onclick='addSuccessor()'>";
-			document.getElementById("successor").innerHTML = aa;
-			
-			var bb = "";
-			if(data.traders != ""&&data.traders != null){
-				var tradersName = data.tradersName.split(",");
-				for(var i=0;i<tradersName.length;i++){
-					bb += tradersName[i]+"<img src='../img/reduce.png'  onclick='delTrader("+i+")'>";
-				}
-			}
-			bb += "<img src='../img/and.png' onclick='addTrader()'>";
-			document.getElementById("traders").innerHTML = bb;
+            if (data.successor != "" && data.successor != null) {
+                var successors = data.successorName.split(",");
+                for (var i = 0; i < successors.length; i++) {
+                    aa += successors[i] + "<img src='../img/reduce.png' onclick='delSuccessor(" + i + ")'>";
+                }
 
-			var cc = "";
-			if(data.recorder != ""&&data.recorder != null){
-				var recorderName = data.recorderName.split(",");
-				for(var i=0;i<recorderName.length-1;i++){
-					cc += recorderName[i]+"，";
-				}
-				cc += recorderName[recorderName.length-1]
-			}
+            }
+            aa += "<img src='../img/and.png' onclick='addSuccessor()'>";
+            document.getElementById("successor").innerHTML = aa;
 
-			document.getElementById("recorder").innerHTML = cc;
+            var bb = "";
+            if (data.traders != "" && data.traders != null) {
+                var tradersName = data.tradersName.split(",");
+                for (var i = 0; i < tradersName.length; i++) {
+                    bb += tradersName[i] + "<img src='../img/reduce.png'  onclick='delTrader(" + i + ")'>";
+                }
+            }
+            bb += "<img src='../img/and.png' onclick='addTrader()'>";
+            document.getElementById("traders").innerHTML = bb;
 
-			
-			/*if(data.group==1){
-				document.getElementById("group").innerHTML = '甲';
-			}else if(data.group==2){
-				document.getElementById("group").innerHTML = '乙';
-			}else if(data.group==3){
-				document.getElementById("group").innerHTML = '丙';
-			}else if(data.group==4){
-				document.getElementById("group").innerHTML = '丁';
-			}else{
-				document.getElementById("group").innerHTML = "";
-			}*/
-			sessionStorage.wfgdDailyId = data.id;
-		},
-		"error":function(){
-			layer.alert("系统繁忙");
-		}	
-	});
+            var cc = "";
+            if (data.recorder != "" && data.recorder != null) {
+                var recorderName = data.recorderName.split(",");
+                for (var i = 0; i < recorderName.length - 1; i++) {
+                    cc += recorderName[i] + "，";
+                }
+                cc += recorderName[recorderName.length - 1]
+            }
+
+            document.getElementById("recorder").innerHTML = cc;
+
+
+            /*if(data.group==1){
+                document.getElementById("group").innerHTML = '甲';
+            }else if(data.group==2){
+                document.getElementById("group").innerHTML = '乙';
+            }else if(data.group==3){
+                document.getElementById("group").innerHTML = '丙';
+            }else if(data.group==4){
+                document.getElementById("group").innerHTML = '丁';
+            }else{
+                document.getElementById("group").innerHTML = "";
+            }*/
+            sessionStorage.wfgdDailyId = data.id;
+        },
+        "error": function () {
+            layer.alert("系统繁忙");
+        }
+    });
 }
-
 
 
 //增加接班人
@@ -181,45 +182,53 @@ function addSuccessor(){
 	var datetime = sessionStorage.wfgdDailydatetime;
 	var successorTime = sessionStorage.successorTime;
 
-	var projectId = $("#project").val();
-	if(!compareTime()){
-		return;
-	}
-	if(projectId==null){
-        projectId=0;
-	}
-	var Successor = sessionStorage.wfgdDailySuccessor;
-	if(Successor != ""&&Successor != null){
-		var Successors = Successor.split(";");
-		for(var i=0;i<Successors.length;i++){
-			if(userName==Successors[i]){
-				layer.alert('已以添加相同的填写人!', {icon : 2});
-				return;
-			}
-		}
-		Successor = Successor +";"+ userName;
-		
-		
-	}else{
-		Successor = userName;
-	}
+    var projectId = $("#project").val();
+    if (!compareTime()) {
+        return;
+    }
+    if (projectId == null) {
+        projectId = 0;
+    }
+    var Successor = sessionStorage.wfgdDailySuccessor;
+    if (Successor != "" && Successor != null) {
+        var Successors = Successor.split(";");
+        for (var i = 0; i < Successors.length; i++) {
+            if (userName == Successors[i]) {
+                layer.alert('已以添加相同的填写人!', {icon: 2});
+                return;
+            }
+        }
+        Successor = Successor + ";" + userName;
 
-	var Recorder=sessionStorage.wfgdDailyRecorder;
-	if(Recorder != ""&&Recorder != null){
-		var Recorders = Recorder.split(";");
-		for(var i=0;i<Recorders.length;i++){
-			if(userName==Recorders[i]){
+
+    } else {
+        Successor = userName;
+    }
+
+    var Recorder = sessionStorage.wfgdDailyRecorder;
+    if (Recorder != "" && Recorder != null) {
+        var Recorders = Recorder.split(";");
+        for (var i = 0; i < Recorders.length; i++) {
+            if (userName == Recorders[i]) {
                 $.ajax({
-                    "type" : 'post',
+                    "type": 'post',
                     "url": "../ScrDailyController/addSuccessor",
-                    "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder,successorTime:successorTime},
-                    "success":function(Json){
-                        if(Json.data==1){
-                            layer.alert('添加成功',{icon:1});
-                            setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
-                        } else if(Json.data=="noUser"){
-							layer.alert("登录失效！");
-						}
+                    "data": {
+                        userName: Successor,
+                        id: wfgdDailyId,
+                        datetime: datetime,
+                        projectId: projectId,
+                        type: type,
+                        name: Recorder
+                    },
+                    "success": function (Json) {
+                        if (Json.data == 1) {
+                            WfgdDaily
+                            layer.alert('添加成功', {icon: 1});
+                            setTimeout(function () {
+                                window.location.href = "../ScrDailyController/WfgdDaily";
+                            }, 500);
+                        }
                     }
                 });
 				return;

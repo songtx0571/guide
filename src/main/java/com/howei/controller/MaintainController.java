@@ -50,9 +50,9 @@ public class MaintainController {
         return "maintainConfig";
     }
 
-    public Users getPrincipal(){
-        Subject subject=SecurityUtils.getSubject();
-        Users users=(Users) subject.getPrincipal();
+    public Users getPrincipal() {
+        Subject subject = SecurityUtils.getSubject();
+        Users users = (Users) subject.getPrincipal();
         return users;
     }
 
@@ -177,14 +177,14 @@ public class MaintainController {
         //1.按照倒计时排序
         if ("startTime".equals(field)) {
             //获取状态
-            Integer status1 = Integer.valueOf((String) maintainJsonObject1.get("assignmentStatus"));
-            Integer status2 = Integer.valueOf((String) maintainJsonObject2.get("assignmentStatus"));
+            Integer status1 = Integer.valueOf(maintainJsonObject1.get("assignmentStatus").toString());
+            Integer status2 = Integer.valueOf(maintainJsonObject2.get("assignmentStatus").toString());
             //获取周期
-            Integer cycle1 = Integer.valueOf((String) maintainJsonObject1.get("cycle"));
-            Integer cycle2 = Integer.valueOf((String) maintainJsonObject2.get("cycle"));
+            Integer cycle1 = Double.valueOf(maintainJsonObject1.get("cycle").toString()).intValue();
+            Integer cycle2 = Double.valueOf(maintainJsonObject2.get("cycle").toString()).intValue();
             //获取开始时间
-            String startTime1 = (String) maintainJsonObject1.get("startTime");
-            String startTime2 = (String) maintainJsonObject2.get("startTime");
+            String startTime1 = maintainJsonObject1.get("startTime").toString();
+            String startTime2 = maintainJsonObject2.get("startTime").toString();
 
             Date startTimeStamp1 = new Date();
             Date startTimeStamp2 = new Date();
@@ -194,6 +194,7 @@ public class MaintainController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            //当前时间
             Date date = new Date();
             //下次最近的开始时间戳
             long startTimeStampLong1 = startTimeStamp1.getTime() + cycle1 * 24 * 60 * 60 * 1000;
@@ -202,13 +203,21 @@ public class MaintainController {
             if ("asc".equals(order)) {
                 if (status1 > status2) {
                     return 1;
-                } else if (status1 == status2) {
-
-                    if (startTimeStampLong2 > date.getTime() && date.getTime() > startTimeStampLong1) {
-                        return -1;
+                } else if (status1.equals(status2)) {
+                    //2是已暂停,1是已分配
+                    if (status1 == 2 || status1 == 1) {
+                        return 0;
                     } else {
-                        return startTimeStampLong2 > startTimeStampLong1 ? -1 : 1;
+                        if (startTimeStampLong1 >= date.getTime() && date.getTime() >= startTimeStampLong2) {
+                            return 1;
+                        } else if (startTimeStampLong2 >= date.getTime() && date.getTime() >= startTimeStampLong1) {
+                            return -1;
+                        } else {
+                            return startTimeStampLong1 > startTimeStampLong2 ? -1 : 1;
+                        }
                     }
+
+
                 } else if (status1 < status2) {
                     return -1;
                 }
@@ -217,12 +226,20 @@ public class MaintainController {
                 if ("desc".equals(order)) {
                     if (status1 > status2) {
                         return -1;
-                    } else if (status1 == status2) {
-                        if (startTimeStampLong2 > date.getTime() && date.getTime() > startTimeStampLong1) {
-                            return 1;
+                    } else if (status1.equals(status2)) {
+                        //2是已暂停,1是已分配
+                        if (status1 == 1 || status1 == 2) {
+                            return 0;
                         } else {
-                            return startTimeStampLong2 > startTimeStampLong1 ? 1 : -1;
+                            if (startTimeStampLong1 >= date.getTime() && date.getTime() >= startTimeStampLong2) {
+                                return -1;
+                            } else if (startTimeStampLong2 >= date.getTime() && date.getTime() >= startTimeStampLong1) {
+                                return 1;
+                            } else {
+                                return startTimeStampLong1 > startTimeStampLong2 ? 1 : -1;
+                            }
                         }
+
                     } else if (status1 < status2) {
                         return 1;
                     }
@@ -241,8 +258,15 @@ public class MaintainController {
         }
         //3.按照其他字符串字段排序
         else {
-            String field1 = (String) maintainJsonObject1.get(field);
-            String field2 = (String) maintainJsonObject2.get(field);
+            if (maintainJsonObject1.get(field) == null || maintainJsonObject2.get(field) == null) {
+                return 0;
+            }
+
+            String field1 = maintainJsonObject1.get(field).toString();
+            field1 = field1 == null ? "" : field1;
+            String field2 = maintainJsonObject2.get(field).toString();
+            field2 = field2 == null ? "" : field2;
+            System.out.println(field + " " + field1 + " " + field2);
             if ("asc".equals(order)) {
                 return field1.compareTo(field2);
             } else if ("desc".equals(order)) {

@@ -58,4 +58,9 @@ public class DefectServiceImpl implements DefectService {
         }
         return result;
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        defectMapper.deleteById(id);
+    }
 }

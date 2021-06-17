@@ -164,15 +164,15 @@ function showMaintainWork(departmentId, searchWord) {
 
                         var time2 =  day1 + "天";
 
-                        // if (day1 > 0) {
-                        //     time2 = day1 + "天";
-                        // } else if (shi1 > 0) {
-                        //     time2 = shi1 + "时" + fen1 + "分" + miao1 + "秒";
-                        // } else if (fen1 > 0) {
-                        //     time2 = fen1 + "分" + miao1 + "秒";
-                        // } else if (miao1 > 0) {
-                        //     time2 = miao1 + "秒";
-                        // }
+                        if (day1 > 0) {
+                            time2 = day1 + "天";
+                        } else if (shi1 > 0) {
+                            time2 = shi1 + "时" + fen1 + "分" + miao1 + "秒";
+                        } else if (fen1 > 0) {
+                            time2 = fen1 + "分" + miao1 + "秒";
+                        } else if (miao1 > 0) {
+                            time2 = miao1 + "秒";
+                        }
 
                         // 这里初始值计算显示的倒计时只是为了 如页面有刷新操作，只是把这个初始值也显示为倒计时
                         var html = `<label id=${key} style="color: orange;">${time2}</label>`;
@@ -190,7 +190,7 @@ function showMaintainWork(departmentId, searchWord) {
                             var fen = parseInt((t / 60) % 60);//分钟
                             var miao = parseInt(t % 60);//秒
 
-                            if (t == 0) {
+                            if (t <= 0) {
                                 $('#' + key).html("<label style='color:green;'>待分配</label>");
                                 delTask(key);
                             } else {

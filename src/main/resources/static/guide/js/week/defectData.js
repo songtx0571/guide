@@ -86,9 +86,37 @@ function showTable(departmentId, month) {
                 , {field: 'realSTime', title: '实际检修开启日期'}
                 , {field: 'realETime', title: '实际检修结束日期'}
                 , {field: 'confirmer1Time', title: '值班确认时间'}
-            ]]
-            ,
-            parseData: function (res) {
+                , {field: '', title: '超时', templet(a){
+                    var timeoutTypeName="";
+                    //A认领超时,  B开工超时, C反馈超时,D验收超时, E结束超时, Z缺陷处理超时
+                    if(a.timeoutType!=null&&a.timeoutType.indexOf("A")>-1){
+                        timeoutTypeName+="认领超时,"
+                    }
+                    if(a.timeoutType!=null&&a.timeoutType.indexOf("B")>-1){
+                        timeoutTypeName+="开工超时,"
+                    }
+                    if(a.timeoutType!=null&&a.timeoutType.indexOf("C")>-1){
+                        timeoutTypeName+="反馈超时,"
+                    }
+                    if(a.timeoutType!=null&&a.timeoutType.indexOf("D")>-1){
+                        timeoutTypeName+="验收超时,"
+                    }
+                    if(a.timeoutType!=null&&a.timeoutType.indexOf("E")>-1){
+                        timeoutTypeName+="结束超时,"
+                    }
+                    if(a.timeoutType!=null&&a.timeoutType.indexOf("Z")>-1){
+                        timeoutTypeName+="缺陷处理超时,"
+                    }
+                    if(timeoutTypeName.length>0){
+                        timeoutTypeName=timeoutTypeName.substring(0,timeoutTypeName.length-1)
+                    }
+                     return timeoutTypeName;
+
+                    }
+
+
+            }]]
+            , parseData: function (res) {
                 if (res.msg == "NoUser") {
                     layer.alert("当前用户过期");
                 }

@@ -20,6 +20,7 @@
         <result column="update_time" property="updateTime"/>
         <result column="start_time" property="startTime"/>
         <result column="assignment_status" property="assignmentStatus"/>
+        <result column="cycle" property="cycle"/>
     </resultMap>
 
 

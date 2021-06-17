@@ -47,10 +47,10 @@ function showInit(departmentId) {
         data: {departmentId:departmentId},
         dataType: "json",
         async: true,
-        success: function(data){
+        success: function(res){
             var html='';
-            for(var i=0;i<data.length;i++){
-                var result=data[i];
+            for(var i=0;i<res.data.length;i++){
+                var result=res.data[i];
                 userName=result.userName;
                 var dateTime=result.dateTime;
                 var patrolTask=result.patrolTask;//任务
@@ -344,10 +344,11 @@ function init() {
         url: "/guide/staff/init",
         dataType: "json",
         async: true,
-        success: function(data){
+        success: function(res){
             var html='';
-            for(var i=0;i<data.length;i++){
-                var result=data[i];
+            for(var i=0;i<res.data.length;i++){
+                var result=res.data[i];
+                console.log(result)
                 var userName=result.userName;
                 var dateTime=result.dateTime;
                 var patrolTask=result.patrolTask;//任务

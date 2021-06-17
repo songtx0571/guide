@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.howei.mapper.DefectMapper" >
+<mapper namespace="com.howei.mapper.DefectMapper">
+    <delete id="deleteById">
+        delete from defect where  id=#{id}
+    </delete>
 
     <select id="getDefectList" parameterType="java.util.HashMap" resultType="com.howei.pojo.Defect">
-        select de.*,DATE_FORMAT(de.created,'%Y-%m-%d') as created,c.name as departmentName,e1.name as sysName,e2.name as equipmentName,ee2.name as claimantName,
-          ee1.name as createdByName,ee3.name as confirmer1Name
+        select de.*,DATE_FORMAT(de.created,'%Y-%m-%d') as created,c.name as departmentName,e1.name as sysName,e2.name as
+        equipmentName,ee2.name as claimantName,
+        ee1.name as createdByName,ee3.name as confirmer1Name
         from defect de
         left join company c on c.id=de.departmentId
         left join equipment e1 on e1.id=de.sysId
@@ -32,7 +36,8 @@
                 and DATE_FORMAT(de.confirmer1Time,'%Y-%m')=DATE_FORMAT(#{month},'%Y-%m')
             </if>
             <if test="employeeId!=null">
-                and (de.createdBy=#{employeeId} or de.claimant=#{employeeId} or de.confirmer1=#{employeeId} or locate(#{employeeId},de.empIds))
+                and (de.createdBy=#{employeeId} or de.claimant=#{employeeId} or de.confirmer1=#{employeeId} or
+                locate(#{employeeId},de.empIds))
             </if>
         </where>
         order by de.created desc
@@ -123,6 +128,18 @@
             </if>
             <if test="plannedWork!=null">
                 plannedWork=#{plannedWork},
+            </if>
+            <if test="overtime!=null">
+                overtime=#{overtime},
+            </if>
+            <if test="overtime!=null">
+                overtime=#{overtime},
+            </if>
+            <if test="workTimeConfirmTime!=null">
+                workTimeConfirmTime=#{workTimeConfirmTime},
+            </if>
+            <if test="timeoutType!=null">
+                timeoutType=#{timeoutType},
             </if>
         </set>
         where id=#{id}

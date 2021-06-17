@@ -12,7 +12,7 @@
     <script src="../js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="../js/layui/formSelects-v4.css">
     <script src="../js/layui/formSelects-v4.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript"  src="../js/week/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="../js/week/ajaxfileupload.js"></script>
 </head>
 <body>
 <div class="warp">
@@ -99,12 +99,15 @@
             {{#  } else if(d.delayReason == 4) { }}
             <span style="color: #001580;">继续观察</span>
             {{#  } }}
+            {{#  } else if(d.type == 7) { }}
+            <span style="color: burlywood;">待确认</span>
             {{#  } }}
         </script>
         <script type="text/html" id="tbOperationBar">
             {{#  if(d.type == 1){ }}
             <shiro:hasPermission name="缺陷检修班长">
-                <a class="layui-btn layui-btn-fluid layui-btn-danger" lay-event="claim">认领</a>
+                <a class="layui-btn layui-btn-danger" style="line-height: 30px;" lay-event="claim">认领</a>
+                <a class="layui-btn" style="line-height: 30px;background: #a1aec7;" lay-event="del">删除</a>
             </shiro:hasPermission>
             {{#  } else if(d.type == 5) { }}
             <a class="layui-btn layui-btn-fluid layui-btn-warm" lay-event="implement">开始执行</a>
@@ -120,8 +123,11 @@
             <span style="color: green;">已完成</span>
             {{#  } else if(d.type == 6) { }}
             <shiro:hasPermission name="缺陷检修班长">
-                <a class="layui-btn layui-btn-fluid layui-btn-danger" lay-event="claim">认领</a>
+                <a class="layui-btn layui-btn-danger" style="line-height: 30px;" lay-event="claim">认领</a>
+                <a class="layui-btn" style="line-height: 30px;background: #a1aec7;" lay-event="del">删除</a>
             </shiro:hasPermission>
+            {{#  } else if(d.type == 7) { }}
+            <a class="layui-btn layui-btn-fluid" style="background: burlywood;" lay-event="workHours">工时确认</a>
             {{#  } }}
         </script>
     </div>
@@ -129,7 +135,9 @@
     <div class="addDefectDiv">
         <table>
             <thead>
-            <tr><td colspan="4" style="text-align: center;font-weight: bold;font-size: 18px;">新增缺陷</td></tr>
+            <tr>
+                <td colspan="4" style="text-align: center;font-weight: bold;font-size: 18px;">新增缺陷</td>
+            </tr>
             </thead>
             <tbody>
             <tr>
@@ -139,7 +147,8 @@
                         <input type="hidden" id="levelHidden">
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <select name="modules" lay-verify="required" lay-filter="level" lay-search="" id="level">
+                                <select name="modules" lay-verify="required" lay-filter="level" lay-search=""
+                                        id="level">
                                     <option value="0">0类</option>
                                     <option value="1">1类</option>
                                     <option value="2">2类</option>
@@ -156,7 +165,8 @@
                         <input type="hidden" id="maintenanceCategoryHidden">
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <select name="modules" lay-verify="required" lay-filter="maintenanceCategory" lay-search="" id="maintenanceCategory">
+                                <select name="modules" lay-verify="required" lay-filter="maintenanceCategory"
+                                        lay-search="" id="maintenanceCategory">
                                     <option value='1'>机务</option>
                                     <option value='2'>电仪</option>
                                 </select>
@@ -173,12 +183,14 @@
                         <input type="hidden" id="addEquipmentHidden">
                         <div class="layui-inline">
                             <div class="layui-input-inline" style="width: 183px;">
-                                <select name="modules" lay-verify="required" lay-filter="addSystem" lay-search="" id="addSystem"></select>
+                                <select name="modules" lay-verify="required" lay-filter="addSystem" lay-search=""
+                                        id="addSystem"></select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline" style="width: 182px;">
-                                <select name="modules" lay-verify="required" lay-filter="addEquipment" lay-search="" id="addEquipment"></select>
+                                <select name="modules" lay-verify="required" lay-filter="addEquipment" lay-search=""
+                                        id="addEquipment"></select>
                             </div>
                         </div>
                     </form>
@@ -186,15 +198,18 @@
             </tr>
             <tr>
                 <th>缺陷描述</th>
-                <td colspan="3"><textarea id='addAbs' rows="5" cols="50" maxlength="100" style="text-indent: 10px;"></textarea></td>
+                <td colspan="3"><textarea id='addAbs' rows="5" cols="50" maxlength="100"
+                                          style="text-indent: 10px;"></textarea></td>
             </tr>
             <tr>
                 <th>缺陷图片</th>
                 <td colspan="3">
-                    <img src="../img/week/defectAdd.png" style="float: left;margin-top: 10px;"  id="addImg1">
-                    <input type="file" id='file' name='file' style="display: none;" accept="image/gif,image/jpeg,image/jpg,image/png" onchange="fileChange(event,'file','one')">
+                    <img src="../img/week/defectAdd.png" style="float: left;margin-top: 10px;" id="addImg1">
+                    <input type="file" id='file' name='file' style="display: none;"
+                           accept="image/gif,image/jpeg,image/jpg,image/png" onchange="fileChange(event,'file','one')">
                     <img src="" id="img-change1" class="img-change">
-                    <img src="../img/week/defectReduce.png" style="float: left;margin-top: 10px;margin-left: 10px;" id="reduceImgAdd" onclick="reduceImg('reduceImgAdd')">
+                    <img src="../img/week/defectReduce.png" style="float: left;margin-top: 10px;margin-left: 10px;"
+                         id="reduceImgAdd" onclick="reduceImg('reduceImgAdd')">
                 </td>
             </tr>
             <tr>
@@ -209,7 +224,7 @@
             <thead>
             <tr>
                 <td colspan="4" align="center">
-                    <button type="button" class="layui-btn layui-btn-normal"  onclick="insert()">确定</button>
+                    <button type="button" class="layui-btn layui-btn-normal" onclick="insert()">确定</button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
             </tr>
@@ -261,7 +276,10 @@
             </tr>
             <tr>
                 <th>缺陷描述</th>
-                <td colspan="5" style="padding-left: 8px;box-sizing: border-box;"><textarea id='claimInfoAbs' rows="5" cols="75" maxlength="100"></textarea></td>
+                <td colspan="5" style="padding-left: 8px;box-sizing: border-box;"><textarea id='claimInfoAbs' rows="5"
+                                                                                            cols="75"
+                                                                                            maxlength="100"></textarea>
+                </td>
             </tr>
             <tr>
                 <th>认领人</th>
@@ -282,7 +300,8 @@
                 <td colspan="5" style="padding-left: 8px;box-sizing: border-box;">
                     <form class="layui-form" action="">
                         <div class="layui-input-inline" style="width: 615px;">
-                            <select name="modules" lay-verify="required" lay-filter="plannedWork" lay-search="" id="plannedWork">
+                            <select name="modules" lay-verify="required" lay-filter="plannedWork" lay-search=""
+                                    id="plannedWork">
                                 <option value="0.5">30分钟</option>
                                 <option value="1">1小时</option>
                                 <option value="1.5">1.5小时</option>
@@ -316,10 +335,12 @@
                 <td colspan="5" style="padding-left: 8px;box-sizing: border-box;">
                     <div class="layui-inline">
                         <div class="layui-input-inline" style="width: 275px;">
-                            <input type="text" class="layui-input" name="entryDate" id="test3" readonly="" placeholder="年月日">
+                            <input type="text" class="layui-input" name="entryDate" id="test3" readonly=""
+                                   placeholder="年月日">
                         </div>
                         <div class="layui-input-inline" style="width: 275px;">
-                            <input type="text" class="layui-input" name="entryDate" id="test4" readonly="" placeholder="小时">
+                            <input type="text" class="layui-input" name="entryDate" id="test4" readonly=""
+                                   placeholder="小时">
                         </div>
                     </div>
                 </td>
@@ -331,7 +352,8 @@
                         <input type="hidden" id="claimInfoBelayHidden1">
                         <div class="layui-inline" style="padding-left: 8px;box-sizing: border-box;">
                             <div class="layui-input-inline" style="width:553px;">
-                                <select name="modules" lay-verify="required" lay-filter="claimInfoBelay1" lay-search="" id="claimInfoBelay1">
+                                <select name="modules" lay-verify="required" lay-filter="claimInfoBelay1" lay-search=""
+                                        id="claimInfoBelay1">
                                     <option value="0">请选择</option>
                                     <option value="1">等待备件</option>
                                     <option value="2">无法安措</option>
@@ -347,8 +369,11 @@
             <thead>
             <tr>
                 <td colspan="10" align="center">
-                    <button type="button" class="layui-btn layui-btn-normal"  onclick="claimOk()" id="claimOkBtn">确定</button>
-                    <button type="button" class="layui-btn layui-btn-warm"  onclick="claimBelay1()" id="claimBelayBtn1">延期</button>
+                    <button type="button" class="layui-btn layui-btn-normal" onclick="claimOk()" id="claimOkBtn">确定
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-warm" onclick="claimBelay1()" id="claimBelayBtn1">
+                        延期
+                    </button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
             </tr>
@@ -371,10 +396,10 @@
             </thead>
             <tbody>
             <tr>
-                <th >重大级别</th>
-                <td ><span id='implementLevel'></span></td>
-                <th >检修类别</th>
-                <td ><span id='implementDepartment'></span></td>
+                <th>重大级别</th>
+                <td><span id='implementLevel'></span></td>
+                <th>检修类别</th>
+                <td><span id='implementDepartment'></span></td>
             </tr>
             <tr>
                 <th>缺陷位置</th>
@@ -398,10 +423,12 @@
                 <td colspan="3" style="padding-left: 8px;box-sizing: border-box;">
                     <div class="layui-inline">
                         <div class="layui-input-inline" style="width: 275px;">
-                            <input type="text" class="layui-input" name="entryDate" id="test5" readonly="" placeholder="年月日">
+                            <input type="text" class="layui-input" name="entryDate" id="test5" readonly=""
+                                   placeholder="年月日">
                         </div>
                         <div class="layui-input-inline" style="width: 275px;">
-                            <input type="text" class="layui-input" name="entryDate" id="test6" readonly="" placeholder="小时">
+                            <input type="text" class="layui-input" name="entryDate" id="test6" readonly=""
+                                   placeholder="小时">
                         </div>
                     </div>
                 </td>
@@ -413,7 +440,8 @@
                         <input type="hidden" id="claimInfoBelayHidden2">
                         <div class="layui-inline" style="padding-left: 8px;box-sizing: border-box;">
                             <div class="layui-input-inline" style="width: 275px;">
-                                <select name="modules" lay-verify="required" lay-filter="claimInfoBelay2" lay-search="" id="claimInfoBelay2">
+                                <select name="modules" lay-verify="required" lay-filter="claimInfoBelay2" lay-search=""
+                                        id="claimInfoBelay2">
                                     <option value="0">请选择</option>
                                     <option value="1">等待备件</option>
                                     <option value="2">无法安措</option>
@@ -427,8 +455,12 @@
             </tr>
             <tr>
                 <td colspan="4" style="text-align: center;">
-                    <button type="button" class="layui-btn layui-btn-normal"  onclick="startFeedback()" id="startFeedbackBtn">开始执行</button>
-                    <button type="button" class="layui-btn layui-btn-warm"  onclick="claimBelay2()" id="claimBelayBtn2">延期</button>
+                    <button type="button" class="layui-btn layui-btn-normal" onclick="startFeedback()"
+                            id="startFeedbackBtn">开始执行
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-warm" onclick="claimBelay2()" id="claimBelayBtn2">
+                        延期
+                    </button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
             </tr>
@@ -445,12 +477,14 @@
         <input type="hidden" id="feedbackPlannedWork">
         <table>
             <thead>
-            <tr><td colspan="5" style="text-align: center;font-weight: bold;font-size: 18px;">处理反馈单
-                <input id='feedbackId' type="hidden"/>
-                <input id='feedbackType' type="hidden"/>
-                <input id='feedbackCompleterId' type="hidden"/>
-                <input id='feedbackRealSTime' type="hidden"/>
-            </td></tr>
+            <tr>
+                <td colspan="5" style="text-align: center;font-weight: bold;font-size: 18px;">处理反馈单
+                    <input id='feedbackId' type="hidden"/>
+                    <input id='feedbackType' type="hidden"/>
+                    <input id='feedbackCompleterId' type="hidden"/>
+                    <input id='feedbackRealSTime' type="hidden"/>
+                </td>
+            </tr>
             </thead>
             <tbody>
             <tr>
@@ -462,10 +496,12 @@
             <tr>
                 <th>缺陷图片</th>
                 <td colspan="4" style="padding: 8px;box-sizing: border-box;">
-                    <img src="../img/week/defectAdd.png" style="float: left;margin-top: 10px;"  id="addImg2">
-                    <input type="file" id='file2' name='file' style="display: none;" accept="image/gif,image/jpeg,image/jpg,image/png" onchange="fileChange(event,'file2','two')">
+                    <img src="../img/week/defectAdd.png" style="float: left;margin-top: 10px;" id="addImg2">
+                    <input type="file" id='file2' name='file' style="display: none;"
+                           accept="image/gif,image/jpeg,image/jpg,image/png" onchange="fileChange(event,'file2','two')">
                     <img src="" id="img-change2" class="img-change">
-                    <img src="../img/week/defectReduce.png" style="float: left;margin-top: 10px;margin-left: 10px;" id="reduceImgFeed" onclick="reduceImg('reduceImgFeed')">
+                    <img src="../img/week/defectReduce.png" style="float: left;margin-top: 10px;margin-left: 10px;"
+                         id="reduceImgFeed" onclick="reduceImg('reduceImgFeed')">
                 </td>
             </tr>
             <tr>
@@ -495,7 +531,67 @@
             <tr>
                 <td colspan="5" style="text-align: center;">
                     <!--<button type="button" class="layui-btn layui-btn-warm"  onclick="startFeedback()" id="startFeedbackBtn">开始执行</button>-->
-                    <button type="button" class="layui-btn layui-btn-normal"  onclick="insertFeedback()" id="insertFeedbackBtn">确定</button>
+                    <button type="button" class="layui-btn layui-btn-normal" onclick="insertFeedback()"
+                            id="insertFeedbackBtn">确定
+                    </button>
+                    <button type="button" class="layui-btn" onclick="cancel()">取消</button>
+                </td>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <%--工时确认--%>
+    <div class="workHoursDiv">
+        <table>
+            <thead>
+            <tr>
+                <td colspan="5" style="text-align: center;font-weight: bold;font-size: 18px;">工时确认<input id="workHoursId" type="hidden" /> </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>缺陷位置</th>
+                <td colspan="5">
+                    <span id='workHoursSys'></span>
+                    <span id='workHoursEquipment'></span>
+                </td>
+            </tr>
+            <tr>
+                <th>缺陷描述</th>
+                <td colspan="5">
+                    <textarea id='workHoursAbs' rows="5" cols="50" maxlength="100"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th>开始时间</th>
+                <td colspan="2">
+                    <span id='workHoursRealSTime' style="width: 150px;display: inline-block;"></span>
+                </td>
+                <th>结束时间</th>
+                <td colspan="2">
+                    <span id='workHoursRealETime' style="width: 150px;display: inline-block;"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>预计工时</th>
+                <td>
+                    <span id='workHoursPlannedWork'></span>
+                </td>
+                <th>实际工时</th>
+                <td>
+                    <span id='workHoursRealExecuteTime'></span>
+                </td>
+                <th>加班工时</th>
+                <td>
+                    <span id='workHoursOvertime'></span>
+                </td>
+            </tr>
+            </tbody>
+            <thead>
+            <tr>
+                <td colspan="6" style="text-align: center;">
+                    <button type="button" class="layui-btn layui-btn-normal" onclick="workHoursOk()">确认</button>
+                    <button type="button" class="layui-btn layui-btn-danger" onclick="workHoursNo()">驳回</button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
             </tr>
