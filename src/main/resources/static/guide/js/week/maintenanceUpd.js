@@ -5,6 +5,7 @@ $(function(){
 	people = $("#people").val();
 	peopleName = $("#peopleName").val();
 	var peopleNameTd = document.getElementById("peopleNameTd");
+	console.log(peopleName)
 	var text = "";
 	var peopleNames = peopleName.split(",");
 	for(var i=0;i<peopleNames.length;i++){
@@ -40,6 +41,7 @@ function addPeople(){
 }
 function delPeople(index){
 	var userName = sessionStorage.Username;
+	console.log(userName)
 	var Name = sessionStorage.Name;
 	var peoples = people.split(",");
 	if(userName.toUpperCase()==peoples[index].toUpperCase()){

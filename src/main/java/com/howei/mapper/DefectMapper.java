@@ -1,6 +1,7 @@
 package com.howei.mapper;
 
 import com.howei.pojo.Defect;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,5 +23,5 @@ public interface DefectMapper {
 
     List<Defect> getDefectHistiryByEqu(Map map);
 
-    void deleteById(Integer id);
+    void deleteById(@Param("id") Integer id);
 }

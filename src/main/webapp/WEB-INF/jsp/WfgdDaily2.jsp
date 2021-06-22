@@ -66,6 +66,19 @@
 				</tr>
 			</tbody>
 			<thead>
+			<tr><td colspan="10">班组运行情况A</td></tr>
+			<tr>
+				<td>序号</td>
+				<td colspan="2">编号</td>
+				<td colspan="3">详情</td>
+				<td colspan="2">创建人</td>
+				<td colspan="2">创建时间</td>
+			</tr>
+			</thead>
+			<tbody id='tbody0'>
+
+			</tbody>
+			<thead>
 				<tr><td colspan="10">班组运行情况</td></tr>
 				<tr>
 					<td>序号</td>

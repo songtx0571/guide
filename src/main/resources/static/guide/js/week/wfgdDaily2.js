@@ -7,8 +7,8 @@ $(function () {
     var min = tmpDate.getMinutes();
     var s = tmpDate.getSeconds();
 
-    document.getElementById("datetime").value = Y + "-" + M + "-" + D + " " + h + ":" + min + ":" + s;
-
+    // document.getElementById("datetime").value = Y + "-" + M + "-" + D + " " + h + ":" + min + ":" + s;
+    document.getElementById("datetime").value = Y + "-" + M + "-" + D ;
     var type = sessionStorage.wfgdDailyType;
     var datetime = sessionStorage.wfgdDailydatetime;
 
@@ -104,6 +104,7 @@ function change() {
                 layer.alert("请重新登录");
             } else {
                 fill(Json.data);
+                fillA(project,datetime);
             }
         },
         "error": function () {
@@ -575,6 +576,47 @@ function fill(data){
 		var td4 = "<td colspan='9'></td><td><img src='../img/week/add.png' onclick='add(4)'/></td>";
 		tr4.innerHTML = td4;
 		tbody4.appendChild(tr4);
+}
+
+//填充班组运行情况A
+function fillA(project,datetime){
+    project = Number(project);
+    $.ajax({
+        type: 'get',
+        url: "http://192.168.1.30:8082/guide/ScrDailyController/getTeamOperationLog",
+        data: {date: datetime, departmentId: project},
+        success: function (Json) {
+            var data = Json.data;
+            var tbody0 = document.getElementById("tbody0");
+            var tr  = "";
+            if (data == null || data.length == 0){
+                tr = "<tr><td colspan='10'>无</td></tr>"
+            } else {
+                for (var i = 0; i < data.length; i ++) {
+                    tr += "<tr><td>"+(i+1)+"</td><td colspan='2' style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='3'>"+data[i].abs+"</td><td colspan='2'>"+data[i].creatName+"</td><td colspan='2'>"+data[i].createTime+"</td></tr>";
+                }
+            }
+            tbody0.innerHTML = tr;
+        }
+    });
+}
+
+function showDetailedInfoDiv (id) {
+    $.ajax({
+        type: 'GET',
+        url: "/guide/defect/getDefectById",
+        data: {id:id},
+        success: function (data) {
+            layer.open({
+                type: 2,
+                title: ["缺陷详情页面", 'font-size:20px;font-weight:bold;text-align:center;'],
+                area: ['100%', '100%'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '../defect/toDefectDetailed?id=' + data.id
+            });
+        }
+    })
 }
 
 function add1(content1){

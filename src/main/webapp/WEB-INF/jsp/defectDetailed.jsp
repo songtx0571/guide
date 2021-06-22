@@ -7,7 +7,7 @@
     <script src="../js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
     <style>
         .detailedInfoDiv table{
-            width: 830px;
+            width: 850px;
             margin: 0 auto;
         }
          .detailedInfoDiv table tr{
@@ -166,6 +166,8 @@
                 $("#detailedInfoStatus").text("已认领");
             } else if (data.type == 6) {
                 $("#detailedInfoStatus").text("延期中");
+            } else if (data.type == 7) {
+                $("#detailedInfoStatus").text("待确认");
             }
             $("#detailedInfoCreatedById").val(data.createdBy);//创建ID
             $("#detailedInfoCreateName").text(data.createdByName);//创建人

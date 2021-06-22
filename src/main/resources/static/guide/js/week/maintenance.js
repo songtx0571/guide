@@ -11,8 +11,23 @@ $(function(){
 	if(datetime){
 		document.getElementById('datetime').value = datetime;
 	}
-	getProject()
+	getProject();
+	getUserName();
 });
+
+
+function getUserName() {
+	$.ajax({
+		"url": "../WeeklyController/getParamList",
+		"success":function(Json){
+			var userName=Json.data.userName;
+			var Name = Json.data.Name;
+			sessionStorage.Username=userName;
+			sessionStorage.Name=Name;
+			console.log(sessionStorage)
+		}
+	});
+}
 
 function getProject(){
 	var userName = sessionStorage.Username;
