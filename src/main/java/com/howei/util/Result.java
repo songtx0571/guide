@@ -1,6 +1,6 @@
 package com.howei.util;
 
-import java.util.List;
+import java.util.*;
 
 public class Result {
 
@@ -56,14 +56,17 @@ public class Result {
         result.setCount(count);
         result.setData(data);
         result.setMsg("成功");
+        result.setCode(0);
         return result;
     }
+
     public static Result ok() {
-        return ok(0,null);
+        return ok(0, null);
     }
 
     public static Result fail(String msg) {
         Result result = new Result();
+        result.setCode(-1);
         result.setMsg(msg);
         return result;
     }

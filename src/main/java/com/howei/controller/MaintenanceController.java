@@ -2,6 +2,7 @@ package com.howei.controller;
 
 
 import com.howei.pojo.*;
+import com.howei.service.MaintainService;
 import com.howei.service.UserService;
 import com.howei.util.DateFormat;
 import com.howei.util.Type;
@@ -24,9 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * 
  * @author cj
- *
  */
 @RestController
 @RequestMapping("/guide/MaintenanceController")
@@ -37,18 +36,20 @@ public class MaintenanceController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    MaintainService maintainService;
 
     /**
      * 获取shiro存储的Users
      */
-    public Users getPrincipal(){
-        Subject subject=SecurityUtils.getSubject();
-        Users users=(Users)subject.getPrincipal();
+    public Users getPrincipal() {
+        Subject subject = SecurityUtils.getSubject();
+        Users users = (Users) subject.getPrincipal();
         return users;
     }
 
     @RequestMapping("Maintenance")
-    public ModelAndView Maintenance(){
+    public ModelAndView Maintenance(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
         ModelAndView view = new ModelAndView();
         view.setViewName("Maintenance");
         return view;
@@ -56,14 +57,15 @@ public class MaintenanceController {
 
     @RequestMapping("addLeader")
     public JsonResult addSuccessor(int id, Integer projectId, String datetime, String userName) {
-        Users users=this.getPrincipal();
-        if(projectId==0){
-            if(users==null){
+
+        Users users = this.getPrincipal();
+        if (projectId == 0) {
+            if (users == null) {
                 return new JsonResult(Type.noUser);
             }
-            projectId=users.getDepartmentId();
+            projectId = users.getDepartmentId();
         }
-        userName=users.getUserNumber();
+        userName = users.getUserNumber();
         Maintenance maintenance = new Maintenance();
         maintenance.setProjectId(projectId);
         maintenance.setId(id);
@@ -81,13 +83,13 @@ public class MaintenanceController {
 
 
     @RequestMapping("find")
-    public JsonResult find(String datetime, int project){
-        Users users=this.getPrincipal();
-        if(project==0){
-            if(users==null){
+    public JsonResult find(String datetime, int project) {
+        Users users = this.getPrincipal();
+        if (project == 0) {
+            if (users == null) {
                 return new JsonResult(Type.noUser);
             }
-            project=users.getDepartmentId();
+            project = users.getDepartmentId();
         }
         Maintenance maintenance = maintenanceService.getMaintenanceByProject(datetime, project);
         return new JsonResult(maintenance);
@@ -95,34 +97,39 @@ public class MaintenanceController {
     }
 
     @RequestMapping("findRecord")
-    public JsonResult findRecord(String datetime, int project){
-        Users users=this.getPrincipal();
-        if(project==0){
-            if(users==null){
+    public JsonResult findRecord(String datetime, int project) {
+        Users users = this.getPrincipal();
+        if (project == 0) {
+            if (users == null) {
                 return new JsonResult(Type.noUser);
             }
-            project=users.getDepartmentId();
+            project = users.getDepartmentId();
         }
         MaintenanceRecord[] maintenanceRecords = maintenanceService.getMaintenanceRecords(datetime, project);
         return new JsonResult(maintenanceRecords);
     }
 
     @RequestMapping("getMaintenances")
-    public JsonResult getMaintenances(int project){
-        Users users=this.getPrincipal();
-        if(project==0){
-            if(users==null){
+    public JsonResult getMaintenances(int project) {
+        Users users = this.getPrincipal();
+        if (project == 0) {
+            if (users == null) {
                 return new JsonResult(Type.noUser);
             }
-            project=users.getDepartmentId();
+            project = users.getDepartmentId();
         }
         Maintenance[] maintenances = maintenanceService.getMaintenances(project);
+        Map<String, Object> map = new HashMap<>();
+        map.put("departmentId", project);
+        map.put("status", 2);
+        List<MaintainRecord> maintainRecordList = maintainService.getMaintainRecordByMap(map);
+
         return new JsonResult(maintenances);
 
     }
 
     @RequestMapping("addMaintenanceRecord")
-    public ModelAndView addMaintenanceRecord(int type, int maintenanceId){
+    public ModelAndView addMaintenanceRecord(int type, int maintenanceId) {
         ModelAndView view = new ModelAndView();
         view.addObject("maintenanceId", maintenanceId);
         view.addObject("type", type);
@@ -135,7 +142,7 @@ public class MaintenanceController {
     }
 
     @RequestMapping("updMaintenanceRecord")
-    public ModelAndView updMaintenanceRecord(int id){
+    public ModelAndView updMaintenanceRecord(int id) {
         ModelAndView view = new ModelAndView();
         MaintenanceRecord maintenanceRecord = maintenanceService.getMaintenanceRecord(id);
         System.out.println(maintenanceRecord.toString());
@@ -152,7 +159,7 @@ public class MaintenanceController {
 
 
     @RequestMapping("updMaintenanceRecord1")
-    public ModelAndView updMaintenanceRecord1(int id){
+    public ModelAndView updMaintenanceRecord1(int id) {
         ModelAndView view = new ModelAndView();
         MaintenanceRecord maintenanceRecord = maintenanceService.getMaintenanceRecord(id);
         view.addObject("maintenanceRecord", maintenanceRecord);
@@ -161,20 +168,20 @@ public class MaintenanceController {
     }
 
     @RequestMapping("delMaintenanceRecord")
-    public JsonResult delMaintenanceRecord(int id){
+    public JsonResult delMaintenanceRecord(int id) {
         int num = maintenanceService.delMaintenanceRecord(id);
         return new JsonResult(num);
     }
 
     @RequestMapping("delMaintenance")
-    public JsonResult delMaintenance(int id){
+    public JsonResult delMaintenance(int id) {
         int num = maintenanceService.delMaintenance(id);
         return new JsonResult(num);
     }
 
 
     @RequestMapping("changeMaintenance")
-    public ModelAndView changeMaintenance(String datetime, int project){
+    public ModelAndView changeMaintenance(String datetime, int project) {
         ModelAndView view = new ModelAndView();
         Maintenance maintenance = maintenanceService.getMaintenanceByProject(datetime, project);
         view.addObject("Maintenance", maintenance);
@@ -183,33 +190,33 @@ public class MaintenanceController {
     }
 
     @RequestMapping("maintenanceChange")
-    public JsonResult maintenanceChange(Maintenance maintenance){
+    public JsonResult maintenanceChange(Maintenance maintenance) {
         int num = maintenanceService.change(maintenance);
         return new JsonResult(num);
     }
 
 
     @RequestMapping("insertMaintenanceRecord")
-    public JsonResult insertMaintenanceRecord(MaintenanceRecord MaintenanceRecord){
+    public JsonResult insertMaintenanceRecord(MaintenanceRecord MaintenanceRecord) {
         int num = maintenanceService.insertMaintenanceRecord(MaintenanceRecord);
         return new JsonResult(num);
     }
 
     @RequestMapping("updateMaintenanceRecord")
-    public JsonResult updateMaintenanceRecord(MaintenanceRecord MaintenanceRecord){
+    public JsonResult updateMaintenanceRecord(MaintenanceRecord MaintenanceRecord) {
         int num = maintenanceService.updateMaintenanceRecord(MaintenanceRecord);
         return new JsonResult(num);
     }
 
     @RequestMapping("updateMaintenanceRecord1")
-    public JsonResult updateMaintenanceRecord1(MaintenanceRecord MaintenanceRecord){
+    public JsonResult updateMaintenanceRecord1(MaintenanceRecord MaintenanceRecord) {
         int num = maintenanceService.updateMaintenanceRecord1(MaintenanceRecord);
         return new JsonResult(num);
     }
 
 
     @RequestMapping("Maintenances")
-    public ModelAndView Maintenances(){
+    public ModelAndView Maintenances() {
         ModelAndView view = new ModelAndView();
         view.setViewName("Maintenances");
         return view;
@@ -217,7 +224,7 @@ public class MaintenanceController {
 
 
     @RequestMapping("MaintenanceRecord")
-    public ModelAndView MaintenanceRecord(int id){
+    public ModelAndView MaintenanceRecord(int id) {
         ModelAndView view = new ModelAndView();
         view.addObject("id", id);
         view.setViewName("MaintenanceRecord");
@@ -225,13 +232,13 @@ public class MaintenanceController {
     }
 
     @RequestMapping("find1")
-    public JsonResult find1(int id){
+    public JsonResult find1(int id) {
         Maintenance maintenance = maintenanceService.getMaintenanceById(id);
         return new JsonResult(maintenance);
     }
 
     @RequestMapping("findRecord1")
-    public JsonResult findRecord1(int maintenanceId){
+    public JsonResult findRecord1(int maintenanceId) {
         MaintenanceRecord[] maintenanceRecords = maintenanceService.getMaintenanceRecordsByMaintenanceId(maintenanceId);
         return new JsonResult(maintenanceRecords);
     }
@@ -269,59 +276,61 @@ public class MaintenanceController {
         return new JsonResult(Maintenance);
     }
 
-    /**--------------------------------------获取缺陷系统的数据-----------------------------------------*/
+    /**
+     * --------------------------------------获取缺陷系统的数据-----------------------------------------
+     */
 
     @RequestMapping("getDefectList")
-    public JsonResult getDefectList(Integer departmentId,String date){
-        if(departmentId!=null && !date.equals("")){
-            List<Map<String,Object>> mapList=new ArrayList<>();
-            Map map=new HashMap();
+    public JsonResult getDefectList(Integer departmentId, String date) {
+        if (departmentId != null && !date.equals("")) {
+            List<Map<String, Object>> mapList = new ArrayList<>();
+            Map map = new HashMap();
 
-            map.put("departmentId",departmentId);
-            map.put("date",date);
-            List<Defect> defectLis=maintenanceService.getDefectList(map);
-            List<MaintainRecord> maintainRecordList=maintenanceService.getMaintainRecordList(map);
-            if(defectLis!=null&&defectLis.size()>0){
-                for (Defect defect:defectLis){
-                    map=new HashMap();
-                    map.put("number",defect.getNumber());
-                    map.put("abs",defect.getAbs());
-                    String[] arr=defect.getEmpIds().split(",");
-                    String empIdsName="";
-                    for (String str:arr){
-                        Users users=userService.findByEmpId(str);
-                        if(users!=null){
-                            empIdsName+=users.getUserName()+"、";
+            map.put("departmentId", departmentId);
+            map.put("date", date);
+            List<Defect> defectLis = maintenanceService.getDefectList(map);
+            List<MaintainRecord> maintainRecordList = maintenanceService.getMaintainRecordList(map);
+            if (defectLis != null && defectLis.size() > 0) {
+                for (Defect defect : defectLis) {
+                    map = new HashMap();
+                    map.put("number", defect.getNumber());
+                    map.put("abs", defect.getAbs());
+                    String[] arr = defect.getEmpIds().split(",");
+                    String empIdsName = "";
+                    for (String str : arr) {
+                        Users users = userService.findByEmpId(str);
+                        if (users != null) {
+                            empIdsName += users.getUserName() + "、";
                         }
                     }
-                    empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
-                    map.put("id",defect.getId());
-                    map.put("empIdsName",empIdsName);
-                    map.put("realExecuteTime",defect.getRealExecuteTime());
-                    map.put("confirmer1Time",defect.getConfirmer1Time());
-                    map.put("type",0);
+                    empIdsName = empIdsName != null ? empIdsName.substring(0, empIdsName.length() - 1) : null;
+                    map.put("id", defect.getId());
+                    map.put("empIdsName", empIdsName);
+                    map.put("realExecuteTime", defect.getRealExecuteTime());
+                    map.put("confirmer1Time", defect.getConfirmer1Time());
+                    map.put("type", 0);
                     mapList.add(map);
                 }
             }
 
-            if (maintainRecordList!=null&&maintainRecordList.size()>0){
+            if (maintainRecordList != null && maintainRecordList.size() > 0) {
                 for (MaintainRecord maintainRecord : maintainRecordList) {
-                    map=new HashMap();
-                    map.put("number",maintainRecord.getMaintainRecordNo());
-                    map.put("abs",maintainRecord.getSystemName()+maintainRecord.getEquipmentName()+maintainRecord.getUnitName());
-                    String[] arr=maintainRecord.getEmployeeId().split(",");
-                    String empIdsName="";
-                    for (String str:arr){
-                        Users users=userService.findByEmpId(str);
-                        if(users!=null){
-                            empIdsName+=users.getUserName()+"、";
+                    map = new HashMap();
+                    map.put("number", maintainRecord.getMaintainRecordNo());
+                    map.put("abs", maintainRecord.getSystemName() + maintainRecord.getEquipmentName() + maintainRecord.getUnitName());
+                    String[] arr = maintainRecord.getEmployeeId().split(",");
+                    String empIdsName = "";
+                    for (String str : arr) {
+                        Users users = userService.findByEmpId(str);
+                        if (users != null) {
+                            empIdsName += users.getUserName() + "、";
                         }
                     }
-                    empIdsName=empIdsName!=null ? empIdsName.substring(0,empIdsName.length()-1):null;
-                    map.put("empIdsName",empIdsName);
-                    map.put("realExecuteTime",maintainRecord.getWorkingHour());
-                    map.put("confirmer1Time",maintainRecord.getEndTime());
-                    map.put("type",1);
+                    empIdsName = empIdsName != null ? empIdsName.substring(0, empIdsName.length() - 1) : null;
+                    map.put("empIdsName", empIdsName);
+                    map.put("realExecuteTime", maintainRecord.getWorkingHour());
+                    map.put("confirmer1Time", maintainRecord.getEndTime());
+                    map.put("type", 1);
                     mapList.add(map);
                 }
             }

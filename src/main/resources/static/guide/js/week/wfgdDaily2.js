@@ -122,11 +122,15 @@ function change() {
             sessionStorage.wfgdDailyRecorder = data.recorder;
             //document.getElementById("name").innerHTML = data.name;
 
+            console.log(data)
             var aa = "";
             if (data.successor != "" && data.successor != null) {
-                var successors = data.successorName.split(",");
-                for (var i = 0; i < successors.length; i++) {
-                    aa += successors[i] + "<img src='../img/reduce.png' onclick='delSuccessor(" + i + ")'>";
+                var successorsName = data.successorName.split(",");
+                var successors = data.successor.split(";");
+                for (var i = 0; i < successorsName.length; i++) {
+                    aa += successorsName[i];
+                    successorsName[i] = "'" + successors[i] + "'";
+                    aa +=  '<img src="../img/reduce.png" onclick="delSuccessor(' + successorsName[i] + ')">';
                 }
 
             }
@@ -136,8 +140,11 @@ function change() {
             var bb = "";
             if (data.traders != "" && data.traders != null) {
                 var tradersName = data.tradersName.split(",");
+                var traderss = data.traders.split(";");
                 for (var i = 0; i < tradersName.length; i++) {
-                    bb += tradersName[i] + "<img src='../img/reduce.png'  onclick='delTrader(" + i + ")'>";
+                    bb += tradersName[i];
+                    tradersName[i] = "'" + traderss[i] + "'";
+                    bb +=  '<img src="../img/reduce.png" onclick="delTrader(' + tradersName[i] + ')">';
                 }
             }
             bb += "<img src='../img/and.png' onclick='addTrader()'>";
@@ -181,7 +188,7 @@ function addSuccessor(){
 	var wfgdDailyId = sessionStorage.wfgdDailyId;
 	var type = sessionStorage.wfgdDailyType;
 	var datetime = sessionStorage.wfgdDailydatetime;
-	var successorTime = sessionStorage.successorTime;
+	// var successorTime = sessionStorage.successorTime;
 
     var projectId = $("#project").val();
     if (!compareTime()) {
@@ -223,12 +230,14 @@ function addSuccessor(){
                         name: Recorder
                     },
                     "success": function (Json) {
-                        if (Json.data == 1) {
-                            WfgdDaily
+                        // if (Json.data == "success") {
+                        if (Json.data == "1") {
                             layer.alert('添加成功', {icon: 1});
                             setTimeout(function () {
                                 window.location.href = "../ScrDailyController/WfgdDaily";
                             }, 500);
+                        } else if (Json.data == "haveRecords") {
+                            layer.alert('存在尚未完成的日志登记', {icon: 1});
                         }
                     }
                 });
@@ -243,14 +252,18 @@ function addSuccessor(){
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/addSuccessor",
-        "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder,successorTime:successorTime},
+        // "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder,successorTime:successorTime},
+        "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder},
         "success":function(Json){
-            if(Json.data==1){
+            // if(Json.data=="success"){
+            if(Json.data=="1"){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
             } else if(Json.data=="noUser"){
 				layer.alert("登录失效！");
-			}
+			} else if (Json.data == "haveRecords") {
+                layer.alert('存在尚未完成的日志登记', {icon: 1});
+            }
         }
     });
 	
@@ -264,14 +277,16 @@ function delSuccessor(index){
 	var wfgdDailyId = sessionStorage.wfgdDailyId;
 	var Successor = sessionStorage.wfgdDailySuccessor;
 	var Successors = Successor.split(";");
-	var successorTime = sessionStorage.successorTime;
-	var successorTimes = successorTime.split(";");
+	// var successorTime = sessionStorage.successorTime;
+	// var successorTimes = successorTime.split(";");
 	var name = "";
 	var num = 0;
-	var timeName = "";
-	var timeNum = 0;
+	/*var timeName = "";
+	var timeNum = 0;*/
+
+
 	for(var i=0;i<Successors.length;i++){
-		if(i!=index){
+		if(Successors[i]!=index){
 			if(num!=0){
 				name += ";";
 			}
@@ -280,7 +295,7 @@ function delSuccessor(index){
 		}
 	}
 
-	for (var j = 0; j < successorTimes.length; j ++) {
+	/*for (var j = 0; j < successorTimes.length; j ++) {
 		if(j != index){
 			if(timeNum!=0){
 				timeName += ";";
@@ -288,18 +303,18 @@ function delSuccessor(index){
 			timeName +=  successorTimes[j];
 			timeNum ++;
 		}
-	}
+	}*/
 
 	var Recorder=sessionStorage.wfgdDailyRecorder;
 	if(Recorder != ""&&Recorder != null){
 		var Recorders = Recorder.split(";");
 		for(var i=0;i<Recorders.length;i++){
-			// successorTime
 			if(userName==Recorders[i]){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/delSuccessor",
-                    "data":{userName:name,id:wfgdDailyId,name:Recorder,successorTime:timeName},
+                    // "data":{userName:name,id:wfgdDailyId,name:Recorder,successorTime:timeName},
+                    "data":{userName:name,id:wfgdDailyId,name:Recorder},
                     "success":function(Json){
                         if(Json.data==1){
                             layer.alert('删除成功',{icon:1});
@@ -316,7 +331,8 @@ function delSuccessor(index){
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/delSuccessor",
-        "data":{userName:name,id:wfgdDailyId,name:Recorder,successorTime:timeName},
+        // "data":{userName:name,id:wfgdDailyId,name:Recorder,successorTime:timeName},
+        "data":{userName:name,id:wfgdDailyId,name:Recorder},
         "success":function(Json){
             if(Json.data==1){
                 layer.alert('删除成功',{icon:1});
@@ -361,7 +377,8 @@ function addTrader(){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/addTrader",
-                    "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
+                    // "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
+                    "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder},
                     "success":function(Json){
                         if(Json.data==1){
                             layer.alert('添加成功',{icon:1});
@@ -380,7 +397,8 @@ function addTrader(){
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/addTrader",
-        "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
+        // "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
+        "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder},
         "success":function(Json){
             if(Json.data==1){
                 layer.alert('添加成功',{icon:1});
@@ -397,15 +415,15 @@ function delTrader(index){
 	var userName = sessionStorage.Username;
 	var wfgdDailyId = sessionStorage.wfgdDailyId;
 	var Trader = sessionStorage.wfgdDailyTraders;
-	var tradersTime = sessionStorage.tradersTime;
-	var tradersTimes = tradersTime.split(";");
+	/*var tradersTime = sessionStorage.tradersTime;
+	var tradersTimes = tradersTime.split(";");*/
 	var Traders = Trader.split(";");
 	var name = "";
 	var num = 0;
-	var timeName = "";
-	var timeNum = "";
+	/*var timeName = "";
+	var timeNum = "";*/
 	for(var i=0;i<Traders.length;i++){
-		if(i!=index){
+		if(Traders[i]!=index){
 			if(num!=0){
 				name += ";";
 			}
@@ -414,7 +432,7 @@ function delTrader(index){
 		}
 	}
 
-	for (var j = 0; j < tradersTimes.length; j ++) {
+	/*for (var j = 0; j < tradersTimes.length; j ++) {
 		if(j != index){
 			if(timeNum!=0){
 				timeName += ";";
@@ -422,21 +440,22 @@ function delTrader(index){
 			timeName +=  tradersTimes[j];
 			timeNum ++;
 		}
-	}
+	}*/
 
 	var Recorder=sessionStorage.wfgdDailyRecorder;
 	if(Recorder != ""&&Recorder != null){
 		var Recorders = Recorder.split(";");
 		for(var i=0;i<Recorders.length;i++){
 			if(userName==Recorders[i]){
-				if(userName.toUpperCase()==Traders[index].toUpperCase()){
+				if(userName.toUpperCase()==index.toUpperCase()){
 					$.ajax({
 						"type" : 'post',
 						"url": "../ScrDailyController/delTrader",
-						"data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
+						// "data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
+                        "data":{userName:name,id:wfgdDailyId,name:Recorder},
 						"success":function(Json){
 							if(Json.data==1){
-								layer.alert('添加成功',{icon:1});
+								layer.alert('刪除成功',{icon:1});
 								setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
 							}
 						}
@@ -447,10 +466,11 @@ function delTrader(index){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/delTrader",
-                    "data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
+                    // "data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
+                    "data":{userName:name,id:wfgdDailyId,name:Recorder},
                     "success":function(Json){
                         if(Json.data==1){
-                            layer.alert('添加成功',{icon:1});
+                            layer.alert('刪除成功',{icon:1});
                             setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
                         }
                     }
@@ -463,14 +483,14 @@ function delTrader(index){
 		Recorder = userName;
 	}
 
-	if(userName.toUpperCase()==Traders[index].toUpperCase()){
+	if(userName.toUpperCase()==index.toUpperCase()){
 		$.ajax({ 
 			"type" : 'post', 
 			"url": "../ScrDailyController/delTrader",  
 			"data":{userName:name,id:wfgdDailyId,name:Recorder},
 			"success":function(Json){
 				if(Json.data==1){
-	    			layer.alert('添加成功',{icon:1});
+	    			layer.alert('删除成功',{icon:1});
 	    			setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
 	      	  	}
 			}	
@@ -484,7 +504,7 @@ function delTrader(index){
         "data":{userName:name,id:wfgdDailyId,name:Recorder},
         "success":function(Json){
             if(Json.data==1){
-                layer.alert('添加成功',{icon:1});
+                layer.alert('删除成功',{icon:1});
                 setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
             }
         }
@@ -581,7 +601,7 @@ function fill(data){
 //填充班组运行情况A
 function fillA(project,datetime){
     project = Number(project);
-    $.ajax({
+    /*$.ajax({
         type: 'get',
         url: "http://192.168.1.30:8082/guide/ScrDailyController/getTeamOperationLog",
         data: {date: datetime, departmentId: project},
@@ -598,7 +618,7 @@ function fillA(project,datetime){
             }
             tbody0.innerHTML = tr;
         }
-    });
+    });*/
 }
 
 function showDetailedInfoDiv (id) {

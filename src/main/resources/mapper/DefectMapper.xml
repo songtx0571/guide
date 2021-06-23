@@ -39,6 +39,9 @@
                 and (de.createdBy=#{employeeId} or de.claimant=#{employeeId} or de.confirmer1=#{employeeId} or
                 locate(#{employeeId},de.empIds))
             </if>
+            <if test="createTime!=null">
+                and DATE_FORMAT( de.created,'%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d')
+            </if>
         </where>
         order by de.created desc
         <if test="page!=null">

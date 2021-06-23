@@ -1,18 +1,19 @@
 package com.howei.controller;
 
-import com.howei.pojo.Defect;
-import com.howei.pojo.ScrDaily;
-import com.howei.pojo.ScrDailyRecord;
-import com.howei.pojo.Users;
+import com.howei.pojo.*;
+import com.howei.service.DefectService;
+import com.howei.service.MaintainService;
 import com.howei.service.ScrDailyService;
+import com.howei.service.UserService;
 import com.howei.util.DateFormat;
 import com.howei.util.JsonResult;
+import com.howei.util.Result;
 import com.howei.util.Type;
+import com.sun.deploy.net.MessageHeader;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,18 +26,25 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/guide/ScrDailyController")
+@CrossOrigin
 public class ScrDailyController {
 
 
     @Autowired
-    ScrDailyService ScrDailyService;
+    private ScrDailyService ScrDailyService;
+    @Autowired
+    private DefectService defectService;
+    @Autowired
+    private MaintainService maintainService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 获取shiro存储的Users
      */
-    public Users getPrincipal(){
-        Subject subject=SecurityUtils.getSubject();
-        Users users=(Users)subject.getPrincipal();
+    public Users getPrincipal() {
+        Subject subject = SecurityUtils.getSubject();
+        Users users = (Users) subject.getPrincipal();
         return users;
     }
 
@@ -93,6 +101,7 @@ public class ScrDailyController {
 
     /**
      * 添加接班人
+     *
      * @param id
      * @param type
      * @param projectId
@@ -103,15 +112,15 @@ public class ScrDailyController {
      * @return
      */
     @RequestMapping("addSuccessor")
-    public JsonResult addSuccessor(int id, int type, Integer projectId, String datetime, String userName, String name,String successorTime) {
+    public JsonResult addSuccessor(int id, int type, Integer projectId, String datetime, String userName, String name, String successorTime) {
         //用户信息过期
-        Users user=this.getPrincipal();
-        if(user==null){
+        Users user = this.getPrincipal();
+        if (user == null) {
             return new JsonResult(Type.noUser);
         }
 
-        if(projectId==0){
-            projectId=user.getDepartmentId();
+        if (projectId == 0) {
+            projectId = user.getDepartmentId();
         }
 
         ScrDaily scrDaily = new ScrDaily();
@@ -121,10 +130,10 @@ public class ScrDailyController {
         scrDaily.setDatetime(datetime);
         scrDaily.setSuccessor(userName);
         scrDaily.setRecorder(name);
-        if(successorTime!=null && !"".equals(successorTime.trim())){
-            successorTime=successorTime+";"+ DateFormat.getYMDHM();
-        }else{
-            successorTime=DateFormat.getYMDHM();
+        if (successorTime != null && !"".equals(successorTime.trim())) {
+            successorTime = successorTime + ";" + DateFormat.getYMDHM();
+        } else {
+            successorTime = DateFormat.getYMDHM();
         }
         scrDaily.setSuccessorTime(successorTime);//接班时间
         int num = ScrDailyService.addSuccessor(scrDaily);
@@ -133,6 +142,7 @@ public class ScrDailyController {
 
     /**
      * 添加接班人
+     *
      * @param id
      * @param datetime
      * @param name
@@ -151,19 +161,21 @@ public class ScrDailyController {
     /**
      * 删除接班人
      * 前台传入交班人时间与交班人
+     *
      * @param id
      * @param userName
      * @param name
      * @return
      */
     @RequestMapping("delSuccessor")
-    public JsonResult delSuccessor(int id, String userName, String name,String successorTime) {
-        int num = ScrDailyService.delSuccessor(id, userName, name,successorTime);
+    public JsonResult delSuccessor(int id, String userName, String name, String successorTime) {
+        int num = ScrDailyService.delSuccessor(id, userName, name, successorTime);
         return new JsonResult(num);
     }
 
     /**
      * 添加交班人
+     *
      * @param id
      * @param type
      * @param projectId
@@ -173,10 +185,10 @@ public class ScrDailyController {
      * @return
      */
     @RequestMapping("addTrader")
-    public JsonResult addTrader(int id, int type, Integer projectId, String datetime, String userName, String Name,String tradersTime) {
-        if(projectId==0){
-            Users users=this.getPrincipal();
-            projectId=users.getDepartmentId();
+    public JsonResult addTrader(int id, int type, Integer projectId, String datetime, String userName, String Name, String tradersTime) {
+        if (projectId == 0) {
+            Users users = this.getPrincipal();
+            projectId = users.getDepartmentId();
         }
 
         ScrDaily scrDaily = new ScrDaily();
@@ -186,10 +198,10 @@ public class ScrDailyController {
         scrDaily.setDatetime(datetime);
         scrDaily.setTraders(userName);
         scrDaily.setRecorder(Name);
-        if(tradersTime!=null && !"".equals(tradersTime.trim())){
-            tradersTime=tradersTime+";"+DateFormat.getYMDHM();
-        }else{
-            tradersTime=DateFormat.getYMDHM();
+        if (tradersTime != null && !"".equals(tradersTime.trim())) {
+            tradersTime = tradersTime + ";" + DateFormat.getYMDHM();
+        } else {
+            tradersTime = DateFormat.getYMDHM();
         }
         scrDaily.setTradersTime(tradersTime);//接班时间
         int num = ScrDailyService.addTrader(scrDaily);
@@ -199,23 +211,24 @@ public class ScrDailyController {
     /**
      * 删除交班人
      * 前台传入交班人时间与交班人
+     *
      * @param id
      * @param userName
      * @param name
      * @return
      */
     @RequestMapping("delTrader")
-    public JsonResult delTrader(int id, String userName, String name,String tradersTime) {
-        int num = ScrDailyService.delTrader(id, userName, name,tradersTime);
+    public JsonResult delTrader(int id, String userName, String name, String tradersTime) {
+        int num = ScrDailyService.delTrader(id, userName, name, tradersTime);
         return new JsonResult(num);
     }
 
 
     @RequestMapping("find")
     public JsonResult find(String datetime, int type, int project, int other) {
-        if(project==0){
-            Users users=this.getPrincipal();
-            project=users.getDepartmentId();
+        if (project == 0) {
+            Users users = this.getPrincipal();
+            project = users.getDepartmentId();
         }
         ScrDailyRecord[] ScrDailyRecord = ScrDailyService.getScrDailyRecords(datetime, type, project, other);
         return new JsonResult(ScrDailyRecord);
@@ -229,16 +242,16 @@ public class ScrDailyController {
 
     @RequestMapping("getscrDailys")
     public JsonResult getscrDailys(int project, int other) throws ParseException {
-        if(project==0){
-            Users users=this.getPrincipal();
-            project=users.getDepartmentId();
+        if (project == 0) {
+            Users users = this.getPrincipal();
+            project = users.getDepartmentId();
         }
         ScrDaily[] scrDailys = ScrDailyService.getScrDailys(project, other);
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < scrDailys.length; i++) {
-            String dateTime=scrDailys[i].getDatetime();
+            String dateTime = scrDailys[i].getDatetime();
             Date parse = sdf1.parse(dateTime);
-            String timeStr1=sdf1.format(parse);
+            String timeStr1 = sdf1.format(parse);
             scrDailys[i].setDatetime(timeStr1);
         }
         return new JsonResult(scrDailys);
@@ -246,9 +259,9 @@ public class ScrDailyController {
 
     @RequestMapping("findscrDaily")
     public JsonResult findscrDaily(String datetime, int type, Integer project, int other) {
-        if(project==0){
-            Users users=this.getPrincipal();
-            project=users.getDepartmentId();
+        if (project == 0) {
+            Users users = this.getPrincipal();
+            project = users.getDepartmentId();
         }
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
         return new JsonResult(scrDaily);
@@ -379,9 +392,9 @@ public class ScrDailyController {
 
     @RequestMapping("updScrDaily")
     public ModelAndView updScrDaily(String datetime, int type, int project, int other) {
-        if(project==0){
-            Users users=this.getPrincipal();
-            project=users.getDepartmentId();
+        if (project == 0) {
+            Users users = this.getPrincipal();
+            project = users.getDepartmentId();
         }
         ModelAndView view = new ModelAndView();
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
@@ -392,9 +405,9 @@ public class ScrDailyController {
 
     @RequestMapping("changeScrDaily")
     public JsonResult changeWeek(int projectId, int id, int type, int group, String datetime, String traders, String successor, int other) {
-        if(projectId==0){
-            Users users=this.getPrincipal();
-            projectId=users.getDepartmentId();
+        if (projectId == 0) {
+            Users users = this.getPrincipal();
+            projectId = users.getDepartmentId();
         }
         ScrDaily scrDaily = new ScrDaily(id, datetime, projectId, group, type, traders, successor, other);
         int num = ScrDailyService.changeScrDaily(scrDaily);
@@ -418,9 +431,9 @@ public class ScrDailyController {
             }
             type++;
         }
-        if(project==0){
-            Users users=this.getPrincipal();
-            project=users.getDepartmentId();
+        if (project == 0) {
+            Users users = this.getPrincipal();
+            project = users.getDepartmentId();
         }
         datetime = sdf1.format(date);
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
@@ -449,9 +462,9 @@ public class ScrDailyController {
             type--;
         }
         datetime = sdf1.format(date);
-        if(project==0){
-            Users users=this.getPrincipal();
-            project=users.getDepartmentId();
+        if (project == 0) {
+            Users users = this.getPrincipal();
+            project = users.getDepartmentId();
         }
         ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
         if (scrDaily.getId() == 0) {
@@ -459,5 +472,47 @@ public class ScrDailyController {
         }
         return new JsonResult(scrDaily);
     }
+
+    /**
+     * 运行日志等级  班组运行情况A
+     *
+     * @param date         日期
+     * @param departmentId
+     * @return
+     */
+    @GetMapping("/getTeamOperationLog")
+    public Result getTeamOpeartionLog(
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String departmentId
+
+    ) {
+        Subject subject = SecurityUtils.getSubject();
+        Users logUser = (Users) subject.getPrincipal();
+        Map<String, Object> queryMap = new HashMap<>();
+        if (date != null) {
+            queryMap.put("createTime", date);
+        }
+        if (departmentId != null) {
+            queryMap.put("departmentId", departmentId);
+        }
+        List<Defect> defectList = defectService.getDefectList(queryMap);
+
+        List<Map> mapList = new ArrayList<>();
+        HashMap map;
+        if (defectList != null && defectList.size() > 0) {
+            for (Defect defect : defectList) {
+                map = new HashMap();
+                map.put("id", defect.getId());
+                map.put("number", defect.getNumber());
+                map.put("abs", defect.getAbs());
+                map.put("creatName", defect.getCreatedByName());
+                map.put("createTime", defect.getCreated());
+                mapList.add(map);
+            }
+        }
+        return Result.ok(mapList.size(), mapList);
+
+    }
+
 
 }
