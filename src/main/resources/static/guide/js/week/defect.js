@@ -503,7 +503,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                     ,btn: ['确定', '取消']
                     ,btnAlign: 'c'
                     , moveType: 1 //拖拽模式，0或者1
-                    ,content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #a1aec7; color: #000; font-weight: 500;font-size: 18px;">确认已完成本次消缺吗？</div>'
+                    ,content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #a1aec7; color: #000; font-weight: 500;font-size: 18px;">确认删除本次消缺吗？</div>'
                     ,success: function (layero) {
                         var btn = layero.find('.layui-layer-btn');
                         btn.find('.layui-layer-btn0').click(function () {
@@ -692,6 +692,7 @@ function getDetailedInfo(id, type) {
         url: path + "/defect/getDefectById",
         data: {id: id},
         success: function (data) {
+            $(".loading").css("display", "none");
             layui.use('layer', function () { //独立版的layer无需执行这一句
                 var $ = layui.jquery, layer = layui.layer, form = layui.form; //独立版的layer无需执行这一句
                 if (type == "detailed") {

@@ -230,8 +230,7 @@ function addSuccessor(){
                         name: Recorder
                     },
                     "success": function (Json) {
-                        // if (Json.data == "success") {
-                        if (Json.data == "1") {
+                        if (Json.data == "success") {
                             layer.alert('添加成功', {icon: 1});
                             setTimeout(function () {
                                 window.location.href = "../ScrDailyController/WfgdDaily";
@@ -255,8 +254,7 @@ function addSuccessor(){
         // "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder,successorTime:successorTime},
         "data":{userName:Successor,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,name:Recorder},
         "success":function(Json){
-            // if(Json.data=="success"){
-            if(Json.data=="1"){
+            if(Json.data=="success"){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
             } else if(Json.data=="noUser"){
@@ -380,9 +378,11 @@ function addTrader(){
                     // "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
                     "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder},
                     "success":function(Json){
-                        if(Json.data==1){
+                        if(Json.data=="success"){
                             layer.alert('添加成功',{icon:1});
                             setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
+                        } else if (Json.data == "haveRecords") {
+                            layer.alert('存在尚未完成的日志登记', {icon: 1});
                         }
                     }
                 });
@@ -400,9 +400,11 @@ function addTrader(){
         // "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder,tradersTime:tradersTime},
         "data":{userName:Trader,id:wfgdDailyId,datetime:datetime,projectId:projectId,type:type,Name:Recorder},
         "success":function(Json){
-            if(Json.data==1){
+            if(Json.data=="success"){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
+            } else if (Json.data == "haveRecords") {
+                layer.alert('存在尚未完成的日志登记', {icon: 1});
             }
         }
     });
@@ -601,9 +603,9 @@ function fill(data){
 //填充班组运行情况A
 function fillA(project,datetime){
     project = Number(project);
-    /*$.ajax({
+    $.ajax({
         type: 'get',
-        url: "http://192.168.1.30:8082/guide/ScrDailyController/getTeamOperationLog",
+        url: "/guide/ScrDailyController/getTeamOperationLog",
         data: {date: datetime, departmentId: project},
         success: function (Json) {
             var data = Json.data;
@@ -618,7 +620,7 @@ function fillA(project,datetime){
             }
             tbody0.innerHTML = tr;
         }
-    });*/
+    });
 }
 
 function showDetailedInfoDiv (id) {

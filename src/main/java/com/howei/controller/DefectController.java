@@ -172,8 +172,6 @@ public class DefectController {
         List<Defect> total = defectService.getDefectList(map);
         int count = 0;
         count = total != null ? total.size() : 0;
-//        map.put("pageSize", limit);
-//        map.put("page", rows);
         List<Defect> list = defectService.getDefectList(map);
 
         Iterator<Defect> iterator = list.iterator();
@@ -189,27 +187,11 @@ public class DefectController {
                 empIdsName = empIdsName.equals("") || empIdsName == null ? "" : empIdsName.substring(0, empIdsName.length() - 1);
                 defect.setEmpIdsName(empIdsName);
             }
-            if (defect.getaPlc() != null) {
-                String aPlc64 = ImageToBase64ByLocal("/home/defect/img/" + defect.getaPlc());
-                if (aPlc64.equals("")) {
-                    defect.setaPlc64("");
-                } else {
-                    defect.setaPlc64(aPlc64);
-                }
-            }
-            if (defect.getbPlc() != null) {
-                String bPlc64 = ImageToBase64ByLocal("/home/defect/img/" + defect.getbPlc());
-                if (bPlc64.equals("")) {
-                    defect.setbPlc64("");
-                } else {
-                    defect.setbPlc64(bPlc64);
-                }
-            }
             if (defect.getRealExecuteTime() == null) {
                 String realETime = defect.getRealETime();//实际结束时间
                 Double plannedWork = defect.getPlannedWork() == null ? 0.0 : defect.getPlannedWork();//计划完成时间
                 String realSTime = defect.getRealSTime();//实际开始时间
-                if (realETime != null && realSTime != null) {
+                if (realETime != null && realSTime != null && !"".equals(realETime) && !"".equals(realSTime)) {
                     double diff2 = DateFormat.getBothNH(realSTime, realETime);
                     if (plannedWork <= diff2) {
                         defect.setRealExecuteTime(plannedWork);
@@ -729,7 +711,7 @@ public class DefectController {
                 String realETime = defect.getRealETime();//实际结束时间
                 Double plannedWork = defect.getPlannedWork() == null ? 0.0 : defect.getPlannedWork();//计划完成时间
                 String realSTime = defect.getRealSTime();//实际开始时间
-                if (realETime != null && realSTime != null) {
+                if (realETime != null && realSTime != null && !"".equals(realETime) && !"".equals(realSTime)) {
                     double diff2 = DateFormat.getBothNH(realSTime, realETime);
                     if (plannedWork <= diff2) {
                         defect.setRealExecuteTime(plannedWork);
