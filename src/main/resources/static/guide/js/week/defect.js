@@ -257,6 +257,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
         table.render({
             elem: '#demo'
             ,height: height
+            , toolbar: true
             ,url: path + '/defect/getDefectList?type=' + type + '&sysId=' + sysId + '&equipmentId=' + equipmentId + '&departmentId=' + departmentId//数据接口
             ,id: 'demoInfo'
             ,cols: [[ //表头
@@ -266,12 +267,12 @@ function showTable(type, sysId, equipmentId, departmentId) {
                 , {field: 'abs', title: '缺陷描述'}
                 , {field: 'empIdsName', title: '消缺人', width: 150}
                 , {
-                    field: '', title: '总倒计时', sort: true, align: 'center', hide:true,
+                    field: 'totalTime', title: '总倒计时', sort: true, align: 'center', hide:true,
                     templet: function (a) {
                         if(a.type==4){
                             return "已完成"
                         }
-                        if(a.timeoutType!=null&&a.timeoutType!=""&&a.timeoutType.indexOf("E")!=-1){
+                        if(a.timeoutType!=null&&a.timeoutType!=""&&a.timeoutType.indexOf("Z")!=-1){
                             return "缺陷处理超时";
                         }
                         var tmiao = 0;
@@ -333,7 +334,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
 
                 }
                 , {
-                    field: '', title: '分倒计时', sort: true, align: 'center',hide:true,
+                    field: 'partTime', title: '分倒计时', sort: true, align: 'center',hide:true,
                     templet: function (a) {
                         if(a.type==4){
                             return "已完成"
@@ -792,11 +793,11 @@ function getDetailedInfo(id, type) {
                         $("#feedbackProblem").removeAttr("disabled");
                         $("#feedbackRemark").removeAttr("disabled");
                     }
-                    if (data.realETime == null || data.realETime == "") {
+                    /*if (data.realETime == null || data.realETime == "") {
                         $("#insertFeedbackBtn").css("display", "revert");
                     } else {
                         $("#insertFeedbackBtn").css("display", "none");
-                    }
+                    }*/
                     if ($("#feedbackRealSTime").val() == null || $("#feedbackRealSTime").val() == "") {
                         layer.alert("请点击开始执行");
                         return;
@@ -887,8 +888,8 @@ function getDetailedInfo(id, type) {
                     $("#workHoursRealSTime").text(data.realSTime);
                     $("#workHoursRealETime").text(data.realETime);
                     $("#workHoursPlannedWork").text(data.plannedWork);
-                    $("#workHoursRealExecuteTime").text(data.realExecuteTime);
-                    $("#workHoursOvertime").text(data.overtime);
+                    $("#workHoursRealExecuteTime").val(data.realExecuteTime);
+                    $("#workHoursOvertime").val(data.overtime);
                     layer.open({
                         type: 1
                         , id: 'workHoursDiv' //防止重复弹出
@@ -1096,10 +1097,12 @@ function insertFeedback() {
 //工时确认
 function workHoursOk() {
     var id = Number($("#workHoursId").val());
+    var realExecuteTime = parseFloat($("#workHoursRealExecuteTime").val());
+    var overtime = parseFloat($("#workHoursOvertime").val());
     $.ajax({
         "type": 'post',
         "url": path + "/defect/postWorkTimeConfirm",
-        data: {id: id, confirmResult: 0},
+        data: {id: id, confirmResult: 0,realExecuteTime:realExecuteTime,overtime:overtime},
         dataType: "json",
         "success": function (data) {
             layer.closeAll();

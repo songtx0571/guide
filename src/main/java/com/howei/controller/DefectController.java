@@ -321,8 +321,8 @@ public class DefectController {
                 String realSTime = defect.getRealSTime();//实际开始时间
                 double diff2 = DateFormat.getBothNH(realSTime, realETime);
 
-                System.out.println("diff2::"+diff2);
-                System.out.println("plannedWork::"+plannedWork);
+                System.out.println("diff2::" + diff2);
+                System.out.println("plannedWork::" + plannedWork);
                 if (plannedWork <= diff2) {
                     defect.setRealExecuteTime(plannedWork);
                     defect.setOvertime(diff2 - plannedWork);
@@ -525,22 +525,25 @@ public class DefectController {
      * @return
      */
     @RequestMapping("/getEmpMap")
-    public List<Map<String, Object>> getEmpMap() {
+    public Object getEmpMap() {
         Users users = this.getPrincipal();
         //用户信息过期
         if (users == null) {
-            return new ArrayList<>();
+            return Result.fail("用户失效");
         }
 
         String empIdStr = "";
-        Integer employeeId = users.getEmployeeId();
-        List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
-        if (rootList != null) {
-            empIdStr += employeeId + ",";
-            List<Employee> empList = employeeService.getEmployeeByManager(0);
-            for (Employee employee : rootList) {
-                empIdStr += employee.getId() + ",";
-                empIdStr += getUsersId(employee.getId(), empList);
+        Integer logUserEmployeeId = users.getEmployeeId();
+        List<String> employeeIdList = new ArrayList<>();
+        employeeIdList.add(logUserEmployeeId.toString());
+        employeeIdList.add(logUserEmployeeId.toString());
+        List<Employee> rootList = employeeService.getEmployeeByManager(logUserEmployeeId);
+
+        List<Employee> empList = employeeService.getEmployeeByManager(0);
+        ListUtils.getChildEmployeeId(rootList, empList, employeeIdList, null);
+        if (employeeIdList.size() > 0) {
+            for (String employeeId : employeeIdList) {
+                empIdStr += employeeId + ",";
             }
         }
         if (empIdStr != null && !empIdStr.equals("")) {
@@ -553,29 +556,6 @@ public class DefectController {
         return list;
     }
 
-    public String getUsersId(Integer empId, List<Employee> empList) {
-        List<String> result = new ArrayList<>();
-        String userId = "";
-        String usersId = "";
-        for (Employee employee : empList) {
-            if (employee.getManager() != null || employee.getManager() != 0) {
-                if (employee.getManager().equals(empId)) {
-                    usersId += employee.getId() + ",";
-                    result.add(employee.getId() + "");
-                }
-            }
-        }
-        for (String str : result) {
-            String userId1 = getUsersId(Integer.parseInt(str), empList);
-            if (userId1 != null && !userId1.equals("")) {
-                userId += userId1;
-            }
-        }
-        if (userId != null && !userId.equals("null")) {
-            usersId += userId;
-        }
-        return usersId;
-    }
 
     /**
      * 部门下拉框
@@ -749,7 +729,8 @@ public class DefectController {
     @PostMapping("/postWorkTimeConfirm")
     public Result assigmentConfirm(
             @RequestParam Integer id,
-            @RequestParam Integer confirmResult
+            @RequestParam Integer confirmResult,
+            @RequestParam(required = false) String overtime
     ) {
         Users users = this.getPrincipal();
         if (users == null) {
@@ -758,6 +739,9 @@ public class DefectController {
         Defect defect = defectService.getDefectById(id);
         if (confirmResult == 0) {
             defect.setType(3);
+            if (overtime != null && !"".equals(overtime.trim())) {
+                defect.setOvertime(Double.valueOf(overtime));
+            }
             defect.setWorkTimeConfirmTime(DateFormat.getYMDHMS(new Date()));
         } else {
             defect.setType(1);
@@ -766,6 +750,7 @@ public class DefectController {
         defectService.updDefect(defect);
         return Result.ok();
     }
+
 
     @GetMapping("/updateTimeoutType")
     public Result updateTimeoutType(
