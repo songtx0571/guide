@@ -38,7 +38,7 @@ public class ScrDailyController {
     /**
      * 获取shiro存储的Users
      */
-    public Users getPrincipal(){
+    public synchronized Users getPrincipal(){
         Subject subject=SecurityUtils.getSubject();
         Users users=(Users)subject.getPrincipal();
         return users;
@@ -107,7 +107,7 @@ public class ScrDailyController {
      * @return
      */
     @RequestMapping("addSuccessor")
-    public JsonResult addSuccessor(int id, int type, Integer projectId, String datetime, String userName, String name,String successorTime)
+    public synchronized JsonResult addSuccessor(int id, int type, Integer projectId, String datetime, String userName, String name,String successorTime)
             throws ParseException{
         //用户信息过期
         Users user=this.getPrincipal();
@@ -190,7 +190,7 @@ public class ScrDailyController {
      * @return
      */
     @RequestMapping("addTrader")
-    public JsonResult addTrader(int id, int type, Integer projectId, String datetime, String userName, String Name,String tradersTime)
+    public synchronized JsonResult addTrader(int id, int type, Integer projectId, String datetime, String userName, String Name,String tradersTime)
             throws ParseException{
         Users users=this.getPrincipal();
         if(users==null){
@@ -214,29 +214,22 @@ public class ScrDailyController {
             tradersTime=DateFormat.getYMDHM();
         }
         scrDaily.setTradersTime(tradersTime);//接班时间
-        int num = ScrDailyService.addTrader(scrDaily);
+        ScrDailyService.addTrader(scrDaily);
 
-        //转化日期：yyyy-mm-dd
-        datetime=DateFormat.getYMD(datetime);
         //保存副本:operatingHours表
         OperatingHours operatingHours=new OperatingHours();
-        operatingHours.setEmployeeId(users.getEmployeeId());
-        operatingHours.setMonthDay(datetime);
-        operatingHours.setProjectId(projectId);
-        operatingHours.setScrdailyId(scrDaily.getId());
-        operatingHours.setTradersTime(tradersTime);
-
+        String traderTime=DateFormat.getYMDHM();
+        operatingHours.setTradersTime(traderTime);
         //判断是否存在记录
         Map map =new HashMap();
         map.put("employeeId",users.getEmployeeId());
         map.put("other",1);
         OperatingHours operatingHour=workingService.findByMonthAndEmpId(map);
         if(operatingHour!=null && operatingHour.getId()!=null){
-            operatingHours.setId(operatingHour.getId());
             operatingHours.setOther(2);//正常
             String successorTime=operatingHour.getSuccessorTime();//接班时间
             if(successorTime!=null && !"".equals(successorTime)){
-                Double workingTime=DateFormat.getBothTime(successorTime,DateFormat.getYMDHM());
+                Double workingTime=DateFormat.getBothTime(successorTime,traderTime);
                 operatingHours.setWorkingTime(workingTime);//工时
             }
             workingService.updOperatingHours(operatingHours);

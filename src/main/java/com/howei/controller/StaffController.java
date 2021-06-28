@@ -50,6 +50,9 @@ public class StaffController {
     @Autowired
     AiConfigurationDataService aiConfigurationDataService;
 
+    @Autowired
+    EquipmentService equipmentService;
+
 //    public String userName;//当前登录人
 //    public String equipment;//设备名称
 //    public String patrolTask;//任务名称
@@ -100,10 +103,13 @@ public class StaffController {
         String dateTime = DateFormat.getYMD();
 
         if (departmentId == null || departmentId.equals("")) {
-            map.put("departmentId", projectId);
+            if(!subject.isPermitted("运行专工")){
+                map.put("departmentId", projectId);
+            }
         } else {
             map.put("departmentId", departmentId);
         }
+
 
         //获取模板信息
         List<WorkPerator> list = workPeratorService.selAll(map);
@@ -258,8 +264,39 @@ public class StaffController {
                 for (int i = 0; i < count; i++) {
                     WorkPerator work = list.get(i);
                     PostPeratorData postPeratorData = new PostPeratorData();
+                    String equipment=work.getEquipment();//系统设备名称
+                    Integer systemId=work.getSystemId();//系统Id
+                    Integer equipId=work.getEquipId();//设备Id
+                    if(equipment!=null && !"".equals(equipment)){
+                        if(systemId!=0 && equipId!=0){
+                            postPeratorData.setEquipId(equipId);
+                            postPeratorData.setSystemId(systemId);
+                        }else{
+                            String[] arr=equipment.split(",");
+                            String sysName=arr[0];//系统
+                            String equiqmentName=arr[1];//设备
+                            Equipment equipmentObj=equipmentService.getEquipmentByName(sysName,work.getProjectDepartment());
+                            Equipment equipmentObj1=equipmentService.getEquipmentByName(equiqmentName,work.getProjectDepartment());
+                            if(equipmentObj!=null){
+                                postPeratorData.setSystemId(equipmentObj.getId());
+                            }
+                            if(equipmentObj1!=null){
+                                postPeratorData.setEquipId(equipmentObj1.getId());
+                            }
+                        }
+                    }else{
+                        if(systemId!=0 && equipId!=0){
+                            postPeratorData.setEquipId(equipId);
+                            postPeratorData.setSystemId(systemId);
+                        }else{
+                            map1.put("msg","error");
+                            result.add(map1);
+                            return result;
+                        }
+                    }
+
                     postPeratorData.setMeasuringType(work.getMeasuringType());//测点类型
-                    postPeratorData.setEquipment(work.getEquipment());//设备名称
+                    //postPeratorData.setEquipment(work.getEquipment());//设备名称
                     postPeratorData.setPostPeratorId(id);
                     Users users = this.getPrincipal();
                     if (users != null) {

@@ -10,6 +10,8 @@ public class PostPeratorData {
     private int postPeratorId;//员工执行模板id
     private String unit;//单位
     private int ind;//执行标识
+    private int systemId;//系统Id
+    private int equipId;//设备Id
 
     //虚字段
     private String createdByName;//创建人中文名
@@ -109,5 +111,21 @@ public class PostPeratorData {
 
     public void setCreatedByName(String createdByName) {
         this.createdByName = createdByName;
+    }
+
+    public int getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(int systemId) {
+        this.systemId = systemId;
+    }
+
+    public int getEquipId() {
+        return equipId;
+    }
+
+    public void setEquipId(int equipId) {
+        this.equipId = equipId;
     }
 }

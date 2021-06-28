@@ -321,8 +321,6 @@ public class DefectController {
                 String realSTime = defect.getRealSTime();//实际开始时间
                 double diff2 = DateFormat.getBothNH(realSTime, realETime);
 
-                System.out.println("diff2::"+diff2);
-                System.out.println("plannedWork::"+plannedWork);
                 if (plannedWork <= diff2) {
                     defect.setRealExecuteTime(plannedWork);
                     defect.setOvertime(diff2 - plannedWork);
@@ -360,6 +358,8 @@ public class DefectController {
                         defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
                         defect.setDelayETime(delayETime);//延期结束时间
                         defect.setDelayReason(delayReason);//延期理由
+                        defect.setRealETime("");//实际检修结束时间
+                        defect.setRealSTime("");//实际检修开始时间
                         defectService.updDefect(defect);
                         map.put("msg", "success");
                         return map;

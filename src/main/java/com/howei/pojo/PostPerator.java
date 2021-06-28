@@ -118,4 +118,5 @@ public class PostPerator {
     public void setDepartment(int department) {
         this.department = department;
     }
+
 }

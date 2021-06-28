@@ -11,6 +11,8 @@
         <result column="postPeratorId" property="postPeratorId"></result>
         <result column="ind" property="ind"></result>
         <result column="unit" property="unit"></result>
+        <result column="systemId" property="systemId"></result>
+        <result column="equipId" property="equipId"></result>
     </resultMap>
 
     <select id="selByPostId" parameterType="com.howei.pojo.PostPeratorData" resultType="java.util.HashMap" resultMap="postDataMap">
@@ -18,8 +20,8 @@
     </select>
 
     <insert id="crePostChild" parameterType="com.howei.pojo.PostPeratorData" keyProperty="id" useGeneratedKeys="true">
-        insert into postPerator_data(measuringType,postPeratorId,createdBy,created,measuringTypeData,equipment,ind,unit) values(
-            #{measuringType},#{postPeratorId},#{createdBy},#{created},#{measuringTypeData},#{equipment},#{ind},#{unit}
+        insert into postPerator_data(measuringType,postPeratorId,createdBy,created,measuringTypeData,equipment,ind,unit,systemId,equipId) values(
+            #{measuringType},#{postPeratorId},#{createdBy},#{created},#{measuringTypeData},#{equipment},#{ind},#{unit},#{systemId},#{equipId}
         )
     </insert>
 

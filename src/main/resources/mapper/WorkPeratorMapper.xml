@@ -72,19 +72,25 @@
 
     <select id="getTemplateChildList" resultType="com.howei.pojo.WorkPerator" parameterType="java.util.HashMap">
        select DISTINCT w.id,w.userId,w.created,w.updated,w.createdBy,w.updatedBy,w.equipment,w.priority,w.patrolTask,w.artificialNumber,w.aiNumber,w.cycle,w.parent,w.planTime,
-        w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as unitId,w.unit,w.measuringType,w.dataType,w.equipment
+        w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as unitId,w.unit,w.measuringType,w.dataType,w.systemId,
+        w.equipId
         from workPerator w
         left join unit u on u.nuit=w.measuringType
         left join unit u1 on u1.nuit=w.unit
         left join workPerator w1 on w1.id=w.parent
         left join (SELECT ad.* from ai_data_configure ad LEFT JOIN workPerator w2 on w2.equipment=ad.equipment where w2.parent=#{parent}) u2 on u2.measuringType=w.measuringType
+        LEFT join (select * from equipment  where type=1 )e1 on e1.id=w.systemId
+        LEFT join (select * from equipment  where type=2 )e2 on e2.id=w.equipId
         where w.parent=#{parent}
         and (u.department=w1.projectDepartment or u2.departmentId=w1.projectDepartment)
         and u1.department=w1.projectDepartment
         <if test="state!=null">
             and w.status=1
         </if>
-        order by priority limit ${page},${pageSize}
+        order by priority
+        <if test="page!=null and page!=''">
+            limit ${page},${pageSize}
+        </if>
     </select>
 
     <select id="getLastTemplateChildByPriority" parameterType="java.util.HashMap" resultType="com.howei.pojo.WorkPerator" >
@@ -113,7 +119,7 @@
     </update>
 
     <update id="updWorkperatorChild" parameterType="java.util.HashMap" keyProperty="id" useGeneratedKeys="true">
-        update workPerator set equipment=#{equipment},measuringType=#{measuringType},unit=#{unit} where id=#{id}
+        update workPerator set systemId=#{systemId},equipId=#{equipId},measuringType=#{measuringType},unit=#{unit} where id=#{id}
     </update>
 
     <select id="selAll" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">
@@ -125,7 +131,7 @@
     </select>
 
     <select id="selByParam" resultType="java.util.HashMap" parameterType="java.lang.String">
-        select equipment from workPerator where 1=1 and status='1' and
+        select systemId,equipId from workPerator where 1=1 and status='1' and
         <if test="parent!=null and parent!=''">
             parent=#{parent}
         </if>

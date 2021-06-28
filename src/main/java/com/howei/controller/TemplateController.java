@@ -21,7 +21,6 @@ import java.util.*;
 @Controller
 @CrossOrigin
 @RequestMapping("/guide/template")
-//@RequestMapping("/template")
 public class TemplateController {
 
     @Autowired
@@ -113,7 +112,7 @@ public class TemplateController {
      */
     @RequestMapping("/addWorkPerator")
     @ResponseBody
-    public List<String> addWorkPerator(HttpSession session,HttpServletRequest request){
+    public List<String> addWorkPerator(HttpServletRequest request){
         Users users=this.getPrincipal();//当前登陆人id
         String workId=request.getParameter("workId");//模板id
         String planTime=request.getParameter("planTime");//计划时间
@@ -278,21 +277,25 @@ public class TemplateController {
     public Result getTemplateChildList(HttpServletRequest request){
         Result result1=new Result();
         String parentId=request.getParameter("temid");
-        String page=request.getParameter("page");
-        String limit=request.getParameter("limit");
-        int rows=Page.getOffSet(page,limit);
         if(parentId!=null&&!parentId.equals("")){
             Map map=new HashMap();
             map.put("parent",parentId);
             int count=workPeratorService.getTemplateChildListCount(map);
-            map.put("pageSize",limit);
-            map.put("page",rows);
             List<WorkPerator> result=workPeratorService.getTemplateChildList(map);
             if(result.size()>0){
                 for(WorkPerator workPerator : result) {
                     String equipment = workPerator.getEquipment();
                     String departmentId=workPerator.getProjectDepartment();
+                    Integer systemId=workPerator.getSystemId();
+                    Integer equipId=workPerator.getEquipId();
                     if(equipment!=null&&!equipment.equals("")){
+                        if(systemId!=null && equipId!=null){
+                            Equipment equipmentObj=equipmentService.findEquipmentById(systemId);
+                            Equipment equipmentObj1=equipmentService.findEquipmentById(equipId);
+                            if(equipmentObj!=null && equipmentObj1!=null){
+                                workPerator.setEquipment(equipmentObj.getName()+","+equipmentObj1.getName());
+                            }
+                        }
                         String[] str = equipment.split(",");
                         String sysName=str[0];//系统名称
                         String equiqmentName=str[1];//设备名称
@@ -303,6 +306,17 @@ public class TemplateController {
                         }
                         if(equipmentObj1!=null){
                             workPerator.setEquipmentId(equipmentObj1.getId());
+                        }
+                    }else{
+                        if(systemId!=null && equipId!=null){
+                            workPerator.setSysId(workPerator.getSystemId());
+                            workPerator.setEquipmentId(workPerator.getEquipId());
+                            //获取名称
+                            Equipment equipmentObj=equipmentService.findEquipmentById(systemId);
+                            Equipment equipmentObj1=equipmentService.findEquipmentById(equipId);
+                            if(equipmentObj!=null && equipmentObj1!=null){
+                                workPerator.setEquipment(equipmentObj.getName()+","+equipmentObj1.getName());
+                            }
                         }
                     }
                 }
@@ -453,8 +467,10 @@ public class TemplateController {
     @ResponseBody
     public List<String> addWorkPeratorChild(HttpServletRequest request,HttpSession session){
         List<String> list=new ArrayList<>();
-        String sysName=request.getParameter("sysName");
-        String equName=request.getParameter("equName");
+        //String sysName=request.getParameter("sysName");
+        //String equName=request.getParameter("equName");
+        String systemId=request.getParameter("systemId");//系统id
+        String equipId=request.getParameter("equipId");//设备id
         String sightType=request.getParameter("sightType");
         String unitType=request.getParameter("unitType");
         String workId=request.getParameter("workId");//模板id
@@ -482,7 +498,9 @@ public class TemplateController {
             work.setPlanTime("");
             work.setStatus(2);
             work.setDataType(Integer.parseInt(dataType));
-            work.setEquipment(sysName+","+equName);
+            //work.setEquipment(sysName+","+equName);
+            work.setEquipId(Integer.parseInt(equipId));
+            work.setSystemId(Integer.parseInt(systemId));
             work.setMeasuringType(sightType);
             work.setUnit(unitType);
             if(users!=null){
@@ -498,7 +516,11 @@ public class TemplateController {
 
         }else{//修改
             Map map=new HashMap();
-            map.put("equipment",sysName+","+equName);
+            //map.put("equipment",sysName+","+equName);
+            map.put("systemId",systemId);
+            map.put("equipId",equipId);
+            work.setEquipId(Integer.parseInt(equipId));
+            work.setSystemId(Integer.parseInt(systemId));
             map.put("measuringType",sightType);
             map.put("unit",unitType);
             map.put("id",temChildId);
