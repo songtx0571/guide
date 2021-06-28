@@ -33,25 +33,30 @@
                 <input type="hidden" id="departmentHidden">
                 <div class="layui-inline" style="width: 150px;">
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required" lay-filter="system" lay-search="" id="system"></select>
+                        <select name="modules" lay-verify="required" lay-filter="system" lay-search=""
+                                id="system"></select>
                     </div>
                 </div>
                 <div class="layui-inline" style="width: 150px;">
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required" lay-filter="equipment" lay-search="" id="equipment"></select>
+                        <select name="modules" lay-verify="required" lay-filter="equipment" lay-search=""
+                                id="equipment"></select>
                     </div>
                 </div>
                 <shiro:hasPermission name="缺陷管理员">
                     <div class="layui-inline" style="width: 150px;">
                         <div class="layui-input-inline">
-                            <select name="modules" lay-verify="required" lay-filter="department" lay-search="" id="department"></select>
+                            <select name="modules" lay-verify="required" lay-filter="department" lay-search=""
+                                    id="department"></select>
                         </div>
                     </div>
                 </shiro:hasPermission>
             </form>
             <button type="button" class="layui-btn floatBtn" onclick="getChecked('6')">延期</button>
             <shiro:hasPermission name="缺陷运行岗位">
-                <button type="button" style="margin-right: 0px;" class="layui-btn layui-btn-normal floatBtn" onclick="addDefect()">新增&nbsp;&nbsp;+</button>
+                <button type="button" style="margin-right: 0px;" class="layui-btn layui-btn-normal floatBtn"
+                        onclick="addDefect()">新增&nbsp;&nbsp;+
+                </button>
             </shiro:hasPermission>
         </div>
     </div>
@@ -131,6 +136,12 @@
                 <a class="layui-btn layui-btn-fluid" style="background: burlywood;" lay-event="workHours">工时确认</a>
             </shiro:hasPermission>
             {{#  } }}
+
+        </script>
+        <script type="text/html" id="tbStatusBar">
+            <a class="layui-btn layui-btn-normal" style="line-height: 30px;" lay-event="openClose"
+               id="statusBtn{{d.id}}">暂停</ a>
+            <a class="layui-btn" style="line-height: 30px;" lay-event="delay">延期</ a>
         </script>
     </div>
     <!-- 新增 -->
@@ -547,7 +558,8 @@
         <table>
             <thead>
             <tr>
-                <td colspan="5" style="text-align: center;font-weight: bold;font-size: 18px;">工时确认<input id="workHoursId" type="hidden" /> </td>
+                <td colspan="5" style="text-align: center;font-weight: bold;font-size: 18px;">工时确认<input
+                        id="workHoursId" type="hidden"/></td>
             </tr>
             </thead>
             <tbody>
@@ -581,11 +593,13 @@
                 </td>
                 <th>实际工时</th>
                 <td>
-                    <input type="text" id="workHoursRealExecuteTime" placeholder="数字" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')">
+                    <input type="text" id="workHoursRealExecuteTime" placeholder="数字"
+                           onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')">
                 </td>
                 <th>加班工时</th>
                 <td>
-                    <input type="text" id="workHoursOvertime" placeholder="数字" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')">
+                    <input type="text" id="workHoursOvertime" placeholder="数字"
+                           onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')">
                 </td>
             </tr>
             </tbody>
