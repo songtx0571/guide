@@ -127,7 +127,9 @@
                 <a class="layui-btn" style="line-height: 30px;background: #a1aec7;" lay-event="del">删除</a>
             </shiro:hasPermission>
             {{#  } else if(d.type == 7) { }}
-            <a class="layui-btn layui-btn-fluid" style="background: burlywood;" lay-event="workHours">工时确认</a>
+            <shiro:hasPermission name="缺陷检修班长">
+                <a class="layui-btn layui-btn-fluid" style="background: burlywood;" lay-event="workHours">工时确认</a>
+            </shiro:hasPermission>
             {{#  } }}
         </script>
     </div>
@@ -579,11 +581,11 @@
                 </td>
                 <th>实际工时</th>
                 <td>
-                    <span id='workHoursRealExecuteTime'></span>
+                    <input type="text" id="workHoursRealExecuteTime" placeholder="数字" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')">
                 </td>
                 <th>加班工时</th>
                 <td>
-                    <span id='workHoursOvertime'></span>
+                    <input type="text" id="workHoursOvertime" placeholder="数字" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')">
                 </td>
             </tr>
             </tbody>

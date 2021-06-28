@@ -104,7 +104,7 @@ function change() {
                 layer.alert("请重新登录");
             } else {
                 fill(Json.data);
-                fillA(project,datetime);
+                fillA(project,datetime,type);
             }
         },
         "error": function () {
@@ -122,7 +122,6 @@ function change() {
             sessionStorage.wfgdDailyRecorder = data.recorder;
             //document.getElementById("name").innerHTML = data.name;
 
-            console.log(data)
             var aa = "";
             if (data.successor != "" && data.successor != null) {
                 var successorsName = data.successorName.split(",");
@@ -184,11 +183,11 @@ function change() {
 
 //增加接班人
 function addSuccessor(){
-	var userName = sessionStorage.Username;
-	var wfgdDailyId = sessionStorage.wfgdDailyId;
-	var type = sessionStorage.wfgdDailyType;
-	var datetime = sessionStorage.wfgdDailydatetime;
-	// var successorTime = sessionStorage.successorTime;
+    var userName = sessionStorage.Username;
+    var wfgdDailyId = sessionStorage.wfgdDailyId;
+    var type = sessionStorage.wfgdDailyType;
+    var datetime = sessionStorage.wfgdDailydatetime;
+    // var successorTime = sessionStorage.successorTime;
 
     var projectId = $("#project").val();
     if (!compareTime()) {
@@ -240,13 +239,13 @@ function addSuccessor(){
                         }
                     }
                 });
-				return;
-			}
-		}
-		Recorder = Recorder +";"+ userName;
-	}else{
-		Recorder = userName;
-	}
+                return;
+            }
+        }
+        Recorder = Recorder +";"+ userName;
+    }else{
+        Recorder = userName;
+    }
 
     $.ajax({
         "type" : 'post',
@@ -258,56 +257,56 @@ function addSuccessor(){
                 layer.alert('添加成功',{icon:1});
                 setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
             } else if(Json.data=="noUser"){
-				layer.alert("登录失效！");
-			} else if (Json.data == "haveRecords") {
+                layer.alert("登录失效！");
+            } else if (Json.data == "haveRecords") {
                 layer.alert('存在尚未完成的日志登记', {icon: 1});
             }
         }
     });
-	
+
 }
 //删除接班人
 function delSuccessor(index){
-	if(!compareTime()){
-		return;
-	}
-	var userName = sessionStorage.Username;
-	var wfgdDailyId = sessionStorage.wfgdDailyId;
-	var Successor = sessionStorage.wfgdDailySuccessor;
-	var Successors = Successor.split(";");
-	// var successorTime = sessionStorage.successorTime;
-	// var successorTimes = successorTime.split(";");
-	var name = "";
-	var num = 0;
-	/*var timeName = "";
-	var timeNum = 0;*/
+    if(!compareTime()){
+        return;
+    }
+    var userName = sessionStorage.Username;
+    var wfgdDailyId = sessionStorage.wfgdDailyId;
+    var Successor = sessionStorage.wfgdDailySuccessor;
+    var Successors = Successor.split(";");
+    // var successorTime = sessionStorage.successorTime;
+    // var successorTimes = successorTime.split(";");
+    var name = "";
+    var num = 0;
+    /*var timeName = "";
+    var timeNum = 0;*/
 
 
-	for(var i=0;i<Successors.length;i++){
-		if(Successors[i]!=index){
-			if(num!=0){
-				name += ";";
-			}
-			name +=  Successors[i];
-			num ++;
-		}
-	}
+    for(var i=0;i<Successors.length;i++){
+        if(Successors[i]!=index){
+            if(num!=0){
+                name += ";";
+            }
+            name +=  Successors[i];
+            num ++;
+        }
+    }
 
-	/*for (var j = 0; j < successorTimes.length; j ++) {
-		if(j != index){
-			if(timeNum!=0){
-				timeName += ";";
-			}
-			timeName +=  successorTimes[j];
-			timeNum ++;
-		}
-	}*/
+    /*for (var j = 0; j < successorTimes.length; j ++) {
+        if(j != index){
+            if(timeNum!=0){
+                timeName += ";";
+            }
+            timeName +=  successorTimes[j];
+            timeNum ++;
+        }
+    }*/
 
-	var Recorder=sessionStorage.wfgdDailyRecorder;
-	if(Recorder != ""&&Recorder != null){
-		var Recorders = Recorder.split(";");
-		for(var i=0;i<Recorders.length;i++){
-			if(userName==Recorders[i]){
+    var Recorder=sessionStorage.wfgdDailyRecorder;
+    if(Recorder != ""&&Recorder != null){
+        var Recorders = Recorder.split(";");
+        for(var i=0;i<Recorders.length;i++){
+            if(userName==Recorders[i]){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/delSuccessor",
@@ -320,12 +319,12 @@ function delSuccessor(index){
                         }
                     }
                 });
-			}
-		}
-		Recorder = Recorder +";"+ userName;
-	}else{
-		Recorder = userName;
-	}
+            }
+        }
+        Recorder = Recorder +";"+ userName;
+    }else{
+        Recorder = userName;
+    }
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/delSuccessor",
@@ -341,37 +340,37 @@ function delSuccessor(index){
 }
 //添加交班人
 function addTrader(){
-	if(!compareTime()){
-		return;
-	}
-	var userName = sessionStorage.Username;
-	var wfgdDailyId = sessionStorage.wfgdDailyId;
-	var type = sessionStorage.wfgdDailyType;
-	var datetime = sessionStorage.wfgdDailydatetime;
-	var projectId = $("#project").val();
-	var Trader = sessionStorage.wfgdDailyTraders;
-	var tradersTime = sessionStorage.tradersTime;
+    if(!compareTime()){
+        return;
+    }
+    var userName = sessionStorage.Username;
+    var wfgdDailyId = sessionStorage.wfgdDailyId;
+    var type = sessionStorage.wfgdDailyType;
+    var datetime = sessionStorage.wfgdDailydatetime;
+    var projectId = $("#project").val();
+    var Trader = sessionStorage.wfgdDailyTraders;
+    var tradersTime = sessionStorage.tradersTime;
 
-	if(Trader != ""&&Trader != null){
-		var Traders = Trader.split(";");
-		for(var i=0;i<Traders.length;i++){
-			if(userName==Traders[i]){
-				layer.alert('已以添加相同的填写人!', {icon : 2});
-				return;
-			}
-		}
-		Trader = Trader +";"+ userName;
-	}else{
-		Trader = userName;
-	}
-	if(projectId==null){
+    if(Trader != ""&&Trader != null){
+        var Traders = Trader.split(";");
+        for(var i=0;i<Traders.length;i++){
+            if(userName==Traders[i]){
+                layer.alert('已以添加相同的填写人!', {icon : 2});
+                return;
+            }
+        }
+        Trader = Trader +";"+ userName;
+    }else{
+        Trader = userName;
+    }
+    if(projectId==null){
         projectId=0;
-	}
-	var Recorder=sessionStorage.wfgdDailyRecorder;
-	if(Recorder != ""&&Recorder != null){
-		var Recorders = Recorder.split(";");
-		for(var i=0;i<Recorders.length;i++){
-			if(userName==Recorders[i]){
+    }
+    var Recorder=sessionStorage.wfgdDailyRecorder;
+    if(Recorder != ""&&Recorder != null){
+        var Recorders = Recorder.split(";");
+        for(var i=0;i<Recorders.length;i++){
+            if(userName==Recorders[i]){
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/addTrader",
@@ -386,13 +385,13 @@ function addTrader(){
                         }
                     }
                 });
-				return;
-			}
-		}
-		Recorder = Recorder +";"+ userName;
-	}else{
-		Recorder = userName;
-	}
+                return;
+            }
+        }
+        Recorder = Recorder +";"+ userName;
+    }else{
+        Recorder = userName;
+    }
 
     $.ajax({
         "type" : 'post',
@@ -411,60 +410,60 @@ function addTrader(){
 }
 //删除交班人
 function delTrader(index){
-	if(!compareTime()){
-		return;
-	}
-	var userName = sessionStorage.Username;
-	var wfgdDailyId = sessionStorage.wfgdDailyId;
-	var Trader = sessionStorage.wfgdDailyTraders;
-	/*var tradersTime = sessionStorage.tradersTime;
-	var tradersTimes = tradersTime.split(";");*/
-	var Traders = Trader.split(";");
-	var name = "";
-	var num = 0;
-	/*var timeName = "";
-	var timeNum = "";*/
-	for(var i=0;i<Traders.length;i++){
-		if(Traders[i]!=index){
-			if(num!=0){
-				name += ";";
-			}
-			name +=  Traders[i];
-			num ++;
-		}
-	}
+    if(!compareTime()){
+        return;
+    }
+    var userName = sessionStorage.Username;
+    var wfgdDailyId = sessionStorage.wfgdDailyId;
+    var Trader = sessionStorage.wfgdDailyTraders;
+    /*var tradersTime = sessionStorage.tradersTime;
+    var tradersTimes = tradersTime.split(";");*/
+    var Traders = Trader.split(";");
+    var name = "";
+    var num = 0;
+    /*var timeName = "";
+    var timeNum = "";*/
+    for(var i=0;i<Traders.length;i++){
+        if(Traders[i]!=index){
+            if(num!=0){
+                name += ";";
+            }
+            name +=  Traders[i];
+            num ++;
+        }
+    }
 
-	/*for (var j = 0; j < tradersTimes.length; j ++) {
-		if(j != index){
-			if(timeNum!=0){
-				timeName += ";";
-			}
-			timeName +=  tradersTimes[j];
-			timeNum ++;
-		}
-	}*/
+    /*for (var j = 0; j < tradersTimes.length; j ++) {
+        if(j != index){
+            if(timeNum!=0){
+                timeName += ";";
+            }
+            timeName +=  tradersTimes[j];
+            timeNum ++;
+        }
+    }*/
 
-	var Recorder=sessionStorage.wfgdDailyRecorder;
-	if(Recorder != ""&&Recorder != null){
-		var Recorders = Recorder.split(";");
-		for(var i=0;i<Recorders.length;i++){
-			if(userName==Recorders[i]){
-				if(userName.toUpperCase()==index.toUpperCase()){
-					$.ajax({
-						"type" : 'post',
-						"url": "../ScrDailyController/delTrader",
-						// "data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
+    var Recorder=sessionStorage.wfgdDailyRecorder;
+    if(Recorder != ""&&Recorder != null){
+        var Recorders = Recorder.split(";");
+        for(var i=0;i<Recorders.length;i++){
+            if(userName==Recorders[i]){
+                if(userName.toUpperCase()==index.toUpperCase()){
+                    $.ajax({
+                        "type" : 'post',
+                        "url": "../ScrDailyController/delTrader",
+                        // "data":{userName:name,id:wfgdDailyId,name:Recorder,tradersTime:timeName},
                         "data":{userName:name,id:wfgdDailyId,name:Recorder},
-						"success":function(Json){
-							if(Json.data==1){
-								layer.alert('刪除成功',{icon:1});
-								setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
-							}
-						}
-					});
-					return;
-				}
-				var projectId = $("#project").val();
+                        "success":function(Json){
+                            if(Json.data==1){
+                                layer.alert('刪除成功',{icon:1});
+                                setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
+                            }
+                        }
+                    });
+                    return;
+                }
+                var projectId = $("#project").val();
                 $.ajax({
                     "type" : 'post',
                     "url": "../ScrDailyController/delTrader",
@@ -477,29 +476,29 @@ function delTrader(index){
                         }
                     }
                 });
-				return;
-			}
-		}
-		Recorder = Recorder +";"+ userName;
-	}else{
-		Recorder = userName;
-	}
+                return;
+            }
+        }
+        Recorder = Recorder +";"+ userName;
+    }else{
+        Recorder = userName;
+    }
 
-	if(userName.toUpperCase()==index.toUpperCase()){
-		$.ajax({ 
-			"type" : 'post', 
-			"url": "../ScrDailyController/delTrader",  
-			"data":{userName:name,id:wfgdDailyId,name:Recorder},
-			"success":function(Json){
-				if(Json.data==1){
-	    			layer.alert('删除成功',{icon:1});
-	    			setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
-	      	  	}
-			}	
-		});
-		return;
-	}
-	var projectId = $("#project").val();
+    if(userName.toUpperCase()==index.toUpperCase()){
+        $.ajax({
+            "type" : 'post',
+            "url": "../ScrDailyController/delTrader",
+            "data":{userName:name,id:wfgdDailyId,name:Recorder},
+            "success":function(Json){
+                if(Json.data==1){
+                    layer.alert('删除成功',{icon:1});
+                    setTimeout(function(){window.location.href="../ScrDailyController/WfgdDaily";},500);
+                }
+            }
+        });
+        return;
+    }
+    var projectId = $("#project").val();
     $.ajax({
         "type" : 'post',
         "url": "../ScrDailyController/delTrader",
@@ -514,99 +513,99 @@ function delTrader(index){
 }
 
 function fill(data){
-	var tbody1 = document.getElementById("tbody1");
-	var tbody3 = document.getElementById("tbody3");
-	var tbody4 = document.getElementById("tbody4");
-	var index1 = 1,index3 = 1,index4 = 1;
-	for(var i=1;i<3;i++){
-		document.getElementById(""+i+"-1").innerHTML = 0;
-		document.getElementById(""+i+"-2").innerHTML = 0;
-		document.getElementById(""+i+"-3").innerHTML = 0;
-		document.getElementById(""+i+"-4").innerHTML = 0;
-		document.getElementById(""+i+"-5").innerHTML = "<img src='../img/week/update.png' onclick='add1("+i+")'/>";
-	}
-	
-	for(var i=0;i<data.length;i++){
-		var tr = document.createElement("tr");
-		tr.setAttribute("id", "123");
-		if(data[i].type==1){
-			var td = "<td>"+index1+"</td><td  colspan='8'>"+data[i].content1+"</td>"+
-				"<td><img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>" +
-				"<img src='../img/week/delete.png' onclick='del("+data[i].id+","+data[i].type+")'/></td>"
-			index1++;
-			tr.innerHTML = td;
-			tbody1.appendChild(tr);
-		}else if(data[i].type==2){
-			var num = data[i].content1
-			document.getElementById(""+num+"-1").innerHTML = data[i].content2;
-			document.getElementById(""+num+"-2").innerHTML = data[i].content3;
-			document.getElementById(""+num+"-3").innerHTML = data[i].content4;
-			document.getElementById(""+num+"-4").innerHTML = data[i].content5;
-			document.getElementById(""+num+"-5").innerHTML = "<img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>";
-		}else if(data[i].type==3){
-			var td = "<td>"+index3+"</td><td colspan='3'>"+data[i].content1+"</td><td colspan='5'>"+data[i].content2+"</td>" +
-				"<td><img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>" +
-				"<img src='../img/week/delete.png' onclick='del("+data[i].id+","+data[i].type+")'/></td>";
-			index3++;
-			tr.innerHTML = td;
-			tbody3.appendChild(tr);
-		}else if(data[i].type==4){
-			var td = "<td>"+index4+"</td><td colspan='3'>"+data[i].content1+"</td><td colspan='5'>"+data[i].content2+"</td>" +
-			"<td><img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>" +
-			"<img src='../img/week/delete.png' onclick='del("+data[i].id+","+data[i].type+")'/></td>";
-			tr.innerHTML = td;
-			tbody4.appendChild(tr);
-			index4++;
-		}
-	}
-		
-		if(index1==1){
-			var tr11 = document.createElement("tr");
-			tr11.setAttribute("id", "123"); 
-			var td11 = "<td colspan='10'>尚未添加内容</td>";
-			tr11.innerHTML = td11;
-			tbody1.appendChild(tr11);
-		}
-		if(index3==1){
-			var tr13 = document.createElement("tr");
-			tr13.setAttribute("id", "123"); 
-			var td13 = "<td colspan='10'>尚未添加内容</td>";
-			tr13.innerHTML = td13;
-			tbody3.appendChild(tr13);
-		}
-		if(index4==1){
-			var tr14 = document.createElement("tr");
-			tr14.setAttribute("id", "123"); 
-			var td14 = "<td colspan='10'>尚未添加内容</td>";
-			tr14.innerHTML = td14;
-			tbody4.appendChild(tr14);
-		}
-		var tr1 = document.createElement("tr");
-		tr1.setAttribute("id", "123"); 
-		var td1 = "<td colspan='9'></td><td><img src='../img/week/add.png' onclick='add(1)'/></td>";
-		tr1.innerHTML = td1;
-		tbody1.appendChild(tr1);
-		
-		var tr3 = document.createElement("tr");
-		tr3.setAttribute("id", "123"); 
-		var td3 = "<td colspan='9'></td><td><img src='../img/week/add.png' onclick='add(3)'/></td>";
-		tr3.innerHTML = td3;
-		tbody3.appendChild(tr3);
-		
-		var tr4 = document.createElement("tr");
-		tr4.setAttribute("id", "123"); 
-		var td4 = "<td colspan='9'></td><td><img src='../img/week/add.png' onclick='add(4)'/></td>";
-		tr4.innerHTML = td4;
-		tbody4.appendChild(tr4);
+    var tbody1 = document.getElementById("tbody1");
+    var tbody3 = document.getElementById("tbody3");
+    var tbody4 = document.getElementById("tbody4");
+    var index1 = 1,index3 = 1,index4 = 1;
+    for(var i=1;i<3;i++){
+        document.getElementById(""+i+"-1").innerHTML = 0;
+        document.getElementById(""+i+"-2").innerHTML = 0;
+        document.getElementById(""+i+"-3").innerHTML = 0;
+        document.getElementById(""+i+"-4").innerHTML = 0;
+        document.getElementById(""+i+"-5").innerHTML = "<img src='../img/week/update.png' onclick='add1("+i+")'/>";
+    }
+
+    for(var i=0;i<data.length;i++){
+        var tr = document.createElement("tr");
+        tr.setAttribute("id", "123");
+        if(data[i].type==1){
+            var td = "<td>"+index1+"</td><td  colspan='8'>"+data[i].content1+"</td>"+
+                "<td><img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>" +
+                "<img src='../img/week/delete.png' onclick='del("+data[i].id+","+data[i].type+")'/></td>"
+            index1++;
+            tr.innerHTML = td;
+            tbody1.appendChild(tr);
+        }else if(data[i].type==2){
+            var num = data[i].content1
+            document.getElementById(""+num+"-1").innerHTML = data[i].content2;
+            document.getElementById(""+num+"-2").innerHTML = data[i].content3;
+            document.getElementById(""+num+"-3").innerHTML = data[i].content4;
+            document.getElementById(""+num+"-4").innerHTML = data[i].content5;
+            document.getElementById(""+num+"-5").innerHTML = "<img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>";
+        }else if(data[i].type==3){
+            var td = "<td>"+index3+"</td><td colspan='3'>"+data[i].content1+"</td><td colspan='5'>"+data[i].content2+"</td>" +
+                "<td><img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>" +
+                "<img src='../img/week/delete.png' onclick='del("+data[i].id+","+data[i].type+")'/></td>";
+            index3++;
+            tr.innerHTML = td;
+            tbody3.appendChild(tr);
+        }else if(data[i].type==4){
+            var td = "<td>"+index4+"</td><td colspan='3'>"+data[i].content1+"</td><td colspan='5'>"+data[i].content2+"</td>" +
+                "<td><img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>" +
+                "<img src='../img/week/delete.png' onclick='del("+data[i].id+","+data[i].type+")'/></td>";
+            tr.innerHTML = td;
+            tbody4.appendChild(tr);
+            index4++;
+        }
+    }
+
+    if(index1==1){
+        var tr11 = document.createElement("tr");
+        tr11.setAttribute("id", "123");
+        var td11 = "<td colspan='10'>尚未添加内容</td>";
+        tr11.innerHTML = td11;
+        tbody1.appendChild(tr11);
+    }
+    if(index3==1){
+        var tr13 = document.createElement("tr");
+        tr13.setAttribute("id", "123");
+        var td13 = "<td colspan='10'>尚未添加内容</td>";
+        tr13.innerHTML = td13;
+        tbody3.appendChild(tr13);
+    }
+    if(index4==1){
+        var tr14 = document.createElement("tr");
+        tr14.setAttribute("id", "123");
+        var td14 = "<td colspan='10'>尚未添加内容</td>";
+        tr14.innerHTML = td14;
+        tbody4.appendChild(tr14);
+    }
+    var tr1 = document.createElement("tr");
+    tr1.setAttribute("id", "123");
+    var td1 = "<td colspan='9'></td><td><img src='../img/week/add.png' onclick='add(1)'/></td>";
+    tr1.innerHTML = td1;
+    tbody1.appendChild(tr1);
+
+    var tr3 = document.createElement("tr");
+    tr3.setAttribute("id", "123");
+    var td3 = "<td colspan='9'></td><td><img src='../img/week/add.png' onclick='add(3)'/></td>";
+    tr3.innerHTML = td3;
+    tbody3.appendChild(tr3);
+
+    var tr4 = document.createElement("tr");
+    tr4.setAttribute("id", "123");
+    var td4 = "<td colspan='9'></td><td><img src='../img/week/add.png' onclick='add(4)'/></td>";
+    tr4.innerHTML = td4;
+    tbody4.appendChild(tr4);
 }
 
 //填充班组运行情况A
-function fillA(project,datetime){
+function fillA(project,datetime,type){
     project = Number(project);
     $.ajax({
         type: 'get',
         url: "/guide/ScrDailyController/getTeamOperationLog",
-        data: {date: datetime, departmentId: project},
+        data: {date: datetime, departmentId: project,type: type},
         success: function (Json) {
             var data = Json.data;
             var tbody0 = document.getElementById("tbody0");
@@ -642,8 +641,8 @@ function showDetailedInfoDiv (id) {
 }
 
 function add1(content1){
-	var userName = sessionStorage.Username;
-	var projectId = $("#project").val();
+    var userName = sessionStorage.Username;
+    var projectId = $("#project").val();
     var traders = document.getElementById("traders").innerHTML;
     if(!traders){
         layer.alert('请先填写交班人一栏', {icon : 2});
@@ -661,12 +660,12 @@ function add1(content1){
         maxmin: true,
         content: '../ScrDailyController/add1?type=2&&scrDailyId='+wfgdDailyId+'&&content1='+content1
     });
-	
+
 }
 
 function add(type){
-	var userName = sessionStorage.Username;
-	var projectId = $("#project").val();
+    var userName = sessionStorage.Username;
+    var projectId = $("#project").val();
     var traders = document.getElementById("traders").innerHTML;
     if(!traders){
         layer.alert('请先填写交班人一栏', {icon : 2});
@@ -686,21 +685,21 @@ function add(type){
     });
 
 
-	var wfgdDailyId = sessionStorage.wfgdDailyId;
-	var type1 = sessionStorage.wfgdDailyType;
-	var datetime = sessionStorage.wfgdDailydatetime;
+    var wfgdDailyId = sessionStorage.wfgdDailyId;
+    var type1 = sessionStorage.wfgdDailyType;
+    var datetime = sessionStorage.wfgdDailydatetime;
 
 
-	var Successor = sessionStorage.wfgdDailySuccessor;
+    var Successor = sessionStorage.wfgdDailySuccessor;
 
-	var Recorder=sessionStorage.wfgdDailyRecorder;
+    var Recorder=sessionStorage.wfgdDailyRecorder;
 
 }
 
 
 function upd(id,type){
-	var userName = sessionStorage.Username;
-	var projectId = $("#project").val();
+    var userName = sessionStorage.Username;
+    var projectId = $("#project").val();
 
     if(!compareTime()){
         return;
@@ -713,13 +712,13 @@ function upd(id,type){
         maxmin: true,
         content: '../ScrDailyController/upd1?id='+id+'&&type='+type
     });
-	
+
 }
 
 function del(id,type){
-	
-	var userName = sessionStorage.Username;
-	var projectId = $("#project").val();
+
+    var userName = sessionStorage.Username;
+    var projectId = $("#project").val();
 
     if(!compareTime()){
         return;
@@ -791,19 +790,19 @@ function del(id,type){
         layer.msg('已取消', {icon: 1});
         return false;
     });
-	
+
 }
 
-function getPermissionId(index){ 
-	return 18+index
+function getPermissionId(index){
+    return 18+index
 }
 
 function updScrDaily(){
-	var userName = sessionStorage.Username;
-	var projectId = $("#project").val();
-	var datetime = $('#datetime').val();
-	var group = $('#group').val();
-	var type = $('#type').val();
+    var userName = sessionStorage.Username;
+    var projectId = $("#project").val();
+    var datetime = $('#datetime').val();
+    var group = $('#group').val();
+    var type = $('#type').val();
     if(!compareTime()){
         return;
     }

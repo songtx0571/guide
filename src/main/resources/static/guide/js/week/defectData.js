@@ -76,16 +76,17 @@ function showTable(departmentId, month) {
                 , {field: 'equipmentName', title: '设备', sort: true}
                 , {field: 'level', title: '级别', toolbar: "#tbLevelBar", sort: true, width: 75}
                 , {field: 'maintenanceCategory', title: '类别', toolbar: "#tbCategoryBar", sort: true, width: 75}
-                , {field: 'created', title: '创建时间'}
                 , {field: 'createdByName', title: '创建人'}
                 , {field: 'plannedWork', title: '计划工时'}
                 , {field: 'realExecuteTime', title: '实际工时'}
-                , {field: 'empIdsName', title: '消缺人', width: 150}
-                , {field: 'orderReceivingTime', title: '接单开始时间'}
-                , {field: 'planedTime', title: '预估完成时间'}
-                , {field: 'realSTime', title: '实际检修开启日期'}
-                , {field: 'realETime', title: '实际检修结束日期'}
-                , {field: 'confirmer1Time', title: '值班确认时间'}
+                , {field: 'empIdsName', title: '消缺人', width: 160}
+                , {field: 'planedTime', title: '预估完成时间', hide: true}
+                , {field: 'created', title: '创建时间', width: 160}
+                , {field: 'orderReceivingTime', title: '接单开始时间', width: 160}
+                , {field: 'realSTime', title: '实际检修开启日期', width: 160}
+                , {field: 'realETime', title: '实际检修结束日期', width: 160}
+                , {field: 'workTimeConfirmTime', title: '工时确认时间', width: 160}
+                , {field: 'confirmer1Time', title: '值班确认时间', width: 160}
                 , {field: '', title: '超时', templet(a){
                     var timeoutTypeName="";
                     //A认领超时,  B开工超时, C反馈超时,D验收超时, E结束超时, Z缺陷处理超时

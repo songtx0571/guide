@@ -3,6 +3,7 @@ package com.howei.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.howei.pojo.*;
 import com.howei.service.*;
+import com.howei.util.ListUtils;
 import com.howei.util.Result;
 import org.apache.jasper.security.SecurityUtil;
 import org.apache.shiro.SecurityUtils;
@@ -440,21 +441,13 @@ public class MaintainController {
         Integer departmentId = users.getDepartmentId();
 
         List<String> employeeIdList = new ArrayList<>();
-        if (employeeId != null) {
-            employeeIdList.add(users.getEmployeeId() + "");
-            List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
-            if (rootList != null) {
-                List<Employee> empList = employeeService.getEmployeeByManager(0);
-                for (Employee employee : rootList) {
-                    employeeIdList.add(String.valueOf(employee.getId()));
-                    String[] employeeIds = getUsersId(employee.getId(), empList).split(",");
-                    List<String> newEmployeeIdList = Arrays.asList(employeeIds);
-                    if (newEmployeeIdList.size() > 0) {
-                        employeeIdList.addAll(newEmployeeIdList);
-                    }
-                }
-            }
-        }
+        employeeIdList.add(employeeId.toString());
+        List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
+
+        List<Employee> empList = employeeService.getEmployeeByManager(0);
+
+        ListUtils.getChildEmployeeId(rootList, empList, employeeIdList, null);
+
         if (employeeIdList.size() > 0) {
             map.put("employeeIdList", employeeIdList);
         }
@@ -540,35 +533,4 @@ public class MaintainController {
         return result;
     }
 
-
-    /**
-     * 查询员工业绩:所有被绩效管理的员工
-     *
-     * @param empId
-     * @param empList
-     * @return
-     */
-    public String getUsersId(Integer empId, List<Employee> empList) {
-        List<String> result = new ArrayList<>();
-        String userId = "";
-        String usersId = "";
-        for (Employee employee : empList) {
-            if (employee.getManager() != null || employee.getManager() != 0) {
-                if (employee.getManager().equals(empId)) {
-                    usersId += employee.getId() + ",";
-                    result.add(employee.getId() + "");
-                }
-            }
-        }
-        for (String str : result) {
-            String userId1 = getUsersId(Integer.parseInt(str), empList);
-            if (userId1 != null && !userId1.equals("")) {
-                userId += userId1;
-            }
-        }
-        if (userId != null && !userId.equals("null")) {
-            usersId += userId;
-        }
-        return usersId;
-    }
 }
