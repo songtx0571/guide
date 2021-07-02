@@ -72,7 +72,7 @@
 
     <select id="getTemplateChildList" resultType="com.howei.pojo.WorkPerator" parameterType="java.util.HashMap">
        select DISTINCT w.id,w.userId,w.created,w.updated,w.createdBy,w.updatedBy,w.equipment,w.priority,w.patrolTask,w.artificialNumber,w.aiNumber,w.cycle,w.parent,w.planTime,
-        w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as unitId,w.unit,w.measuringType,w.dataType,w.systemId,
+        w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as unitId,w.unit,w.measuringType,w.dataType,w.equipment,w.systemId,
         w.equipId
         from workPerator w
         left join unit u on u.nuit=w.measuringType

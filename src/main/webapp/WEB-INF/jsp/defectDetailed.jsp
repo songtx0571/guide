@@ -140,11 +140,13 @@
             $('#userId').val(data.id);
         }
     })
+    console.log( $("#detailedInfoId").val())
     $.ajax({
         type: 'GET',
         url: path + "/defect/getDefectById",
-        data: {id: $("#detailedInfoId").val()},
+        data: {id: Number($("#detailedInfoId").val())},
         success: function (data) {
+            data = data.data;
             $("#detailedInfoId").val(data.id);//id
             $("#detailedInfoNumber").text(data.number);//编号
             $("#detailedInfoSys").text(data.sysName + "," + data.equipmentName);//系统 设备

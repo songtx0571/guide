@@ -11,9 +11,9 @@ $(function () {
     document.getElementById("datetime").value = Y + "-" + M + "-" + D ;
     var type = sessionStorage.wfgdDailyType;
     var datetime = sessionStorage.wfgdDailydatetime;
-
     if (type) {
-        $('#type').val(type);
+        // var type = document.querySelector("input[name='type']:checked").value;
+        // $('#type').val(type);
     }
     if (datetime) {
         document.getElementById('datetime').value = datetime;
@@ -33,7 +33,8 @@ function getUserName() {
 }
 
 function compareTime() {
-    var type = $("#type").val();
+    // var type = $("#type").val();
+    var type = document.querySelector("input[name='type']:checked").value;
     var startDate = $("#datetime").val();
     var endDate = $("#datetime").val();
     var arrStartDate = startDate.split("-");
@@ -87,7 +88,8 @@ function getProject() {
 function change() {
     $("tbody tr").remove("tr[id=123]");
     var datetime = $('#datetime').val();
-    var type = $('#type').val();
+    // var type = $('#type').val();
+    var type = document.querySelector("input[name='type']:checked").value;
     var project = $('#project').val();
     sessionStorage.wfgdDailyType = type;
     sessionStorage.wfgdDailydatetime = datetime;
@@ -614,7 +616,7 @@ function fillA(project,datetime,type){
                 tr = "<tr><td colspan='10'>无</td></tr>"
             } else {
                 for (var i = 0; i < data.length; i ++) {
-                    tr += "<tr><td>"+(i+1)+"</td><td colspan='2' style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='3'>"+data[i].abs+"</td><td colspan='2'>"+data[i].creatName+"</td><td colspan='2'>"+data[i].createTime+"</td></tr>";
+                    tr += "<tr><td>"+(i+1)+"</td><td colspan='2' style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='3'>创建缺陷&nbsp;&nbsp;"+data[i].abs+"</td><td colspan='2'>"+data[i].creatName+"</td><td colspan='2'>"+data[i].createTime+"</td></tr>";
                 }
             }
             tbody0.innerHTML = tr;

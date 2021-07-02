@@ -296,7 +296,7 @@ public class StaffController {
                     }
 
                     postPeratorData.setMeasuringType(work.getMeasuringType());//测点类型
-                    //postPeratorData.setEquipment(work.getEquipment());//设备名称
+                    postPeratorData.setEquipment(work.getEquipment());//设备名称
                     postPeratorData.setPostPeratorId(id);
                     Users users = this.getPrincipal();
                     if (users != null) {

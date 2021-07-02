@@ -132,16 +132,19 @@
                 <a class="layui-btn" style="line-height: 30px;background: #a1aec7;" lay-event="del">删除</a>
             </shiro:hasPermission>
             {{#  } else if(d.type == 7) { }}
-            <shiro:hasPermission name="缺陷检修班长">
+            <shiro:hasPermission name="缺陷运行岗位">
                 <a class="layui-btn layui-btn-fluid" style="background: burlywood;" lay-event="workHours">工时确认</a>
             </shiro:hasPermission>
             {{#  } }}
-
         </script>
         <script type="text/html" id="tbStatusBar">
-            <a class="layui-btn layui-btn-normal" style="line-height: 30px;" lay-event="openClose"
-               id="statusBtn{{d.id}}">暂停</ a>
-            <a class="layui-btn" style="line-height: 30px;" lay-event="delay">延期</ a>
+            <shiro:hasPermission name="缺陷运行岗位">
+                {{# if(d.type != 6){ }}
+                <a class="layui-btn layui-btn-normal" style="line-height: 30px;" lay-event="updateStartedOrDelay"
+                   id="statusBtn{{d.id}}">暂停</a>
+                <a class="layui-btn" style="line-height: 30px;" lay-event="delay">加时</a>
+                {{# } }}
+            </shiro:hasPermission>
         </script>
     </div>
     <!-- 新增 -->

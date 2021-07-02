@@ -372,6 +372,28 @@ function getSightTypeUnit(id) {
                 $("#addTemBarSightTypeHidden").val(data.elem[data.elem.selectedIndex].text);
             });
         });
+        form.on('select(updTemBarType)', function (data) {
+            $("#updTemBarTypeHidden").val(data.value);
+            //测点类型
+            $.ajax({
+                type: "GET",
+                url: path + "/guide/template/getSightType",
+                data:{type: '2',id:id,dataType:$("#updTemBarTypeHidden").val(),name:roadName},
+                dataType: "json",
+                success: function (data) {
+                    $("#updTemBarSightType1").empty();
+                    var option = "<option value='-1' >请选择测点类型</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+                    }
+                    $('#updTemBarSightType1').html(option);
+                    form.render();//菜单渲染 把内容加载进去
+                }
+            });
+            form.on('select(updTemBarSightType1)', function (data) {
+                $("#updTemBarSightTypeHidden").val(data.elem[data.elem.selectedIndex].text);
+            });
+        });
     })
 }
 //显示信息
@@ -388,9 +410,7 @@ function showTemBar(id) {
             , height: height
             , toolbar: true
             , url: path + "/guide/template/getTemplateChildList?temid="+id //数据接口
-            , page: true //开启分页
-            , limit: 50
-            , limits: [50, 100, 150]
+            , page: false //开启分页
             , cols: [[ //表头
                 {field: 'equipment', title: '设备名称', align: 'center'}
                 , {field: 'measuringType', title: '测点类型', align: 'center'}
@@ -533,6 +553,7 @@ function getSelect (id1,data) {
         $("#updTemBarTypeHidden").val(data.dataType);
         $('#updTemBarSightTypeHidden').val(data.measuringType);
         $("#updTemBarType").val(data.dataType);
+        console.log(data)
         $("#updTemBarSysName").val(data.sysId);
         $("#updTemBarEquName").val(data.equipmentId);
         $("#updTemBarUnit").val(data.unitId);
@@ -568,37 +589,25 @@ function addTemBar() {
     var unitType= $('#addTemBarUnitHidden').val();
     var dataType = $("#addTemBarTypeHidden").val();
     temChildId="";
-    if (systemId.trim() == "" || equipId.trim() == "" || sightType.trim() == "" || unitType.trim() == ""){
+    if (systemId == "" || equipId == "" || sightType.trim() == "" || unitType.trim() == ""){
         $(".addTemBarSpan").css("display","block");
         return;
     }
-    var data={'systemId':systemId,'equipId':equipId,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType,'sysName':addSystemName,'equName':addEquipName};
 
+    var data={'systemId':systemId,'equipId':equipId,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType,'sysName':addSystemName,'equName':addEquipName};
     console.log(data)
-    /*var workId=id1;
-     var sysName= $('#addTemBarSysHidden').val();
-    var equName= $('#addTemBarEquNameHidden').val();
-    var sightType= $('#addTemBarSightTypeHidden').val();
-    var unitType= $('#addTemBarUnitHidden').val();
-    var dataType = $("#addTemBarTypeHidden").val();
-    temChildId="";
-    if (sysName.trim() == "" || equName.trim() == "" || sightType.trim() == "" || unitType.trim() == ""){
-        $(".addTemBarSpan").css("display","block");
-        return;
-    }
-    var data={'sysName':sysName,'equName':equName,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType};
-     $.ajax({
+    $.ajax({
         url: '/guide/template/addWorkPeratorChild',
         type: 'GET',
         dataType: 'json',
         async: false,
-        data:{'sysName':sysName,'equName':equName,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType},
+        data:{'systemId':systemId,'equipId':equipId,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'dataType':dataType,'sysName':addSystemName,'equName':addEquipName},
         success: function (data) {
             showTemBar(id1);
             $(".addTemBarDiv").css("display","none");
             $(".temBarDivTable").css("display","block");
         }
-    });*/
+    });
 }
 //修改路线
 function updTemBar() {
@@ -609,18 +618,18 @@ function updTemBar() {
     var unitType= $('#updTemBarUnitHidden').val();
     var data={'systemId':systemId,'equipId':equipId,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'sysName':updSystemName,'equName':updEquipName};
     console.log(data)
-    /*$.ajax({
+    $.ajax({
         url: '/guide/template/addWorkPeratorChild',
         type: 'GET',
         dataType: 'json',
         async: false,
-        data:{'sysName':sysName,'equName':equName,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId},
+        data:{'systemId':systemId,'equipId':equipId,'sightType':sightType,'unitType':unitType,'workId':workId,'temChildId':temChildId,'sysName':updSystemName,'equName':updEquipName},
         success: function (data) {
             showTemBar(id1);
             $(".updTemBarDiv").css("display","none");
             $(".temBarDivTable").css("display","block");
         }
-    });*/
+    });
 }
 //取消
 function cancel1() {

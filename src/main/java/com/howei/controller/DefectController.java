@@ -18,7 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.howei.util.Image.ImageToBase64ByLocal;
@@ -125,22 +128,16 @@ public class DefectController {
      * @return
      */
     @RequestMapping(value = "/getDefectList", method = RequestMethod.GET)
-    public ResultObject getDefectList(HttpServletRequest request) throws ParseException {
+    public Result getDefectList(HttpServletRequest request) throws ParseException {
         String type = request.getParameter("type");//缺陷状态
         String sysId = request.getParameter("sysId");//系统
         String equipmentId = request.getParameter("equipmentId");//设备
         String departmentId = request.getParameter("departmentId");//部门
-        String page = request.getParameter("page");
-        String limit = request.getParameter("limit");
-        int rows = Page.getOffSet(page, limit);
-
         Users users = this.getPrincipal();
         if (users == null) {
-            ResultObject result = new ResultObject(0, new ArrayList<>(), 0, "NoUser");
-            return result;
+            return Result.fail(ResultEnum.NO_USER);
         }
         Subject subject = SecurityUtils.getSubject();
-
         //加载用户Map
         Map empMap = getUsersMap();
 
@@ -202,19 +199,17 @@ public class DefectController {
                 }
             }
         }
-        ResultObject result = new ResultObject(count, list, 0, "success");
-        return result;
+        return Result.ok(count, list);
     }
 
     @RequestMapping("/getPermission")
-    public String getPermission(String permissionName) {
+    public Result getPermission(String permissionName) {
         Subject subject = SecurityUtils.getSubject();
         boolean bool = subject.isPermitted(permissionName);
         if (bool) {
-            return JSON.toJSONString("true");
-        } else {
-            return JSON.toJSONString("false");
+            return Result.ok();
         }
+        return Result.fail(ResultEnum.NO_PERMISSION);
     }
 
     /**
@@ -224,22 +219,22 @@ public class DefectController {
      * @return
      */
     @RequestMapping(value = "/addDefect", method = RequestMethod.POST)
-    public String addDefect(@RequestBody Defect defect) {
+    public Result addDefect(@RequestBody Defect defect) {
         Users users = this.getPrincipal();
-        defect.setCreated(DateFormat.getYMDHMS(new Date()));
+        String dateStr = DateFormat.getYMDHMS(new Date());
+        defect.setCreated(dateStr);
         defect.setCompany(1);
         defect.setType(1);//未认领
         defect.setYear(DateFormat.getYMD());
-        if (users != null) {
-            defect.setDepartmentId(users.getDepartmentId());
-            defect.setCreatedBy(users.getEmployeeId());
-        } else {
-            return JSON.toJSONString(Type.NOUSER);//用户验证过期
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);//用户验证过期
         }
+        defect.setDepartmentId(users.getDepartmentId());
+        defect.setCreatedBy(users.getEmployeeId());
         //获取部门首字母
         Company company = companyService.getCompanyById(users.getDepartmentId() + "");
-        if (company != null && company.getCodeName().equals("")) {
-            return JSON.toJSONString(Type.NoDepNumber);//当前部门无编号
+        if (company == null || "".equals(company.getCodeName().trim())) {
+            return Result.fail(ResultEnum.NO_DEPARTMENT_ID);//当前部门无编号
         }
         //根据来源设置系统及设备
         //1：defect项目创建
@@ -257,6 +252,23 @@ public class DefectController {
                 defect.setEquipmentId(equipment.getId());
             }
         }
+
+        Integer level = defect.getLevel();
+        Double plannedHours = 96D;
+        if (level == 0) {
+            plannedHours = 4D;
+        } else if (level == 2) {
+            plannedHours = 12D;
+        } else if (level == 3) {
+            plannedHours = 24D;
+        } else if (level == 4) {
+            plannedHours = 48D;
+        }
+        defect.setPlannedHours(plannedHours);
+
+        defect.setPartStartTime(dateStr);
+        defect.setTotalStartTime(dateStr);
+
         int result = defectService.addDefect(defect);
         //设置缺陷单编号
         if (result >= 0) {
@@ -265,19 +277,12 @@ public class DefectController {
             if (company.getId() == 19) {//浦江项目部从819开始
                 insId = 819 + count;
             }
-            if (insId < 10) {
-                defect.setNumber(company.getCodeName() + "000" + insId);
-            } else if (insId >= 10 && insId < 100) {
-                defect.setNumber(company.getCodeName() + "00" + insId);
-            } else if (insId >= 100 && insId < 10000) {
-                defect.setNumber(company.getCodeName() + "0" + insId);
-            } else {
-                defect.setNumber(company.getCodeName() + insId);
-            }
+            DecimalFormat df = new DecimalFormat("0000");
+            defect.setNumber(company.getCodeName() + df.format(insId));
             defectService.updDefect(defect);
-            return JSON.toJSONString(Type.SUCCESS);
+            return Result.ok();
         }
-        return JSON.toJSONString(Type.ERROR);
+        return Result.fail(ResultEnum.FAIL);
     }
 
     /**
@@ -287,32 +292,38 @@ public class DefectController {
      * @return
      */
     @RequestMapping(value = "/updDefect", method = RequestMethod.PUT)
-    public synchronized String updDefect(@RequestBody Defect defect) throws ParseException {
+    public synchronized Result updDefect(@RequestBody Defect defect) throws ParseException {
         Integer id = defect.getId();
         Integer type = defect.getType();
         Users users = this.getPrincipal();
         if (users == null) {
-            return JSON.toJSONString(Type.NOUSER);//用户验证过期,重新登录
+            return Result.fail(ResultEnum.NO_USER);//用户验证过期,重新登录
         }
         if (id != null) {
             if (type == 1) {//未认领状态
                 if (defect.getCreatedBy() == users.getEmployeeId()) {
                     defectService.updDefect(defect);
-                    return JSON.toJSONString(Type.SUCCESS);
+                    return Result.ok();
                 }
-                return JSON.toJSONString(Type.NOPERMISSION);//无权限
+                return Result.fail(ResultEnum.NO_PERMISSION);//无权限
             } else if (type.equals(2)) {      //'消缺中'状态修改为'已完成'状态
                 Defect defect1 = defectService.getDefectById(id);
                 if (defect1 != null) {
+                    if (defect1.getIsStarted() != 0) {
+                        return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
+                    }
                     //判断当前登录人是否有权限修改这条记录
                     if (String.valueOf(defect1.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId())) < 0) {
-                        return JSON.toJSONString(Type.NOPERMISSION);
+                        return Result.fail(ResultEnum.NO_PERMISSION);
                     }
                 }
-                //判断记录是否被修改，驳回
-                if (defect1.getRealETime() != null && !defect1.getRealETime().trim().equals("")) {
-                    return JSON.toJSONString(Type.REJECT);
-                }
+//                //判断记录是否被修改，驳回
+//                if (defect1.getRealETime() != null && !defect1.getRealETime().trim().equals("")) {
+//                    return Result.fail(ResultEnum.REJECT);
+//                }
+
+                defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+                defect.setPartPauseSeconds(0D);
                 defect.setType(7);//已消缺
                 defect.setCompleter(users.getEmployeeId());
                 String realETime = DateFormat.getYMDHMS(new Date());//实际结束时间
@@ -320,41 +331,44 @@ public class DefectController {
 
                 Double plannedWork = defect.getPlannedWork();//计划工时
                 String realSTime = defect.getRealSTime();//实际开始时间
-                double diff2 = DateFormat.getBothNH(realSTime, realETime);
-
-                System.out.println("diff2::" + diff2);
-                System.out.println("plannedWork::" + plannedWork);
+                Double diff2 = DateFormat.getBothNH(realSTime, realETime);
                 if (plannedWork <= diff2) {
                     defect.setRealExecuteTime(plannedWork);
-                    defect.setOvertime(diff2 - plannedWork);
+                    BigDecimal bd = new BigDecimal(diff2 - plannedWork);
+                    defect.setOvertime(bd.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue());
                 } else {
-                    defect.setRealExecuteTime(diff2);
+                    BigDecimal bd = new BigDecimal(diff2);
+                    defect.setRealExecuteTime(bd.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue());
                     defect.setOvertime(0D);
                 }
                 defectService.updDefect(defect);
-                return JSON.toJSONString(Type.SUCCESS);
+                return Result.ok();
             }
         }
-        return JSON.toJSONString(Type.ERROR);
+        return Result.fail();
     }
 
     /**
      * 开始执行
      *
-     * @param id
+     * @param id          缺陷编号
+     * @param type        类型,6表示延期
+     * @param delayETime
+     * @param delayReason
      * @return
      */
     @RequestMapping(value = "/startExecution", method = RequestMethod.PUT)
-    public synchronized Map<String, String> startExecution(Integer id, String type, String delayETime, Integer delayReason) {
-        Map<String, String> map = new HashMap<>();
+    public synchronized Result startExecution(Integer id, String type, String delayETime, Integer delayReason) {
         Users users = this.getPrincipal();
         if (users == null) {
-            map.put("msg", "noUser");//重新登录
-            return map;
+            return Result.fail(ResultEnum.NO_USER);
         }
         if (id != null) {
             Defect defect = defectService.getDefectById(id);
             if (defect != null) {
+                if (defect.getIsStarted() != 0) {
+                    return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
+                }
                 if (type != null && type.equals("6")) {
                     if (String.valueOf(defect.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId())) > -1) {
                         defect.setType(6);//延期中
@@ -362,29 +376,25 @@ public class DefectController {
                         defect.setDelayETime(delayETime);//延期结束时间
                         defect.setDelayReason(delayReason);//延期理由
                         defectService.updDefect(defect);
-                        map.put("msg", "success");
-                        return map;
+                        return Result.ok();
                     } else {
-                        //无权限
-                        map.put("msg", "noPermission");
+                        return Result.fail(ResultEnum.NO_PERMISSION);
                     }
                 } else {
                     if (String.valueOf(defect.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId())) > -1) {
                         defect.setType(2);//消缺中
                         defect.setRealSTime(DateFormat.getYMDHMS(new Date()));
+                        defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+                        defect.setPartPauseSeconds(0D);
                         defectService.updDefect(defect);
-                        map.put("msg", "success");
-                        return map;
+                        return Result.ok();
                     } else {
-                        //无权限
-                        map.put("msg", "noPermission");
+                        return Result.fail(ResultEnum.NO_PERMISSION);
                     }
                 }
             }
-        } else {
-            map.put("msg", "error");//id为空
         }
-        return map;
+        return Result.fail();
     }
 
     /**
@@ -402,70 +412,81 @@ public class DefectController {
     }
 
     /**
-     * 认领缺陷单(权限:班长)
+     * 缺陷单的认领或者延期(type=6时)(权限:班长)
      *
+     * @param type        type=6表示延期
+     * @param delayETime  延期结束时间
+     * @param delayReason 延期原因 1
      * @param empIds      分配的执行人员
      * @param id          缺陷单Id
      * @param plannedWork 计划工时
      * @return
      */
     @RequestMapping("claim")
-    public synchronized String claim(String empIds, Integer id, Double plannedWork, String type, String delayETime, Integer delayReason) {
+    public synchronized Result claim(String empIds, Integer id, Double plannedWork, String type, String delayETime, Integer delayReason) {
         Subject subject = SecurityUtils.getSubject();
         if (!subject.isPermitted("缺陷检修班长")) {
-            return JSON.toJSONString(Type.NOPERMISSION);//无权限
+            return Result.fail(ResultEnum.NO_PERMISSION);//无权限
         }
-        if (id != null) {
-            Users users = this.getPrincipal();
-            Defect defect = defectService.getDefectById(id);
-            //type=6
-            if (type != null && type.equals("6")) {
-                defect.setType(6);//延期中
+        Users users = this.getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
+        Defect defect = defectService.getDefectById(id);
+
+        if (defect.getIsStarted() != 0) {
+            return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
+        }
+        //type=6
+        if (type != null && type.equals("6")) {
+            defect.setType(6);//延期中
+            defect.setDelayBy(users.getEmployeeId());//申请延期人
+            defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
+            defect.setDelayETime(delayETime);//延期结束时间
+            defect.setDelayReason(delayReason);//延期理由
+            defect.setRealETime("");//实际检修结束时间
+            defect.setRealSTime("");//实际检修开始时间
+            defect.setEmpIds("");//执行人员
+            //设置认领数据为空
+        } else {
+            if (empIds != null) {
+                defect.setEmpIds(empIds);
+                defect.setPlannedWork(plannedWork);//计划工时
+                defect.setOrderReceivingTime(DateFormat.getYMDHMS(new Date()));//接单时间
+                defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+                defect.setPartPauseSeconds(0D);
+                defect.setType(5);//已认领
+                //设置延期为空
                 defect.setDelayBy(users.getEmployeeId());//申请延期人
-                defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
-                defect.setDelayETime(delayETime);//延期结束时间
-                defect.setDelayReason(delayReason);//延期理由
-                defect.setRealETime("");//实际检修结束时间
-                defect.setRealSTime("");//实际检修开始时间
-                defect.setEmpIds("");//执行人员
-                //设置认领数据为空
+                defect.setClaimant(users.getEmployeeId());
             } else {
-                if (empIds != null) {
-                    defect.setEmpIds(empIds);
-                    defect.setPlannedWork(plannedWork);//计划工时
-                    defect.setOrderReceivingTime(DateFormat.getYMDHMS(new Date()));//接单时间
-                    defect.setType(5);//已认领
-                    //设置延期为空
-                    defect.setDelayBy(users.getEmployeeId());//申请延期人
-                    if (users == null) {
-                        JSON.toJSONString(Type.NOUSER);//用户验证过期
-                    }
-                    defect.setClaimant(users.getEmployeeId());
-                } else {
-                    JSON.toJSONString(Type.FORMAT);//格式错误
-                }
+                JSON.toJSONString(Type.FORMAT);//格式错误
             }
-            defectService.updDefect(defect);
-            return JSON.toJSONString(Type.SUCCESS);
         }
-        return JSON.toJSONString(Type.FORMAT);
+        defectService.updDefect(defect);
+        return Result.ok();
     }
 
     /**
      * 值班确认
      *
      * @param id
+     * @param result 2驳回,1确认,
      * @return
      */
     @RequestMapping(value = "/dutyConfirmation", method = RequestMethod.PUT)
-    public String dutyConfirmation(Integer id, Integer result) {
+    public Result dutyConfirmation(Integer id, Integer result) {
         Users users = this.getPrincipal();
         if (users == null) {
-            return JSON.toJSONString(Type.NOUSER);
+            return Result.fail(ResultEnum.NO_USER);
         }
+
         if (id != null) {
             Defect defect = defectService.getDefectById(id);
             if (defect != null) {
+                if (defect.getIsStarted() != 0) {
+                    return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
+                }
                 //驳回
                 if (result == 2) {
                     defect.setType(1);//未认领
@@ -480,19 +501,43 @@ public class DefectController {
                     defect.setProblem("");
                     defect.setRemark("");
                     defect.setaPlc("");
+                    defect.setTotalStartTime(DateFormat.getYMDHMS(new Date()));
+                    defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+                    defect.setTotalPauseSeconds(0D);
+                    defect.setPartPauseSeconds(0D);
                 } else if (result == 1) {
                     if (defect.getConfirmer1Time() != null) {
-                        return JSON.toJSONString(Type.REJECT);//已完成不可再确认
+                        return Result.fail(ResultEnum.REJECT);//已完成不可再确认
                     }
                     defect.setType(4);//已完成
                     defect.setConfirmer1(users.getEmployeeId());
                     defect.setConfirmer1Time(DateFormat.getYMDHMS(new Date()));
+                    defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+                    defect.setPartPauseSeconds(0D);
+                    defect.setCountdownDelayTimes(0);
+                    defect.setPlannedHoursPart1(2D);
+                    defect.setPlannedHoursPart5(4D);
+                    defect.setPlannedHoursPart2(4D);
+                    defect.setPlannedHoursPart3(4D);
+                    defect.setPlannedHoursPart7(2D);
+                    Integer level = defect.getLevel();
+                    Double plannedHours = 96D;
+                    if (level == 0) {
+                        plannedHours = 4D;
+                    } else if (level == 2) {
+                        plannedHours = 12D;
+                    } else if (level == 3) {
+                        plannedHours = 24D;
+                    } else if (level == 4) {
+                        plannedHours = 48D;
+                    }
+                    defect.setPlannedHours(plannedHours);
                 }
                 defectService.updDefect(defect);
-                return JSON.toJSONString(Type.SUCCESS);
+                return Result.ok();
             }
         }
-        return JSON.toJSONString(Type.FORMAT);
+        return Result.fail();
     }
 
     /**---------------------------------------------------- 下拉框 ----------------------------------------------*/
@@ -530,7 +575,7 @@ public class DefectController {
         Users users = this.getPrincipal();
         //用户信息过期
         if (users == null) {
-            return Result.fail("用户失效");
+            return Result.fail(ResultEnum.NO_USER);
         }
 
         String empIdStr = "";
@@ -551,7 +596,6 @@ public class DefectController {
         }
         Map map = new HashMap();
         map.put("empId", empIdStr);
-        System.out.println(empIdStr);
         List<Map<String, Object>> list = employeeService.getEmpMap(map);
         return list;
     }
@@ -573,6 +617,7 @@ public class DefectController {
         return list;
     }
 
+
     /**
      * 根据设备获取历史缺陷
      *
@@ -584,7 +629,6 @@ public class DefectController {
     public List<Map<String, String>> getDefectHistiryByEqu(Integer sysId, Integer euqipmentId) {
         Users users = this.getPrincipal();
         Subject subject = SecurityUtils.getSubject();
-        ;
         List<Map<String, String>> result = new ArrayList<>();
         if (sysId == -1 && euqipmentId == -1) {
             return null;
@@ -612,7 +656,12 @@ public class DefectController {
      * @return
      */
     @RequestMapping("/getDefectById")
-    public Defect getDefectById(Integer id) {
+    public Result getDefectById(Integer id) {
+        Subject subject = SecurityUtils.getSubject();
+        Users users = (Users) subject.getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
         if (id != null) {
             Defect defect = defectService.getDefectById(id);
             //加载用户Map
@@ -642,7 +691,7 @@ public class DefectController {
                     defect.setbPlc64(bPlc64);
                 }
             }
-            return defect;
+            return Result.ok(1, defect);
         }
         return null;
     }
@@ -658,8 +707,7 @@ public class DefectController {
     public Result getDefectDataList(String month, Integer departmentId) throws ParseException {
         Users users = this.getPrincipal();
         if (users == null) {
-            Result result = new Result(0, new ArrayList<>(), 0, "NoUser");
-            return result;
+            return Result.fail(ResultEnum.NO_USER);
         }
         //加载用户Map
         Map empMap = getUsersMap();
@@ -687,24 +735,8 @@ public class DefectController {
                 empIdsName = empIdsName.equals("") || empIdsName == null ? "" : empIdsName.substring(0, empIdsName.length() - 1);
                 defect.setEmpIdsName(empIdsName);
             }
-            if (defect.getRealExecuteTime() == null) {
-                String realETime = defect.getRealETime();//实际结束时间
-                Double plannedWork = defect.getPlannedWork() == null ? 0.0 : defect.getPlannedWork();//计划完成时间
-                String realSTime = defect.getRealSTime();//实际开始时间
-                if (realETime != null && realSTime != null && !"".equals(realETime) && !"".equals(realSTime)) {
-                    double diff2 = DateFormat.getBothNH(realSTime, realETime);
-                    if (plannedWork <= diff2) {
-                        defect.setRealExecuteTime(plannedWork);
-                        defect.setOvertime(diff2 - plannedWork);
-                    } else {
-                        defect.setRealExecuteTime(diff2);
-                        defect.setOvertime(0D);
-                    }
-                }
-            }
         }
-        Result result = new Result(list.size(), list, 0, "success");
-        return result;
+        return Result.ok(list.size(), list);
     }
 
 
@@ -716,6 +748,11 @@ public class DefectController {
      */
     @GetMapping("/delete")
     public Result deleteDefect(@RequestParam Integer id) {
+        Subject subject = SecurityUtils.getSubject();
+        Users users = (Users) subject.getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
         defectService.deleteById(id);
         return Result.ok();
     }
@@ -724,7 +761,7 @@ public class DefectController {
     /**
      * 工时确认
      *
-     * @param id
+     * @param id            缺陷编号
      * @param confirmResult 0审核通过,1审核不通过
      * @return
      */
@@ -736,30 +773,70 @@ public class DefectController {
     ) {
         Users users = this.getPrincipal();
         if (users == null) {
-            return Result.fail("用户失效");
+            return Result.fail(ResultEnum.NO_USER);
         }
         Defect defect = defectService.getDefectById(id);
+        if (defect.getIsStarted() != 0) {
+            return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
+        }
         if (confirmResult == 0) {
             defect.setType(3);
             if (overtime != null && !"".equals(overtime.trim())) {
                 defect.setOvertime(Double.valueOf(overtime));
             }
             defect.setWorkTimeConfirmTime(DateFormat.getYMDHMS(new Date()));
+            defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+            defect.setPartPauseSeconds(0D);
         } else {
             defect.setType(1);
-            defect.setRealETime(null);
+            defect.setRealETime("");
+            defect.setTotalStartTime(DateFormat.getYMDHMS(new Date()));
+            defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+            defect.setTotalPauseSeconds(0D);
+            defect.setPartPauseSeconds(0D);
+            defect.setCountdownDelayTimes(0);
+            defect.setPlannedHoursPart1(2D);
+            defect.setPlannedHoursPart5(4D);
+            defect.setPlannedHoursPart2(4D);
+            defect.setPlannedHoursPart3(4D);
+            defect.setPlannedHoursPart7(2D);
+            Integer level = defect.getLevel();
+            Double plannedHours = 96D;
+            if (level == 0) {
+                plannedHours = 4D;
+            } else if (level == 2) {
+                plannedHours = 12D;
+            } else if (level == 3) {
+                plannedHours = 24D;
+            } else if (level == 4) {
+                plannedHours = 48D;
+            }
+            defect.setPlannedHours(plannedHours);
         }
         defectService.updDefect(defect);
+
         return Result.ok();
     }
 
+    /**
+     * 超时类型
+     *
+     * @param id
+     * @param type
+     * @return
+     */
     @GetMapping("/updateTimeoutType")
     public Result updateTimeoutType(
             @RequestParam Integer id,
             @RequestParam String type
     ) {
-        Defect defect = defectService.getDefectById(id);
 
+        Subject subject = SecurityUtils.getSubject();
+        Users users = (Users) subject.getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
+        Defect defect = defectService.getDefectById(id);
         String timeoutType = defect.getTimeoutType();
         if (timeoutType == null) {
             timeoutType = type;
@@ -772,14 +849,14 @@ public class DefectController {
     }
 
     /**
+     * 开始或者暂停,延时功能
      * type为0时,设置该缺陷开始倒计时或者停止倒计时
-     * type为1时,设置该缺陷延期次数,第一次延期1小时,第二次延期30分钟,第三次延期10分钟,第三次延期10分钟
+     * type为1时,设置该缺陷加时次数,第一次加时1小时,第二次加时0.5小时,第三次加时0.25分钟
      *
      * @param id        缺陷id,
      * @param paramType 修改的类型,0设置开始或者暂停,1设置延期
      * @return
      */
-
     @GetMapping("/updateStartedOrDelay")
     public Result startPauseCountDown(
             @RequestParam Integer id,
@@ -790,15 +867,30 @@ public class DefectController {
         if (users == null) {
             return Result.fail(ResultEnum.NO_USER);
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String msg;
         Defect defect = defectService.getDefectById(id);
+        Date date = new Date();
         if (paramType == 0) {
             Integer isStarted = defect.getIsStarted();
             if (isStarted == 0) {
                 isStarted = 1;
                 msg = "缺陷暂停成功";
+                String formatDate = sdf.format(date);
+                defect.setPauseTime(formatDate);
             } else {
                 isStarted = 0;
+                String pauseTime = defect.getPauseTime();
+                Date parsePauseTime;
+                BigDecimal bd = new BigDecimal(0);
+                try {
+                    parsePauseTime = sdf.parse(pauseTime);
+                    bd = new BigDecimal((date.getTime() - parsePauseTime.getTime()) / 1000);
+                } catch (ParseException e) {
+                }
+                Double pauseSeconds = bd.setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
+                defect.setTotalPauseSeconds(pauseSeconds + defect.getTotalPauseSeconds());
+                defect.setPartPauseSeconds(pauseSeconds + defect.getPartPauseSeconds());
                 msg = "缺陷开始成功";
             }
             defect.setIsStarted(isStarted);
@@ -806,7 +898,7 @@ public class DefectController {
             return Result.ok(msg);
         } else {
             double additionalTime = 0;
-            Integer times = defect.getCountdowndelayTimes();
+            Integer times = defect.getCountdownDelayTimes();
 
             if (times == 0) {
                 additionalTime = 1;
@@ -830,6 +922,7 @@ public class DefectController {
                 defect.setPlannedHoursPart7(defect.getPlannedHoursPart7() + additionalTime);
             }
             defect.setPlannedHours(defect.getPlannedHours() + additionalTime);
+            defect.setCountdownDelayTimes(times + 1);
             defectService.updDefect(defect);
             return Result.ok("加时成功,第" + (times + 1) + "次加时,增加" + additionalTime + "小时");
         }

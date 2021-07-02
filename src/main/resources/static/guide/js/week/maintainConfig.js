@@ -14,6 +14,9 @@ $(function () {
 function search() {
     var searchWord = $("#searchWord").val();
     var departmentId = $("#addDepartNameHidden").val()
+    if (departmentId == "" || departmentId == undefined) {
+        departmentId = "";
+    }
     showMaintainWork(departmentId, searchWord);
 }
 
@@ -56,6 +59,9 @@ function showDepartName() {
 
 //查询设备名称和系统名称
 function showSystemNameAndEquipmentName(department) {
+    if (department == "" || department == "undefined") {
+        department = "";
+    }
     layui.use(['form'], function () {
         var form = layui.form;
         $.ajax({

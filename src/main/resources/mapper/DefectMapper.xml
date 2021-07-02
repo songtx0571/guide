@@ -144,6 +144,45 @@
             <if test="timeoutType!=null">
                 timeoutType=#{timeoutType},
             </if>
+            <if test="isStarted!=null">
+                isStarted=#{isStarted},
+            </if>
+            <if test="countdownDelayTimes!=null">
+                countdownDelayTimes=#{countdownDelayTimes},
+            </if>
+            <if test="plannedHours!=null">
+                plannedHours=#{plannedHours},
+            </if>
+            <if test="plannedHoursPart1!=null">
+                plannedHoursPart1=#{plannedHoursPart1},
+            </if>
+            <if test="plannedHoursPart5!=null">
+                plannedHoursPart5=#{plannedHoursPart5},
+            </if>
+            <if test="plannedHoursPart2!=null">
+                plannedHoursPart2=#{plannedHoursPart2},
+            </if>
+            <if test="plannedHoursPart3!=null">
+                plannedHoursPart3=#{plannedHoursPart3},
+            </if>
+            <if test="plannedHoursPart7!=null">
+                plannedHoursPart7=#{plannedHoursPart7},
+            </if>
+            <if test="partStartTime!=null">
+                partStartTime=#{partStartTime},
+            </if>
+            <if test="totalStartTime!=null">
+                totalStartTime=#{totalStartTime},
+            </if>
+            <if test="partPauseSeconds!=null">
+                partPauseSeconds=#{partPauseSeconds},
+            </if>
+            <if test="totalPauseSeconds!=null">
+                totalPauseSeconds=#{totalPauseSeconds},
+            </if>
+            <if test="pauseTime!=null">
+                pauseTime=#{pauseTime},
+            </if>
         </set>
         where id=#{id}
     </update>

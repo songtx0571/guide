@@ -14,12 +14,16 @@
 <body>
 	<div>
 		<span class='span'>
-		日期选择<input type="text" id="datetime" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-M-d',maxDate:'%y-%M-{%d+1}'})" class="Wdate"/>
-		班次<select id="type">
+		日期选择：<input type="text" id="datetime" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-M-d',maxDate:'%y-%M-{%d+1}'})" class="Wdate"/>
+		<%--班次<select id="type">
 			<option value="3">夜班</option>
 			<option value="1" selected="selected">白班</option>
 			<option value="2">中班</option>
-		</select>
+		</select>--%>
+			班次：<label><input type="radio" name="type" value="3" />夜班</label>
+			<label><input type="radio" name="type" value="1" checked/>白班</label>
+			<label><input type="radio" name="type" value="2" />中班</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
 		<shiro:hasPermission name='项目部选择'>
 			项目组选择:<select id='project'></select>
 		</shiro:hasPermission>

@@ -46,13 +46,21 @@ public class Defect {
     private String workTimeConfirmTime;//加班工时确认时间
     private String timeoutType;//超时类型,  A认领超时,  B开工超时, C反馈超时,D验收超时, E结束超时, Z缺陷处理超时
     private Integer isStarted;//是否开始,0开始计时,1结束计时
-    private Integer countdowndelayTimes;//倒计时加时次数
+    private Integer countdownDelayTimes;//倒计时加时次数
     private Double plannedHoursPart1;
     private Double plannedHoursPart5;
     private Double plannedHoursPart2;
     private Double plannedHoursPart3;
     private Double plannedHoursPart7;
-    private Double plannedHours;
+    private Double plannedHours;//计时器暂停时间
+    private Double totalPauseSeconds;
+    private Double partPauseSeconds;
+    private String totalStartTime; //总倒计时开始时间
+    private String partStartTime; //每一部分倒计时开始时间
+    private String pauseTime;//暂停时间
+
+
+
     //虚字段
     private String createdByName;//创建人
     private String departmentName;//部门
@@ -67,6 +75,45 @@ public class Defect {
     private String aPlc64;
     private String bPlc64;
 
+    public Double getTotalPauseSeconds() {
+        return totalPauseSeconds;
+    }
+
+    public void setTotalPauseSeconds(Double totalPauseSeconds) {
+        this.totalPauseSeconds = totalPauseSeconds;
+    }
+
+    public Double getPartPauseSeconds() {
+        return partPauseSeconds;
+    }
+
+    public void setPartPauseSeconds(Double partPauseSeconds) {
+        this.partPauseSeconds = partPauseSeconds;
+    }
+
+    public String getPauseTime() {
+        return pauseTime;
+    }
+
+    public void setPauseTime(String pauseTime) {
+        this.pauseTime = pauseTime;
+    }
+
+    public String getTotalStartTime() {
+        return totalStartTime;
+    }
+
+    public void setTotalStartTime(String totalStartTime) {
+        this.totalStartTime = totalStartTime;
+    }
+
+    public String getPartStartTime() {
+        return partStartTime;
+    }
+
+    public void setPartStartTime(String partStartTime) {
+        this.partStartTime = partStartTime;
+    }
 
     public Double getPlannedHoursPart1() {
         return plannedHoursPart1;
@@ -116,12 +163,12 @@ public class Defect {
         this.plannedHours = plannedHours;
     }
 
-    public Integer getCountdowndelayTimes() {
-        return countdowndelayTimes;
+    public Integer getCountdownDelayTimes() {
+        return countdownDelayTimes;
     }
 
-    public void setCountdowndelayTimes(Integer countdowndelayTimes) {
-        this.countdowndelayTimes = countdowndelayTimes;
+    public void setCountdownDelayTimes(Integer countdownDelayTimes) {
+        this.countdownDelayTimes = countdownDelayTimes;
     }
 
     public Integer getIsStarted() {

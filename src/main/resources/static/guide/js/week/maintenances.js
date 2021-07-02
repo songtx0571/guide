@@ -9,11 +9,15 @@ $(document).ready( function () {
     		var data = Json.data;
     		//document.getElementById('project').length = 0;
     		var project = document.getElementById('project');
+
 			var option = "";
 			for(var i = 0;i<data.length;i++){
 				option += "<option value='"+data[i].id+"'>"+data[i].projectTeam+"</option>";
 			}
-			project.innerHTML = option;
+			if (project) {
+				project.innerHTML = option;
+			}
+
     		bigDataTable($('#project').val(),$('#other').val());
     		$('#DataTable tbody').on('click','tr td:nth-child(2)', function (e) {
        	    	var index = $(this).siblings(":first").text();
