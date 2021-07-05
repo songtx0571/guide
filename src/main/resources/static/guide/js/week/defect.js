@@ -257,30 +257,47 @@ function showTable(type, sysId, equipmentId, departmentId) {
         table.render({
             elem: '#demo'
             ,height: height
-            , toolbar: true
+            ,toolbar: true
             ,url: path + '/defect/getDefectList?type=' + type + '&sysId=' + sysId + '&equipmentId=' + equipmentId + '&departmentId=' + departmentId//数据接口
             ,id: 'demoInfo'
             ,cols: [[ //表头
-                {field: 'number',title: '缺陷号',toolbar: '#tbNumberBar',align: 'center',sort: true,event: 'detailed',style: 'cursor: pointer;',width: 85}
+                { field: 'number',title: '缺陷号',toolbar: '#tbNumberBar',align: 'center',sort: true,event: 'detailed',style: 'cursor: pointer;', width: 85}
                 , {field: 'sourceType', title: '来源', width: 70, toolbar: '#tbSourceTypeBar'}
                 , {field: 'type', title: '状态', toolbar: '#tbTypeBar', align: 'center', width: 100, sort: true}
                 , {field: 'abs', title: '缺陷描述'}
                 , {field: 'empIdsName', title: '消缺人', width: 150}
                 , {
-                    field: 'totalTime', title: '总倒计时', sort: true, align: 'center',
+                    field: 'totalTime', title: '总倒计时', sort: true, align: 'center',hide: true,
                     templet: function (a) {
-                        if(a.type==4){
+                        if (a.type == 4) {
                             return "已完成"
                         }
-                        if(a.timeoutType!=null&&a.timeoutType!=""&&a.timeoutType.indexOf("Z")!=-1){
+                        if (a.timeoutType != null && a.timeoutType != "" && a.timeoutType.indexOf("Z") != -1) {
                             return "Z:缺陷处理超时";
                         }
-                        if(a.type==6){
+                        if (a.type == 6) {
                             return "已延期"
                         }
                         var tmiao = a.plannedHours
                         // 根据后端返回的时间在延长 周期时间,计算出还剩下多少秒
-                        var t = parseInt((new Date(a.totalStartTime).getTime() + a.totalPauseSeconds * 1000 + tmiao * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
+                        var c = new Date(a.totalStartTime);
+                        var nowDate1 = new Date();
+                        var nowHours1 = nowDate1.getHours();
+                        var totalHour = c.getHours();
+                        var t = 0;
+                        if (a.level == 0) {
+                            if (nowHours1 < 9 && nowHours1 >= 17) {
+                                var html = `无倒计时`;
+                                return html;
+                            }
+                            if (totalHour < 9) {
+                                t = ((9 - totalHour) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
+                            }
+                            if (totalHour >= 17) {
+                                t = ((24 - totalHour + 9) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
+                            }
+                        }
+                        t += parseInt((new Date(a.totalStartTime).getTime() + a.totalPauseSeconds * 1000 + tmiao * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
                         // 设置每一条数据唯一的key
                         var key = 'key_Q' + a.id;
 
@@ -291,19 +308,19 @@ function showTable(type, sysId, equipmentId, departmentId) {
 
                         var time1 = day1 + "天" + shi1 + "时" + fen1 + "分" + miao1 + "秒";
                         // 这里初始值计算显示的倒计时只是为了 如页面有刷新操作，只是把这个初始值也显示为倒计时
-                        var html = `<label id=${key} >${time1}</label>`;
+                        html = `<label id=${key} >${time1}</label>`;
                         if (t <= 0) {
                             $('#' + key).html("<label >缺陷处理超时</label>");
-                            updateDefectTimeoutType(a.id,"Z");
+                            updateDefectTimeoutType(a.id, "Z");
                             delTask(key);
                         } else {
                             $('#' + key).text(html);
                         }
 
                         addTask(key, function () {
-                            var nowHour=new Date().getHours();
+                            var nowHour = new Date().getHours();
 
-                            if (a.isStarted == 0 && nowHour>=9 &&nowHour<17) {
+                            if (a.isStarted == 0 && nowHour >= 9 && nowHour < 17) {
                                 t--;
                             }
 
@@ -312,12 +329,12 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             var fen = parseInt((t / 60) % 60);//分钟
                             var miao = parseInt(t % 60);//秒
                             if (t <= 0) {
-                                $('#' + key).html("<label >缺陷处理超时</label><input type='hidden' class='"+key+"' value='"+t+"' />");
-                                updateDefectTimeoutType(a.id,"Z");
+                                $('#' + key).html("<label >缺陷处理超时</label><input type='hidden' class='" + key + "' value='" + t + "' />");
+                                updateDefectTimeoutType(a.id, "Z");
                                 delTask(key);
                             } else {
                                 // $('#' + key).text(day + "天" + shi + "时" + fen + "分" + miao + "秒");
-                                $('#' + key).html(day + "天" + shi + "时" + fen + "分" + miao + "秒"+"<input type='hidden' class='"+key+"' value='"+t+"' />");
+                                $('#' + key).html(day + "天" + shi + "时" + fen + "分" + miao + "秒" + "<input type='hidden' class='" + key + "' value='" + t + "' />");
                             }
 
                         });
@@ -326,12 +343,12 @@ function showTable(type, sysId, equipmentId, departmentId) {
 
                 }
                 , {
-                    field: 'partTime', title: '分倒计时', sort: true, align: 'center',
+                    field: 'partTime', title: '分倒计时', sort: true, align: 'center',hide: true,
                     templet: function (a) {
-                        if(a.type==4){
+                        if (a.type == 4) {
                             return "已完成"
                         }
-                        if(a.type==6){
+                        if (a.type == 6) {
                             return "已延期"
                         }
                         var tmiao = 0;
@@ -348,7 +365,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             timeoutType = "B";
                             timeoutTypeName = "开工超时";
                             // startTime = a.orderReceivingTime;
-                        }  else if (a.type == "2") {//验收超时
+                        } else if (a.type == "2") {//验收超时
                             tmiao = a.plannedHoursPart2;
                             timeoutType = "C";
                             timeoutTypeName = "反馈超时";
@@ -364,14 +381,33 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             timeoutTypeName = "结束超时";
                             // startTime = a.workTimeConfirmTime;
                         }
-                        if(a.timeoutType!=null&&a.timeoutType!=""&&a.timeoutType.indexOf(timeoutType)!=-1){
+                        if (a.timeoutType != null && a.timeoutType != "" && a.timeoutType.indexOf(timeoutType) != -1) {
                             return timeoutTypeName;
                         }
 
                         // 根据后端返回的时间在延长 周期时间,计算出还剩下多少秒
                         if (startTime == undefined || startTime == "") {
-                            return "<label>未记录时间"+timeoutType+"</label>"
+                            return "<label>未记录时间" + timeoutType + "</label>"
                         }
+
+
+                        var c = new Date(startTime);
+                        var nowDate1 = new Date();
+                        var nowHours1 = nowDate1.getHours();
+                        var totalHour = c.getHours();
+                        var t = 0;
+                        if (nowHours1 < 9 && nowHours1 >= 17) {
+                            var html = `无倒计时`;
+                            return html;
+                        }
+                        if (totalHour < 9) {
+                            t = ((9 - totalHour) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
+                        }
+                        if (totalHour >= 17) {
+                            t = ((24 - totalHour + 9) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
+                        }
+
+
                         var t = parseInt((new Date(startTime).getTime() + a.partPauseSeconds * 1000 + tmiao * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
                         // 设置每一条数据唯一的key
                         var key = 'key_part_' + a.id;
@@ -382,20 +418,20 @@ function showTable(type, sysId, equipmentId, departmentId) {
                         var miao1 = parseInt(t % 60);//秒
 
                         var time1 = day1 + "d" + shi1 + "h" + fen1 + "m" + miao1 + "s";
-                        var html ="";
+                        var html = "";
                         if (t <= 0) {
                             time1 = timeoutType + ":" + timeoutTypeName
                             html = `<label id=${key} >${time1}</label>`;
-                            updateDefectTimeoutType(a.id,timeoutType);
+                            updateDefectTimeoutType(a.id, timeoutType);
                             delTask(key);
                         } else {
                             time1 = day1 + "天" + shi1 + "时" + fen1 + "分" + miao1 + "秒";
                             html = `<label id=${key}>${time1}</label>`;
                         }
                         addTask(key, function () {
-                            var nowHour=new Date().getHours();
+                            var nowHour = new Date().getHours();
 
-                            if(a.isStarted == 0 && nowHour>=9 &&nowHour<17){
+                            if (a.isStarted == 0 && nowHour >= 9 && nowHour < 17) {
                                 t--;
                             }
                             var day = parseInt(t / (60 * 60 * 24));//天
@@ -404,12 +440,12 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             var miao = parseInt(t % 60);//秒
 
                             if (t <= 0) {
-                                $('#' + key).html("<label >" + timeoutType + ":" + timeoutTypeName + "</label><input type='hidden' class='"+key+"' value='"+t+"' />");
-                                updateDefectTimeoutType(a.id,timeoutType);
+                                $('#' + key).html("<label >" + timeoutType + ":" + timeoutTypeName + "</label><input type='hidden' class='" + key + "' value='" + t + "' />");
+                                updateDefectTimeoutType(a.id, timeoutType);
                                 delTask(key);
                             } else {
                                 // $('#' + key).text(day + "天" + shi + "时" + fen + "分" + miao + "秒")
-                                $('#' + key).html(day + "天" + shi + "时" + fen + "分" + miao + "秒"+"<input type='hidden' class='"+key+"' value='"+t+"' />");
+                                $('#' + key).html(day + "天" + shi + "时" + fen + "分" + miao + "秒" + "<input type='hidden' class='" + key + "' value='" + t + "' />");
                             }
 
                         });
@@ -417,9 +453,8 @@ function showTable(type, sysId, equipmentId, departmentId) {
                     }
 
                 }
-                , {fixed: 'right', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180}
-
                 , {field: 'created', title: '申请时间', align: 'center', minWidth: 120, sort: true}
+                , {fixed: 'right', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180}
                 , {fixed: 'right', title: '操作', toolbar: '#tbOperationBar', align: 'center', width: 200}
             ]]
             ,
@@ -430,11 +465,11 @@ function showTable(type, sysId, equipmentId, departmentId) {
             }
             ,
             done: function (res, curr, count) {
-                for (let i = 0; i < res.data.length; i ++) {
+                for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].isStarted == 0) {
-                        $("#statusBtn"+res.data[i].id).text("暂停");
-                    }else {
-                        $("#statusBtn"+res.data[i].id).text("开启");
+                        $("#statusBtn" + res.data[i].id).text("暂停");
+                    } else {
+                        $("#statusBtn" + res.data[i].id).text("开启");
                     }
                 }
             }
@@ -465,7 +500,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             $.ajax({
                                 type: 'put',
                                 url: path + "/defect/dutyConfirmation",
-                                data: {id: data.id, result:1},
+                                data: {id: data.id, result: 1},
                                 dataType: "json",
                                 success: function (data) {
                                     ajaxFun(data.code, data.msg);
@@ -500,7 +535,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                 $(".loading").css("display", "block");
                 getDetailedInfo(data.id, 'implement');
             } else if (obj.event === 'del') { //删除
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: 'GET',
                         url: path + "/defect/delete?id=" + data.id,
@@ -518,20 +553,20 @@ function showTable(type, sysId, equipmentId, departmentId) {
             } else if (obj.event === 'workHours') { //工时确认
                 $(".loading").css("display", "block");
                 getDetailedInfo(data.id, 'workHours');
-            }else if (obj.event === "updateStartedOrDelay") {//开启暂停
+            } else if (obj.event === "updateStartedOrDelay") {//开启暂停
                 if (data.isStarted == 0) {
-                    $("#statusBtn"+data.id).text("暂停");
-                } else{
-                    $("#statusBtn"+data.id).text("开启");
+                    $("#statusBtn" + data.id).text("暂停");
+                } else {
+                    $("#statusBtn" + data.id).text("开启");
                 }
-                $(".key_Q"+data.id).val();//总倒计时
+                $(".key_Q" + data.id).val();//总倒计时
                 $.ajax({
                     type: 'get',
                     url: path + "/defect/updateStartedOrDelay",
                     dataType: "json",
                     data: {id: data.id, paramType: 0},
                     success: function (data1) {
-                        if(data1.code == 0 || data1.code == 200) {
+                        if (data1.code == 0 || data1.code == 200) {
                             layer.alert(data1.msg);
                             showTable('', $("#systemHidden").val(), $("#equipmentHidden").val(), $("#departmentHidden").val());
                         } else {
@@ -546,10 +581,10 @@ function showTable(type, sysId, equipmentId, departmentId) {
                     dataType: "json",
                     data: {id: data.id, paramType: 1},
                     success: function (data1) {
-                        if(data1.code == 0 || data1.code == 200) {
+                        if (data1.code == 0 || data1.code == 200) {
                             layer.alert(data1.msg);
                             showTable('', $("#systemHidden").val(), $("#equipmentHidden").val(), $("#departmentHidden").val());
-                        }else{
+                        } else {
                             layer.alert(data1.msg);
                         }
                     }
@@ -728,7 +763,7 @@ function getDetailedInfo(id, type) {
         data: {id: id},
         success: function (data) {
             data = data.data;
-            console.log(data.id,id)
+            console.log(data.id, id)
             $(".loading").css("display", "none");
             layui.use('layer', function () { //独立版的layer无需执行这一句
                 var $ = layui.jquery, layer = layui.layer, form = layui.form; //独立版的layer无需执行这一句
@@ -741,8 +776,7 @@ function getDetailedInfo(id, type) {
                         maxmin: true,
                         content: '../defect/toDefectDetailed?id=' + id
                     });
-                }
-                else if (type == "implement") { //开始执行
+                } else if (type == "implement") { //开始执行
                     if (data.type == '1') {
                         layer.alert("请先认领！");
                         return;
@@ -787,9 +821,8 @@ function getDetailedInfo(id, type) {
                     form.render(); //更新全部
                     $(".loading").css("display", "none");
                     $("#startFeedbackBtn").css("display", "revert");
-                    $(".claimInfoBelayTr2").css("display","none");
-                }
-                else if (type == "handle") { //消缺反馈
+                    $(".claimInfoBelayTr2").css("display", "none");
+                } else if (type == "handle") { //消缺反馈
                     $("#feedbackId").val(data.id);//id
                     $("#feedbackType").val(data.type);//type
                     $("#feedbackLevel").val(data.level + "类");//级别
@@ -850,15 +883,14 @@ function getDetailedInfo(id, type) {
                         , yes: function () {
                         }
                     });
-                }
-                else if (type == "claim") { //认领
+                } else if (type == "claim") { //认领
                     $("#test3").val("");
                     $("#test4").val("");
                     $("#claimInfoBelay1").val("0");
                     $("#claimInfoBelayHidden1").val("");
                     $(".claimInfoBelayTr1").css("display", "none");
                     $("#claimOkBtn").text("确定");
-                    $("#claimBelayBtn1").css("display","revert")
+                    $("#claimBelayBtn1").css("display", "revert")
                     form.render(); //更新全部
                     $.ajax({
                         "type": 'post',
@@ -921,8 +953,7 @@ function getDetailedInfo(id, type) {
                         }
                     });
                     $(".loading").css("display", "none");
-                }
-                else if (type == "workHours") {
+                } else if (type == "workHours") {
                     $("#workHoursId").val(id);
                     $("#workHoursSys").text(data.sysName);
                     $("#workHoursEquipment").text(data.equipmentName);
@@ -1138,7 +1169,7 @@ function workHoursOk() {
     $.ajax({
         type: 'post',
         url: path + "/defect/postWorkTimeConfirm",
-        data: {id: id, confirmResult: 0,realExecuteTime:realExecuteTime,overtime:overtime},
+        data: {id: id, confirmResult: 0, realExecuteTime: realExecuteTime, overtime: overtime},
         dataType: "json",
         success: function (data) {
             layer.closeAll();
@@ -1192,7 +1223,7 @@ function ajaxFun(data, tips, operation) {
     layer.closeAll();
     if (data == 0 || data == 200) {
         if (operation == "新增") {
-            $(".loading").css("display",'none');
+            $(".loading").css("display", 'none');
             if (maintenanceCategoryName == "") {
                 maintenanceCategoryName = "机务";
             }
@@ -1221,16 +1252,17 @@ function cancel() {
 function cancel1() {
     layer.close(index)
 }
+
 //修改缺陷的延时类型
-function  updateDefectTimeoutType(id,timeoutType){
+function updateDefectTimeoutType(id, timeoutType) {
     $.ajax({
-        url:path+"/defect/updateTimeoutType",
-        method:"get",
-        data:{
-            id:id,
-            type:timeoutType
+        url: path + "/defect/updateTimeoutType",
+        method: "get",
+        data: {
+            id: id,
+            type: timeoutType
         },
-        success:function(res){
+        success: function (res) {
             console.log(res)
         }
     });
