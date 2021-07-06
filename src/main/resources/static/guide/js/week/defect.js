@@ -159,19 +159,19 @@ function getHis(sysId, euqipmentId) {
             for (var i = 0; i < json.length; i++) {
                 if (json[i].type == 1) {
                     json[i].type = "未认领";
-                    li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 2) {
                     json[i].type = "消缺中";
-                    li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 3) {
                     json[i].type = "已消缺";
-                    li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><<span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><<span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 4) {
                     json[i].type = "已完成";
-                    li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 } else if (json[i].type == 5) {
                     json[i].type = "已认领";
-                    li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
                 }
             }
             ul.html(li)
@@ -459,8 +459,8 @@ function showTable(type, sysId, equipmentId, departmentId) {
             ]]
             ,
             parseData: function (res) {
-                if (res.msg == "NoUser") {
-                    layer.alert("当前用户过期");
+                if (res.code != 0 && res.code != 200) {
+                    layer.alert(res.msg);
                 }
             }
             ,
@@ -479,10 +479,6 @@ function showTable(type, sysId, equipmentId, departmentId) {
 
             var jStr = JSON.stringify(data);
             if (obj.event === 'beOnDuty') {// 值班确认
-                if (data.type != "3") {
-                    layer.alert("请先完成任务！");
-                    return;
-                }
                 layer.open({
                     type: 1
                     ,title: false //不显示标题栏
@@ -623,10 +619,7 @@ function addDefect() {
         dataType: "json",
         data: {permissionName: "缺陷运行岗位"},
         success: function (data) {
-            if (data == "false") {
-                layer.alert("无添加权限！");
-                return;
-            } else {
+            if (data.code == 0 || data.code == 200) {
                 layui.use('layer', function () { //独立版的layer无需执行这一句
                     var $ = layui.jquery, layer = layui.layer, form = layui.form; //独立版的layer无需执行这一句
                     layer.open({
@@ -664,6 +657,8 @@ function addDefect() {
                 $("#createTime").html(year + "-" + month + "-" + date);
                 $("#img-change1").attr("src", "");
                 $("#img-change1").css("display", "none");
+            } else {
+                layer.alert(data.msg);
             }
         }
     });
@@ -777,10 +772,6 @@ function getDetailedInfo(id, type) {
                         content: '../defect/toDefectDetailed?id=' + id
                     });
                 } else if (type == "implement") { //开始执行
-                    if (data.type == '1') {
-                        layer.alert("请先认领！");
-                        return;
-                    }
                     $("#claimBelayBtn2").css("display", "revert");
                     $("#implementId").val(data.id);//id
                     $("#implementType").val(data.type);//type
@@ -869,10 +860,10 @@ function getDetailedInfo(id, type) {
                     } else {
                         $("#insertFeedbackBtn").css("display", "none");
                     }*/
-                    if ($("#feedbackRealSTime").val() == null || $("#feedbackRealSTime").val() == "") {
+                   /* if ($("#feedbackRealSTime").val() == null || $("#feedbackRealSTime").val() == "") {
                         layer.alert("请点击开始执行");
                         return;
-                    }
+                    }*/
                     layer.open({
                         type: 1
                         , id: 'handleInfoDiv' //防止重复弹出
@@ -898,10 +889,7 @@ function getDetailedInfo(id, type) {
                         dataType: "json",
                         data: {id: id},
                         "success": function (jsr) {
-                            if (jsr == "NOPERMISSION") {
-                                layer.alert("无权限！");
-                                return;
-                            } else {
+                            if (jsr.code == 0 || jsr.code == 200) {
                                 $("#claimInfoDescribeId").val("");
                                 $("#claimInfoPlannedWork").val('0.5');
                                 $("#plannedWork").val('0.5');
@@ -949,6 +937,8 @@ function getDetailedInfo(id, type) {
                                     , yes: function () {
                                     }
                                 });
+                            }else {
+                                layer.alert(jsr.msg)
                             }
                         }
                     });
@@ -1122,10 +1112,6 @@ function insertFeedback() {
             var hour = date.getHours();
             var defect = {};
             defect.type = Number($('#feedbackType').val());
-            if (defect.type == 4) {
-                layer.alert("缺陷已完成不可更改反馈单!");
-                return;
-            }
             defect.id = Number($('#feedbackId').val());
             defect.abs = $('#feedbackAbs').val();
             if (!defect.abs) {
