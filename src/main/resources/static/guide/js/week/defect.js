@@ -830,9 +830,9 @@ function getDetailedInfo(id, type) {
                     $("#feedbackEquipment").val(data.equipmentName);//设备
                     $("#feedbackAbs").val(data.abs);//缺陷描述
                     $("#feedbackRealSTime").val(data.realSTime);//实际开始时间
-                    $("#feedbackMethod").val(data.method);//处理措施
-                    $("#feedbackProblem").val(data.problem);//遗留问题
-                    $("#feedbackRemark").val(data.remark);//备注
+                    $("#feedbackMethod").val("");//处理措施
+                    $("#feedbackProblem").val("");//遗留问题
+                    $("#feedbackRemark").val("");//备注
                     $("#feedbackEmpIdsName").val(data.empIdsName);//执行人
                     $("#feedbackImg").attr("src", "data:img/jpeg;base64," + data.bPlc64);//消缺前图片
                     $("#feedbackImg").css("display", "block");
