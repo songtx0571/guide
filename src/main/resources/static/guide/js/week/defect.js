@@ -454,7 +454,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
 
                 }
                 , {field: 'created', title: '申请时间', align: 'center', minWidth: 120, sort: true}
-                , {fixed: 'right', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180}
+                , {field: 'type', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180,hide:true}
                 , {fixed: 'right', title: '操作', toolbar: '#tbOperationBar', align: 'center', width: 200}
             ]]
             ,
