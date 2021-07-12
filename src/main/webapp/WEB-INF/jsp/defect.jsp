@@ -103,6 +103,8 @@
             <span style="color: #001580;">停炉处理</span>
             {{#  } else if(d.delayReason == 4) { }}
             <span style="color: #001580;">继续观察</span>
+            {{#  } else if(d.delayReason == 5) { }}
+            <span style="color: #001580;">极端天气</span>
             {{#  } }}
             {{#  } else if(d.type == 7) { }}
             <span style="color: burlywood;">待确认</span>
@@ -375,6 +377,7 @@
                                     <option value="2">无法安措</option>
                                     <option value="3">停炉处理</option>
                                     <option value="4">继续观察</option>
+                                    <option value="5">极端天气</option>
                                 </select>
                             </div>
                         </div>
@@ -463,6 +466,7 @@
                                     <option value="2">无法安措</option>
                                     <option value="3">停炉处理</option>
                                     <option value="4">继续观察</option>
+                                    <option value="5">极端天气</option>
                                 </select>
                             </div>
                         </div>

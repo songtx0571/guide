@@ -758,7 +758,6 @@ function getDetailedInfo(id, type) {
         data: {id: id},
         success: function (data) {
             data = data.data;
-            console.log(data.id, id)
             $(".loading").css("display", "none");
             layui.use('layer', function () { //独立版的layer无需执行这一句
                 var $ = layui.jquery, layer = layui.layer, form = layui.form; //独立版的layer无需执行这一句

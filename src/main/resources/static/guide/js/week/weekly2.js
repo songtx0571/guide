@@ -346,7 +346,7 @@ function showDetailedInfoDiv (id) {
 				area: ['100%', '100%'],
 				fixed: false, //不固定
 				maxmin: true,
-				content: '../defect/toDefectDetailed?id=' + data.id
+				content: '../defect/toDefectDetailed?id=' + id
 			});
 		}
 	})
