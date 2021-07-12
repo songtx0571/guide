@@ -140,13 +140,7 @@ public class MaintainController {
         result.setCount(maintains.size());
         //排序
         if (field != null && order != null) {
-            maintains = maintains.stream().sorted(new Comparator<Maintain>() {
-                @Override
-                public int compare(Maintain o1, Maintain o2) {
-                    return getCompareByM1AndM2(o1, o2, field, order);
-                }
-
-            }).collect(Collectors.toList());
+            maintains = maintains.stream().sorted((o1, o2) -> (getCompareByM1AndM2(o1, o2, field, order))).collect(Collectors.toList());
         }
 
         if (page != null && limit != null) {
@@ -169,7 +163,6 @@ public class MaintainController {
      * @return
      */
     private int getCompareByM1AndM2(Maintain o1, Maintain o2, String field, String order) {
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String o1Str = JSONObject.toJSONString(o1);
         JSONObject maintainJsonObject1 = JSONObject.parseObject(o1Str);
@@ -197,52 +190,25 @@ public class MaintainController {
             }
             //当前时间
             Date date = new Date();
-            //下次最近的开始时间戳
-            long startTimeStampLong1 = startTimeStamp1.getTime() + cycle1 * 24 * 60 * 60 * 1000;
-            long startTimeStampLong2 = startTimeStamp2.getTime() + cycle2 * 24 * 60 * 60 * 1000;
+            //下次最近的开始时间戳倒计时
+            long startTimeStampLong1 = (startTimeStamp1.getTime() + cycle1 * 24 * 60 * 60 * 1000) - date.getTime();
+            long startTimeStampLong2 = (startTimeStamp2.getTime() + cycle2 * 24 * 60 * 60 * 1000) - date.getTime();
             //升序
             if ("asc".equals(order)) {
-                if (status1 > status2) {
-                    return 1;
-                } else if (status1.equals(status2)) {
+                if (status1.equals(status2)) {
                     //2是已暂停,1是已分配
-                    if (status1 == 2 || status1 == 1) {
-                        return 0;
-                    } else {
-                        if (startTimeStampLong1 >= date.getTime() && date.getTime() >= startTimeStampLong2) {
-                            return 1;
-                        } else if (startTimeStampLong2 >= date.getTime() && date.getTime() >= startTimeStampLong1) {
-                            return -1;
-                        } else {
-                            return startTimeStampLong1 > startTimeStampLong2 ? -1 : 1;
-                        }
-                    }
-
-
-                } else if (status1 < status2) {
-                    return -1;
+                    return startTimeStampLong1 > startTimeStampLong2 ? -1 : 1;
+                } else {
+                    return status1 >= status2 ? 1 : -1;
                 }
             } else
                 //降序
                 if ("desc".equals(order)) {
-                    if (status1 > status2) {
-                        return -1;
-                    } else if (status1.equals(status2)) {
+                    if (status1.equals(status2)) {
                         //2是已暂停,1是已分配
-                        if (status1 == 1 || status1 == 2) {
-                            return 0;
-                        } else {
-                            if (startTimeStampLong1 >= date.getTime() && date.getTime() >= startTimeStampLong2) {
-                                return -1;
-                            } else if (startTimeStampLong2 >= date.getTime() && date.getTime() >= startTimeStampLong1) {
-                                return 1;
-                            } else {
-                                return startTimeStampLong1 > startTimeStampLong2 ? 1 : -1;
-                            }
-                        }
-
-                    } else if (status1 < status2) {
-                        return 1;
+                        return startTimeStampLong1 > startTimeStampLong2 ? 1 : -1;
+                    } else {
+                        return status1 >= status2 ? -1 : 1;
                     }
 
                 }

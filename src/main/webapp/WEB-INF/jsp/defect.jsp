@@ -132,7 +132,7 @@
                 <a class="layui-btn" style="line-height: 30px;background: #a1aec7;" lay-event="del">删除</a>
             </shiro:hasPermission>
             {{#  } else if(d.type == 7) { }}
-            <shiro:hasPermission name="缺陷运行岗位">
+            <shiro:hasPermission name="缺陷检修班长">
                 <a class="layui-btn layui-btn-fluid" style="background: burlywood;" lay-event="workHours">工时确认</a>
             </shiro:hasPermission>
             {{#  } }}
