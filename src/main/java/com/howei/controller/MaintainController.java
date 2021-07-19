@@ -191,13 +191,13 @@ public class MaintainController {
             //当前时间
             Date date = new Date();
             //下次最近的开始时间戳倒计时
-            long startTimeStampLong1 = (startTimeStamp1.getTime() + cycle1 * 24 * 60 * 60 * 1000) - date.getTime();
-            long startTimeStampLong2 = (startTimeStamp2.getTime() + cycle2 * 24 * 60 * 60 * 1000) - date.getTime();
+            Long startTimeStampLong1 = (startTimeStamp1.getTime() + cycle1 * 24 * 60 * 60 * 1000L) - date.getTime();
+            Long startTimeStampLong2 = (startTimeStamp2.getTime() + cycle2 * 24 * 60 * 60 * 1000L) - date.getTime();
             //升序
             if ("asc".equals(order)) {
                 if (status1.equals(status2)) {
                     //2是已暂停,1是已分配
-                    return startTimeStampLong1 > startTimeStampLong2 ? -1 : 1;
+                    return startTimeStampLong1.compareTo(startTimeStampLong2);
                 } else {
                     return status1 >= status2 ? 1 : -1;
                 }
@@ -206,7 +206,7 @@ public class MaintainController {
                 if ("desc".equals(order)) {
                     if (status1.equals(status2)) {
                         //2是已暂停,1是已分配
-                        return startTimeStampLong1 > startTimeStampLong2 ? 1 : -1;
+                        return startTimeStampLong2.compareTo(startTimeStampLong1);
                     } else {
                         return status1 >= status2 ? -1 : 1;
                     }

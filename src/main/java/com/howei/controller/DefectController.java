@@ -23,6 +23,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.howei.util.Image.ImageToBase64ByLocal;
 import static org.apache.shiro.authz.annotation.Logical.AND;
@@ -199,6 +200,11 @@ public class DefectController {
                 }
             }
         }
+        //筛选与本人相关的缺陷记录
+       if (!subject.isPermitted("缺陷管理员")) {
+            list = list.stream().filter(item -> item.getEmpIds().contains(String.valueOf(users.getEmployeeId()))).collect(Collectors.toList());
+            count=list.size();
+        }
         return Result.ok(count, list);
     }
 
@@ -257,11 +263,11 @@ public class DefectController {
         Double plannedHours = 96D;
         if (level == 0) {
             plannedHours = 4D;
-        } else if (level == 2) {
+        } else if (level == 1) {
             plannedHours = 12D;
-        } else if (level == 3) {
+        } else if (level == 2) {
             plannedHours = 24D;
-        } else if (level == 4) {
+        } else if (level == 3) {
             plannedHours = 48D;
         }
         defect.setPlannedHours(plannedHours);
@@ -524,11 +530,11 @@ public class DefectController {
                     Double plannedHours = 96D;
                     if (level == 0) {
                         plannedHours = 4D;
-                    } else if (level == 2) {
+                    } else if (level == 1) {
                         plannedHours = 12D;
-                    } else if (level == 3) {
+                    } else if (level == 2) {
                         plannedHours = 24D;
-                    } else if (level == 4) {
+                    } else if (level == 3) {
                         plannedHours = 48D;
                     }
                     defect.setPlannedHours(plannedHours);
@@ -804,11 +810,11 @@ public class DefectController {
             Double plannedHours = 96D;
             if (level == 0) {
                 plannedHours = 4D;
-            } else if (level == 2) {
+            } else if (level == 1) {
                 plannedHours = 12D;
-            } else if (level == 3) {
+            } else if (level == 2) {
                 plannedHours = 24D;
-            } else if (level == 4) {
+            } else if (level == 3) {
                 plannedHours = 48D;
             }
             defect.setPlannedHours(plannedHours);
