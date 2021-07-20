@@ -202,7 +202,7 @@ public class DefectController {
         }
         //筛选与本人相关的缺陷记录
        if (!subject.isPermitted("缺陷管理员")) {
-            list = list.stream().filter(item -> item.getEmpIds().contains(String.valueOf(users.getEmployeeId()))).collect(Collectors.toList());
+            list = list.stream().filter(item ->!"".equals(item.getEmpIds()) && item.getEmpIds().contains(String.valueOf(users.getEmployeeId()))).collect(Collectors.toList());
             count=list.size();
         }
         return Result.ok(count, list);
