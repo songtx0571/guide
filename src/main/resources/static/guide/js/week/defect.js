@@ -122,6 +122,9 @@ function showSelect() {
         form.on('select(claimInfoBelay2)', function (data) {
             $("#claimInfoBelayHidden2").val(data.value);
         });
+        form.on('select(feedbackBelay)', function (data) {
+            $("#feedbackBelayHidden").val(data.value);
+        });
         //计划时长
         form.on('select(plannedWork)', function (data) {
             $("#claimInfoPlannedWork").val(data.value);
@@ -138,43 +141,41 @@ function hideHis() {
 function getHis(sysId, euqipmentId) {
     var ul = $(".addHistoryUl");
     var w = window.innerWidth;
-    if (w < 1000) {
-        $("#addDefectDiv table").css("margin-left", "10px");
-        var width = ((w - 450 - 15) - 10) + "px";
-    } else {
-        $("#addDefectDiv table").css("margin-left", "10px");
-        var width = ((w - 560) - 20) + "px";
-    }
+    $("#addDefectDiv table").css("margin-left", "10px");
+    var width = ((w - 560) - 20) + "px";
     $(".addHistory").css("display", "block");
     $(".addHistory").css("width", width);
-    $(".addHistory").css("height", "98%");
     $.ajax({
         type: 'GET',
         url: path + "/defect/getDefectHistiryByEqu",
         data: {sysId: sysId, euqipmentId: euqipmentId},
         success: function (json) {
-            ul.html("");
-            var li = "";
-            var detailed = '"detailed"';//刚给路径加上双引号，存放到点击事件里
-            for (var i = 0; i < json.length; i++) {
-                if (json[i].type == 1) {
-                    json[i].type = "未认领";
-                    li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
-                } else if (json[i].type == 2) {
-                    json[i].type = "消缺中";
-                    li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
-                } else if (json[i].type == 3) {
-                    json[i].type = "已消缺";
-                    li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><<span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
-                } else if (json[i].type == 4) {
-                    json[i].type = "已完成";
-                    li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
-                } else if (json[i].type == 5) {
-                    json[i].type = "已认领";
-                    li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + ","+detailed+")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+            if (json == "") {
+                ul.html("<li style='text-align: center;line-height: 45px;border: none;font-size: 25px;'>无记录!</li>");
+            } else {
+                ul.html("");
+                var li = "";
+                var detailed = '"detailed"';//刚给路径加上双引号，存放到点击事件里
+                for (var i = 0; i < json.length; i++) {
+                    if (json[i].type == 1) {
+                        json[i].type = "未认领";
+                        li += "<li style='color: red;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + "," + detailed + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    } else if (json[i].type == 2) {
+                        json[i].type = "消缺中";
+                        li += "<li style='color: #ff8100;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + "," + detailed + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    } else if (json[i].type == 3) {
+                        json[i].type = "已消缺";
+                        li += "<li style='color: #8fc323;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + "," + detailed + ")'><<span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    } else if (json[i].type == 4) {
+                        json[i].type = "已完成";
+                        li += "<li style='color: green;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + "," + detailed + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    } else if (json[i].type == 5) {
+                        json[i].type = "已认领";
+                        li += "<li style='color: #dcb422;cursor: pointer;' onclick='getDetailedInfo(" + json[i].id + "," + detailed + ")'><span>" + json[i].created + "</span>   <span>" + json[i].type + "</span>   <span style='margin-left: 20px;'>" + json[i].abs + "</span></listy>";
+                    }
                 }
+                ul.html(li)
             }
-            ul.html(li)
         }
     });
 }
@@ -225,6 +226,20 @@ function showTime() {
             , done: function (value) {
             }
         });
+        laydate.render({
+            elem: '#test7'
+            , trigger: 'click'
+            , done: function (value) {
+            }
+        });
+        laydate.render({
+            elem: '#test8'
+            , type: 'time'
+            , format: 'HH'
+            , trigger: 'click'
+            , done: function (value) {
+            }
+        });
     });
 }
 
@@ -256,18 +271,32 @@ function showTable(type, sysId, equipmentId, departmentId) {
         var form = layui.form;
         table.render({
             elem: '#demo'
-            ,height: height
-            ,toolbar: true
-            ,url: path + '/defect/getDefectList?type=' + type + '&sysId=' + sysId + '&equipmentId=' + equipmentId + '&departmentId=' + departmentId//数据接口
-            ,id: 'demoInfo'
-            ,cols: [[ //表头
-                { field: 'number',title: '缺陷号',toolbar: '#tbNumberBar',align: 'center',sort: true,event: 'detailed',style: 'cursor: pointer;', width: 85}
+            ,
+            height: height
+            ,
+            toolbar: true
+            ,
+            url: path + '/defect/getDefectList?type=' + type + '&sysId=' + sysId + '&equipmentId=' + equipmentId + '&departmentId=' + departmentId//数据接口
+            ,
+            id: 'demoInfo'
+            ,
+            cols: [[ //表头
+                {
+                    field: 'number',
+                    title: '缺陷号',
+                    toolbar: '#tbNumberBar',
+                    align: 'center',
+                    sort: true,
+                    event: 'detailed',
+                    style: 'cursor: pointer;',
+                    width: 85
+                }
                 , {field: 'sourceType', title: '来源', width: 70, toolbar: '#tbSourceTypeBar'}
                 , {field: 'type', title: '状态', toolbar: '#tbTypeBar', align: 'center', width: 100, sort: true}
                 , {field: 'abs', title: '缺陷描述'}
                 , {field: 'empIdsName', title: '消缺人', width: 150}
                 , {
-                    field: 'totalTime', title: '总倒计时', sort: true, align: 'center',hide: true,
+                    field: 'totalTime', title: '总倒计时', sort: true, align: 'center', hide: true,
                     templet: function (a) {
                         if (a.type == 4) {
                             return "已完成"
@@ -343,7 +372,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
 
                 }
                 , {
-                    field: 'partTime', title: '分倒计时', sort: true, align: 'center',hide: true,
+                    field: 'partTime', title: '分倒计时', sort: true, align: 'center', hide: true,
                     templet: function (a) {
                         if (a.type == 4) {
                             return "已完成"
@@ -454,7 +483,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
 
                 }
                 , {field: 'created', title: '申请时间', align: 'center', minWidth: 120, sort: true}
-                , {field: 'type', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180,hide:true}
+                , {field: 'type', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180, hide: true}
                 , {fixed: 'right', title: '操作', toolbar: '#tbOperationBar', align: 'center', width: 200}
             ]]
             ,
@@ -481,16 +510,26 @@ function showTable(type, sysId, equipmentId, departmentId) {
             if (obj.event === 'beOnDuty') {// 值班确认
                 layer.open({
                     type: 1
-                    ,title: false //不显示标题栏
-                    ,closeBtn: false
-                    ,area: '300px;'
-                    ,shade: 0.8
-                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                    ,btn: ['确定', '驳回', '取消']
-                    ,btnAlign: 'c'
-                    ,moveType: 1 //拖拽模式，0或者1
-                    ,content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #95b3ca; color: #000; font-weight: 500;font-size: 18px;">确认已完成本次消缺吗？</div>'
-                    ,success: function (layero) {
+                    ,
+                    title: false //不显示标题栏
+                    ,
+                    closeBtn: false
+                    ,
+                    area: '300px;'
+                    ,
+                    shade: 0.8
+                    ,
+                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,
+                    btn: ['确定', '驳回', '取消']
+                    ,
+                    btnAlign: 'c'
+                    ,
+                    moveType: 1 //拖拽模式，0或者1
+                    ,
+                    content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #95b3ca; color: #000; font-weight: 500;font-size: 18px;">确认已完成本次消缺吗？</div>'
+                    ,
+                    success: function (layero) {
                         var btn = layero.find('.layui-layer-btn');
                         btn.find('.layui-layer-btn0').click(function () {
                             $.ajax({
@@ -705,6 +744,9 @@ function insert() {
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     ajaxFun(data.code, data.msg, '新增');
+                }, error: function (data) {
+                    $(".loading").css("display", 'none');
+                    layer.alert("操作失败！");
                 }
             });
 
@@ -751,7 +793,6 @@ function reduceImg(id) {
 
 //根据id查询缺陷详单
 function getDetailedInfo(id, type) {
-    console.log(id)
     $.ajax({
         type: 'GET',
         url: path + "/defect/getDefectById",
@@ -854,15 +895,22 @@ function getDetailedInfo(id, type) {
                         $("#feedbackProblem").removeAttr("disabled");
                         $("#feedbackRemark").removeAttr("disabled");
                     }
+                    $(".feedbackTr").css("display", "none");
+                    $("#feedbackBtn").css("display", "revert");
+                    $("#insertFeedbackBtn").text("确定");
+                    $("#feedbackBelayHidden").val("0");
+                    $("#feedbackBelay").val("0");
+                    $("#test7").val("");
+                    $("#test8").val("");
                     /*if (data.realETime == null || data.realETime == "") {
                         $("#insertFeedbackBtn").css("display", "revert");
                     } else {
                         $("#insertFeedbackBtn").css("display", "none");
                     }*/
-                   /* if ($("#feedbackRealSTime").val() == null || $("#feedbackRealSTime").val() == "") {
-                        layer.alert("请点击开始执行");
-                        return;
-                    }*/
+                    /* if ($("#feedbackRealSTime").val() == null || $("#feedbackRealSTime").val() == "") {
+                         layer.alert("请点击开始执行");
+                         return;
+                     }*/
                     layer.open({
                         type: 1
                         , id: 'handleInfoDiv' //防止重复弹出
@@ -936,7 +984,7 @@ function getDetailedInfo(id, type) {
                                     , yes: function () {
                                     }
                                 });
-                            }else {
+                            } else {
                                 layer.alert(jsr.msg)
                             }
                         }
@@ -1013,19 +1061,11 @@ function claimOk() {
         // planedTime = "";
         type = "6";
     }
-    var data = {
-        empIds: empIds,
-        id: id,
-        plannedWork: plannedWork,
-        delayETime: claimInfoBelayTime,
-        delayReason: claimInfoBelay,
-        type: type
-    }
+
     $.ajax({
         type: 'post',
         url: path + "/defect/claim",
         dataType: "json",
-        // data: {empIds:empIds,id:id,planedTime:planedTime,delayETime:claimInfoBelayTime,delayReason:claimInfoBelay,type: type},
         data: {
             empIds: empIds,
             id: id,
@@ -1085,7 +1125,6 @@ function claimBelay1() {
     var id = $("#claimId").val();
     $("#claimBelayBtn1").css("display", "none");
     $("#claimOkBtn").text("确定延期");
-
 }
 
 function claimBelay2() {
@@ -1093,7 +1132,12 @@ function claimBelay2() {
     var id = $("#claimId").val();
     $("#claimBelayBtn2").css("display", "none");
     $("#startFeedbackBtn").text("确定延期");
+}
 
+function feedbackBelay() {
+    $(".feedbackTr").css("display", "revert");
+    $("#feedbackBtn").css("display", "none");
+    $("#insertFeedbackBtn").text("确定延期");
 }
 
 //处理反馈
@@ -1104,44 +1148,63 @@ function insertFeedback() {
         dataType: 'json',
         secureuri: false,
         success: function (Json) {
-            var date = new Date();
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var day = date.getDate();
-            var hour = date.getHours();
-            var defect = {};
-            defect.type = Number($('#feedbackType').val());
-            defect.id = Number($('#feedbackId').val());
-            defect.abs = $('#feedbackAbs').val();
-            if (!defect.abs) {
-                layer.alert("缺陷描述不可为空!");
-                return;
-            }
-            defect.method = $('#feedbackMethod').val();
-            if (!defect.method) {
-                layer.alert("处理措施不可为空!");
-                return;
-            }
-            defect.problem = $('#feedbackProblem').val();
-            defect.remark = $('#feedbackRemark').val();
-            defect.completer = Number($('#feedbackCompleterId').val());
-            defect.aPlc = Json.message;//图片
-            defect.realSTime = $("#feedbackRealSTime").val();
-            // defect.planedTime = $("#feedbackPlanedTime").val();
-            defect.plannedWork = $("#feedbackPlannedWork").val();
-            if ($("#img-change2").attr("src") == "") {
-                defect.aPlc = null;
-            }
-            $.ajax({
-                type: 'put',
-                url: path + "/defect/updDefect",
-                data: JSON.stringify(defect),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    ajaxFun(data.code, data.msg, '完成');
+
+            var feedbackBelayTime = $("#test7").val() + " " + $("#test8").val();
+            var feedbackBelay = Number($("#feedbackBelayHidden").val());
+            if (feedbackBelay == 0 && feedbackBelayTime.trim() == "") {
+                var defect = {};
+                defect.type = Number($('#feedbackType').val());
+                defect.id = Number($('#feedbackId').val());
+                defect.abs = $('#feedbackAbs').val();
+                if (!defect.abs) {
+                    layer.alert("缺陷描述不可为空!");
+                    return;
                 }
-            });
+                defect.method = $('#feedbackMethod').val();
+                if (!defect.method) {
+                    layer.alert("处理措施不可为空!");
+                    return;
+                }
+                defect.problem = $('#feedbackProblem').val();
+                defect.remark = $('#feedbackRemark').val();
+                defect.completer = Number($('#feedbackCompleterId').val());
+                defect.aPlc = Json.message;//图片
+                defect.realSTime = $("#feedbackRealSTime").val();
+                // defect.planedTime = $("#feedbackPlanedTime").val();
+                defect.plannedWork = $("#feedbackPlannedWork").val();
+                if ($("#img-change2").attr("src") == "") {
+                    defect.aPlc = null;
+                }
+                $.ajax({
+                    type: 'put',
+                    url: path + "/defect/updDefect",
+                    data: JSON.stringify(defect),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        ajaxFun(data.code, data.msg, '完成');
+                    }
+                });
+            } else {
+                if (feedbackBelay == 0 || feedbackBelayTime.trim() == "") {
+                    layer.alert("请选择延期时间和原由");
+                    return;
+                }
+                $.ajax({
+                    type: 'put',
+                    url: path + "/defect/startExecution",
+                    data: {id: Number($('#feedbackId').val()), type: 6, delayETime: feedbackBelayTime, delayReason: feedbackBelay},
+                    dataType: "json",
+                    success: function (data) {
+                        layer.closeAll();
+                        if (data.code == 0 || data.code == 200) {
+                            showTable('', $("#systemHidden").val(), $("#equipmentHidden").val(), $("#departmentHidden").val());
+                        }
+                        layer.alert(data.msg);
+                    }
+                })
+            }
+
         }
     });
 }

@@ -19,32 +19,32 @@
     <!-- 头部 -->
     <div class="top">
         <div style="width: 100%;height: 50px;">
-            <button type="button" class="layui-btn floatBtn" onclick="getChecked('0')">全部缺陷</button>
-            <button type="button" class="layui-btn floatBtn" onclick="getChecked('1')">未认领</button>
-            <button type="button" class="layui-btn floatBtn" onclick="getChecked('5')">已认领</button>
-            <button type="button" class="layui-btn floatBtn" onclick="getChecked('2')">消缺中</button>
-            <button type="button" class="layui-btn floatBtn" onclick="getChecked('3')">已消缺</button>
-            <button type="button" class="layui-btn floatBtn" onclick="getChecked('4')">已完成</button>
+            <button type="button" class="btnTypeClass" onclick="getChecked('0')">全部缺陷</button>
+            <button type="button" class="btnTypeClass" onclick="getChecked('1')">未认领</button>
+            <button type="button" class="btnTypeClass" onclick="getChecked('5')">已认领</button>
+            <button type="button" class="btnTypeClass" onclick="getChecked('2')">消缺中</button>
+            <button type="button" class="btnTypeClass" onclick="getChecked('3')">已消缺</button>
+            <button type="button" class="btnTypeClass" style="margin-right: 0px;" onclick="getChecked('4')">已完成</button>
         </div>
         <div style="width: 100%;height: 50px;">
             <form class="layui-form" action="" style="float: left;margin-right: 20px;">
                 <input type="hidden" id="systemHidden">
                 <input type="hidden" id="equipmentHidden">
                 <input type="hidden" id="departmentHidden">
-                <div class="layui-inline" style="width: 150px;">
+                <div class="layui-inline" style="width: 200px;margin-right: 10px;">
                     <div class="layui-input-inline">
                         <select name="modules" lay-verify="required" lay-filter="system" lay-search=""
                                 id="system"></select>
                     </div>
                 </div>
-                <div class="layui-inline" style="width: 150px;">
+                <div class="layui-inline" style="width: 200px;margin-right: 10px;">
                     <div class="layui-input-inline">
                         <select name="modules" lay-verify="required" lay-filter="equipment" lay-search=""
                                 id="equipment"></select>
                     </div>
                 </div>
                 <shiro:hasPermission name="缺陷管理员">
-                    <div class="layui-inline" style="width: 150px;">
+                    <div class="layui-inline" style="width: 200px;margin-right: 10px;">
                         <div class="layui-input-inline">
                             <select name="modules" lay-verify="required" lay-filter="department" lay-search=""
                                     id="department"></select>
@@ -52,13 +52,14 @@
                     </div>
                 </shiro:hasPermission>
             </form>
-            <button type="button" class="layui-btn floatBtn" onclick="getChecked('6')">延期</button>
+            <button type="button" class="btnClass" onclick="getChecked('6')">延期</button>
             <shiro:hasPermission name="缺陷运行岗位">
-                <button type="button" style="margin-right: 0px;" class="layui-btn layui-btn-normal floatBtn"
+                <button type="button" style="margin-right: 0px;" class="btnClass"
                         onclick="addDefect()">新增&nbsp;&nbsp;+
                 </button>
             </shiro:hasPermission>
         </div>
+        <div style="clear: both;"></div>
     </div>
     <!-- 表格内容 -->
     <div class="content">
@@ -164,7 +165,7 @@
                     <form class="layui-form" action="" style="float: left;">
                         <input type="hidden" id="levelHidden">
                         <div class="layui-inline">
-                            <div class="layui-input-inline">
+                            <div class="layui-input-inline" style="width: 100px;">
                                 <select name="modules" lay-verify="required" lay-filter="level" lay-search=""
                                         id="level">
                                     <option value="0">0类</option>
@@ -182,7 +183,7 @@
                     <form class="layui-form" action="" style="float: left;">
                         <input type="hidden" id="maintenanceCategoryHidden">
                         <div class="layui-inline">
-                            <div class="layui-input-inline">
+                            <div class="layui-input-inline" style="width: 100px;">
                                 <select name="modules" lay-verify="required" lay-filter="maintenanceCategory"
                                         lay-search="" id="maintenanceCategory">
                                     <option value='1'>机务</option>
@@ -241,7 +242,7 @@
             </tbody>
             <thead>
             <tr>
-                <td colspan="4" align="center">
+                <td colspan="4" style="padding-bottom: 10px;box-sizing: border-box;" align="center">
                     <button type="button" class="layui-btn layui-btn-normal" onclick="insert()">确定</button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
@@ -546,6 +547,42 @@
                 <th>填写人员</th>
                 <td colspan="4" id='feedbackCompleterName'></td>
             </tr>
+            <tr class="feedbackTr">
+                <th>延期完成时间</th>
+                <td colspan="4">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline" style="width: 205px;">
+                            <input type="text" class="layui-input" name="entryDate" id="test7" readonly=""
+                                   placeholder="年月日">
+                        </div>
+                        <div class="layui-input-inline" style="width: 205px;">
+                            <input type="text" class="layui-input" name="entryDate" id="test8" readonly=""
+                                   placeholder="小时">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="feedbackTr">
+                <th>延期原由</th>
+                <td colspan="4">
+                    <form class="layui-form" action="">
+                        <input type="hidden" id="feedbackBelayHidden">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline" style="width:415px;">
+                                <select name="modules" lay-verify="required" lay-filter="feedbackBelay" lay-search=""
+                                        id="feedbackBelay">
+                                    <option value="0">请选择</option>
+                                    <option value="1">等待备件</option>
+                                    <option value="2">无法安措</option>
+                                    <option value="3">停炉处理</option>
+                                    <option value="4">继续观察</option>
+                                    <option value="5">极端天气</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
             </tbody>
             <thead>
             <tr>
@@ -553,6 +590,9 @@
                     <!--<button type="button" class="layui-btn layui-btn-warm"  onclick="startFeedback()" id="startFeedbackBtn">开始执行</button>-->
                     <button type="button" class="layui-btn layui-btn-normal" onclick="insertFeedback()"
                             id="insertFeedbackBtn">确定
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-warm" onclick="feedbackBelay()" id="feedbackBtn">
+                        延期
                     </button>
                     <button type="button" class="layui-btn" onclick="cancel()">取消</button>
                 </td>
