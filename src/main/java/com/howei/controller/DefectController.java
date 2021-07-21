@@ -12,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -168,11 +169,9 @@ public class DefectController {
             map.put("departmentId", departmentId);
         }
 
-        List<Defect> total = defectService.getDefectList(map);
-        int count = 0;
-        count = total != null ? total.size() : 0;
         List<Defect> list = defectService.getDefectList(map);
 
+        int count = list != null ? list.size() : 0;
         Iterator<Defect> iterator = list.iterator();
         while (iterator.hasNext()) {
             Defect defect = iterator.next();
@@ -200,10 +199,11 @@ public class DefectController {
                 }
             }
         }
+        Integer employeeId = users.getEmployeeId();
         //筛选与本人相关的缺陷记录
-       if (!subject.isPermitted("缺陷管理员")) {
-            list = list.stream().filter(item ->!"".equals(item.getEmpIds()) && item.getEmpIds().contains(String.valueOf(users.getEmployeeId()))).collect(Collectors.toList());
-            count=list.size();
+        if (!subject.isPermitted("缺陷管理员")) {
+            list = list.stream().filter(item -> !StringUtils.isEmpty(item.getEmpIds())  && item.getEmpIds().contains(employeeId.toString())).collect(Collectors.toList());
+            count = list.size();
         }
         return Result.ok(count, list);
     }
@@ -589,7 +589,6 @@ public class DefectController {
         List<String> employeeIdList = new ArrayList<>();
         employeeIdList.add(logUserEmployeeId.toString());
         List<Employee> rootList = employeeService.getEmployeeByManager(logUserEmployeeId);
-
         List<Employee> empList = employeeService.getEmployeeByManager(0);
         ListUtils.getChildEmployeeId(rootList, empList, employeeIdList, null);
         if (employeeIdList.size() > 0) {

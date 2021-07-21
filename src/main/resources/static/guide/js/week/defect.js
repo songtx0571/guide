@@ -490,6 +490,12 @@ function showTable(type, sysId, equipmentId, departmentId) {
             parseData: function (res) {
                 if (res.code != 0 && res.code != 200) {
                     layer.alert(res.msg);
+                } else {
+                    if(res.count == 0) {
+                        return {
+                            "msg": '你没有缺陷需要操作~' //解析提示文本
+                        };
+                    }
                 }
             }
             ,
