@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.Collator;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -202,7 +203,7 @@ public class DefectController {
         Integer employeeId = users.getEmployeeId();
         //筛选与本人相关的缺陷记录
         if (!subject.isPermitted("缺陷管理员")) {
-            list = list.stream().filter(item -> !StringUtils.isEmpty(item.getEmpIds())  && item.getEmpIds().contains(employeeId.toString())).collect(Collectors.toList());
+            list = list.stream().filter(item -> !StringUtils.isEmpty(item.getEmpIds()) && item.getEmpIds().contains(employeeId.toString())).collect(Collectors.toList());
             count = list.size();
         }
         return Result.ok(count, list);
@@ -602,6 +603,7 @@ public class DefectController {
         Map map = new HashMap();
         map.put("empId", empIdStr);
         List<Map<String, Object>> list = employeeService.getEmpMap(map);
+        list = list.stream().sorted((o1, o2) -> (Collator.getInstance(Locale.CHINESE).compare(o1.get("text") != null ? o1.get("text").toString() : "", o2.get("text") != null ? o2.get("text").toString() : ""))).collect(Collectors.toList());
         return list;
     }
 
@@ -612,7 +614,7 @@ public class DefectController {
      * @return
      */
     @RequestMapping("/getDepMap")
-    @RequiresPermissions(value = {"缺陷管理员"}, logical = AND)
+//    @RequiresPermissions(value = {"缺陷管理员"}, logical = AND)
     public List<Map<String, String>> getDepMap() {
         Subject subject = SecurityUtils.getSubject();
         List<Map<String, String>> list = new ArrayList<>();
@@ -774,6 +776,7 @@ public class DefectController {
     public Result assigmentConfirm(
             @RequestParam Integer id,
             @RequestParam Integer confirmResult,
+            @RequestParam(required = false) String realExecuteTime,
             @RequestParam(required = false) String overtime
     ) {
         Users users = this.getPrincipal();
@@ -786,6 +789,9 @@ public class DefectController {
         }
         if (confirmResult == 0) {
             defect.setType(3);
+            if (realExecuteTime != null && !"".equals(realExecuteTime.trim())) {
+                defect.setRealExecuteTime(Double.valueOf(realExecuteTime));
+            }
             if (overtime != null && !"".equals(overtime.trim())) {
                 defect.setOvertime(Double.valueOf(overtime));
             }
