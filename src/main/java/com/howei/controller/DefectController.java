@@ -145,13 +145,8 @@ public class DefectController {
         Map empMap = getUsersMap();
 
         Map map = new HashMap();
-        if (type != null && !"".equals(type)) {
-            if (!type.equals("0")) {//全部缺陷: 忽略状态
-                if (!subject.isPermitted("缺陷管理员")) {
-                    map.put("departmentId", users.getDepartmentId());
-                }
-                map.put("type", type);
-            }
+        if (!StringUtils.isEmpty(type) && !"0".equals(type)) {
+            map.put("type", type);
         } else {
             map.put("type1", 4);
         }
@@ -161,13 +156,10 @@ public class DefectController {
         if (equipmentId != null && !"".equals(equipmentId) && !equipmentId.equals("-1")) {
             map.put("equipmentId", equipmentId);
         }
-        if (users != null) {
-            if (!subject.isPermitted("缺陷管理员")) {
-                map.put("departmentId", users.getDepartmentId());
-            }
-        }
         if (departmentId != null && !departmentId.equals("") && !departmentId.equals("-1")) {
             map.put("departmentId", departmentId);
+        } else if (!subject.isPermitted("缺陷管理员")) {
+            map.put("departmentId", users.getDepartmentId());
         }
 
         List<Defect> list = defectService.getDefectList(map);
@@ -199,12 +191,6 @@ public class DefectController {
                     }
                 }
             }
-        }
-        Integer employeeId = users.getEmployeeId();
-        //筛选与本人相关的缺陷记录
-        if (!subject.isPermitted("缺陷管理员")) {
-            list = list.stream().filter(item -> !StringUtils.isEmpty(item.getEmpIds()) && item.getEmpIds().contains(employeeId.toString())).collect(Collectors.toList());
-            count = list.size();
         }
         return Result.ok(count, list);
     }
@@ -564,11 +550,14 @@ public class DefectController {
         Map souMap = new HashMap();
         if (!subject.isPermitted("缺陷管理员")) {
             if (users != null) {
-                souMap.put("department", users.getDepartmentId());
+                int departmentId = users.getDepartmentId();
+                departmentId = (departmentId == 21 || departmentId == 22) ? 20 : departmentId;
+                souMap.put("department", departmentId);
             }
         }
         souMap.put("type", type);
         List<Map<String, Object>> list = equipmentService.getEquMap1(souMap);
+        list = list.stream().sorted((o1, o2) -> (Collator.getInstance(Locale.CHINESE).compare(o1.get("text") != null ? o1.get("text").toString() : "", o2.get("text") != null ? o2.get("text").toString() : ""))).collect(Collectors.toList());
         return list;
     }
 
@@ -614,7 +603,6 @@ public class DefectController {
      * @return
      */
     @RequestMapping("/getDepMap")
-//    @RequiresPermissions(value = {"缺陷管理员"}, logical = AND)
     public List<Map<String, String>> getDepMap() {
         Subject subject = SecurityUtils.getSubject();
         List<Map<String, String>> list = new ArrayList<>();

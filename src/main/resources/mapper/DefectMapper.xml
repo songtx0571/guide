@@ -30,7 +30,12 @@
                 and de.equipmentId=#{equipmentId}
             </if>
             <if test="departmentId!=null">
-                and de.departmentId=#{departmentId}
+                <if test="departmentId==21 or departmentId==22">
+                    and (de.departmentId=#{departmentId} or de.departmentId=20 )
+                </if>
+                <if test="departmentId!=21 and departmentId!=22">
+                    and de.departmentId=#{departmentId}
+                </if>
             </if>
             <if test="month!=null">
                 and DATE_FORMAT(de.confirmer1Time,'%Y-%m')=DATE_FORMAT(#{month},'%Y-%m')
@@ -43,7 +48,7 @@
                 and DATE_FORMAT( de.created,'%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d')
             </if>
             <if test="startTime!=null and endTime!=null">
-                and ( de.created between  #{startTime}  and  #{endTime} )
+                and ( de.created between #{startTime} and #{endTime} )
             </if>
         </where>
         order by de.created desc
