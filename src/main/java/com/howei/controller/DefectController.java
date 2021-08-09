@@ -836,6 +836,25 @@ public class DefectController {
             return Result.fail(ResultEnum.NO_USER);
         }
         Defect defect = defectService.getDefectById(id);
+        Integer defectType = defect.getType();
+        if ("A".equals(type) && defectType != 1) {
+            return Result.fail(ResultEnum.DEFECT_NO_CLAIM_TIMEOUT);
+        }
+        if ("B".equals(type) && defectType != 5) {
+            return Result.fail(ResultEnum.DEFECT_NO_START_TIMEOUT);
+        }
+        if ("C".equals(type) && defectType != 2) {
+            return Result.fail(ResultEnum.DEFECT_NO_FEEDBACK_TIMEOUT);
+        }
+        if ("D".equals(type) && defectType != 3) {
+            return Result.fail(ResultEnum.DEFECT_NO_CHECK_TIMEOUT);
+        }
+        if("E".equals(type)&& defectType != 7){
+            return Result.fail(ResultEnum.DEFECT_NO_END_TIMEOUT);
+        }
+        if("Z".equals(type)&& defectType != 6){
+            return Result.fail(ResultEnum.DEFECT_NO_HANDLE_TIMEOUT);
+        }
         String timeoutType = defect.getTimeoutType();
         if (timeoutType == null) {
             timeoutType = type;

@@ -14,8 +14,13 @@ public enum ResultEnum {
     DEFECT_NOT_STARTED(209, "缺陷计时已暂停,请联系班长开始计时缺陷"),
     NO_PERMISSION(210, "没有权限"),
     NO_DEPARTMENT_ID(211, "当前部门无编号"),
-
-    SERVICE_EXCEPTION(500, "服务器异常");
+    DEFECT_NO_CLAIM_TIMEOUT(212, "该缺陷没有认领超时"),
+    DEFECT_NO_START_TIMEOUT(213, "该缺陷没有开始超时"),
+    DEFECT_NO_FEEDBACK_TIMEOUT(214, "该缺陷没有反馈超时"),
+    DEFECT_NO_CHECK_TIMEOUT(215, "该缺陷没有验收超时"),
+    DEFECT_NO_END_TIMEOUT(216,"该缺陷没有结束超时"),
+    DEFECT_NO_HANDLE_TIMEOUT(216, "该缺陷没有处理超时"),
+    SERVICE_EXCEPTION(500,"服务器异常");
 
 
     private Integer code;
