@@ -296,7 +296,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                 , {field: 'abs', title: '缺陷描述'}
                 , {field: 'empIdsName', title: '消缺人', width: 150}
                 , {
-                    field: 'totalTime', title: '总倒计时', sort: true, align: 'center', hide: true,
+                    field: 'totalTime', title: '总倒计时', sort: true, align: 'center',
                     templet: function (a) {
                         if (a.type == 4) {
                             return "已完成"
@@ -329,12 +329,10 @@ function showTable(type, sysId, equipmentId, departmentId) {
                         t += parseInt((new Date(a.totalStartTime).getTime() + a.totalPauseSeconds * 1000 + tmiao * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
                         // 设置每一条数据唯一的key
                         var key = 'key_Q' + a.id;
-
                         var day1 = parseInt(t / (60 * 60 * 24));//天
                         var shi1 = parseInt(t / (60 * 60) % 24);//小时
                         var fen1 = parseInt((t / 60) % 60);//分钟
                         var miao1 = parseInt(t % 60);//秒
-
                         var time1 = day1 + "天" + shi1 + "时" + fen1 + "分" + miao1 + "秒";
                         // 这里初始值计算显示的倒计时只是为了 如页面有刷新操作，只是把这个初始值也显示为倒计时
                         html = `<label id=${key} >${time1}</label>`;
@@ -345,14 +343,11 @@ function showTable(type, sysId, equipmentId, departmentId) {
                         } else {
                             $('#' + key).text(html);
                         }
-
                         addTask(key, function () {
                             var nowHour = new Date().getHours();
-
                             if (a.isStarted == 0 && nowHour >= 9 && nowHour < 17) {
                                 t--;
                             }
-
                             var day = parseInt(t / (60 * 60 * 24));//天
                             var shi = parseInt(t / (60 * 60) % 24);//小时
                             var fen = parseInt((t / 60) % 60);//分钟
@@ -362,17 +357,15 @@ function showTable(type, sysId, equipmentId, departmentId) {
                                 updateDefectTimeoutType(a.id, "Z");
                                 delTask(key);
                             } else {
-                                // $('#' + key).text(day + "天" + shi + "时" + fen + "分" + miao + "秒");
                                 $('#' + key).html(day + "天" + shi + "时" + fen + "分" + miao + "秒" + "<input type='hidden' class='" + key + "' value='" + t + "' />");
                             }
 
                         });
                         return html;
                     }
-
                 }
                 , {
-                    field: 'partTime', title: '分倒计时', sort: true, align: 'center', hide: true,
+                    field: 'partTime', title: '分倒计时', sort: true, align: 'center',
                     templet: function (a) {
                         if (a.type == 4) {
                             return "已完成"
@@ -380,75 +373,62 @@ function showTable(type, sysId, equipmentId, departmentId) {
                         if (a.type == 6) {
                             return "已延期"
                         }
-                        var tmiao = 0;
+                        var tHour = 0;//阶段完成小时
                         var timeoutType = "";
                         var timeoutTypeName = "";
-                        var startTime = a.partStartTime;
+                        var startTime = a.partStartTime;//当前阶段开始时间
                         if (a.type == "1") {
-                            tmiao = a.plannedHoursPart1;
+                            tHour = a.plannedHoursPart1;
                             timeoutType = "A"
                             timeoutTypeName = "认领超时";
-                            // startTime = a.created;
                         } else if (a.type == "5") {//开始执行
-                            tmiao = a.plannedHoursPart5;
+                            tHour = a.plannedHoursPart5;
                             timeoutType = "B";
                             timeoutTypeName = "开工超时";
-                            // startTime = a.orderReceivingTime;
                         } else if (a.type == "2") {//验收超时
-                            tmiao = a.plannedHoursPart2;
+                            tHour = a.plannedHoursPart2;
                             timeoutType = "C";
                             timeoutTypeName = "反馈超时";
-                            // startTime = a.realSTime;
                         } else if (a.type == "7") {//验收超时
-                            tmiao = a.plannedHoursPart7;
+                            tHour = a.plannedHoursPart7;
                             timeoutType = "D";
                             timeoutTypeName = "验收超时";
-                            // startTime = a.realETime;
                         } else if (a.type == "3") {//结束超时
-                            tmiao = a.plannedHoursPart3;
+                            tHour = a.plannedHoursPart3;
                             timeoutType = "E";
                             timeoutTypeName = "结束超时";
-                            // startTime = a.workTimeConfirmTime;
                         }
                         if (a.timeoutType != null && a.timeoutType != "" && a.timeoutType.indexOf(timeoutType) != -1) {
                             return timeoutTypeName;
                         }
-
                         // 根据后端返回的时间在延长 周期时间,计算出还剩下多少秒
                         if (startTime == undefined || startTime == "") {
                             return "<label>未记录时间" + timeoutType + "</label>"
                         }
-
-
                         var c = new Date(startTime);
-                        var nowDate1 = new Date();
-                        var nowHours1 = nowDate1.getHours();
-                        var totalHour = c.getHours();
+                        var totalHour = c.getHours();////当前阶段开始时间的小时
                         var t = 0;
-                        if (nowHours1 < 9 && nowHours1 >= 17) {
-                            var html = `无倒计时`;
-                            return html;
+                        var t1 = 0;
+                        //非工作时间 0-9 ，17-24 计算非工作时间距离当前阶段开始时间的时间
+                        if ((totalHour+tHour) < 9) {//开始时间 + 阶段完成时间是否不在工作时间内
+                            t1 = ((9 - totalHour) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
                         }
-                        if (totalHour < 9) {
-                            t = ((9 - totalHour) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
+                        if ((totalHour+tHour) > 17) {
+                            t1 =  ((24 - totalHour + 9) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
                         }
-                        if (totalHour >= 17) {
-                            t = ((24 - totalHour + 9) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
-                        }
-
-
-                        var t = parseInt((new Date(startTime).getTime() + a.partPauseSeconds * 1000 + tmiao * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
+                        //非工作时间 + 开始时间 + 暂停时间 + 阶段完成时间 - 当前时间     单位为秒
+                        t = t1 + parseInt((new Date(startTime).getTime() + a.partPauseSeconds * 1000 + tHour * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
                         // 设置每一条数据唯一的key
                         var key = 'key_part_' + a.id;
 
-                        var day1 = parseInt(t / (60 * 60 * 24));//天
-                        var shi1 = parseInt(t / (60 * 60) % 24);//小时
-                        var fen1 = parseInt((t / 60) % 60);//分钟
-                        var miao1 = parseInt(t % 60);//秒
+                        var day1 = parseInt((t-t1) / (60 * 60 * 24));//天
+                        var shi1 = parseInt((t-t1) / (60 * 60) % 24);//小时
+                        var fen1 = parseInt(((t-t1) / 60) % 60);//分钟
+                        var miao1 = parseInt((t-t1) % 60);//秒
 
                         var time1 = day1 + "d" + shi1 + "h" + fen1 + "m" + miao1 + "s";
                         var html = "";
-                        if (t <= 0) {
+                        if (t <= 0) {//输出超时内容
                             time1 = timeoutType + ":" + timeoutTypeName
                             html = `<label id=${key} >${time1}</label>`;
                             updateDefectTimeoutType(a.id, timeoutType);
@@ -457,30 +437,29 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             time1 = day1 + "天" + shi1 + "时" + fen1 + "分" + miao1 + "秒";
                             html = `<label id=${key}>${time1}</label>`;
                         }
-                        addTask(key, function () {
-                            var nowHour = new Date().getHours();
+                        addTask(key, function () { //定时器
+                            var nowHour = new Date().getHours();//当前小时
 
-                            if (a.isStarted == 0 && nowHour >= 9 && nowHour < 17) {
+                            if (a.isStarted == 0) {
                                 t--;
                             }
-                            var day = parseInt(t / (60 * 60 * 24));//天
-                            var shi = parseInt(t / (60 * 60) % 24);//小时
-                            var fen = parseInt((t / 60) % 60);//分钟
-                            var miao = parseInt(t % 60);//秒
-
+                            if (nowHour < 9 || nowHour > 17) {//当前小时不在工作时间内
+                                t1--;
+                            }
+                            var day = parseInt((t-t1) / (60 * 60 * 24));//天
+                            var shi = parseInt((t-t1) / (60 * 60) % 24);//小时
+                            var fen = parseInt(((t-t1) / 60) % 60);//分钟
+                            var miao = parseInt((t-t1) % 60);//秒
                             if (t <= 0) {
                                 $('#' + key).html("<label >" + timeoutType + ":" + timeoutTypeName + "</label><input type='hidden' class='" + key + "' value='" + t + "' />");
                                 updateDefectTimeoutType(a.id, timeoutType);
                                 delTask(key);
                             } else {
-                                // $('#' + key).text(day + "天" + shi + "时" + fen + "分" + miao + "秒")
                                 $('#' + key).html(day + "天" + shi + "时" + fen + "分" + miao + "秒" + "<input type='hidden' class='" + key + "' value='" + t + "' />");
                             }
-
                         });
                         return html;
                     }
-
                 }
                 , {field: 'created', title: '申请时间', align: 'center', minWidth: 120, sort: true}
                 , {field: 'type', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180, hide: true}
