@@ -852,7 +852,8 @@ public class DefectController {
         if("E".equals(type)&& defectType != 7){
             return Result.fail(ResultEnum.DEFECT_NO_END_TIMEOUT);
         }
-        if("Z".equals(type)&& defectType != 6){
+        System.out.println("defectType:"+type+" "+defectType);
+        if("Z".equals(type)&& defectType == 6){
             return Result.fail(ResultEnum.DEFECT_NO_HANDLE_TIMEOUT);
         }
         String timeoutType = defect.getTimeoutType();

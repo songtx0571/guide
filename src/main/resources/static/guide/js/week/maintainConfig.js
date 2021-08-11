@@ -136,6 +136,8 @@ function showMaintainWork(departmentId, searchWord) {
     if (departmentId == "0") {
         departmentId = "";
     }
+    var win = $(window).height();
+    var height = win - 100;
     layui.use(['table'], function () {
         var table = layui.table;
         table.render({
@@ -143,6 +145,7 @@ function showMaintainWork(departmentId, searchWord) {
             , toolbar: true
             , url: path + '/guide/maintain/getMaintains?departmentId=' + departmentId + '&searchWord=' + searchWord
             , page: true //开启分页
+            , height: height
             , limit: 50
             , autoSort: false
             , limits: [50, 100, 150]

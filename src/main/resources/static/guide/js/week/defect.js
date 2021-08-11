@@ -410,21 +410,25 @@ function showTable(type, sysId, equipmentId, departmentId) {
                         var t = 0;
                         var t1 = 0;
                         //非工作时间 0-9 ，17-24 计算非工作时间距离当前阶段开始时间的时间
-                        if ((totalHour+tHour) < 9) {//开始时间 + 阶段完成时间是否不在工作时间内
+                        if ((totalHour + tHour) < 9) {//开始时间 + 阶段完成时间是否不在工作时间内
                             t1 = ((9 - totalHour) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
                         }
-                        if ((totalHour+tHour) > 17) {
-                            t1 =  ((24 - totalHour + 9) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
+                        if ((totalHour + tHour) > 17) {
+                            if (totalHour > 17) {
+                                t1 = ((24 - totalHour + 9) * 60 - (c.getMinutes())) * 60 - (c.getSeconds());
+                            } else {
+                                t1 = 16 * 60 * 60;
+                            }
                         }
                         //非工作时间 + 开始时间 + 暂停时间 + 阶段完成时间 - 当前时间     单位为秒
                         t = t1 + parseInt((new Date(startTime).getTime() + a.partPauseSeconds * 1000 + tHour * 60 * 60 * 1000) / 1000) - Math.floor(new Date().getTime() / 1000);
                         // 设置每一条数据唯一的key
                         var key = 'key_part_' + a.id;
 
-                        var day1 = parseInt((t-t1) / (60 * 60 * 24));//天
-                        var shi1 = parseInt((t-t1) / (60 * 60) % 24);//小时
-                        var fen1 = parseInt(((t-t1) / 60) % 60);//分钟
-                        var miao1 = parseInt((t-t1) % 60);//秒
+                        var day1 = parseInt(t / (60 * 60 * 24));//天
+                        var shi1 = parseInt(t / (60 * 60) % 24);//小时
+                        var fen1 = parseInt((t / 60) % 60);//分钟
+                        var miao1 = parseInt(t % 60);//秒
 
                         var time1 = day1 + "d" + shi1 + "h" + fen1 + "m" + miao1 + "s";
                         var html = "";
@@ -439,17 +443,14 @@ function showTable(type, sysId, equipmentId, departmentId) {
                         }
                         addTask(key, function () { //定时器
                             var nowHour = new Date().getHours();//当前小时
-
                             if (a.isStarted == 0) {
                                 t--;
                             }
-                            if (nowHour < 9 || nowHour > 17) {//当前小时不在工作时间内
-                                t1--;
-                            }
-                            var day = parseInt((t-t1) / (60 * 60 * 24));//天
-                            var shi = parseInt((t-t1) / (60 * 60) % 24);//小时
-                            var fen = parseInt(((t-t1) / 60) % 60);//分钟
-                            var miao = parseInt((t-t1) % 60);//秒
+
+                            var day = parseInt(t / (60 * 60 * 24));//天
+                            var shi = parseInt(t / (60 * 60) % 24);//小时
+                            var fen = parseInt((t / 60) % 60);//分钟
+                            var miao = parseInt(t % 60);//秒
                             if (t <= 0) {
                                 $('#' + key).html("<label >" + timeoutType + ":" + timeoutTypeName + "</label><input type='hidden' class='" + key + "' value='" + t + "' />");
                                 updateDefectTimeoutType(a.id, timeoutType);
@@ -457,6 +458,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                             } else {
                                 $('#' + key).html(day + "天" + shi + "时" + fen + "分" + miao + "秒" + "<input type='hidden' class='" + key + "' value='" + t + "' />");
                             }
+                            console.log("t:" + t + "---t1:" + t1)
                         });
                         return html;
                     }
@@ -470,7 +472,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                 if (res.code != 0 && res.code != 200) {
                     layer.alert(res.msg);
                 } else {
-                    if(res.count == 0) {
+                    if (res.count == 0) {
                         return {
                             "msg": '你没有缺陷需要操作~' //解析提示文本
                         };
@@ -495,26 +497,16 @@ function showTable(type, sysId, equipmentId, departmentId) {
             if (obj.event === 'beOnDuty') {// 值班确认
                 layer.open({
                     type: 1
-                    ,
-                    title: false //不显示标题栏
-                    ,
-                    closeBtn: false
-                    ,
-                    area: '300px;'
-                    ,
-                    shade: 0.8
-                    ,
-                    id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                    ,
-                    btn: ['确定', '驳回', '取消']
-                    ,
-                    btnAlign: 'c'
-                    ,
-                    moveType: 1 //拖拽模式，0或者1
-                    ,
-                    content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #95b3ca; color: #000; font-weight: 500;font-size: 18px;">确认已完成本次消缺吗？</div>'
-                    ,
-                    success: function (layero) {
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '300px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确定', '驳回', '取消']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #95b3ca; color: #000; font-weight: 500;font-size: 18px;">确认已完成本次消缺吗？</div>'
+                    ,success: function (layero) {
                         var btn = layero.find('.layui-layer-btn');
                         btn.find('.layui-layer-btn0').click(function () {
                             $.ajax({
@@ -1178,7 +1170,12 @@ function insertFeedback() {
                 $.ajax({
                     type: 'put',
                     url: path + "/defect/startExecution",
-                    data: {id: Number($('#feedbackId').val()), type: 6, delayETime: feedbackBelayTime, delayReason: feedbackBelay},
+                    data: {
+                        id: Number($('#feedbackId').val()),
+                        type: 6,
+                        delayETime: feedbackBelayTime,
+                        delayReason: feedbackBelay
+                    },
                     dataType: "json",
                     success: function (data) {
                         layer.closeAll();
