@@ -251,7 +251,7 @@ public class MaintainController {
      * @param id
      * @return
      */
-    @DeleteMapping("/deleteMaintain")
+    @GetMapping("/deleteMaintain")
     @ResponseBody
     public Result deleteMaintain(@RequestParam Integer id) {
         maintainService.deleteMaintainById(id);

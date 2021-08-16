@@ -233,6 +233,6 @@
     <shiro:hasPermission name="分配维护配置">
         <button class='layui-btn layui-btn-sm' lay-event="distribution">分配</button>
     </shiro:hasPermission>
-
+    <button class='layui-btn layui-btn-sm layui-btn-danger' lay-event="del">删除</button>
 </script>
 </html>

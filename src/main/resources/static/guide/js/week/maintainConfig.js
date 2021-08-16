@@ -70,7 +70,7 @@ function showSystemNameAndEquipmentName(department) {
             dataType: "json",
             success: function (data) {
 
-                if (data.code == 0) {
+                if (data.code == 0 || data.code == 200) {
                     $("#selSysName").empty();
                     var option = "<option value='0' >请选择系统</option>";
                     for (var i = 0; i < data.data.length; i++) {
@@ -90,7 +90,7 @@ function showSystemNameAndEquipmentName(department) {
             url: "/guide/maintain/getEquipments?type=2&department=" + department,
             dataType: "json",
             success: function (data) {
-                if (data.code == 0) {
+                if (data.code == 0 || data.code == 200) {
                     $("#selEquipmentName").empty();
                     var option = "<option value='0' >请选择设备</option>";
                     for (var i = 0; i < data.data.length; i++) {
@@ -110,14 +110,16 @@ function showSystemNameAndEquipmentName(department) {
             url: path + "/guide/unit/getUnitList?mold=2&bothType=3&department=" + department,
             dataType: "json",
             success: function (data) {
-                data = data.data;
-                $("#selMaintainPointName").empty();
-                var option = "<option value='0' >请选择测点</option>";
-                for (var i = 0; i < data.length; i++) {
-                    option += "<option value='" + data[i].id + "'>" + data[i].nuit + "</option>"
+                if (data.code == 0 || data.code == 200) {
+                    data = data.data;
+                    $("#selMaintainPointName").empty();
+                    var option = "<option value='0' >请选择测点</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<option value='" + data[i].id + "'>" + data[i].nuit + "</option>"
+                    }
+                    $('#selMaintainPointName').html(option);
+                    form.render();//菜单渲染 把内容加载进去
                 }
-                $('#selMaintainPointName').html(option);
-                form.render();//菜单渲染 把内容加载进去
             }
         });
         form.on('select(selMaintainPointName)', function (data) {
@@ -150,7 +152,7 @@ function showMaintainWork(departmentId, searchWord) {
             , autoSort: false
             , limits: [50, 100, 150]
             , cols: [[ //表头
-                {field: 'id', title: '编号', align: 'center', hide: true}
+                {field: 'id', title: '编号', align: 'center'}
                 , {field: 'systemName', title: '系统', sort: true, align: 'center'}
                 , {field: 'equipmentName', title: '设备', sort: true, align: 'center'}
                 , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
@@ -220,7 +222,7 @@ function showMaintainWork(departmentId, searchWord) {
                     }
 
                 }
-                , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 200, align: 'center'}
+                , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 250, align: 'center'}
             ]]
             , done: function (res, curr, count) {
             }
@@ -235,6 +237,38 @@ function showMaintainWork(departmentId, searchWord) {
                 stopMaintainConfig(data.id)
             } else if (obj.event === 'distribution') {
                 distributionMaintainConfig(data.id)
+            } else if (obj.event === 'del') {
+                layer.open({
+                    type: 1,
+                    title: false, //不显示标题栏
+                    closeBtn: false,
+                    area: '300px;',
+                    shade: 0.8,
+                    id: 'LAY_layuipro', //设定一个id，防止重复弹出
+                    btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    moveType: 1, //拖拽模式，0或者1
+                    content: '<div style="padding: 50px 10px 50px 17px; box-sizing: border-box; line-height: 22px; background-color: #f2f2f2; color: #000; font-weight: 500;font-size: 18px;">确认删除吗？</div>',
+                    success: function (layero) {
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').click(function () {
+                            $.ajax({
+                                type: "GET",
+                                url: path + '/guide/maintain/deleteMaintain?id=' + data.id,//数据接口
+                                dataType: "json",
+                                success: function (res) {
+                                    if (res.code == 0 || res.code == 200) {
+                                        showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
+                                    } else {
+                                        layer.alert(res.msg);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+
+
             }
         });
 
@@ -301,20 +335,22 @@ function openMaintainConfig(id) {
                 url: path + '/guide/maintain/getMaintains?id=' + id,//数据接口
                 dataType: "json",
                 success: function (data) {
-                    data = data.data[0];
-                    saveId = data.id;
-                    $("#selSysName").val(data.systemId);
-                    $("#selEquipmentName").val(data.equipmentId);
-                    $("#selMaintainPointName").val(data.unitId);
-                    $("#selCycle").val(data.cycle);
-                    $("#selPlanedWorkingHour").val(data.planedWorkingHour);
-                    $("#selWorkContent").val(data.workContent);
-                    $("#selSysNameHidden").val(data.systemId);
-                    $("#selEquipmentNameHidden").val(data.equipmentId);
-                    $("#selMaintainPointNameHidden").val(data.unitId);
-                    $("#selCycleHidden").val(data.cycle);
-                    $("#selPlanedWorkingHourHidden").val(data.planedWorkingHour);
-                    form.render();
+                    if (data.code == 0 || data.code == 200) {
+                        data = data.data[0];
+                        saveId = data.id;
+                        $("#selSysName").val(data.systemId);
+                        $("#selEquipmentName").val(data.equipmentId);
+                        $("#selMaintainPointName").val(data.unitId);
+                        $("#selCycle").val(data.cycle);
+                        $("#selPlanedWorkingHour").val(data.planedWorkingHour);
+                        $("#selWorkContent").val(data.workContent);
+                        $("#selSysNameHidden").val(data.systemId);
+                        $("#selEquipmentNameHidden").val(data.equipmentId);
+                        $("#selMaintainPointNameHidden").val(data.unitId);
+                        $("#selCycleHidden").val(data.cycle);
+                        $("#selPlanedWorkingHourHidden").val(data.planedWorkingHour);
+                        form.render();
+                    }
                 }
             });
         }
@@ -356,17 +392,20 @@ function saveMaintainConfig() {
         return false;
     }
     $.ajax({
-        "type": 'post',
-        "url": path + "/guide/maintain/saveMaintain",
+        type: 'post',
+        url: path + "/guide/maintain/saveMaintain",
         data: JSON.stringify(maintainWork),
         dataType: "text",
         contentType: "application/json; charset=utf-8",
-        "success": function (data) {
-            if (data == "SUCCESS") {
+        success: function (data) {
+            if (data.code == 0 || data.code == 200) {
                 layer.alert("保存成功");
                 layer.closeAll();
                 showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
                 location.href = "/guide/maintain/toMaintainConfig";
+            } else {
+                layer.alert(data.msg);
+                layer.closeAll();
             }
         }
     });
@@ -388,15 +427,18 @@ function resetMaintainConfig(id) {
 
     maintainWork.assignmentStatus = "0";
     $.ajax({
-        "type": 'post',
-        "url": path + "/guide/maintain/saveMaintain",
+        type: 'post',
+        url: path + "/guide/maintain/saveMaintain",
         data: JSON.stringify(maintainWork),
         dataType: "text",
         contentType: "application/json; charset=utf-8",
-        "success": function (data) {
-            if (data == "SUCCESS") {
+        success: function (data) {
+            if (data.code == 0 || data.code == 200) {
                 showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
                 location.href = "/guide/maintain/toMaintainConfig";
+            } else {
+                layer.alert(data.msg);
+                layer.closeAll();
             }
         }
     });
@@ -409,15 +451,18 @@ function stopMaintainConfig(id) {
     maintain.id = id;
     maintain.assignmentStatus = "2";
     $.ajax({
-        "type": 'post',
-        "url": path + "/guide/maintain/saveMaintain",
+        type: 'post',
+        url: path + "/guide/maintain/saveMaintain",
         data: JSON.stringify(maintain),
         dataType: "text",
         contentType: "application/json; charset=utf-8",
-        "success": function (data) {
-            if (data == "SUCCESS") {
+        success: function (data) {
+            if (data.code == 0 || data.code == 200) {
                 showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
                 location.href = "/guide/maintain/toMaintainConfig";
+            } else {
+                layer.alert(data.msg);
+                layer.closeAll();
             }
         }
     });
@@ -499,17 +544,14 @@ function maintainConfigOk() {
         type: 'post',
         url: path + "/guide/maintain/insertMaintainRecord",
         data: JSON.stringify(maintainRecord),
-        dataType: "text",
+        dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            if (data == "SUCCESS") {
+            if (data.code == 0 || data.code == 200) {
                 layer.alert("分配成功");
-                layer.closeAll();
                 showMaintainWork($("#selDepartNameHidden").val(), $("#searchWord").val());
-            } else if (data == "DISTRIBUTED") {
-                layer.alert("该任务已分配")
-            } else if (data == "STOPED") {
-                layer.alert("该任务已暂停")
+            } else {
+                layer.alert(data.msg);
             }
         }
     });
