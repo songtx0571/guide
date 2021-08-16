@@ -436,7 +436,7 @@ function distributionMaintainConfig(id) {
             $("#maintainConfigSys").text(data.systemName);//系统
             $("#maintainConfigEquipment").text(data.equipmentName);//设备
             $("#maintainConfigCycle").text(data.cycle);//周期
-            $("#maintainConfigCreateTime").text(data.createTime);//创建时间
+            $("#maintainConfigCreateTime").text(data.startTime);//创建时间
             $("#maintainConfigPlanedWorkingHour").text(data.planedWorkingHour);//预估工时
             $("#maintainConfigMaintainPointName").text(data.workContent);//工作内容
             $("#maintainConfigExecutorId").val("");

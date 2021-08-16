@@ -499,9 +499,9 @@ public class DefectController {
                     defect.setTotalPauseSeconds(0D);
                     defect.setPartPauseSeconds(0D);
                 } else if (result == 1) {
-                    if (defect.getConfirmer1Time() != null) {
-                        return Result.fail(ResultEnum.REJECT);//已完成不可再确认
-                    }
+//                    if (defect.getConfirmer1Time() != null) {
+//                        return Result.fail(ResultEnum.REJECT);//已完成不可再确认
+//                    }
                     defect.setType(4);//已完成
                     defect.setConfirmer1(users.getEmployeeId());
                     defect.setConfirmer1Time(DateFormat.getYMDHMS(new Date()));
@@ -557,7 +557,11 @@ public class DefectController {
         }
         souMap.put("type", type);
         List<Map<String, Object>> list = equipmentService.getEquMap1(souMap);
-        list = list.stream().sorted((o1, o2) -> (Collator.getInstance(Locale.CHINESE).compare(o1.get("text") != null ? o1.get("text").toString() : "", o2.get("text") != null ? o2.get("text").toString() : ""))).collect(Collectors.toList());
+        list = list.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.get("text") != null ? o1.get("text").toString() : "", o2.get("text") != null ? o2.get("text").toString() : "")
+                )
+        ).collect(Collectors.toList());
         return list;
     }
 
@@ -592,7 +596,11 @@ public class DefectController {
         Map map = new HashMap();
         map.put("empId", empIdStr);
         List<Map<String, Object>> list = employeeService.getEmpMap(map);
-        list = list.stream().sorted((o1, o2) -> (Collator.getInstance(Locale.CHINESE).compare(o1.get("text") != null ? o1.get("text").toString() : "", o2.get("text") != null ? o2.get("text").toString() : ""))).collect(Collectors.toList());
+        list = list.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.get("text") != null ? o1.get("text").toString() : "", o2.get("text") != null ? o2.get("text").toString() : "")
+                )
+        ).collect(Collectors.toList());
         return list;
     }
 
@@ -852,7 +860,6 @@ public class DefectController {
         if("E".equals(type)&& defectType != 7){
             return Result.fail(ResultEnum.DEFECT_NO_END_TIMEOUT);
         }
-        System.out.println("defectType:"+type+" "+defectType);
         if("Z".equals(type)&& defectType == 6){
             return Result.fail(ResultEnum.DEFECT_NO_HANDLE_TIMEOUT);
         }

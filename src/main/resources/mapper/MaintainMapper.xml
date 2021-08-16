@@ -39,7 +39,9 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="start_time" property="startTime"/>
-
+        <result column="system_id" property="systemId"/>
+        <result column="equipment_id" property="equipmentId"/>
+        <result column="unit_id" property="unitId"/>
         <result column="system_name" property="systemName"/>
         <result column="equipment_name" property="equipmentName"/>
         <result column="unit_name" property="unitName"/>
@@ -55,9 +57,9 @@
     </insert>
     <insert id="insertMaintainRecord">
 
-        insert into maintain_record (maintain_id,employee_id,claim_time,create_time,update_time,department_id,maintain_record_no)
+        insert into maintain_record (maintain_id,employee_id,claim_time,create_time,update_time,department_id,maintain_record_no,system_id,equipment_id,unit_id,work_content)
         value
-        (#{record.maintainId},#{record.employeeId},#{record.claimTime},#{record.createTime},#{record.updateTime},#{record.departmentId},#{record.maintainRecordNo})
+        (#{record.maintainId},#{record.employeeId},#{record.claimTime},#{record.createTime},#{record.updateTime},#{record.departmentId},#{record.maintainRecordNo},#{record.systemId},#{record.equipmentId},#{record.unitId},#{record.workContent})
 
 
     </insert>
@@ -149,14 +151,12 @@
         e.`name` AS system_name,
         e1.`name` AS equipment_name,
         u.nuit AS unit_name,
-        m.work_content as work_content,
         mr.*
         FROM
         maintain_record mr
-        JOIN maintain m ON m.id = mr.maintain_id
-        LEFT JOIN equipment e ON e.id = m.system_id
-        LEFT JOIN equipment e1 ON e1.id = m.equipment_id
-        LEFT JOIN unit u ON u.id = m.unit_id
+        LEFT JOIN equipment e ON e.id = mr.system_id
+        LEFT JOIN equipment e1 ON e1.id = mr.equipment_id
+        LEFT JOIN unit u ON u.id = mr.unit_id
         WHERE
         1 = 1
         <if test="map.departmentId!=null">and mr.department_id=#{map.departmentId}</if>
@@ -168,10 +168,10 @@
             and mr.status='2'
         </if>
         <if test="map.systemId!=null">
-            and m.system_id=#{map.systemId}
+            and mr.system_id=#{map.systemId}
         </if>
         <if test="map.equipmentId!=null">
-            and m.equipment_id=#{map.equipmentId}
+            and mr.equipment_id=#{map.equipmentId}
         </if>
         <if test="map.employeeIdList!=null">
             and
@@ -204,10 +204,9 @@
         mr.*
         FROM
         maintain_record mr
-        join maintain  m on mr.maintain_id=m.id
-        LEFT JOIN equipment e ON e.id = m.system_id
-        LEFT JOIN equipment e1 ON e1.id = m.equipment_id
-        LEFT JOIN unit u ON u.id = m.unit_id
+        LEFT JOIN equipment e ON e.id = mr.system_id
+        LEFT JOIN equipment e1 ON e1.id = mr.equipment_id
+        LEFT JOIN unit u ON u.id = mr.unit_id
          where  mr.id=#{id}
 
     </select>

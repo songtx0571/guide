@@ -18,6 +18,9 @@ public class MaintainRecord {
     private String status;
     private Date createTime;
     private Date updateTime;
+    private Integer systemId;
+    private Integer equipmentId;
+    private Integer unitId;
 
     private String systemName;
     private String equipmentName;
@@ -41,12 +44,39 @@ public class MaintainRecord {
                 ", status='" + status + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", systemId=" + systemId +
+                ", equipmentId=" + equipmentId +
+                ", unitId=" + unitId +
                 ", systemName='" + systemName + '\'' +
                 ", equipmentName='" + equipmentName + '\'' +
                 ", unitName='" + unitName + '\'' +
                 ", workContent='" + workContent + '\'' +
                 ", employeeName='" + employeeName + '\'' +
                 '}';
+    }
+
+    public Integer getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(Integer systemId) {
+        this.systemId = systemId;
+    }
+
+    public Integer getEquipmentId() {
+        return equipmentId;
+    }
+
+    public void setEquipmentId(Integer equipmentId) {
+        this.equipmentId = equipmentId;
+    }
+
+    public Integer getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Integer unitId) {
+        this.unitId = unitId;
     }
 
     public String getEmployeeName() {

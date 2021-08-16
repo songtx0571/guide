@@ -18,9 +18,11 @@ public enum ResultEnum {
     DEFECT_NO_START_TIMEOUT(213, "该缺陷没有开始超时"),
     DEFECT_NO_FEEDBACK_TIMEOUT(214, "该缺陷没有反馈超时"),
     DEFECT_NO_CHECK_TIMEOUT(215, "该缺陷没有验收超时"),
-    DEFECT_NO_END_TIMEOUT(216,"该缺陷没有结束超时"),
+    DEFECT_NO_END_TIMEOUT(216, "该缺陷没有结束超时"),
     DEFECT_NO_HANDLE_TIMEOUT(216, "该缺陷没有处理超时"),
-    SERVICE_EXCEPTION(500,"服务器异常");
+    MAINTAIN_DISTRIBUTED(217, "该维护配置已经被分配"),
+    MAINTAIN_STOPED(218, "该维护配置已经暂停"),
+    SERVICE_EXCEPTION(500, "服务器异常");
 
 
     private Integer code;

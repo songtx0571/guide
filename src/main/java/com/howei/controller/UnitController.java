@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.Collator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @CrossOrigin(origins = {"http://192.168.1.27:8082", "http:localhost:8080", "http://192.168.1.27:8848"}, allowCredentials = "true")
@@ -87,15 +86,17 @@ public class UnitController {
             map.put("page", rows);
         }
 
-        List<Unit> unit = unitService.getUnitList(map);
-        for (Unit unit1 : unit) {
-            Company company = companyService.getCompanyById(String.valueOf(unit1.getDepartment()));
-            unit1.setDepartmentName(company.getName());
+        List<Unit> unitList = unitService.getUnitList(map);
+        for (Unit unit : unitList) {
+            Company company = companyService.getCompanyById(String.valueOf(unit.getDepartment()));
+            unit.setDepartmentName(company.getName());
         }
-        Result result = new Result();
-        result.setCount(count);
-        result.setData(unit);
-        return result;
+        unitList = unitList.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.getNuit() != null ? o1.getNuit() : "", o2.getNuit() != null ? o2.getNuit() : "")
+                )
+        ).collect(Collectors.toList());
+        return Result.ok(count, unitList);
     }
 
     /**

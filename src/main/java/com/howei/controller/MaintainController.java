@@ -5,6 +5,7 @@ import com.howei.pojo.*;
 import com.howei.service.*;
 import com.howei.util.ListUtils;
 import com.howei.util.Result;
+import com.howei.util.ResultEnum;
 import org.apache.jasper.security.SecurityUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.Collator;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +59,16 @@ public class MaintainController {
         return users;
     }
 
+    /**
+     * 获取用户Map
+     *
+     * @return
+     */
+    public Map<Integer, String> getUsersMap() {
+        Map<Integer, String> map = employeeService.getUsersMap();
+        return map;
+    }
+
 
     /**
      * 保存维护配置
@@ -66,11 +78,11 @@ public class MaintainController {
      */
     @PostMapping("/saveMaintain")
     @ResponseBody
-    public String saveMaintain(@RequestBody Maintain maintain) {
+    public Result saveMaintain(@RequestBody Maintain maintain) {
 
         Users user = (Users) SecurityUtils.getSubject().getPrincipal();
         if (user == null) {
-            return "用户失效,请重新登陆";
+            return Result.fail(ResultEnum.NO_USER);
         }
         int companyId = user.getCompanyId();
         if (maintain.getDepartmentId() == null) {
@@ -82,7 +94,6 @@ public class MaintainController {
 
         Integer id = maintain.getId();
         Date date = new Date();
-        System.out.println("id::" + id);
         if (StringUtils.isEmpty(id)) {
             maintain.setCompanyId(companyId);
             maintain.setEmployeeId(employeeId);
@@ -94,7 +105,7 @@ public class MaintainController {
             maintain.setUpdateTime(date);
             maintainService.updateMaintainById(maintain);
         }
-        return "SUCCESS";
+        return Result.ok();
     }
 
     /**
@@ -115,12 +126,10 @@ public class MaintainController {
             @RequestParam(required = false) String field,
             @RequestParam(required = false) String order
     ) {
-        Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
         Users users = this.getPrincipal();
         if (users == null) {
-            result.setMsg("用户失效");
-            return result;
+            return Result.fail(ResultEnum.NO_USER);
         }
         if (!subject.isPermitted("查询所有部门维护引导")) {
             departmentId = users.getDepartmentId();
@@ -137,7 +146,7 @@ public class MaintainController {
             map.put("searchWord", "%" + searchWord + "%");
         }
         List<Maintain> maintains = maintainService.getMaintainByMap(map);
-        result.setCount(maintains.size());
+        int count = maintains.size();
         //排序
         if (field != null && order != null) {
             maintains = maintains.stream().sorted((o1, o2) -> (getCompareByM1AndM2(o1, o2, field, order))).collect(Collectors.toList());
@@ -147,10 +156,7 @@ public class MaintainController {
             maintains = maintains.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
         }
 
-        result.setCode(0);
-        result.setData(maintains);
-        result.setMsg("成功");
-        return result;
+        return Result.ok(count, maintains);
     }
 
     /**
@@ -225,15 +231,10 @@ public class MaintainController {
         }
         //3.按照其他字符串字段排序
         else {
-            if (maintainJsonObject1.get(field) == null || maintainJsonObject2.get(field) == null) {
-                return 0;
-            }
-
-            String field1 = maintainJsonObject1.get(field).toString();
-            field1 = field1 == null ? "" : field1;
-            String field2 = maintainJsonObject2.get(field).toString();
-            field2 = field2 == null ? "" : field2;
-            System.out.println(field + " " + field1 + " " + field2);
+            Object fieldObj1 = maintainJsonObject1.get(field);
+            String field1 = (fieldObj1 == null) ? "" : fieldObj1.toString();
+            Object fieldObj2 = maintainJsonObject2.get(field);
+            String field2 = (fieldObj2 == null) ? "" : fieldObj2.toString();
             if ("asc".equals(order)) {
                 return field1.compareTo(field2);
             } else if ("desc".equals(order)) {
@@ -252,26 +253,28 @@ public class MaintainController {
      */
     @DeleteMapping("/deleteMaintain")
     @ResponseBody
-    public String deleteMaintain(@RequestParam Integer id) {
-        int count = maintainService.deleteMaintainById(id);
-        String result = "SUCCESS";
-        if (count < 0) {
-            result = "False";
-        }
-        return result;
+    public Result deleteMaintain(@RequestParam Integer id) {
+        maintainService.deleteMaintainById(id);
+        return Result.ok();
     }
 
 
+    /**
+     * 分配维护配置
+     *
+     * @param maintainRecord
+     * @return
+     */
     @PostMapping("/insertMaintainRecord")
     @ResponseBody
-    public String insertMaintainRecord(@RequestBody MaintainRecord maintainRecord) {
+    public Result insertMaintainRecord(@RequestBody MaintainRecord maintainRecord) {
         Integer maintainId = maintainRecord.getMaintainId();
         Maintain maintain = maintainService.getMaintainById(maintainId);
         String assignmentStatus = maintain.getAssignmentStatus();
         if ("1".equals(assignmentStatus)) {
-            return "DISTRIBUTED";
+            return Result.fail(ResultEnum.MAINTAIN_DISTRIBUTED);
         } else if ("2".equals(assignmentStatus)) {
-            return "STOPED";
+            return Result.fail(ResultEnum.MAINTAIN_STOPED);
         }
         Date date = new Date();
         //更新时间
@@ -292,10 +295,14 @@ public class MaintainController {
         DecimalFormat df = new DecimalFormat("00000");
         String maintainRecoreNo = company.getCodeName() + "W" + df.format(count);
         maintainRecord.setMaintainRecordNo(maintainRecoreNo);
-
         maintainRecord.setClaimTime(sdf.format(new Date()));
         maintainRecord.setCreateTime(date);
         maintainRecord.setUpdateTime(date);
+
+        maintainRecord.setSystemId(maintain.getSystemId());
+        maintainRecord.setEquipmentId(maintain.getEquipmentId());
+        maintainRecord.setUnitId(maintain.getUnitId());
+        maintainRecord.setWorkContent(maintain.getWorkContent());
 
         //插入记录
         int insertMaintainRecordFlag = maintainService.insertMaintainRecord(maintainRecord);
@@ -305,7 +312,7 @@ public class MaintainController {
             maintain.setAssignmentStatus("1");
             maintainService.updateMaintainById(maintain);
         }
-        return "SUCCESS";
+        return Result.ok();
     }
 
     /**
@@ -316,8 +323,11 @@ public class MaintainController {
      */
     @PostMapping("/updateMaintainRecord")
     @ResponseBody
-    public String updateMaintainRecord(@RequestBody MaintainRecord maintainRecord) {
+    public Result updateMaintainRecord(@RequestBody MaintainRecord maintainRecord) {
         Users user = (Users) SecurityUtils.getSubject().getPrincipal();
+        if (user == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
         //  获取维护id
         maintainRecord.setUpdateTime(new Date());
         String status = maintainRecord.getStatus();
@@ -376,7 +386,7 @@ public class MaintainController {
             maintain.setStartTime(sdf.format(new Date()));
             maintainService.updateMaintainById(maintain);
         }
-        return "SUCCESS";
+        return Result.ok();
     }
 
 
@@ -394,13 +404,11 @@ public class MaintainController {
             @RequestParam(required = false) Integer status,
             @RequestParam(required = false) Integer id
     ) {
-        Result result = new Result();
         Subject subject = SecurityUtils.getSubject();
         Users users = (Users) subject.getPrincipal();
         Map<String, Object> map = new HashMap<>();
         if (users == null) {
-            result.setMsg("用户失效");
-            return result;
+            return Result.fail(ResultEnum.NO_USER);
         }
 
         Integer employeeId = users.getEmployeeId();
@@ -427,16 +435,24 @@ public class MaintainController {
         if (!subject.isPermitted("查询所有部门维护引导")) {
             map.put("departmentId", departmentId);
         }
-        List<MaintainRecord> maintainRecords = maintainService.getMaintainRecordByMap(map);
-        if (maintainRecords.size() > 0) {
+        List<MaintainRecord> maintainRecordTotalList = maintainService.getMaintainRecordByMap(map);
+        if (maintainRecordTotalList == null) {
+            return Result.ok(1, new ArrayList<>());
+        }
+        List<MaintainRecord> maintainRecordPageList = null;
+        if (page != null && limit != null) {
+            maintainRecordPageList = maintainRecordTotalList.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
+        }
 
-            for (MaintainRecord maintainRecord : maintainRecords) {
+        Map<Integer, String> usersMap = getUsersMap();
+        if (maintainRecordPageList != null && maintainRecordPageList.size() > 0) {
+            for (MaintainRecord maintainRecord : maintainRecordPageList) {
                 String[] maintainRecordEmployeeIds = maintainRecord.getEmployeeId().split(",");
                 String employeeNames = "";
                 for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
-                    Users userByEmpId = userService.findByEmpId(maintainRecordEmployeeId);
-                    if (userByEmpId != null) {
-                        employeeNames += userByEmpId.getUserName() + "、";
+                    String employeeName = usersMap.get(Integer.valueOf(maintainRecordEmployeeId));
+                    if (!StringUtils.isEmpty(employeeName)) {
+                        employeeNames += employeeName + "、";
                     }
                 }
                 employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
@@ -446,17 +462,7 @@ public class MaintainController {
 
         }
 
-        result.setCode(0);
-        result.setCount(maintainRecords.size());
-
-
-        if (page != null && limit != null) {
-            maintainRecords = maintainRecords.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
-        }
-
-        result.setData(maintainRecords);
-        result.setMsg("成功");
-        return result;
+        return Result.ok(maintainRecordTotalList.size(), maintainRecordPageList);
     }
 
     /**
@@ -470,14 +476,11 @@ public class MaintainController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String department
     ) {
-        Result result = new Result();
         Map<String, Object> map = new HashMap<>();
         Subject subject = SecurityUtils.getSubject();
         Users user = (Users) subject.getPrincipal();
         if (user == null) {
-            result.setCode(500);
-            result.setMsg("用户失效");
-            return result;
+            return Result.fail(ResultEnum.NO_USER);
         }
         if (subject.isPermitted("查询所有部门维护引导")) {
             map.put("department", department);
@@ -493,10 +496,13 @@ public class MaintainController {
 
         }
         List<Map<String, Object>> list = equipmentService.getEquMap1(map);
-        result.setData(list);
-        result.setCount(list.size());
-        result.setCode(0);
-        return result;
+        list = list.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE)
+                                .compare(o1.get("text") != null ? o1.get("text").toString() : "", o2.get("text") != null ? o2.get("text").toString() : "")
+                )
+        ).collect(Collectors.toList());
+        return Result.ok(list.size(), list);
     }
 
 }
