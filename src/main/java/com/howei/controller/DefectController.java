@@ -266,12 +266,12 @@ public class DefectController {
         //设置缺陷单编号
         if (result >= 0) {
             int count = defectService.getDefectCountByDep(users.getDepartmentId());
-            int insId = count;
+            count += 1;
             if (company.getId() == 19) {//浦江项目部从819开始
-                insId = 819 + count;
+                count = 819 + count;
             }
             DecimalFormat df = new DecimalFormat("0000");
-            defect.setNumber(company.getCodeName() + df.format(insId));
+            defect.setNumber(company.getCodeName() + df.format(count));
             defectService.updDefect(defect);
             return Result.ok();
         }
@@ -857,10 +857,10 @@ public class DefectController {
         if ("D".equals(type) && defectType != 3) {
             return Result.fail(ResultEnum.DEFECT_NO_CHECK_TIMEOUT);
         }
-        if("E".equals(type)&& defectType != 7){
+        if ("E".equals(type) && defectType != 7) {
             return Result.fail(ResultEnum.DEFECT_NO_END_TIMEOUT);
         }
-        if("Z".equals(type)&& defectType == 6){
+        if ("Z".equals(type) && defectType == 6) {
             return Result.fail(ResultEnum.DEFECT_NO_HANDLE_TIMEOUT);
         }
         String timeoutType = defect.getTimeoutType();
