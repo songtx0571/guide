@@ -5,8 +5,12 @@ import com.howei.service.*;
 import com.howei.util.EasyuiResult;
 import com.howei.util.Page;
 import com.howei.util.Result;
+import com.howei.util.ResultEnum;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,17 +32,28 @@ public class InquiriesDataController {
 
     @Autowired
     PostPeratorDataService postPeratorDataService;
-
     @Autowired
     UserService userService;
-
     @Autowired
     DataConfigurationService dataConfigurationService;
-
     @Autowired
     AiConfigurationDataService aiConfigurationDataService;
     @Autowired
     MaintainService maintainService;
+    @Autowired
+    private EmployeeService employeeService;
+    @Autowired
+    private DefectService defectService;
+
+    /**
+     * 获取用户Map
+     *
+     * @return
+     */
+    public Map<Integer, String> getUsersMap() {
+        Map<Integer, String> map = employeeService.getUsersMap();
+        return map;
+    }
 
     /**
      * 跳转查询数据页面
@@ -61,7 +76,7 @@ public class InquiriesDataController {
     public Result getInquiriesData(HttpServletRequest request) {
         String name = request.getParameter("name");
         String depart = request.getParameter("departName");
-        String type = request.getParameter("type");//1：人工；2：ai
+        String type = request.getParameter("type");//1：人工；2：ai,3维护,4缺陷
         String startTime = request.getParameter("startTime");//开始时间
         String endTime = request.getParameter("endTime");//结束时间
         String page = request.getParameter("page");
@@ -70,9 +85,15 @@ public class InquiriesDataController {
         String equipmentId = request.getParameter("equipmentId");
         int rows = Page.getOffSet(page, limit);
         Result result = new Result();
-        int total = 0;
+        Subject subject = SecurityUtils.getSubject();
+        Users loginUser = (Users) subject.getPrincipal();
+        if (loginUser == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
         Map<String, Object> resultMap = new HashMap<>();
-        if (name != null && !name.equals("")) {
+        Map<Integer, String> usersMap = getUsersMap();
+        int total;
+        if (name != null && !"".equals(name)) {
             Map map = new HashMap();
             if (startTime != null && !startTime.equals("")) {
                 map.put("startTime", startTime);
@@ -110,11 +131,10 @@ public class InquiriesDataController {
                 total = list.size();
                 list.clear();
                 if (startTime == null || startTime.equals("") && endTime == null || endTime.equals("")) {
-                    map.put("pageSize", 2000);
-                    map.put("page", 1);
+                    map.put("pageSize", limit);
+                    map.put("page", rows);
                 }
                 list = aiConfigurationDataService.getAiConfigureDataList(map);
-
                 resultMap.put("AITotal", total);
                 resultMap.put("AIData", list);
             }
@@ -129,9 +149,9 @@ public class InquiriesDataController {
                     String[] maintainRecordEmployeeIds = maintainRecord.getEmployeeId().split(",");
                     String employeeNames = "";
                     for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
-                        Users userByEmpId = userService.findByEmpId(maintainRecordEmployeeId);
-                        if (userByEmpId != null) {
-                            employeeNames += userByEmpId.getUserName() + "、";
+                        String userName = usersMap.get(Integer.valueOf(maintainRecordEmployeeId));
+                        if (StringUtils.isEmpty(userName)) {
+                            employeeNames += userName + "、";
                         }
                     }
                     employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
@@ -141,6 +161,16 @@ public class InquiriesDataController {
 
                 resultMap.put("WHTotal", total);
                 resultMap.put("WHData", maintainRecordList);
+            }
+
+            if (type.contains("4")) {
+                map.put("departmentId", depart);
+                map.put("sysId", systemId);
+                map.put("equipmentId", equipmentId);
+                map.put("type", 4);
+                List<Defect> defectList = defectService.getDefectList(map);
+                resultMap.put("DeTotal", defectList.size());
+                resultMap.put("DeData", defectList);
             }
         }
         result.setData(resultMap);

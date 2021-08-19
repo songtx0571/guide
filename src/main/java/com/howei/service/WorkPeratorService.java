@@ -8,21 +8,23 @@ import java.util.Map;
 public interface WorkPeratorService {
     /**
      * 查询记录
+     *
      * @param
      * @return
      */
-    public List<WorkPerator> selByUser(Map map);
+    List<WorkPerator> selByUser(Map map);
 
-    public String selByUserCount(Map map);
+    int selByUserCount(Map map);
 
     /**
      * 添加模板
+     *
      * @param workPerator
      * @return
      */
     int addWorkPerator(WorkPerator workPerator);
 
-    int updStatus(Map<String,Object> map);
+    int updStatus(Map<String, Object> map);
 
     void delWorkPerator(Map map);
 
@@ -40,9 +42,9 @@ public interface WorkPeratorService {
 
     List<WorkPerator> selAll(Map map);
 
-    List<String> selByParam(Map<String,Object> map);
+    List<String> selByParam(Map<String, Object> map);
 
-    int selAllCount(Map<String,Object> map);
+    int selAllCount(Map<String, Object> map);
 
     List<Map> getTemplateMap(Map map);
 

@@ -23,4 +23,6 @@ public interface CompanyService {
     Company getCompany(Company company);
 
     List<Map<String,String>> getDepartmentMap(int companyId);
+
+    Map<String, Object> getCompanysMap(int companyId);
 }

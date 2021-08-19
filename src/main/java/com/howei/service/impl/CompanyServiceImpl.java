@@ -46,10 +46,10 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Map<Integer, Object> getCompanyMap(String s) {
         List<Map<String, Object>> companyMap = companyMaper.getCompanyMap(s);
-        Map<Integer,Object> result=new HashMap<>();
-        for (Map<String,Object> map:companyMap) {
-            Integer id=(int)map.get("id");
-            result.put(id,map.get("name"));
+        Map<Integer, Object> result = new HashMap<>();
+        for (Map<String, Object> map : companyMap) {
+            Integer id = (int) map.get("id");
+            result.put(id, map.get("name"));
         }
         return result;
     }
@@ -57,11 +57,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<Map<String, String>> getDepartmentList(String companyId) {
         List<Company> companyMap = companyMaper.getDepartmentList(companyId);
-        List<Map<String, String>> result=new ArrayList<>();
-        for (Company company:companyMap) {
-            Map<String,String> map=new HashMap<>();
-            map.put("id",company.getId()+"");
-            map.put("text",company.getName());
+        List<Map<String, String>> result = new ArrayList<>();
+        for (Company company : companyMap) {
+            Map<String, String> map = new HashMap<>();
+            map.put("id", company.getId() + "");
+            map.put("text", company.getName());
             result.add(map);
         }
         return result;
@@ -73,17 +73,29 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Map<String,String>> getDepartmentMap(int companyId) {
-        List<Company> list=companyMaper.getDepartmentMap(companyId);
-        List<Map<String,String>> result=new ArrayList<>();
-        if(list!=null){
-            for(Company company:list){
-                Map map=new HashMap();
-                map.put("id",company.getId());
-                map.put("name",company.getName());
+    public List<Map<String, String>> getDepartmentMap(int companyId) {
+        List<Company> list = companyMaper.getDepartmentMap(companyId);
+        List<Map<String, String>> result = new ArrayList<>();
+        if (list != null) {
+            for (Company company : list) {
+                Map map = new HashMap();
+                map.put("id", company.getId());
+                map.put("name", company.getName());
                 result.add(map);
             }
         }
         return result;
+    }
+
+    @Override
+    public Map<String, Object> getCompanysMap(int companyId) {
+        List<Company> list = companyMaper.getDepartmentMap(companyId);
+        Map<String, Object> resultMap = new HashMap<>();
+        if (list != null) {
+            for (Company company : list) {
+                resultMap.put(String.valueOf(company.getId()), company.getName());
+            }
+        }
+        return resultMap;
     }
 }

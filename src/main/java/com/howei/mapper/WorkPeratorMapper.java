@@ -10,13 +10,13 @@ import java.util.Map;
 @Component
 public interface WorkPeratorMapper {
 
-    public List<WorkPerator> selByUser(Map map);
+    List<WorkPerator> selByUser(Map map);
 
-    public String selByUserCount(Map map);
+    int selByUserCount(Map map);
 
     int addWorkPerator(WorkPerator workPerator);
 
-    int updStatus(Map<String,Object> map);
+    int updStatus(Map<String, Object> map);
 
     void delWorkPerator(Map map);
 
@@ -32,9 +32,9 @@ public interface WorkPeratorMapper {
 
     List<WorkPerator> selAll(Map map);
 
-    List<String> selByParam(Map<String,Object> map);
+    List<String> selByParam(Map<String, Object> map);
 
-    int selAllCount(Map<String,Object> map);
+    int selAllCount(Map<String, Object> map);
 
     int getTemplateChildListCount(Map map);
 

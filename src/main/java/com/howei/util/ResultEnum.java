@@ -22,6 +22,7 @@ public enum ResultEnum {
     DEFECT_NO_HANDLE_TIMEOUT(216, "该缺陷没有处理超时"),
     MAINTAIN_DISTRIBUTED(217, "该维护配置已经被分配"),
     MAINTAIN_STOPED(218, "该维护配置已经暂停"),
+    WORKPERATOR_HAVE_SAME_RECORD(209, "已存在同名的配置模板"),
     SERVICE_EXCEPTION(500, "服务器异常");
 
 

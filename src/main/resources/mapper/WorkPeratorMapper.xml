@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.howei.mapper.WorkPeratorMapper" >
+<mapper namespace="com.howei.mapper.WorkPeratorMapper">
 
     <resultMap id="workPeratorMap" type="com.howei.pojo.WorkPerator">
         <result column="id" property="id"></result>
@@ -27,18 +27,20 @@
         <result column="equipId" property="equipId"></result>
 
     </resultMap>
-    
+
     <sql id="sql_param">
         id,patrolTask
     </sql>
 
     <select id="selByUser" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">
-      select * from workPerator where parent='0'
-      <if test="department!=null and department!=''">
-          and FIND_IN_SET(#{department},projectDepartment)
-      </if>
-      order by status
-      limit ${page},${pageSize}
+        select * from workPerator where parent='0'
+        <if test="department!=null and department!=''">
+            and FIND_IN_SET(#{department},projectDepartment)
+        </if>
+        order by status
+        <if test="page != null and pageSize != null">
+            limit ${page},${pageSize}
+        </if>
     </select>
 
     <select id="selById" parameterType="int" resultType="java.lang.String">
@@ -48,11 +50,12 @@
         </if>
     </select>
 
-    <select id="selByUserCount" resultType="java.lang.String" parameterType="java.util.HashMap" >
+    <select id="selByUserCount" resultType="int" parameterType="java.util.HashMap">
       select count(*) from workPerator where parent='0'
     </select>
 
-    <select id="selWorkperator" parameterType="java.lang.String" resultType="com.howei.pojo.WorkPerator" resultMap="workPeratorMap">
+    <select id="selWorkperator" parameterType="java.lang.String" resultType="com.howei.pojo.WorkPerator"
+            resultMap="workPeratorMap">
       select * from workPerator where id=#{id}
     </select>
 
@@ -71,16 +74,18 @@
     </delete>
 
     <select id="getTemplateChildList" resultType="com.howei.pojo.WorkPerator" parameterType="java.util.HashMap">
-       select DISTINCT w.id,w.userId,w.created,w.updated,w.createdBy,w.updatedBy,w.equipment,w.priority,w.patrolTask,w.artificialNumber,w.aiNumber,w.cycle,w.parent,w.planTime,
-        w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as unitId,w.unit,w.measuringType,w.dataType,w.equipment,w.systemId,
+        select DISTINCT
+        w.id,w.userId,w.created,w.updated,w.createdBy,w.updatedBy,w.equipment,w.priority,w.patrolTask,w.artificialNumber,w.aiNumber,w.cycle,w.parent,w.planTime,
+        w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as
+        unitId,w.unit,w.measuringType,w.dataType,w.equipment,w.systemId,
         w.equipId
         from workPerator w
         left join unit u on u.nuit=w.measuringType
         left join unit u1 on u1.nuit=w.unit
         left join workPerator w1 on w1.id=w.parent
         left join (SELECT ad.* from ai_data_configure ad LEFT JOIN workPerator w2 on w2.equipment=ad.equipment where w2.parent=#{parent}) u2 on u2.measuringType=w.measuringType
-        LEFT join (select * from equipment  where type=1 )e1 on e1.id=w.systemId
-        LEFT join (select * from equipment  where type=2 )e2 on e2.id=w.equipId
+        LEFT join (select * from equipment where type=1 )e1 on e1.id=w.systemId
+        LEFT join (select * from equipment where type=2 )e2 on e2.id=w.equipId
         where w.parent=#{parent}
         and (u.department=w1.projectDepartment or u2.departmentId=w1.projectDepartment)
         and u1.department=w1.projectDepartment
@@ -93,7 +98,8 @@
         </if>
     </select>
 
-    <select id="getLastTemplateChildByPriority" parameterType="java.util.HashMap" resultType="com.howei.pojo.WorkPerator" >
+    <select id="getLastTemplateChildByPriority" parameterType="java.util.HashMap"
+            resultType="com.howei.pojo.WorkPerator">
         select * from workPerator where parent=#{parent}
         order by priority desc limit ${page},${pageSize}
     </select>
@@ -105,15 +111,15 @@
     <update id="updWorkperator" parameterType="com.howei.pojo.WorkPerator" keyProperty="id" useGeneratedKeys="true">
         update workPerator
         <trim prefix="set" suffixOverrides=",">
-          <if test="priority!=null and priority!=''">
-              priority=#{priority},
-          </if>
-          <if test="planTime!=null and planTime!=''">
-              planTime=#{planTime},
-          </if>
-          <if test="cycle!=null and cycle!=''">
-              cycle=#{cycle},
-          </if>
+            <if test="priority!=null and priority!=''">
+                priority=#{priority},
+            </if>
+            <if test="planTime!=null and planTime!=''">
+                planTime=#{planTime},
+            </if>
+            <if test="cycle!=null and cycle!=''">
+                cycle=#{cycle},
+            </if>
         </trim>
         where id=#{id}
     </update>

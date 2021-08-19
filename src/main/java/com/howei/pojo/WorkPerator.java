@@ -15,7 +15,7 @@ public class WorkPerator {
     private int artificialNumber;//人工巡检数量
     private int aiNumber;//ai巡检数量
     private String planTime;//计划时间
-     private int status;//状态:0为刚创建，1为启用，2为暂停，3为删除
+    private int status;//状态:0为刚创建，1为启用，2为暂停，3为删除
     private String cycle;//周期
     private String equipment;//设备
     private String measuringType;//测点类型
@@ -38,14 +38,11 @@ public class WorkPerator {
     private String unitId;//单位Id
 
     public int getId() {
-
         return id;
     }
 
     public void setId(int id) {
-
         this.id = id;
-        this.edit=id;
     }
 
     public int getUserId() {

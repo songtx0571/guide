@@ -21,7 +21,7 @@ public class WorkPeratorServiceImpl implements WorkPeratorService {
     }
 
     @Override
-    public String selByUserCount(Map map) {
+    public int selByUserCount(Map map) {
         return workPeratorMapper.selByUserCount(map);
     }
 
