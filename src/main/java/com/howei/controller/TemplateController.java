@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.Collator;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -340,6 +341,12 @@ public class TemplateController {
                 }
             }
         }
+
+        resultList = resultList.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.get("name") != null ? o1.get("name").toString() : "", o2.get("name") != null ? o2.get("name").toString() : "")
+                )
+        ).collect(Collectors.toList());
         return Result.ok(resultList.size(), resultList);
     }
 
@@ -371,6 +378,12 @@ public class TemplateController {
                 }
             }
         }
+        resultList = resultList.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.get("name") != null ? o1.get("name").toString() : "", o2.get("name") != null ? o2.get("name").toString() : "")
+                )
+        ).collect(Collectors.toList());
+
         return Result.ok(resultList.size(), resultList);
     }
 
@@ -471,17 +484,20 @@ public class TemplateController {
             return Result.fail(ResultEnum.NO_USER);
         }
         List<String> list = new ArrayList<>();
-        String sysName = request.getParameter("sysName");
-        String equName = request.getParameter("equName");
+        String sysName = request.getParameter("sysName");//系统名称
+        String equName = request.getParameter("equName");//设备名称
         String systemId = request.getParameter("systemId");//系统id
         String equipId = request.getParameter("equipId");//设备id
-        String sightType = request.getParameter("sightType");
-        String unitType = request.getParameter("unitType");
+        String sightType = request.getParameter("sightType");//测点类型名称
+        String sightTypeId = request.getParameter("sightTypeId");//测点类型id
+        String unitType = request.getParameter("unitType");//单位类型名称
+        String unitTypeId = request.getParameter("unitTypeId");//单位类型Id
+
         String workId = request.getParameter("workId");//模板id
         String temChildId = request.getParameter("temChildId");//路线id
         String dataType = request.getParameter("dataType");//ai或人工
         WorkPerator work = new WorkPerator();
-        if ("".equals(temChildId)) {//添加
+        if (temChildId == null || "".equals(temChildId)) {//添加
             Map map = new HashMap();
             map.put("page", 0);
             map.put("pageSize", 1);
@@ -504,21 +520,27 @@ public class TemplateController {
             work.setEquipId(Integer.parseInt(equipId));
             work.setSystemId(Integer.parseInt(systemId));
             work.setMeasuringType(sightType);
+            work.setMeasuringTypeId(sightTypeId);
             work.setUnit(unitType);
+            work.setUnitId(unitTypeId);
             work.setUserId(users.getId());
             work.setCreatedBy(users.getId());
             workPeratorService.addWorkPerator(work);
 
-
         } else {//修改
             Map map = new HashMap();
-            //map.put("equipment",sysName+","+equName);
+            map.put("equipment", sysName + "," + equName);
             map.put("systemId", systemId);
+
             map.put("equipId", equipId);
-            work.setEquipId(Integer.parseInt(equipId));
-            work.setSystemId(Integer.parseInt(systemId));
+
             map.put("measuringType", sightType);
+            map.put("measuringTypeId", sightTypeId);
+
             map.put("unit", unitType);
+            map.put("unitId", unitTypeId);
+
+
             map.put("id", temChildId);
             workPeratorService.updWorkperatorChild(map);
         }

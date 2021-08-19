@@ -125,7 +125,18 @@
     </update>
 
     <update id="updWorkperatorChild" parameterType="java.util.HashMap" keyProperty="id" useGeneratedKeys="true">
-        update workPerator set systemId=#{systemId},equipId=#{equipId},measuringType=#{measuringType},unit=#{unit} where id=#{id}
+        update
+            workPerator
+        set
+            equipment=#{equipment},
+            systemId=#{systemId},
+            equipId=#{equipId},
+            measuringType=#{measuringType},
+            measuringTypeId=#{measuringTypeId},
+            unit=#{unit},
+            unitId=#{unitId}
+        where
+            id=#{id}
     </update>
 
     <select id="selAll" resultType="java.util.HashMap" parameterType="java.util.HashMap" resultMap="workPeratorMap">

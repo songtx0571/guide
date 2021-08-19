@@ -30,7 +30,7 @@ public class WorkPerator {
     private int edit;
     private String userName;//专工Name
     private String sysName;//系统号
-    private String unitName;//单位名称
+    //private String unitName;//单位名称
     private String departmentName;//项目部
     private Integer equipmentId;//设备名称
     private Integer sysId;//系统名称
@@ -205,13 +205,13 @@ public class WorkPerator {
         this.edit = edit;
     }
 
-    public String getUnitName() {
-        return unitName;
-    }
-
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
-    }
+//    public String getUnitName() {
+//        return unitName;
+//    }
+//
+//    public void setUnitName(String unitName) {
+//        this.unitName = unitName;
+//    }
 
     public String getDepartmentName() {
         return departmentName;

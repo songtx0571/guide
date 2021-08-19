@@ -146,15 +146,23 @@ public class InquiriesDataController {
                 map.put("status", 2);
                 List<MaintainRecord> maintainRecordList = maintainService.getMaintainRecordByMap(map);
                 maintainRecordList.stream().forEach(maintainRecord -> {
-                    String[] maintainRecordEmployeeIds = maintainRecord.getEmployeeId().split(",");
+                    String employeeId = maintainRecord.getEmployeeId();
+                    String[] maintainRecordEmployeeIds = null;
+                    if (!StringUtils.isEmpty(employeeId)) {
+                        maintainRecordEmployeeIds = employeeId.split(",");
+                    }
                     String employeeNames = "";
-                    for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
-                        String userName = usersMap.get(Integer.valueOf(maintainRecordEmployeeId));
-                        if (StringUtils.isEmpty(userName)) {
-                            employeeNames += userName + "、";
+                    if (maintainRecordEmployeeIds != null) {
+                        for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
+                            String userName = usersMap.get(Integer.valueOf(maintainRecordEmployeeId));
+                            if (StringUtils.isEmpty(userName)) {
+                                employeeNames += userName + "、";
+                            }
                         }
                     }
-                    employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
+                    if (employeeNames.length() > 1) {
+                        employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
+                    }
                     maintainRecord.setEmployeeName(employeeNames);
                 });
                 total = maintainRecordList.size();
@@ -169,6 +177,24 @@ public class InquiriesDataController {
                 map.put("equipmentId", equipmentId);
                 map.put("type", 4);
                 List<Defect> defectList = defectService.getDefectList(map);
+                defectList.stream().forEach(defect -> {
+                    String empIds = defect.getEmpIds();
+                    String[] defectEmpIds = null;
+                    if (!StringUtils.isEmpty(empIds)) {
+                        defectEmpIds = empIds.split(",");
+                    }
+                    String employeeNames = "";
+                    for (String defectEmpId : defectEmpIds) {
+                        String userName = usersMap.get(Integer.valueOf(defectEmpId));
+                        if (StringUtils.isEmpty(userName)) {
+                            employeeNames += userName + "、";
+                        }
+                    }
+                    if (employeeNames.length() > 1) {
+                        employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
+                    }
+                    defect.setEmpIdsName(employeeNames);
+                });
                 resultMap.put("DeTotal", defectList.size());
                 resultMap.put("DeData", defectList);
             }
