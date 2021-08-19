@@ -14,17 +14,17 @@ function productqueryOutXls() {
     for (var i = 0; i < $trs.length; i++) {
         var $tds = $trs.eq(i).find("td,th");
         for (var j = 0; j < $tds.length; j++) {
-            str += $tds.eq(j).text() + ",";
+            str += $tds.eq(j).text().replace(/\,/g,'，') + ",";
         }
         str += "\n";
     }
-
-    var aaaa = "data:text/csv;charset=utf-8,\ufeff" + str;
-    var link = document.createElement("a");
-    link.setAttribute("href", aaaa);
-    var date = new Date().getTime();
-    var filename = new Date(date).toLocaleDateString();
-    link.setAttribute("download", filename + ".csv");
+    // encodeURIComponent解决中文乱码
+    const uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(str);
+    // 通过创建a标签实现
+    const link = document.createElement("a");
+    link.href = uri;
+    // 对下载的文件命名
+    link.download =  "设备查询表.csv";
     link.click();
 }
 
@@ -62,13 +62,19 @@ function showDepartName() {
             url: path + "/guide/template/getDepartmentList",
             dataType: "json",
             success: function (data) {
-                $("#selDepartName").empty();
-                var option = "<option value='0' >请选择部门</option>";
-                for (var i = 0; i < data.length; i++) {
-                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                if (data.code == 0 || data.code == 200) {
+                    data = data.data;
+                    $("#selDepartName").empty();
+                    var option = "<option value='0' >请选择部门</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                    }
+                    $('#selDepartName').html(option);
+                    form.render();//菜单渲染 把内容加载进去
+                } else {
+                    layer.alert(data.msg)
                 }
-                $('#selDepartName').html(option);
-                form.render();//菜单渲染 把内容加载进去
+
             }
         });
         form.on('select(selDepartName)', function (data) {
@@ -183,14 +189,21 @@ function selShowInquiriesDataList() {
             var tableDivPeo = $("#tableDivPeo");
             var tableDivAI = $("#tableDivAI");
             var tableDivMain = $("#tableDivMain");
+            var tableDivDefect = $("#tableDivDefect");
+
             tableDivPeo.html("");
             var tablePeo = "";
 
-            tableDivPeo.html("");
+            tableDivAI.html("");
             var tableAI = "";
 
             tableDivMain.html("");
             var tableMain = "";
+
+            tableDivDefect.html("");
+            var tableDefect = "";
+
+
             //人工
             if (res.data.RGData) {
                 tablePeo = "<table class='item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
@@ -203,7 +216,7 @@ function selShowInquiriesDataList() {
 
             //AI
             if (res.data.AIData) {
-                tableAI = "<table class='item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
+                tableAI = "<table class='item' id='LAY_demo2' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
                 layui.each(res.data.AIData, function (index, item) {
                     tableAI += "<tr><td>" + res.data.AIData[index].measuringType + "</td><td>" + res.data.AIData[index].measuringTypeData + "</td><td>" + res.data.AIData[index].unit + "</td><td>" + res.data.AIData[index].createdByName + "</td><td>" + res.data.AIData[index].created + "</td></tr>"
                 });
@@ -213,7 +226,7 @@ function selShowInquiriesDataList() {
 
             //维护
             if (res.data.WHData){
-                tableMain = "<table class='item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>维护编号</th><th>维护点</th><th>工作内容</th><th>工作反馈</th><th>维护人</th><th>时间</th></thead>";
+                tableMain = "<table class='item' id='LAY_demo3' cellpadding='0'><thead id=\"itemHead\"><th>维护编号</th><th>维护点</th><th>工作内容</th><th>工作反馈</th><th>维护人</th><th>时间</th></thead>";
                 layui.each(res.data.WHData, function (index, item) {
                     tableMain += "<tr><td>" + res.data.WHData[index].maintainRecordNo + "</td><td>" + res.data.WHData[index].unitName + "</td><td>" + res.data.WHData[index].workContent + "</td><td>" + res.data.WHData[index].workFeedback + "</td><td>" + res.data.WHData[index].employeeName + "</td><td>" + res.data.WHData[index].endTime + "</td></tr>"
                 });
@@ -221,7 +234,15 @@ function selShowInquiriesDataList() {
                 tableDivMain.append(tableMain)
             }
 
-
+            //缺陷
+            if (res.data.DeData) {
+            tableDefect = "<table class='item' id='LAY_demo4' cellpadding='0'><thead id=\"itemHead\"><th>缺陷编号</th><th>缺陷内容</th><th>执行人</th><th>完成时间</th></thead>";
+            layui.each(res.data.DeData, function (index, item) {
+                tableDefect += "<tr><td>" + res.data.DeData[index].number + "</td><td>" + res.data.DeData[index].abs + "</td><td>" + res.data.DeData[index].empIdsName + "</td><td>" + res.data.DeData[index].realSTime + "</td></tr>"
+            });
+            tableDefect += "</table>";
+            tableDivDefect.append(tableDefect)
+            }
 
         }
     });

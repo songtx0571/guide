@@ -155,7 +155,8 @@ public class InquiriesDataController {
                     if (maintainRecordEmployeeIds != null) {
                         for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
                             String userName = usersMap.get(Integer.valueOf(maintainRecordEmployeeId));
-                            if (StringUtils.isEmpty(userName)) {
+
+                            if (!StringUtils.isEmpty(userName)) {
                                 employeeNames += userName + "、";
                             }
                         }
@@ -186,7 +187,7 @@ public class InquiriesDataController {
                     String employeeNames = "";
                     for (String defectEmpId : defectEmpIds) {
                         String userName = usersMap.get(Integer.valueOf(defectEmpId));
-                        if (StringUtils.isEmpty(userName)) {
+                        if (!StringUtils.isEmpty(userName)) {
                             employeeNames += userName + "、";
                         }
                     }

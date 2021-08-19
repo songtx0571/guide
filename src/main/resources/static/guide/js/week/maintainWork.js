@@ -22,13 +22,18 @@ function showDepartName() {
             url: path + "/guide/template/getDepartmentList",
             dataType: "json",
             success: function (data) {
-                $("#selDepartName").empty();
-                var option = "<option value='0' >请选择部门</option>";
-                for (var i = 0; i < data.length; i++) {
-                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                if (data.code == 0 || data.code == 200) {
+                    data = data.data;
+                    $("#selDepartName").empty();
+                    var option = "<option value='0' >请选择部门</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                    }
+                    $('#selDepartName').html(option);
+                    form.render();//菜单渲染 把内容加载进去
+                } else {
+                     layer.alert(data.msg)
                 }
-                $('#selDepartName').html(option);
-                form.render();//菜单渲染 把内容加载进去
             }
         });
         form.on('select(selDepartName)', function (data) {

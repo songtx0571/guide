@@ -279,6 +279,7 @@
             <div>
                 <span>测点类型</span>
                 <input type="hidden" id="addTemBarSightTypeHidden">
+                <input type="hidden" id="addTemBarSightTypeIdHidden">
                 <input type="hidden" id="addTemBarTypeHidden">
                 <form class="layui-form" action="" style="float: left;">
                     <div class="layui-form-item">
@@ -302,6 +303,7 @@
             <div>
                 <span>单位</span>
                 <input type="hidden" id="addTemBarUnitHidden">
+                <input type="hidden" id="addTemBarUnitIdHidden">
                 <form class="layui-form" action="" style="float: left;">
                     <div class="layui-form-item">
                         <div class="layui-inline" style="width: 440px;">
@@ -345,6 +347,7 @@
             <div>
                 <span>测点类型</span>
                 <input type="hidden" id="updTemBarSightTypeHidden">
+                <input type="hidden" id="updTemBarSightTypeIdHidden">
                 <input type="hidden" id="updTemBarTypeHidden">
                 <form class="layui-form" action="" style="float: left;">
                     <div class="layui-form-item">
@@ -368,6 +371,7 @@
             <div>
                 <span>单位</span>
                 <input type="hidden" id="updTemBarUnitHidden">
+                <input type="hidden" id="updTemBarUnitIdHidden">
                 <form class="layui-form" action="" style="float: left;">
                     <div class="layui-form-item">
                         <div class="layui-inline" style="width: 440px;">

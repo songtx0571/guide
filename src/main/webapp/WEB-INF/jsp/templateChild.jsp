@@ -58,16 +58,16 @@
                     $("#save").hidden;//隐藏提交按钮
                 },
                 success: function (data) {
-                    if(data[0]=='success'){
+                    if (data.code == 0 || data.code == 200){
+                        data = data.data;
                         $.messager.alert("提示","添加成功！");
-                    }else if(data[0]=='updsuccess'){
-                        $.messager.alert("提示","修改成功！");
-                    }else{
-                        $.messager.alert("提示","操作失败,请联系技术人员");
+                        $("#save").show();
+                        addTempChildWin.window('close');
+                        $('#tempChild').datagrid('reload');
+                    } else {
+                        layer.alert(data.msg)
                     }
-                    $("#save").show();
-                    addTempChildWin.window('close');
-                    $('#tempChild').datagrid('reload');
+
                 },
             });
         }

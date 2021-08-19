@@ -60,9 +60,15 @@
     </select>
 
     <insert id="addWorkPerator" parameterType="com.howei.pojo.WorkPerator" keyProperty="id" useGeneratedKeys="true">
-        insert into workPerator(userId,created,createdBy,patrolTask,aiNumber,planTime,status,cycle,priority,parent,equipment,measuringType,unit,projectDepartment,dataType,systemId,equipId) values (
-          #{userId},#{created},#{createdBy},#{patrolTask},#{aiNumber},#{planTime},#{status},#{cycle},#{priority},#{parent},#{equipment},#{measuringType},#{unit},#{projectDepartment},
-          #{dataType},#{systemId},#{equipId})
+        insert into
+            workPerator(userId,created,createdBy,patrolTask,aiNumber,planTime,status,cycle,
+            priority,parent,equipment,measuringType,unit,projectDepartment,dataType,systemId,equipId,
+            measuringTypeId,unitId)
+        values (
+          #{userId},#{created},#{createdBy},#{patrolTask},#{aiNumber},#{planTime},#{status},#{cycle},
+          #{priority},#{parent},#{equipment},#{measuringType},#{unit},#{projectDepartment},#{dataType},#{systemId},#{equipId},
+          #{measuringTypeId},#{unitId}
+          )
     </insert>
 
     <update id="updStatus" parameterType="java.util.HashMap" keyProperty="id" useGeneratedKeys="true">
@@ -134,7 +140,8 @@
             measuringType=#{measuringType},
             measuringTypeId=#{measuringTypeId},
             unit=#{unit},
-            unitId=#{unitId}
+            unitId=#{unitId},
+            updated=#{updated}
         where
             id=#{id}
     </update>

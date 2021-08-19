@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.Collator;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -144,11 +145,11 @@ public class TemplateController {
         map.put("patrolTask", patrolTask);
         map.put("projectDepartment", department);
         //根据任务名称查
-        List<WorkPerator> workPeratorList = workPeratorService.selByMap(map);
+        /*List<WorkPerator> workPeratorList = workPeratorService.selByMap(map);
         //如果存在同名,则返回失败
         if (workPeratorList != null && workPeratorList.size() > 0) {
             return Result.fail(ResultEnum.WORKPERATOR_HAVE_SAME_RECORD);
-        }
+        }*/
         //id存在则是修改,没有则是添加
         if (workId != null && !workId.equals("")) {
             WorkPerator workPerator = workPeratorService.selWorkperator(workId);
@@ -445,6 +446,11 @@ public class TemplateController {
                 resultList.add(map);
             }
         }
+        resultList = resultList.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.get("name") != null ? o1.get("name").toString() : "", o2.get("name") != null ? o2.get("name").toString() : "")
+                )
+        ).collect(Collectors.toList());
         return Result.ok(resultList.size(), resultList);
     }
 
@@ -542,6 +548,9 @@ public class TemplateController {
 
 
             map.put("id", temChildId);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            map.put("updated", sdf.format(new Date()));
+
             workPeratorService.updWorkperatorChild(map);
         }
         return Result.ok();
@@ -730,6 +739,11 @@ public class TemplateController {
                 resultList.add(listMap);
             }
         }
+        resultList = resultList.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.get("name") != null ? o1.get("name").toString() : "", o2.get("name") != null ? o2.get("name").toString() : "")
+                )
+        ).collect(Collectors.toList());
         return Result.ok(resultList.size(), resultList);
     }
 }

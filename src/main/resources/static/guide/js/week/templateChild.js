@@ -62,12 +62,16 @@ $(function(){
         data: {'temid':temid},
         dataType:"json",
         success:function(json){
-            $("#sysName").combobox({
-                data:json,
-                valueField:"id",//value值
-                textField:"name",//文本值
-                panelHeight:"300"
-            })
+            if (json.code == 0 || json.code == 200) {
+                $("#sysName").combobox({
+                    data:json.data,
+                    valueField:"id",//value值
+                    textField:"name",//文本值
+                    panelHeight:"300"
+                })
+            } else {
+                layer.alert(json.msg);
+            }
         }
     });
     $.ajax({
@@ -76,12 +80,17 @@ $(function(){
         data: {'temid':temid},
         dataType:"json",
         success:function(json){
-            $("#equName").combobox({//往下拉框塞值
-                data:json,
-                valueField:"id",
-                textField:"name",
-                panelHeight:"300"
-            })
+            if (json.code == 0 || json.code == 200) {
+                $("#equName").combobox({//往下拉框塞值
+                    data:json.data,
+                    valueField:"id",
+                    textField:"name",
+                    panelHeight:"300"
+                })
+            } else {
+                layer.alert(json.msg)
+            }
+
         }
     });
     $.ajax({
@@ -90,12 +99,16 @@ $(function(){
         data: {'type':'2','temid':temid},
         dataType:"json",
         success:function(json){
-            $("#sightType").combobox({
-                data:json,
-                valueField:"id",//value值
-                textField:"name",//文本值
-                panelHeight:"300"
-            })
+            if (json.code == 0 || json.code == 200) {
+                $("#sightType").combobox({
+                    data:json.data,
+                    valueField:"id",//value值
+                    textField:"name",//文本值
+                    panelHeight:"300"
+                })
+            } else {
+                layer.alert(json.msg)
+            }
         }
     });
     $.ajax({
@@ -104,12 +117,16 @@ $(function(){
         data: {'type':'1','temid':temid},
         dataType:"json",
         success:function(json){
-            $("#unitType").combobox({
-                data:json,
-                valueField:"id",//value值
-                textField:"name",//文本值
-                panelHeight:"300"
-            })
+            if (json.code == 0 || json.code == 200) {
+                $("#unitType").combobox({
+                    data:json,
+                    valueField:"id",//value值
+                    textField:"name",//文本值
+                    panelHeight:"300"
+                })
+            } else {
+                layer.alert(json.msg)
+            }
         }
     });
 });
@@ -123,8 +140,12 @@ function EditStatus(id,status){
         async: false,
         data:{'id':id,'status':status},
         success: function (data) {
-            $.messager.alert("提示",data[0]);
-            $('#tempChild').datagrid('reload');//刷新页面数据
+            if (data.code == 0 || data.code == 200) {
+                $.messager.alert("提示",data.data[0]);
+                $('#tempChild').datagrid('reload');//刷新页面数据
+            } else {
+                layer.alert(data.msg)
+            }
         },
     });
 }
@@ -139,12 +160,10 @@ function EditPriority(id){
         async: false,
         data:{'id':id,'workId':workId},
         success: function (data) {
-            if(data[0]=='success'){
+            if (data.code == 0 || data.code == 200) {
                 $('#tempChild').datagrid('reload');//刷新页面数据
-            }else if(data[0]=='cancle'){
-                $.messager.alert("警告","此操作不可行");
-            }else{
-                $.messager.alert("提示","操作失败,请联系技术人员");
+            } else {
+                layer.alert(data.msg)
             }
         },
     });
@@ -162,10 +181,10 @@ function delWorkChild(id){
                 async: false,
                 data:{'id':id},
                 success: function (data) {
-                    if(data[0]=='success'){
+                    if (data.code == 0 || data.code == 200) {
                         $('#tempChild').datagrid('reload');//刷新页面数据
-                    }else{
-                        $.messager.alert("提示","操作失败,请联系技术人员");
+                    } else {
+                        layer.alert(data.msg)
                     }
                 },
             });
@@ -181,11 +200,17 @@ function updWorkChild(id) {
         async: false,
         data:{'id':id},
         success: function (data) {
-            $('#sysName').combobox('setText',data.sysName);
-            $('#equName').combobox('setText',data.equipment);
-            $('#sightType').combobox('setText',data.measuringType);
-            $('#unitType').combobox('setText',data.unit);
-            $('#temChildId').val(data.id);
+            if (data.code == 0 || data.code == 200) {
+                data = data.data;
+                $('#sysName').combobox('setText',data.sysName);
+                $('#equName').combobox('setText',data.equipment);
+                $('#sightType').combobox('setText',data.measuringType);
+                $('#unitType').combobox('setText',data.unit);
+                $('#temChildId').val(data.id);
+            } else {
+                layer.alert(data.msg);
+            }
+
         },
     });
     addTempChildWin=$('#updtempChild').window({

@@ -31,15 +31,20 @@ function showDepartName() {
             url: path + "/guide/template/getDepartmentList",
             dataType: "json",
             success: function (data) {
-                $("#selDepartName").empty();
-                $("#addDepartName").empty();
-                var option = "<option value='0' >请选择部门</option>";
-                for (var i = 0; i < data.length; i++) {
-                    option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                if (data.code == 0 || data.code == 200) {
+                    data = data.data;
+                    $("#selDepartName").empty();
+                    $("#addDepartName").empty();
+                    var option = "<option value='0' >请选择部门</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
+                    }
+                    $('#selDepartName').html(option);
+                    $('#addDepartName').html(option);
+                    form.render();//菜单渲染 把内容加载进去
+                } else {
+                    layer.alert(data.msg)
                 }
-                $('#selDepartName').html(option);
-                $('#addDepartName').html(option);
-                form.render();//菜单渲染 把内容加载进去
             }
         });
         form.on('select(addDepartName)', function (data) {
@@ -222,7 +227,7 @@ function showMaintainWork(departmentId, searchWord) {
                     }
 
                 }
-                , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 250, align: 'center'}
+                , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 270, align: 'center'}
             ]]
             , done: function (res, curr, count) {
             }
