@@ -92,7 +92,7 @@
             {{#  } else if(d.type == 2) { }}
             <span style="color: #ff8100;">消缺中</span>
             {{#  } else if(d.type == 3) { }}
-            <span style="color: #8fc323;">已消缺</span>
+            <span style="color: #8fc323;">待结束</span>
             {{#  } else if(d.type == 4) { }}
             <span style="color: green;">已完成</span>
             {{#  } else if(d.type == 6) { }}
@@ -108,7 +108,7 @@
             <span style="color: #001580;">极端天气</span>
             {{#  } }}
             {{#  } else if(d.type == 7) { }}
-            <span style="color: burlywood;">待确认</span>
+            <span style="color: burlywood;">待验收</span>
             {{#  } }}
         </script>
         <script type="text/html" id="tbOperationBar">
