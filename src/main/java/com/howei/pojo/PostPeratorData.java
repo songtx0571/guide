@@ -12,11 +12,30 @@ public class PostPeratorData {
     private int ind;//执行标识
     private int systemId;//系统Id
     private int equipId;//设备Id
+    private Integer measuringTypeId;//测点类型id
+    private Integer unitId;//单位id
 
     //虚字段
     private String createdByName;//创建人中文名
     private String equipmentName;//设备名称
     private String patrolTask;//任务名称
+
+    public Integer getMeasuringTypeId() {
+        return measuringTypeId;
+    }
+
+    public void setMeasuringTypeId(Integer measuringTypeId) {
+        this.measuringTypeId = measuringTypeId;
+    }
+
+    public Integer getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Integer unitId) {
+        this.unitId = unitId;
+    }
+
     public int getId() {
         return id;
     }

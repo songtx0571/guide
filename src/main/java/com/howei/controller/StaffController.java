@@ -1,32 +1,32 @@
 package com.howei.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.howei.pojo.*;
 import com.howei.service.*;
 import com.howei.util.DateFormat;
-import com.howei.util.HandlerTest;
 import com.howei.util.Result;
-import com.howei.util.WebSocket;
+import com.howei.util.ResultEnum;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.Collator;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 运行岗位
  */
 @Controller
-@CrossOrigin(origins = {"http://192.168.1.27:8082", "http:localhost:8080", "http://192.168.1.27:8848"}, allowCredentials = "true")
+@CrossOrigin
 @RequestMapping("/guide/staff")
-//@RequestMapping("/staff")
 public class StaffController {
 
     @Autowired
@@ -53,10 +53,6 @@ public class StaffController {
     @Autowired
     EquipmentService equipmentService;
 
-//    public String userName;//当前登录人
-//    public String equipment;//设备名称
-//    public String patrolTask;//任务名称
-//    public String dateTime;//日期:首页面显示
 
     /**
      * 获取当前用户登录信息
@@ -95,26 +91,21 @@ public class StaffController {
         Users user = (Users) subject.getPrincipal();
         Map<String, Object> map = new HashMap<>();
         if (user == null) {
-            return Result.fail("用户失效");
+            return Result.fail(ResultEnum.NO_USER);
         }
 
-        Integer projectId = user.getDepartmentId();
         String userName = user.getUserName();
         String dateTime = DateFormat.getYMD();
-
-        if (departmentId == null || departmentId.equals("")) {
-            if(!subject.isPermitted("运行专工")){
-                map.put("departmentId", projectId);
-            }
-        } else {
-            map.put("departmentId", departmentId);
+        if (StringUtils.isEmpty(departmentId) && !subject.isPermitted("运行专工")) {
+            departmentId = String.valueOf(user.getDepartmentId());
         }
 
+        map.put("departmentId", departmentId);
 
         //获取模板信息
-        List<WorkPerator> list = workPeratorService.selAll(map);
+        List<WorkPerator> workPeratorList = workPeratorService.selAll(map);
         List<Object> result = new ArrayList<>();
-        for (WorkPerator work : list) {
+        for (WorkPerator work : workPeratorList) {
             Map<String, Object> mapRes = new HashMap<>();
             mapRes.put("id", work.getId());
             mapRes.put("patrolTask", work.getPatrolTask());
@@ -140,13 +131,20 @@ public class StaffController {
         return Result.ok(0, result);
     }
 
-    //创建员工空数据
+    /**
+     * 创建员工空数据
+     *
+     * @param request id 模板id
+     * @return
+     * @throws ParseException
+     */
     @RequestMapping("/crePost")
     @ResponseBody
-    public List<Map<String, String>> crePost(HttpSession session, HttpServletRequest request) throws ParseException {
-        List<Map<String, String>> result = new ArrayList<>();
-        Map<String, String> map1 = new HashMap<>();
+    public Result crePost(HttpServletRequest request) throws ParseException {
         Users users = this.getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
         String peratorId = request.getParameter("id");//模板id
         String created = DateFormat.getYMDHMS(new Date());//创建时间
         //查找模板周期，判断是否创建员工数据
@@ -161,28 +159,29 @@ public class StaffController {
         }
         String inspectionEndTheoryTime = DateFormat.getBehindTime3(planTime);//理论结束时间
         Map map = new HashMap();
-        if (users != null) {
-            map.put("postPeratorId", users.getId());
-        }
+        map.put("postPeratorId", users.getId());
         map.put("peratorId", peratorId);
         PostPerator postPerator = postPeratorService.getLastPerator(map);
         String inspectionEndTime = "";//实际结束时间
         String endTime = "";
-        String inspectionStaTime = "";
+        String inspectionStaTime = "";//实际结束时间
 
         PostPerator post = new PostPerator();
         post.setCreated(created);
-        if (users != null) {
-            post.setPostPeratorId(users.getId());//专工id
-            post.setCreatedBy(users.getId());//专工id
-        }
+        post.setPostPeratorId(users.getId());//专工id
+        post.setCreatedBy(users.getId());//专工id
         post.setInspectionStaTime(created);//巡检开始日期
         post.setInspectionEndTheoryTime(inspectionEndTheoryTime);//理论结束时间
         post.setPeratorId(Integer.parseInt(peratorId));
         post.setDepartment(Integer.parseInt(department));
 
         boolean bool;
-        String patrolTask = null;
+        //没有表示最近没有巡检记录,需要新建
+        if (postPerator == null) {
+            crePost(post);
+            return Result.ok();
+        }
+        List<Map<String, String>> mapLists = null;
         if (postPerator != null) {
             inspectionEndTime = postPerator.getInspectionEndTime();//实际结束时间
             inspectionStaTime = postPerator.getInspectionStaTime();//开始时间
@@ -190,52 +189,37 @@ public class StaffController {
                 try {
                     boolean bool1 = DateFormat.comparetoTime(DateFormat.getBehindTime2(inspectionStaTime, cycle), DateFormat.getYMDHMS(new Date()));
                     if (bool1) {
-                        result = crePost(post, session);
-                        map1.put("patrolTask", patrolTask);
-                        result.add(map1);
-                        return result;
+                        mapLists = crePost(post);
+                        return Result.ok(mapLists.size(), mapLists);
                     } else {//未完成，未超过周期结束，打开
-                        map1.put("result", "open");
-                        result.add(map1);
-                        return result;
+                        return Result.fail(ResultEnum.POSTPERATOR_OPEN);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             } else {//已完成，判断结束时间与当前时间
-                //判断实际结束时间与当前时间:当前时间小于实际结束时间执行DateFormat.getBehindTime2(inspectionEndTime,cycle)
+                //判断实际结束时间与当前时间:当前时间小于实际结束时间执行
                 boolean boo = DateFormat.comparetoTime(DateFormat.getYMDHMS(new Date()), DateFormat.getBehindTime2(inspectionEndTime, cycle));
                 if (boo) {
-                    map1.put("result", "console");
-                    result.add(map1);
-                    return result;
+                    return Result.fail(ResultEnum.POSTPERATOR_CONSOLE);
                 } else {
                     //判断实际结束时间与当前时间:当前时间大于实际结束时间+周期执行
                     endTime = DateFormat.getBehindTime2(inspectionEndTime, cycle);
                     try {
                         bool = DateFormat.comparetoTime(created, endTime);
                         if (!bool) {//当当前前时间大于时执行
-                            result = crePost(post, session);
-                            map1.put("patrolTask", patrolTask);
-                            result.add(map1);
-                            return result;
+                            mapLists = crePost(post);
+                            return Result.ok(mapLists.size(), mapLists);
                         } else {
-                            map1.put("result", "open");
-                            result.add(map1);
-                            return result;
+                            return Result.fail(ResultEnum.POSTPERATOR_OPEN);
                         }
                     } catch (ParseException e) {
 
                     }
                 }
             }
-            return result;
-        } else {
-            result = crePost(post, session);
-            map1.put("patrolTask", patrolTask);
-            result.add(map1);
-            return result;
         }
+        return Result.ok();
     }
 
     /**
@@ -244,13 +228,15 @@ public class StaffController {
      *
      * @param post
      */
-    public synchronized List<Map<String, String>> crePost(PostPerator post, HttpSession session) {
+    public List<Map<String, String>> crePost(PostPerator post) {
         List<Map<String, String>> result = new ArrayList<>();
         Map<String, String> map1 = new HashMap<>();
         postPeratorService.crePost(post);
         int id = post.getId();//postPeratorId
         PostPerator postPerator = postPeratorService.selById(id);//获取当前添加的模板的信息
         if (postPerator != null) {
+            Users users = this.getPrincipal();
+            Integer userId = users.getId();
             int peratorId = postPerator.getPeratorId();//管理员模板Id
             WorkPerator workPerator = workPeratorService.selWorkperator(String.valueOf(peratorId));//获取管理员模板的信息
             if (workPerator != null) {
@@ -259,52 +245,22 @@ public class StaffController {
                 map.put("page", 0);
                 map.put("pageSize", 10000);
                 map.put("state", "true");
-                List<WorkPerator> list = workPeratorService.getTemplateChildList(map);
-                int count = list.size();//管理员模板的子任务列表
+                List<WorkPerator> workPeratorList = workPeratorService.getTemplateChildList(map);
+                int count = workPeratorList.size();//管理员模板的子任务列表
                 for (int i = 0; i < count; i++) {
-                    WorkPerator work = list.get(i);
+                    WorkPerator work = workPeratorList.get(i);
                     PostPeratorData postPeratorData = new PostPeratorData();
-                    String equipment=work.getEquipment();//系统设备名称
-                    Integer systemId=work.getSystemId();//系统Id
-                    Integer equipId=work.getEquipId();//设备Id
-                    if(equipment!=null && !"".equals(equipment)){
-                        if(systemId!=0 && equipId!=0){
-                            postPeratorData.setEquipId(equipId);
-                            postPeratorData.setSystemId(systemId);
-                        }else{
-                            String[] arr=equipment.split(",");
-                            String sysName=arr[0];//系统
-                            String equiqmentName=arr[1];//设备
-                            Equipment equipmentObj=equipmentService.getEquipmentByName(sysName,work.getProjectDepartment());
-                            Equipment equipmentObj1=equipmentService.getEquipmentByName(equiqmentName,work.getProjectDepartment());
-                            if(equipmentObj!=null){
-                                postPeratorData.setSystemId(equipmentObj.getId());
-                            }
-                            if(equipmentObj1!=null){
-                                postPeratorData.setEquipId(equipmentObj1.getId());
-                            }
-                        }
-                    }else{
-                        if(systemId!=0 && equipId!=0){
-                            postPeratorData.setEquipId(equipId);
-                            postPeratorData.setSystemId(systemId);
-                        }else{
-                            map1.put("msg","error");
-                            result.add(map1);
-                            return result;
-                        }
-                    }
-
+                    postPeratorData.setEquipId(work.getEquipId());//设备Id
+                    postPeratorData.setSystemId(work.getSystemId());//系统Id
                     postPeratorData.setMeasuringType(work.getMeasuringType());//测点类型
-                    postPeratorData.setEquipment(work.getEquipment());//设备名称
+                    postPeratorData.setEquipment(work.getEquipment());//系统设备名称
                     postPeratorData.setPostPeratorId(id);
-                    Users users = this.getPrincipal();
-                    if (users != null) {
-                        postPeratorData.setCreatedBy(users.getId());
-                    }
+                    postPeratorData.setCreatedBy(userId);
                     postPeratorData.setCreated(DateFormat.getYMDHMS(new Date()));
                     postPeratorData.setUnit(work.getUnit());
                     postPeratorData.setInd(i);
+                    postPeratorData.setMeasuringTypeId(work.getMeasuringTypeId());
+                    postPeratorData.setEquipId(work.getEquipId());
                     postPeratorDataService.crePostChild(postPeratorData);
                 }
                 //返回设备名称
@@ -327,32 +283,34 @@ public class StaffController {
      */
     @RequestMapping("/getPostChildList")
     @ResponseBody
-    public List<PostPeratorData> getPostChildList(HttpServletRequest request) {
-        List<PostPeratorData> list = new ArrayList<>();
+    public Result getPostChildList(HttpServletRequest request) {
+        Users users = getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
         String postId = request.getParameter("postId");//员工模板id
         String equipmento = request.getParameter("equipmento");//设备名称
-        if (!postId.equals("") && !equipmento.equals("")) {
-            Map map = new HashMap();
-            map.put("equipment", equipmento);
-            map.put("postPeratorId", postId);
-            list = postPeratorDataService.selByEquipment(map);
-            if (list != null) {
-                for (PostPeratorData postPeratorData : list) {
-                    if (postPeratorData.getMeasuringType().contains("AI")) {
-                        map.clear();
-                        PostPerator postPerator = postPeratorService.selById(Integer.parseInt(postId));
-                        map.put("projectDepartment", postPerator.getDepartment());
-                        map.put("equipment", postPeratorData.getEquipment());
-                        map.put("measuringType", postPeratorData.getMeasuringType());
-                        AiConfigurationData aiConfigurationData = aiConfigurationDataService.getLastAiConfigureData(map);
-                        if (aiConfigurationData != null) {
-                            postPeratorData.setMeasuringTypeData(aiConfigurationData.getData());
-                        }
-                    }
+        Map map = new HashMap();
+        map.put("equipment", equipmento);
+        map.put("postPeratorId", postId);
+        List<PostPeratorData> postPeratorDataList = postPeratorDataService.selByEquipment(map);
+        if (postPeratorDataList == null) {
+            return Result.ok(0, new ArrayList<>());
+        }
+        for (PostPeratorData postPeratorData : postPeratorDataList) {
+            if (postPeratorData.getMeasuringType().contains("AI")) {
+                map.clear();
+                PostPerator postPerator = postPeratorService.selById(Integer.parseInt(postId));
+                map.put("projectDepartment", postPerator.getDepartment());
+                map.put("equipment", postPeratorData.getEquipment());
+                map.put("measuringType", postPeratorData.getMeasuringType());
+                AiConfigurationData aiConfigurationData = aiConfigurationDataService.getLastAiConfigureData(map);
+                if (aiConfigurationData != null) {
+                    postPeratorData.setMeasuringTypeData(aiConfigurationData.getData());
                 }
             }
         }
-        return list;
+        return Result.ok(postPeratorDataList.size(), postPeratorDataList);
     }
 
     /**
@@ -363,11 +321,13 @@ public class StaffController {
      */
     @RequestMapping("/updPost")
     @ResponseBody
-    public List<String> updPost(HttpServletRequest request) {
-        List<String> result = new ArrayList<>();
+    public Result updPost(HttpServletRequest request) {
+        Users users = getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
         String str = request.getParameter("strData");
         String postId = request.getParameter("postId");
-        //Users users=this.getPrincipal();
         if (str != null && !str.equals("")) {
             String[] strData = str.split(",");
             String id = "";
@@ -380,7 +340,6 @@ public class StaffController {
                 map.put("id", id);
                 map.put("measuringTypeData", value);
                 postPeratorDataService.updPostData(map);
-                result.add("success");
             }
         }
         //此次巡检执行结束
@@ -390,9 +349,8 @@ public class StaffController {
             map.put("id", postId);
             map.put("inspectionEndTime", DateFormat.getYMDHMS(new Date()));
             postPeratorService.updPost(map);
-            result.add("success");
         }
-        return result;
+        return Result.ok();
     }
 
     /**
@@ -403,15 +361,16 @@ public class StaffController {
      */
     @RequestMapping("/selPost")
     @ResponseBody
-    public List<Map<String, String>> selPost(HttpServletRequest request) {
-        List<Map<String, String>> result = new ArrayList<>();
+    public Result selPost(HttpServletRequest request) {
+        Users users = getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
+        List<Map<String, String>> resultList = new ArrayList<>();
         String id = request.getParameter("id");//管理员模板
-        Users users = this.getPrincipal();
         Map map = new HashMap();
         map.put("peratorId", id);
-        if (users != null) {
-            map.put("postPeratorId", users.getId());
-        }
+        map.put("postPeratorId", users.getId());
         map.put("date", DateFormat.getYMDHMS(new Date()));
         PostPerator postPerator = postPeratorService.selLatest(map);
         if (postPerator != null) {
@@ -421,15 +380,14 @@ public class StaffController {
                 //返回设备名称
                 map.clear();
                 map.put("parent", id);
-                result = workPeratorService.selByParam(map);//获取设备名称
+                resultList = workPeratorService.selByParam(map);//获取设备名称
                 Map<String, String> map1 = new HashMap<>();
                 map1.put("id", String.valueOf(postId));
                 map1.put("patrolTask", workPerator.getPatrolTask());
-                result.add(map1);
-                return result;
+                resultList.add(map1);
             }
         }
-        return result;
+        return Result.ok(resultList.size(), resultList);
     }
 
     /**
@@ -439,17 +397,22 @@ public class StaffController {
      */
     @RequestMapping("/getDepMap")
     @ResponseBody
-    public List<Map<String, String>> getDepMap() {
-        List<Company> list = departmentService.getDepMap();
-        List<Map<String, String>> result = new ArrayList<>();
-        if (list != null) {
-            for (Company company : list) {
+    public Result getDepMap() {
+        List<Company> companyList = departmentService.getDepMap();
+        List<Map<String, String>> resultList = new ArrayList<>();
+        if (companyList != null && companyList.size() > 0) {
+            for (Company company : companyList) {
                 Map<String, String> map = new HashMap<>();
-                map.put("id", company.getId() + "");
+                map.put("id", String.valueOf(company.getId()));
                 map.put("text", company.getName());
-                result.add(map);
+                resultList.add(map);
             }
         }
-        return result;
+        resultList = resultList.stream().sorted(
+                (o1, o2) -> (
+                        Collator.getInstance(Locale.CHINESE).compare(o1.get("name"), o2.get("name"))
+                )
+        ).collect(Collectors.toList());
+        return Result.ok(resultList.size(), resultList);
     }
 }

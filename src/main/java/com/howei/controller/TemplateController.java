@@ -526,9 +526,9 @@ public class TemplateController {
             work.setEquipId(Integer.parseInt(equipId));
             work.setSystemId(Integer.parseInt(systemId));
             work.setMeasuringType(sightType);
-            work.setMeasuringTypeId(sightTypeId);
+            work.setMeasuringTypeId(Integer.valueOf(sightTypeId));
             work.setUnit(unitType);
-            work.setUnitId(unitTypeId);
+            work.setUnitId(Integer.valueOf(unitTypeId));
             work.setUserId(users.getId());
             work.setCreatedBy(users.getId());
             workPeratorService.addWorkPerator(work);

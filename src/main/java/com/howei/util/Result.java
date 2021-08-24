@@ -51,25 +51,29 @@ public class Result {
     public Result() {
     }
 
-    public static Result ok(int count, Object data, String msg) {
+    public static Result ok(int code, int count, Object data, String msg) {
         Result result = new Result();
         result.setCount(count);
         result.setData(data);
         result.setMsg(msg);
-        result.setCode(0);
+        result.setCode(code);
         return result;
     }
 
     public static Result ok(int count, Object data) {
-        return ok(count, data, "操作成功");
+        return ok(0, count, data, "操作成功");
     }
 
     public static Result ok() {
-        return ok(0, null, "操作成功");
+        return ok(0, 0, null, "操作成功");
     }
 
     public static Result ok(String msg) {
-        return ok(0, null, msg);
+        return ok(0, 0, null, msg);
+    }
+
+    public static Result ok(ResultEnum resultEnum, int count, Object data) {
+        return ok(resultEnum.getCode(), count, data, resultEnum.getMsg());
     }
 
     public static Result fail(String msg) {

@@ -34,8 +34,8 @@ public class WorkPerator {
     private String departmentName;//项目部
     private Integer equipmentId;//设备名称
     private Integer sysId;//系统名称
-    private String measuringTypeId;//测点类型Id
-    private String unitId;//单位Id
+    private Integer measuringTypeId;//测点类型Id
+    private Integer unitId;//单位Id
 
     public int getId() {
         return id;
@@ -237,19 +237,19 @@ public class WorkPerator {
         this.sysId = sysId;
     }
 
-    public String getMeasuringTypeId() {
+    public Integer getMeasuringTypeId() {
         return measuringTypeId;
     }
 
-    public void setMeasuringTypeId(String measuringTypeId) {
+    public void setMeasuringTypeId(Integer measuringTypeId) {
         this.measuringTypeId = measuringTypeId;
     }
 
-    public String getUnitId() {
+    public Integer getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(String unitId) {
+    public void setUnitId(Integer unitId) {
         this.unitId = unitId;
     }
 

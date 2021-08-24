@@ -20,9 +20,10 @@
     </select>
 
     <insert id="crePostChild" parameterType="com.howei.pojo.PostPeratorData" keyProperty="id" useGeneratedKeys="true">
-        insert into postPerator_data(measuringType,postPeratorId,createdBy,created,measuringTypeData,equipment,ind,unit,systemId,equipId) values(
-            #{measuringType},#{postPeratorId},#{createdBy},#{created},#{measuringTypeData},#{equipment},#{ind},#{unit},#{systemId},#{equipId}
-        )
+        insert into
+        postPerator_data(measuringType,postPeratorId,createdBy,created,measuringTypeData,equipment,ind,unit,systemId,equipId,measuringTypeId,unit)
+        values
+        (#{measuringType},#{postPeratorId},#{createdBy},#{created},#{measuringTypeData},#{equipment},#{ind},#{unit},#{systemId},#{equipId},#{measuringTypeId},#{unit})
     </insert>
 
     <select id="selByEquipment" parameterType="java.util.Map" resultType="com.howei.pojo.PostPeratorData" resultMap="postDataMap">
@@ -90,7 +91,7 @@
             and pd.equipment=#{equipment}
         </if>
     </select>
-    
+
     <select id="selById" parameterType="int" resultMap="postDataMap">
         select * from postPerator_data where id=#{id}
     </select>
