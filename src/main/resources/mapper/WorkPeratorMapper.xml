@@ -99,7 +99,7 @@
             and w.status=1
         </if>
         order by priority
-        <if test="page!=null and page!=''">
+        <if test="page!=null and pageSize!=null">
             limit ${page},${pageSize}
         </if>
     </select>
@@ -162,7 +162,7 @@
         <if test="equipment!=null and equipment!=''">
             equipment=#{equipment}
         </if>
-        group by equipment
+       <!--group by equipment-->
     </select>
 
     <select id="getTemplateMap" parameterType="java.util.HashMap" resultType="java.util.HashMap">

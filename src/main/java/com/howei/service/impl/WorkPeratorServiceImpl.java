@@ -71,7 +71,7 @@ public class WorkPeratorServiceImpl implements WorkPeratorService {
     }
 
     @Override
-    public List<String> selByParam(Map<String, Object> map) {
+    public List<Map<String,Object>> selByParam(Map<String, Object> map) {
         return workPeratorMapper.selByParam(map);
     }
 

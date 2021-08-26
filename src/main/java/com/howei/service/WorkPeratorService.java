@@ -42,7 +42,7 @@ public interface WorkPeratorService {
 
     List<WorkPerator> selAll(Map map);
 
-    List<String> selByParam(Map<String, Object> map);
+    List<Map<String,Object>> selByParam(Map<String, Object> map);
 
     int selAllCount(Map<String, Object> map);
 

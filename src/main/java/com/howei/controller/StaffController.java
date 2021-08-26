@@ -366,7 +366,7 @@ public class StaffController {
         if (users == null) {
             return Result.fail(ResultEnum.NO_USER);
         }
-        List<Map<String, String>> resultList = new ArrayList<>();
+        Map<String, Object> resultMap = new HashMap<>();
         String id = request.getParameter("id");//管理员模板
         Map map = new HashMap();
         map.put("peratorId", id);
@@ -380,14 +380,13 @@ public class StaffController {
                 //返回设备名称
                 map.clear();
                 map.put("parent", id);
-                resultList = workPeratorService.selByParam(map);//获取设备名称
-                Map<String, String> map1 = new HashMap<>();
-                map1.put("id", String.valueOf(postId));
-                map1.put("patrolTask", workPerator.getPatrolTask());
-                resultList.add(map1);
+                List<Map<String, Object>> list = workPeratorService.selByParam(map);//获取设备名称
+                map.put("workPeratorList", list);
+                map.put("id", String.valueOf(postId));
+                map.put("patrolTask", workPerator.getPatrolTask());
             }
         }
-        return Result.ok(resultList.size(), resultList);
+        return Result.ok(1, map);
     }
 
     /**
