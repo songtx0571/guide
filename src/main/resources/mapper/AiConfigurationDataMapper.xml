@@ -17,8 +17,14 @@
         left join ai_data_configure c on c.id=d.aiConfigurationId
         left join ai_equipment e on e.id=d.addressId
         <where>
-            <if test="projectDepartment!=null">
-                and c.departmentId=#{projectDepartment}
+            <if test="systemId!=null">
+                and c.systemId=#{systemId}
+            </if>
+            <if test="equipId!=null">
+                and c.equipId=#{equipId}
+            </if>
+            <if test="departmentId!=null">
+                and c.departmentId=#{departmentId}
             </if>
             <if test="equipment!=null">
                 and c.equipment=#{equipment}

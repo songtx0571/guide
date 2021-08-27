@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 查询数据
@@ -74,136 +75,115 @@ public class InquiriesDataController {
     @RequestMapping("/getInquiriesData")
     @ResponseBody
     public Result getInquiriesData(HttpServletRequest request) {
-        String name = request.getParameter("name");
-        String depart = request.getParameter("departName");
+        String departmentId = request.getParameter("departmentId");
         String type = request.getParameter("type");//1：人工；2：ai,3维护,4缺陷
         String startTime = request.getParameter("startTime");//开始时间
         String endTime = request.getParameter("endTime");//结束时间
-        String page = request.getParameter("page");
-        String limit = request.getParameter("limit");
+        Integer page = Integer.valueOf(request.getParameter("page"));
+        Integer limit = Integer.valueOf(request.getParameter("limit"));
         String systemId = request.getParameter("systemId");
-        String equipmentId = request.getParameter("equipmentId");
-        int rows = Page.getOffSet(page, limit);
-        Result result = new Result();
+        String equipId = request.getParameter("equipmentId");
         Subject subject = SecurityUtils.getSubject();
         Users loginUser = (Users) subject.getPrincipal();
         if (loginUser == null) {
             return Result.fail(ResultEnum.NO_USER);
         }
-        Map<String, Object> resultMap = new HashMap<>();
         Map<Integer, String> usersMap = getUsersMap();
-        int total;
-        if (name != null && !"".equals(name)) {
-            Map map = new HashMap();
-            if (startTime != null && !startTime.equals("")) {
-                map.put("startTime", startTime);
+        int count;
+        Map map = new HashMap();
+        if (!StringUtils.isEmpty(startTime) && !StringUtils.isEmpty(endTime)) {
+            map.put("startTime", startTime);
+            map.put("endTime", endTime);
+        }
+        if (!StringUtils.isEmpty(departmentId)) {
+            map.put("departmentId", departmentId);
+        }
+        if (!StringUtils.isEmpty(systemId)) {
+            map.put("systemId", systemId);
+        }
+        if (!StringUtils.isEmpty(equipId)) {
+            map.put("equipId", equipId);
+        }
+        if (type.contains("1")) {//人工数据
+            List<PostPeratorData> list = postPeratorDataService.selByName(map);
+            count = list.size();
+            if (!StringUtils.isEmpty(page) && !StringUtils.isEmpty(limit)) {
+                list = list.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
             }
-            if (endTime != null && !endTime.equals("")) {
-                map.put("endTime", endTime);
+            list.stream().map(item -> {
+                Users user = userService.findById(item.getCreatedBy() + "");
+                String createdByName = (user != null) ? user.getUserName() : "";
+                item.setCreatedByName(createdByName);
+                return item;
+            });
+            return Result.ok(count, list);
+        }
+        if (type.contains("2")) {//ai数据
+            List<AiConfigurationData> list = aiConfigurationDataService.getAiConfigureDataList(map);
+            count = list.size();
+            if (!StringUtils.isEmpty(page) && !StringUtils.isEmpty(limit)) {
+                list = list.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
             }
-
-            if (type.contains("1")) {//人工数据
-                map.put("equipment", name);
-                map.put("projectDepartment", depart);
-                List<PostPeratorData> list = postPeratorDataService.selByName(map);
-                total = list.size();
-                list.clear();
-                map.put("pageSize", limit);
-                map.put("page", rows);
-                list = postPeratorDataService.selByName(map);
-                for (int i = 0; i < list.size(); i++) {
-                    PostPeratorData postPeratorData = list.get(i);
-                    Users user = userService.findById(postPeratorData.getCreatedBy() + "");
-                    if (user != null) {
-                        postPeratorData.setCreatedByName(user.getUserName());
-                    } else {
-                        postPeratorData.setCreatedByName("");
-                    }
+            return Result.ok(count, list);
+        }
+        if (type.contains("3")) {
+            map.put("status", 2);
+            List<MaintainRecord> list = maintainService.getMaintainRecordByMap(map);
+            count = list.size();
+            if (!StringUtils.isEmpty(page) && !StringUtils.isEmpty(limit)) {
+                list = list.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
+            }
+            list.stream().forEach(maintainRecord -> {
+                String employeeId = maintainRecord.getEmployeeId();
+                String[] maintainRecordEmployeeIds = null;
+                if (!StringUtils.isEmpty(employeeId)) {
+                    maintainRecordEmployeeIds = employeeId.split(",");
                 }
-                resultMap.put("RGTotal", total);
-                resultMap.put("RGData", list);
-            }
-
-            if (type.contains("2")) {//ai数据
-                map.put("equipment", name);
-                map.put("projectDepartment", depart);
-                List<AiConfigurationData> list = aiConfigurationDataService.getAiConfigureDataList(map);
-                total = list.size();
-                list.clear();
-                if (startTime == null || startTime.equals("") && endTime == null || endTime.equals("")) {
-                    map.put("pageSize", limit);
-                    map.put("page", rows);
-                }
-                list = aiConfigurationDataService.getAiConfigureDataList(map);
-                resultMap.put("AITotal", total);
-                resultMap.put("AIData", list);
-            }
-
-            if (type.contains("3")) {
-                map.put("departmentId", depart);
-                map.put("systemId", systemId);
-                map.put("equipmentId", equipmentId);
-                map.put("status", 2);
-                List<MaintainRecord> maintainRecordList = maintainService.getMaintainRecordByMap(map);
-                maintainRecordList.stream().forEach(maintainRecord -> {
-                    String employeeId = maintainRecord.getEmployeeId();
-                    String[] maintainRecordEmployeeIds = null;
-                    if (!StringUtils.isEmpty(employeeId)) {
-                        maintainRecordEmployeeIds = employeeId.split(",");
-                    }
-                    String employeeNames = "";
-                    if (maintainRecordEmployeeIds != null) {
-                        for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
-                            String userName = usersMap.get(Integer.valueOf(maintainRecordEmployeeId));
-
-                            if (!StringUtils.isEmpty(userName)) {
-                                employeeNames += userName + "、";
-                            }
-                        }
-                    }
-                    if (employeeNames.length() > 1) {
-                        employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
-                    }
-                    maintainRecord.setEmployeeName(employeeNames);
-                });
-                total = maintainRecordList.size();
-
-                resultMap.put("WHTotal", total);
-                resultMap.put("WHData", maintainRecordList);
-            }
-
-            if (type.contains("4")) {
-                map.put("departmentId", depart);
-                map.put("sysId", systemId);
-                map.put("equipmentId", equipmentId);
-                map.put("type", 4);
-                List<Defect> defectList = defectService.getDefectList(map);
-                defectList.stream().forEach(defect -> {
-                    String empIds = defect.getEmpIds();
-                    String[] defectEmpIds = null;
-                    if (!StringUtils.isEmpty(empIds)) {
-                        defectEmpIds = empIds.split(",");
-                    }
-                    String employeeNames = "";
-                    for (String defectEmpId : defectEmpIds) {
-                        String userName = usersMap.get(Integer.valueOf(defectEmpId));
+                String employeeNames = "";
+                if (maintainRecordEmployeeIds != null) {
+                    for (String maintainRecordEmployeeId : maintainRecordEmployeeIds) {
+                        String userName = usersMap.get(Integer.valueOf(maintainRecordEmployeeId));
                         if (!StringUtils.isEmpty(userName)) {
                             employeeNames += userName + "、";
                         }
                     }
-                    if (employeeNames.length() > 1) {
-                        employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
-                    }
-                    defect.setEmpIdsName(employeeNames);
-                });
-                resultMap.put("DeTotal", defectList.size());
-                resultMap.put("DeData", defectList);
-            }
+                }
+                if (employeeNames.length() > 1) {
+                    employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
+                }
+                maintainRecord.setEmployeeName(employeeNames);
+            });
+            return Result.ok(count, list);
         }
-        result.setData(resultMap);
-        result.setMsg("查询成功");
-        result.setCode(0);
-        return result;
+        if (type.contains("4")) {
+            map.put("sysId", systemId);
+            map.put("type", 4);
+            List<Defect> list = defectService.getDefectList(map);
+            count = list.size();
+            if (!StringUtils.isEmpty(page) && !StringUtils.isEmpty(limit)) {
+                list = list.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
+            }
+            list.stream().forEach(defect -> {
+                String empIds = defect.getEmpIds();
+                String[] defectEmpIds = null;
+                if (!StringUtils.isEmpty(empIds)) {
+                    defectEmpIds = empIds.split(",");
+                }
+                String employeeNames = "";
+                for (String defectEmpId : defectEmpIds) {
+                    String userName = usersMap.get(Integer.valueOf(defectEmpId));
+                    if (!StringUtils.isEmpty(userName)) {
+                        employeeNames += userName + "、";
+                    }
+                }
+                if (employeeNames.length() > 1) {
+                    employeeNames = employeeNames.substring(0, employeeNames.length() - 1);
+                }
+                defect.setEmpIdsName(employeeNames);
+            });
+            return Result.ok(count, list);
+        }
+        return Result.ok();
     }
 
 

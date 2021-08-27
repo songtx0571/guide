@@ -40,9 +40,17 @@
             <if test="month!=null">
                 and DATE_FORMAT(de.confirmer1Time,'%Y-%m')=DATE_FORMAT(#{month},'%Y-%m')
             </if>
-            <if test="employeeId!=null">
-                and (de.createdBy=#{employeeId} or de.claimant=#{employeeId} or de.confirmer1=#{employeeId} or
-                locate(#{employeeId},de.empIds))
+            <if test="createdBy!=null">
+                and  de.createdBy=#{createdBy}
+            </if>
+            <if test="claimant!=null">
+                and de.claimant=#{claimant}
+            </if>
+            <if test="confirmer1!=null">
+                and de.confirmer1=#{confirmer1}
+            </if>
+            <if test="empId!=null">
+                and locate(#{empId},de.empIds))
             </if>
             <if test="createTime!=null">
                 and DATE_FORMAT( de.created,'%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d')

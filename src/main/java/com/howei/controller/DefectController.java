@@ -356,34 +356,43 @@ public class DefectController {
         if (users == null) {
             return Result.fail(ResultEnum.NO_USER);
         }
+        Map<String, Object> map = new HashMap<>();
+        map.put("empId", users.getEmployeeId());
+        map.put("type", 2);
+        List<Defect> defectList = defectService.getDefectList(map);
+        if (defectList.size() >= 2) {
+            return Result.fail(ResultEnum.DEFECT_TWO_START_EXECUTING);
+        }
         if (id != null) {
-            Defect defect = defectService.getDefectById(id);
-            if (defect != null) {
-                if (defect.getIsStarted() != 0) {
-                    return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
-                }
-                if (type != null && type.equals("6")) {
-                    if (String.valueOf(defect.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId())) > -1) {
-                        defect.setType(6);//延期中
-                        defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
-                        defect.setDelayETime(delayETime);//延期结束时间
-                        defect.setDelayReason(delayReason);//延期理由
-                        defectService.updDefect(defect);
-                        return Result.ok();
-                    } else {
-                        return Result.fail(ResultEnum.NO_PERMISSION);
-                    }
+            return Result.fail(ResultEnum.NO_PARAMETERS);
+        }
+
+        Defect defect = defectService.getDefectById(id);
+        if (defect != null) {
+            if (defect.getIsStarted() != 0) {
+                return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
+            }
+            if (type != null && type.equals("6")) {
+                if (String.valueOf(defect.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId())) > -1) {
+                    defect.setType(6);//延期中
+                    defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
+                    defect.setDelayETime(delayETime);//延期结束时间
+                    defect.setDelayReason(delayReason);//延期理由
+                    defectService.updDefect(defect);
+                    return Result.ok();
                 } else {
-                    if (String.valueOf(defect.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId())) > -1) {
-                        defect.setType(2);//消缺中
-                        defect.setRealSTime(DateFormat.getYMDHMS(new Date()));
-                        defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
-                        defect.setPartPauseSeconds(0D);
-                        defectService.updDefect(defect);
-                        return Result.ok();
-                    } else {
-                        return Result.fail(ResultEnum.NO_PERMISSION);
-                    }
+                    return Result.fail(ResultEnum.NO_PERMISSION);
+                }
+            } else {
+                if (String.valueOf(defect.getEmpIds()).indexOf(String.valueOf(users.getEmployeeId())) > -1) {
+                    defect.setType(2);//消缺中
+                    defect.setRealSTime(DateFormat.getYMDHMS(new Date()));
+                    defect.setPartStartTime(DateFormat.getYMDHMS(new Date()));
+                    defect.setPartPauseSeconds(0D);
+                    defectService.updDefect(defect);
+                    return Result.ok();
+                } else {
+                    return Result.fail(ResultEnum.NO_PERMISSION);
                 }
             }
         }

@@ -25,7 +25,8 @@ public enum ResultEnum {
     MAINTAIN_STOPED(218, "该维护配置已经暂停"),
     WORKPERATOR_HAVE_SAME_RECORD(219, "已存在同名的配置模板"),
     POSTPERATOR_OPEN(220, "OPEN"),
-    POSTPERATOR_CONSOLE(221,"CONSOLE" );
+    POSTPERATOR_CONSOLE(221, "该检修已经完成,请等候下一周期到来"),
+    DEFECT_TWO_START_EXECUTING(222, "已有两条缺陷正在执行,请先完成它们");
 
 
     private Integer code;
