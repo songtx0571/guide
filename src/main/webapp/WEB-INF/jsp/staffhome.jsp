@@ -68,6 +68,11 @@
             border-bottom: 1px solid #ccc;
             height: 80px;
         }
+        .div1TableInp:focus {
+            outline:none;
+            border: 1px solid #CCCCCC;
+            background:#f0ecec;
+        }
         .bodyDiv::-webkit-scrollbar {
             display: none;
         }
@@ -146,7 +151,7 @@
 <body>
     <%--头部--%>
     <div class="headerDiv">
-        <div style="position: absolute;top: 27px;left: 5px;width: 40px;" onclick="init()"><i class="fa fa-bars" style="font-size: 35px;"></i></div>
+        <div style="position: absolute;top: 27px;left: 5px;width: 40px;" onclick="showInit('')"><i class="fa fa-bars" style="font-size: 35px;"></i></div>
         <div class="headerBody" id="department" style="padding-top: 20px;box-sizing: border-box">
             <shiro:hasPermission name='运行专工'>
                 <input type="hidden" id="departmentIdHidden">
@@ -166,7 +171,7 @@
         <div class="headerBody" id="userName"></div>
         <div class="headerBody" id="dateTime"></div>
     </div>
-    <div id="postId" style="display: none"></div>
+    <input id="postId" type="hidden" />
     <%--内容头部--%>
     <div id="bodyHeader" class="bodyHeader">
         <div class="bodyHead">巡检任务</div>
@@ -189,11 +194,11 @@
         </table>
         <%--左右箭头--%>
         <div class="foodDiv">
-            <p class="footArrow" style="float: left;margin-left: 50px;" onclick="Back()">
+            <p class="footArrow" style="float: left;margin-left: 50px;" onclick="backForward('-1')">
                 <i class="fa fa-arrow-circle-left" style="font-size: 45px;"></i>
             </p>
             <div class="foodBody" id="foodBody"></div>
-            <p class="footArrow" style="float: right;margin-right: 50px;" onclick="Forward()">
+            <p class="footArrow" style="float: right;margin-right: 50px;" onclick="backForward(1)">
                 <i class="fa fa-arrow-circle-right" style="font-size: 45px;"></i>
             </p>
         </div>
@@ -241,7 +246,8 @@
             <tr>
                 <th>缺陷位置</th>
                 <td colspan="3" id='defectLocation' style="padding-bottom: 10px;box-sizing: border-box;">
-                    <span id="addSys"></span>,<span id="addEmp"></span>
+                    <span id="addEquipment"></span>
+                    <input type="hidden" id="addSys"/><input type="hidden" id="addEmp"/>
                 </td>
             </tr>
             <tr>

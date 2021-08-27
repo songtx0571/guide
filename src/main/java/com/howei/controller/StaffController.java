@@ -94,6 +94,7 @@ public class StaffController {
             return Result.fail(ResultEnum.NO_USER);
         }
 
+        Map<String,Object> resultMap=new HashMap<>();
         String userName = user.getUserName();
         String dateTime = DateFormat.getYMD();
         if (StringUtils.isEmpty(departmentId) && !subject.isPermitted("运行专工")) {
@@ -104,7 +105,7 @@ public class StaffController {
 
         //获取模板信息
         List<WorkPerator> workPeratorList = workPeratorService.selAll(map);
-        List<Object> result = new ArrayList<>();
+        List<Object> resultList = new ArrayList<>();
         for (WorkPerator work : workPeratorList) {
             Map<String, Object> mapRes = new HashMap<>();
             mapRes.put("id", work.getId());
@@ -122,13 +123,12 @@ public class StaffController {
             } else {
                 mapRes.put("inspectionEndTime", "");
             }
-            result.add(mapRes);
+            resultList.add(mapRes);
         }
-        map.clear();
-        map.put("userName", userName);
-        map.put("dateTime", dateTime);
-        result.add(map);
-        return Result.ok(0, result);
+        resultMap.put("userName", userName);
+        resultMap.put("dateTime", dateTime);
+        resultMap.put("workPeratorList", resultList);
+        return Result.ok(1, resultMap);
     }
 
     /**
@@ -149,6 +149,7 @@ public class StaffController {
         String created = DateFormat.getYMDHMS(new Date());//创建时间
         //查找模板周期，判断是否创建员工数据
         WorkPerator work = workPeratorService.selWorkperator(peratorId);
+        System.out.println(work);
         String cycle = "";
         String planTime = "";//计划完成时间
         String department = "";//部门
@@ -181,7 +182,7 @@ public class StaffController {
             crePost(post);
             return Result.ok();
         }
-        List<Map<String, String>> mapLists = null;
+        Map<String, Object> resultMap = new HashMap<>();
         if (postPerator != null) {
             inspectionEndTime = postPerator.getInspectionEndTime();//实际结束时间
             inspectionStaTime = postPerator.getInspectionStaTime();//开始时间
@@ -189,8 +190,8 @@ public class StaffController {
                 try {
                     boolean bool1 = DateFormat.comparetoTime(DateFormat.getBehindTime2(inspectionStaTime, cycle), DateFormat.getYMDHMS(new Date()));
                     if (bool1) {
-                        mapLists = crePost(post);
-                        return Result.ok(mapLists.size(), mapLists);
+                        resultMap = crePost(post);
+                        return Result.ok(1, resultMap);
                     } else {//未完成，未超过周期结束，打开
                         return Result.fail(ResultEnum.POSTPERATOR_OPEN);
                     }
@@ -208,8 +209,8 @@ public class StaffController {
                     try {
                         bool = DateFormat.comparetoTime(created, endTime);
                         if (!bool) {//当当前前时间大于时执行
-                            mapLists = crePost(post);
-                            return Result.ok(mapLists.size(), mapLists);
+                            resultMap = crePost(post);
+                            return Result.ok(1, resultMap);
                         } else {
                             return Result.fail(ResultEnum.POSTPERATOR_OPEN);
                         }
@@ -228,51 +229,55 @@ public class StaffController {
      *
      * @param post
      */
-    public List<Map<String, String>> crePost(PostPerator post) {
-        List<Map<String, String>> result = new ArrayList<>();
+    public Map<String, Object> crePost(PostPerator post) {
+        Map<String, Object> resultMap = new HashMap<>();
+        List<Map<String, String>> list = new ArrayList<>();
         Map<String, String> map1 = new HashMap<>();
         postPeratorService.crePost(post);
         int id = post.getId();//postPeratorId
         PostPerator postPerator = postPeratorService.selById(id);//获取当前添加的模板的信息
-        if (postPerator != null) {
-            Users users = this.getPrincipal();
-            Integer userId = users.getId();
-            int peratorId = postPerator.getPeratorId();//管理员模板Id
-            WorkPerator workPerator = workPeratorService.selWorkperator(String.valueOf(peratorId));//获取管理员模板的信息
-            if (workPerator != null) {
-                Map map = new HashMap();
-                map.put("parent", workPerator.getId());
-                map.put("page", 0);
-                map.put("pageSize", 10000);
-                map.put("state", "true");
-                List<WorkPerator> workPeratorList = workPeratorService.getTemplateChildList(map);
-                int count = workPeratorList.size();//管理员模板的子任务列表
-                for (int i = 0; i < count; i++) {
-                    WorkPerator work = workPeratorList.get(i);
-                    PostPeratorData postPeratorData = new PostPeratorData();
-                    postPeratorData.setEquipId(work.getEquipId());//设备Id
-                    postPeratorData.setSystemId(work.getSystemId());//系统Id
-                    postPeratorData.setMeasuringType(work.getMeasuringType());//测点类型
-                    postPeratorData.setEquipment(work.getEquipment());//系统设备名称
-                    postPeratorData.setPostPeratorId(id);
-                    postPeratorData.setCreatedBy(userId);
-                    postPeratorData.setCreated(DateFormat.getYMDHMS(new Date()));
-                    postPeratorData.setUnit(work.getUnit());
-                    postPeratorData.setInd(i);
-                    postPeratorData.setMeasuringTypeId(work.getMeasuringTypeId());
-                    postPeratorData.setEquipId(work.getEquipId());
-                    postPeratorDataService.crePostChild(postPeratorData);
-                }
-                //返回设备名称
-                map.clear();
-                map.put("parent", peratorId);
-                result = workPeratorService.selByParam(map);//获取设备名称
-                map1.put("id", String.valueOf(id));
-                result.add(map1);
-                return result;
-            }
+        if (postPerator == null) {
+            return null;
         }
-        return result;
+        Users users = this.getPrincipal();
+        Integer userId = users.getId();
+        int peratorId = postPerator.getPeratorId();//管理员模板Id
+        WorkPerator workPerator = workPeratorService.selWorkperator(String.valueOf(peratorId));//获取管理员模板的信息
+        if (workPerator == null) {
+            return null;
+        }
+        Map map = new HashMap();
+        map.put("parent", workPerator.getId());
+        map.put("page", 0);
+        map.put("pageSize", 10000);
+        map.put("state", "true");
+        List<WorkPerator> workPeratorList = workPeratorService.getTemplateChildList(map);
+        int count = workPeratorList.size();//管理员模板的子任务列表
+        for (int i = 0; i < count; i++) {
+            WorkPerator work = workPeratorList.get(i);
+            PostPeratorData postPeratorData = new PostPeratorData();
+            postPeratorData.setEquipId(work.getEquipId());//设备Id
+            postPeratorData.setSystemId(work.getSystemId());//系统Id
+            postPeratorData.setMeasuringType(work.getMeasuringType());//测点类型
+            postPeratorData.setEquipment(work.getEquipment());//系统设备名称
+            postPeratorData.setPostPeratorId(id);
+            postPeratorData.setCreatedBy(userId);
+            postPeratorData.setCreated(DateFormat.getYMDHMS(new Date()));
+            postPeratorData.setUnit(work.getUnit());
+            postPeratorData.setInd(i);
+            postPeratorData.setMeasuringTypeId(work.getMeasuringTypeId());
+            postPeratorData.setEquipId(work.getEquipId());
+            postPeratorData.setUnitId(work.getUnitId());
+            postPeratorDataService.crePostChild(postPeratorData);
+        }
+        //返回设备名称
+        map.clear();
+        map.put("parent", peratorId);
+        list = workPeratorService.selByParam(map);//获取设备名称
+        resultMap.put("workPerators", list);
+        resultMap.put("id", String.valueOf(id));
+        resultMap.put("patrolTask", workPerator.getPatrolTask());
+        return resultMap;
     }
 
     /**
@@ -289,9 +294,12 @@ public class StaffController {
             return Result.fail(ResultEnum.NO_USER);
         }
         String postId = request.getParameter("postId");//员工模板id
-        String equipmento = request.getParameter("equipmento");//设备名称
+//        String equipmento = request.getParameter("equipmento");//设备名称
+        String systemId = request.getParameter("systemId");//设备名称
+        String equipId = request.getParameter("equipId");//设备名称
         Map map = new HashMap();
-        map.put("equipment", equipmento);
+        map.put("systemId", systemId);
+        map.put("equipId", equipId);
         map.put("postPeratorId", postId);
         List<PostPeratorData> postPeratorDataList = postPeratorDataService.selByEquipment(map);
         if (postPeratorDataList == null) {
@@ -330,15 +338,11 @@ public class StaffController {
         String postId = request.getParameter("postId");
         if (str != null && !str.equals("")) {
             String[] strData = str.split(",");
-            String id = "";
             for (String s : strData) {
                 String[] strs = s.split(":");
-                id = strs[0];
-                id = id.substring(4, id.length());
-                String value = strs[1];
                 Map map = new HashMap();
-                map.put("id", id);
-                map.put("measuringTypeData", value);
+                map.put("id", strs[0]);
+                map.put("measuringTypeData",  strs[1]);
                 postPeratorDataService.updPostData(map);
             }
         }
@@ -381,8 +385,9 @@ public class StaffController {
                 map.clear();
                 map.put("parent", id);
                 List<Map<String, Object>> list = workPeratorService.selByParam(map);//获取设备名称
-                map.put("workPeratorList", list);
-                map.put("id", String.valueOf(postId));
+                map.clear();
+                map.put("workPerators", list);
+                map.put("postPeratorId", String.valueOf(postId));
                 map.put("patrolTask", workPerator.getPatrolTask());
             }
         }
@@ -407,11 +412,6 @@ public class StaffController {
                 resultList.add(map);
             }
         }
-        resultList = resultList.stream().sorted(
-                (o1, o2) -> (
-                        Collator.getInstance(Locale.CHINESE).compare(o1.get("name"), o2.get("name"))
-                )
-        ).collect(Collectors.toList());
         return Result.ok(resultList.size(), resultList);
     }
 }

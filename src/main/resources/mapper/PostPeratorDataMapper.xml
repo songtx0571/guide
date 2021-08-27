@@ -21,9 +21,9 @@
 
     <insert id="crePostChild" parameterType="com.howei.pojo.PostPeratorData" keyProperty="id" useGeneratedKeys="true">
         insert into
-        postPerator_data(measuringType,postPeratorId,createdBy,created,measuringTypeData,equipment,ind,unit,systemId,equipId,measuringTypeId,unit)
+        postPerator_data(measuringType,postPeratorId,createdBy,created,measuringTypeData,equipment,ind,unit,systemId,equipId,measuringTypeId,unitId)
         values
-        (#{measuringType},#{postPeratorId},#{createdBy},#{created},#{measuringTypeData},#{equipment},#{ind},#{unit},#{systemId},#{equipId},#{measuringTypeId},#{unit})
+        (#{measuringType},#{postPeratorId},#{createdBy},#{created},#{measuringTypeData},#{equipment},#{ind},#{unit},#{systemId},#{equipId},#{measuringTypeId},#{unitId})
     </insert>
 
     <select id="selByEquipment" parameterType="java.util.Map" resultType="com.howei.pojo.PostPeratorData" resultMap="postDataMap">
@@ -31,8 +31,11 @@
         <if test="postPeratorId!=null and postPeratorId!=''">
             and postPeratorId=#{postPeratorId}
         </if>
-        <if test="equipment!=null and equipment!=''">
-            and equipment=#{equipment}
+        <if test="systemId!=null">
+            and systemId=#{systemId}
+        </if>
+        <if test="equipId!=null">
+            and equipId=#{equipId}
         </if>
     </select>
 

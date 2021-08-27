@@ -9,7 +9,6 @@
         <result column="updated" property="updated"></result>
         <result column="createdBy" property="createdBy"></result>
         <result column="updatedBy" property="updatedBy"></result>
-        <result column="template" property="template"></result>
         <result column="priority" property="priority"></result>
         <result column="patrolTask" property="patrolTask"></result>
         <result column="artificialNumber" property="artificialNumber"></result>
@@ -155,14 +154,14 @@
     </select>
 
     <select id="selByParam" resultType="java.util.HashMap" parameterType="java.lang.String">
-        select systemId,equipId from workPerator where 1=1 and status='1' and
+        select distinct  systemId,equipId,equipment from workPerator where 1=1 and status='1'
         <if test="parent!=null and parent!=''">
-            parent=#{parent}
+            and  parent=#{parent}
         </if>
         <if test="equipment!=null and equipment!=''">
-            equipment=#{equipment}
+            and  equipment=#{equipment}
         </if>
-       <!--group by equipment-->
+        <!--group by equipment-->
     </select>
 
     <select id="getTemplateMap" parameterType="java.util.HashMap" resultType="java.util.HashMap">
