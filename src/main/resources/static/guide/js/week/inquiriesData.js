@@ -63,7 +63,6 @@ function showDepartName() {
                 arr[i] = $(this).val();
                 if ($(this).val() == 1) {
                     $("#showMeasuringType").css('display', "revert");
-                    getMeasuringType($("#selDepartNameHidden").val())
                 }
             });
             newArr = arr;
@@ -174,7 +173,7 @@ function selShowInquiriesDataList() {
                 elem: '#demoPeo',
                 height: 300,
                 toolbar: true,
-                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=' + measuringType + '&type=1&startTime=' + startTime + '&endTime' + endTime,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringTypeId=' + measuringType + '&type=1&startTime=' + startTime + '&endTime' + endTime,
                 page: true,
                 limit: 10,
                 limits: [10, 50, 150],
@@ -197,7 +196,7 @@ function selShowInquiriesDataList() {
                 elem: '#demoAI',
                 height: 300,
                 toolbar: true,
-                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=&type=2&startTime=' + startTime + '&endTime' + endTime,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringTypeId=&type=2&startTime=' + startTime + '&endTime' + endTime,
                 page: true,
                 limit: 10,
                 limits: [10, 50, 150],
@@ -220,7 +219,7 @@ function selShowInquiriesDataList() {
                 elem: '#demoMain',
                 height: 300,
                 toolbar: true,
-                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=&type=3&startTime=' + startTime + '&endTime' + endTime,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringTypeId=&type=3&startTime=' + startTime + '&endTime' + endTime,
                 page: true,
                 limit: 10,
                 limits: [10, 50, 150],
@@ -244,19 +243,32 @@ function selShowInquiriesDataList() {
                 elem: '#demoDefect',
                 height: 300,
                 toolbar: true,
-                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=&type=4&startTime=' + startTime + '&endTime' + endTime,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringTypeId=&type=4&startTime=' + startTime + '&endTime' + endTime,
                 page: true,
                 limit: 10,
                 limits: [10, 50, 150],
                 cols: [[ //表头
                     {field: 'id', title: '编号', align: 'center', hide: true}
-                    , {field: 'number', title: '缺陷编号', sort: true, align: 'center'}
+                    , {field: 'number', title: '缺陷编号', sort: true, align: 'center', event: 'detailed', style: 'cursor: pointer;color:red;'}
                     , {field: 'abs', title: '缺陷内容', sort: true, align: 'center'}
                     , {field: 'empIdsName', title: '执行人', sort: true, align: 'center'}
                     , {field: 'realSTime', title: '完成时间', sort: true, align: 'center'}
                 ]]
                 ,
                 done: function (res, curr, count) {
+                }
+            });
+            table.on('tool(testDefect)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                if (obj.event === 'detailed') { //缺陷详情
+                    layer.open({
+                        type: 2,
+                        title: ["缺陷详情页面", 'font-size:20px;font-weight:bold;text-align:center;'],
+                        area: ['100%', '100%'],
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: '../defect/toDefectDetailed?id=' + data.id
+                    });
                 }
             });
             $("#tableDivDefect").css("display", "revert");

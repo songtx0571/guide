@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.howei.mapper.PostperatorDataMapper" >
+<mapper namespace="com.howei.mapper.PostperatorDataMapper">
     <resultMap id="postDataMap" type="com.howei.pojo.PostPeratorData">
         <result column="id" property="id"></result>
         <result column="measuringType" property="measuringType"></result>
@@ -15,7 +15,8 @@
         <result column="equipId" property="equipId"></result>
     </resultMap>
 
-    <select id="selByPostId" parameterType="com.howei.pojo.PostPeratorData" resultType="java.util.HashMap" resultMap="postDataMap">
+    <select id="selByPostId" parameterType="com.howei.pojo.PostPeratorData" resultType="java.util.HashMap"
+            resultMap="postDataMap">
         select * from postPerator_data where postPeratorld=#{postPeratorld}
     </select>
 
@@ -26,7 +27,8 @@
         (#{measuringType},#{postPeratorId},#{createdBy},#{created},#{measuringTypeData},#{equipment},#{ind},#{unit},#{systemId},#{equipId},#{measuringTypeId},#{unitId})
     </insert>
 
-    <select id="selByEquipment" parameterType="java.util.Map" resultType="com.howei.pojo.PostPeratorData" resultMap="postDataMap">
+    <select id="selByEquipment" parameterType="java.util.Map" resultType="com.howei.pojo.PostPeratorData"
+            resultMap="postDataMap">
         select * from postPerator_data where 1=1
         <if test="postPeratorId!=null and postPeratorId!=''">
             and postPeratorId=#{postPeratorId}
@@ -43,7 +45,8 @@
         update postPerator_data set measuringTypeData=#{measuringTypeData} where id=#{id}
     </update>
 
-    <select id="selByName" parameterType="java.util.HashMap" resultMap="postDataMap" resultType="com.howei.pojo.PostPeratorData">
+    <select id="selByName" parameterType="java.util.HashMap" resultMap="postDataMap"
+            resultType="com.howei.pojo.PostPeratorData">
         select pd.* from postPerator_data pd
         left join postPerator p on p.id=pd.postPeratorId
         where 1=1
@@ -57,7 +60,7 @@
             and pd.equipId=#{equipId}
         </if>
         <if test="measuringTypeId!=null">
-            and pd.measuringTypeId=#{measuringTypeId}
+            and find_in_set(pd.measuringTypeId,#{measuringTypeId})
         </if>
         <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
             and DATE_FORMAT(pd.created,'%Y-%m-%d')&gt;=DATE_FORMAT(#{startTime},'%Y-%m-%d')
@@ -78,7 +81,7 @@
     <select id="selPostPerDataById" parameterType="java.util.HashMap" resultMap="postDataMap">
         select * from postPerator_data where 1=1
         <if test="postPeratorId!=null and postPeratorId!=''">
-           and postPeratorId=#{postPeratorId}
+            and postPeratorId=#{postPeratorId}
         </if>
         order by equipment
         <if test="page!=null and pageSize!=null">
