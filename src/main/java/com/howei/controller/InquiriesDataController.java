@@ -83,6 +83,7 @@ public class InquiriesDataController {
         Integer limit = Integer.valueOf(request.getParameter("limit"));
         String systemId = request.getParameter("systemId");
         String equipId = request.getParameter("equipmentId");
+        String measuringTypeId = request.getParameter("measuringTypeId");
         Subject subject = SecurityUtils.getSubject();
         Users loginUser = (Users) subject.getPrincipal();
         if (loginUser == null) {
@@ -105,6 +106,7 @@ public class InquiriesDataController {
             map.put("equipId", equipId);
         }
         if (type.contains("1")) {//人工数据
+            map.put("measuringTypeId",measuringTypeId);
             List<PostPeratorData> list = postPeratorDataService.selByName(map);
             count = list.size();
             if (!StringUtils.isEmpty(page) && !StringUtils.isEmpty(limit)) {

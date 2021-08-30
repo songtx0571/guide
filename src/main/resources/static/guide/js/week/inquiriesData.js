@@ -1,32 +1,10 @@
 var path = "";
-var name = "";
 var measuringType = "";
 var newArr = [];
 $(function () {
     showDepartName();
     showTime();
 });
-
-//导出
-function productqueryOutXls() {
-    var $trs = $(".item").find("tr");
-    var str = "";
-    for (var i = 0; i < $trs.length; i++) {
-        var $tds = $trs.eq(i).find("td,th");
-        for (var j = 0; j < $tds.length; j++) {
-            str += $tds.eq(j).text().replace(/\,/g,'，') + ",";
-        }
-        str += "\n";
-    }
-    // encodeURIComponent解决中文乱码
-    const uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(str);
-    // 通过创建a标签实现
-    const link = document.createElement("a");
-    link.href = uri;
-    // 对下载的文件命名
-    link.download =  "设备查询表.csv";
-    link.click();
-}
 
 //显示时间
 function showTime() {
@@ -37,18 +15,14 @@ function showTime() {
             , format: 'yyyy-MM-dd'
             , type: 'date'
             , trigger: 'click'//呼出事件改成click
-            , done: function (value) {
-                $("#selStartTimeHidden").val(value);
-            }
+            , done: function (value) {}
         });
         laydate.render({
             elem: '#test2'
             , format: 'yyyy-MM-dd'
             , type: 'date'
             , trigger: 'click'//呼出事件改成click
-            , done: function (value) {
-                $("#selEndTimeHidden").val(value);
-            }
+            , done: function (value) {}
         });
     })
 }
@@ -65,7 +39,7 @@ function showDepartName() {
                 if (data.code == 0 || data.code == 200) {
                     data = data.data;
                     $("#selDepartName").empty();
-                    var option = "<option value='0' >请选择部门</option>";
+                    var option = "<option value='-1' >请选择部门</option>";
                     for (var i = 0; i < data.length; i++) {
                         option += "<option value='" + data[i].id + "'>" + data[i].text + "</option>"
                     }
@@ -80,12 +54,17 @@ function showDepartName() {
         form.on('select(selDepartName)', function (data) {
             $("#selDepartNameHidden").val(data.value);
             selSysName(data.value);
+            getMeasuringType(data.value)
         });
         form.on('checkbox(switchTest)', function (data) {
             // var value = data.value; //获取value值
             var arr = new Array();
-            $("input:checkbox[name='like']:checked").each(function(i) {
+            $("input:checkbox[name='like']:checked").each(function (i) {
                 arr[i] = $(this).val();
+                if ($(this).val() == 1) {
+                    $("#showMeasuringType").css('display', "revert");
+                    getMeasuringType($("#selDepartNameHidden").val())
+                }
             });
             newArr = arr;
         });
@@ -114,7 +93,6 @@ function selSysName(departName) {
         });
         form.on('select(selSysName)', function (data) {
             $("#selSysNameHidden").val(data.value);
-            var sysName = data.elem[data.elem.selectedIndex].text;
             //显示设备号
             $.ajax({
                 type: "GET",
@@ -133,119 +111,155 @@ function selSysName(departName) {
             });
             form.on('select(selEquName)', function (data) {
                 $("#selEquNameHidden").val(data.value);
-                var equName = data.elem[data.elem.selectedIndex].text;
-                name = sysName + "," + equName;
             });
-            /*form.on('select(selType)', function (data) {
-                $("#selTypeNameHidden").val(data.value);
-            });*/
         });
     });
 }
 
+//显示测点类型
+function getMeasuringType(departName) {
+    layui.use(['jquery', 'formSelects'], function () {
+        var formSelects = layui.formSelects;
+        formSelects.config('tags', {
+            keyName: 'nuit',
+            keyVal: 'id',
+        }).data('tags', 'server', {
+            url: "/guide/unit/getUnitList?department=" + departName + "&mold=2",
+        });
+        formSelects.closed('tags', function (id) {
+            measuringType = layui.formSelects.value('tags', 'val');
+        });
+    });
+}
+
+
 //查询
 function selShowInquiriesDataList() {
-    var departName = $("#selDepartNameHidden").val();
-    var type = newArr.toString();
-    var selSysNameHidden = $("#selSysNameHidden").val();
-    var selEquNameHidden = $("#selEquNameHidden").val();
-    var selStartTimeHidden = $("#selStartTimeHidden").val();
-    var selEndTimeHidden = $("#selEndTimeHidden").val();
-    if (departName == "0" || departName == "") {
+    var departName = $("#selDepartNameHidden").val()
+    var systemId = $("#selSysNameHidden").val()
+    var equipmentId = $("#selEquNameHidden").val()
+    var startTime = $("#test1").val();
+    var endTime = $("#test2").val();
+    var type = newArr;
+    if (measuringType.length > 0 ) {
+        measuringType = measuringType
+    } else {
+        measuringType = "";
+    }
+    if (departName == "" || departName == "-1"){
         layer.alert("请选择部门");
         return;
     }
-    if ($("#selSysNameHidden").val() == "-1" || $("#selSysNameHidden").val() == "") {
-        layer.alert("请选择系统号");
+    if (systemId == "" || systemId == "-1"){
+        layer.alert("请选择系统");
         return;
     }
-    if ($("#selEquNameHidden").val() == "-1" || $("#selEquNameHidden").val() == "") {
-        layer.alert("请选择设备号");
+    if (equipmentId == "" || equipmentId == "-1"){
+        layer.alert("请选择设备");
         return;
     }
-    if (type.length <= 0) {
+    if (type.length <= 0){
         layer.alert("请选择测点类型");
         return;
     }
-    $(".center").css("display", "block");
-    $("#daochuBtn").css("display","block");
-    $.ajax({
-        url: path + "/guide/inquiries/getInquiriesData",	    //请求数据路径
-        type: 'get',										//请求数据最好用get，上传数据用post
-        data: {
-            page: 1,
-            limit: 100,
-            departName: departName,
-            name: name,
-            systemId: selSysNameHidden,
-            equipmentId: selEquNameHidden,
-            measuringType: measuringType,
-            type: type,
-            startTime: selStartTimeHidden,
-            endTime: selEndTimeHidden
-        },   //传参
-        dataType: 'json',
-        success: function (res) {
-            var tableDivPeo = $("#tableDivPeo");
-            var tableDivAI = $("#tableDivAI");
-            var tableDivMain = $("#tableDivMain");
-            var tableDivDefect = $("#tableDivDefect");
 
-            tableDivPeo.html("");
-            var tablePeo = "";
-
-            tableDivAI.html("");
-            var tableAI = "";
-
-            tableDivMain.html("");
-            var tableMain = "";
-
-            tableDivDefect.html("");
-            var tableDefect = "";
-
-
-            //人工
-            if (res.data.RGData) {
-                tablePeo = "<table class='item' id='LAY_demo1' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
-                layui.each(res.data.RGData, function (index, item) {
-                    tablePeo += "<tr><td>" + res.data.RGData[index].measuringType + "</td><td>" + res.data.RGData[index].measuringTypeData + "</td><td>" + res.data.RGData[index].unit + "</td><td>" + res.data.RGData[index].createdByName + "</td><td>" + res.data.RGData[index].created + "</td></tr>"
-                });
-                tablePeo += "</table>";
-                tableDivPeo.append(tablePeo)
-            }
-
-            //AI
-            if (res.data.AIData) {
-                tableAI = "<table class='item' id='LAY_demo2' cellpadding='0'><thead id=\"itemHead\"><th>测点类型</th><th>数据</th><th>单位</th><th>巡检人</th><th>时间</th></thead>";
-                layui.each(res.data.AIData, function (index, item) {
-                    tableAI += "<tr><td>" + res.data.AIData[index].measuringType + "</td><td>" + res.data.AIData[index].measuringTypeData + "</td><td>" + res.data.AIData[index].unit + "</td><td>" + res.data.AIData[index].createdByName + "</td><td>" + res.data.AIData[index].created + "</td></tr>"
-                });
-                tableAI += "</table>";
-                tableDivAI.append(tableAI)
-            }
-
-            //维护
-            if (res.data.WHData){
-                tableMain = "<table class='item' id='LAY_demo3' cellpadding='0'><thead id=\"itemHead\"><th>维护编号</th><th>维护点</th><th>工作内容</th><th>工作反馈</th><th>维护人</th><th>时间</th></thead>";
-                layui.each(res.data.WHData, function (index, item) {
-                    tableMain += "<tr><td>" + res.data.WHData[index].maintainRecordNo + "</td><td>" + res.data.WHData[index].unitName + "</td><td>" + res.data.WHData[index].workContent + "</td><td>" + res.data.WHData[index].workFeedback + "</td><td>" + res.data.WHData[index].employeeName + "</td><td>" + res.data.WHData[index].endTime + "</td></tr>"
-                });
-                tableMain += "</table>";
-                tableDivMain.append(tableMain)
-            }
-
-            //缺陷
-            if (res.data.DeData) {
-            tableDefect = "<table class='item' id='LAY_demo4' cellpadding='0'><thead id=\"itemHead\"><th>缺陷编号</th><th>缺陷内容</th><th>执行人</th><th>完成时间</th></thead>";
-            layui.each(res.data.DeData, function (index, item) {
-                tableDefect += "<tr><td>" + res.data.DeData[index].number + "</td><td>" + res.data.DeData[index].abs + "</td><td>" + res.data.DeData[index].empIdsName + "</td><td>" + res.data.DeData[index].realSTime + "</td></tr>"
+    layui.use(['table', 'form'], function () {
+        var table = layui.table, form = layui.form;
+        $("#tableDivPeo").css("display", "none");
+        $("#tableDivAI").css("display", "none");
+        $("#tableDivMain").css("display", "none");
+        $("#tableDivDefect").css("display", "none");
+        if (type.indexOf('1') != -1) {
+            table.render({
+                elem: '#demoPeo',
+                height: 300,
+                toolbar: true,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=' + measuringType + '&type=1&startTime=' + startTime + '&endTime' + endTime,
+                page: true,
+                limit: 10,
+                limits: [10, 50, 150],
+                cols: [[ //表头
+                    {field: 'id', title: '编号', align: 'center', hide: true}
+                    , {field: 'measuringType', title: '测点类型', sort: true, align: 'center'}
+                    , {field: 'measuringTypeData', title: '数据', sort: true, align: 'center'}
+                    , {field: 'unit', title: '单位', sort: true, align: 'center'}
+                    , {field: 'createdByName', title: '巡检人', sort: true, align: 'center'}
+                    , {field: 'created', title: '时间', sort: true, align: 'center'}
+                ]]
+                ,
+                done: function (res, curr, count) {
+                }
             });
-            tableDefect += "</table>";
-            tableDivDefect.append(tableDefect)
-            }
-
+            $("#tableDivPeo").css("display", "revert");
         }
-    });
-
-
+        if (type.indexOf('2') != -1) {
+            table.render({
+                elem: '#demoAI',
+                height: 300,
+                toolbar: true,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=&type=2&startTime=' + startTime + '&endTime' + endTime,
+                page: true,
+                limit: 10,
+                limits: [10, 50, 150],
+                cols: [[ //表头
+                    {field: 'id', title: '编号', align: 'center', hide: true}
+                    , {field: 'measuringType', title: '测点类型', sort: true, align: 'center'}
+                    , {field: 'measuringTypeData', title: '数据', sort: true, align: 'center'}
+                    , {field: 'unit', title: '单位', sort: true, align: 'center'}
+                    , {field: 'createdByName', title: '巡检人', sort: true, align: 'center'}
+                    , {field: 'created', title: '时间', sort: true, align: 'center'}
+                ]]
+                ,
+                done: function (res, curr, count) {
+                }
+            });
+            $("#tableDivAI").css("display", "revert");
+        }
+        if (type.indexOf('3') != -1) {
+            table.render({
+                elem: '#demoMain',
+                height: 300,
+                toolbar: true,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=&type=3&startTime=' + startTime + '&endTime' + endTime,
+                page: true,
+                limit: 10,
+                limits: [10, 50, 150],
+                cols: [[ //表头
+                    {field: 'id', title: '编号', align: 'center', hide: true}
+                    , {field: 'maintainRecordNo', title: '维护编号', sort: true, align: 'center'}
+                    , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
+                    , {field: 'workContent', title: '工作内容', sort: true, align: 'center'}
+                    , {field: 'workFeedback', title: '工作反馈', sort: true, align: 'center'}
+                    , {field: 'employeeName', title: '维护人', sort: true, align: 'center'}
+                    , {field: 'endTime', title: '时间', sort: true, align: 'center'}
+                ]]
+                ,
+                done: function (res, curr, count) {
+                }
+            });
+            $("#tableDivMain").css("display", "revert");
+        }
+        if (type.indexOf('4') != -1) {
+            table.render({
+                elem: '#demoDefect',
+                height: 300,
+                toolbar: true,
+                url: path + '/guide/inquiries/getInquiriesData?departName=' + departName + '&systemId=' + systemId + '&equipmentId=' + equipmentId + '&measuringType=&type=4&startTime=' + startTime + '&endTime' + endTime,
+                page: true,
+                limit: 10,
+                limits: [10, 50, 150],
+                cols: [[ //表头
+                    {field: 'id', title: '编号', align: 'center', hide: true}
+                    , {field: 'number', title: '缺陷编号', sort: true, align: 'center'}
+                    , {field: 'abs', title: '缺陷内容', sort: true, align: 'center'}
+                    , {field: 'empIdsName', title: '执行人', sort: true, align: 'center'}
+                    , {field: 'realSTime', title: '完成时间', sort: true, align: 'center'}
+                ]]
+                ,
+                done: function (res, curr, count) {
+                }
+            });
+            $("#tableDivDefect").css("display", "revert");
+        }
+    })
 }

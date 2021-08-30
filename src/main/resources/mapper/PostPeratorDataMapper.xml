@@ -47,14 +47,17 @@
         select pd.* from postPerator_data pd
         left join postPerator p on p.id=pd.postPeratorId
         where 1=1
-        <if test="projectDepartment!=null and projectDepartment!=''">
-            and p.department=#{projectDepartment}
+        <if test="departmentId!=null">
+            and p.department=#{departmentId}
         </if>
-        <if test="equipment!=null and equipment!=''">
-            and pd.equipment=#{equipment}
+        <if test="systemId!=null">
+            and pd.systemId=#{systemId}
         </if>
-        <if test="measuringType!=null and measuringType!=''">
-            and pd.measuringType=#{measuringType}
+        <if test="equipId!=null">
+            and pd.equipId=#{equipId}
+        </if>
+        <if test="measuringTypeId!=null">
+            and pd.measuringTypeId=#{measuringTypeId}
         </if>
         <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
             and DATE_FORMAT(pd.created,'%Y-%m-%d')&gt;=DATE_FORMAT(#{startTime},'%Y-%m-%d')

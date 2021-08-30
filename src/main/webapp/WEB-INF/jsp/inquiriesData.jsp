@@ -5,15 +5,21 @@
     <link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css"/>
     <script type="text/javascript" src="../js/layui/layui.js"></script>
     <script type="text/javascript" src="../js/week/inquiriesData.js?version=1.0"></script>
+    <script type="text/javascript" src="../js/layui/formSelects-v4.js"></script>
+    <link rel="stylesheet" href="../js/layui/formSelects-v4.css">
 </head>
 <style type="text/css">
     body::-webkit-scrollbar {
         display: none;
     }
 
+    .clear {
+        clear: both;
+    }
+
     .top {
         width: 100%;
-        padding-top: 20px;
+        padding-top: 10px;
         box-sizing: border-box;
     }
 
@@ -23,33 +29,19 @@
         padding: 0 10px;
     }
 
-    .item {
-        width: 100%;
-        text-align: center;
-    }
-
-    .item th {
-        border: 1px solid #e6e6e6;
-        background: #f2f2f2;
-    }
-
-    .item tr {
-        line-height: 50px;
-    }
-
-    .item td {
-        border: 1px solid #e6e6e6;
-    }
-
-    #daochuBtn {
+    .tableDiv {
         display: none;
     }
 
-    .tableDiv {
-        height: auto;
-        overflow: scroll;
-        overflow-x: hidden;
-        margin-bottom: 20px;
+    #showMeasuringType {
+        display: none;
+    }
+
+    .xm-form-select .xm-select {
+        height: 35px;
+    }
+    .icon-close {
+        display: none;
     }
 </style>
 <body>
@@ -58,9 +50,6 @@
         <input type="hidden" id="selDepartNameHidden">
         <input type="hidden" id="selSysNameHidden">
         <input type="hidden" id="selEquNameHidden">
-        <input type="hidden" id="selStartTimeHidden">
-        <input type="hidden" id="selEndTimeHidden">
-
         <div style="margin: 10px auto 0;">
             <form class="layui-form" action="" style="margin-bottom: 10px;">
                 <div class="layui-form-item">
@@ -115,25 +104,36 @@
                     </div>
                 </div>
             </form>
-            <button type="button" class="layui-btn" onclick="selShowInquiriesDataList()">查询</button>
         </div>
+        <form class="layui-form" action="" id="showMeasuringType"
+              style="float: left;margin-left: 10px;width: 500px;">
+            <select name="tags" id="tags" lay-verify="tags" xm-select="tags">
+                <option value="0">请选择测点类型</option>
+            </select>
+        </form>
+        <button type="button" style="float: left;margin-left: 10px;" class="layui-btn layui-btn-normal"
+                onclick="selShowInquiriesDataList()">查询
+        </button>
     </div>
-    <div style="padding: 10px;box-sizing: border-box;" id="daochuBtn">
-        <button type="button" class="layui-btn" onclick="productqueryOutXls()">导出</button>
-    </div>
+
+    <div class="clear"></div>
     <%--内容主体--%>
     <div class="center">
         <div id="tableDivPeo" class="tableDiv">
-
+            <h2 style="text-align: center;">人工</h2>
+            <table id="demoPeo" lay-filter="testPeo"></table>
         </div>
         <div id="tableDivAI" class="tableDiv">
-
+            <h2 style="text-align: center;">AI</h2>
+            <table id="demoAI" lay-filter="testAI"></table>
         </div>
         <div id="tableDivMain" class="tableDiv">
-
+            <h2 style="text-align: center;">维护</h2>
+            <table id="demoMain" lay-filter="testMain"></table>
         </div>
         <div id="tableDivDefect" class="tableDiv">
-
+            <h2 style="text-align: center;">缺陷</h2>
+            <table id="demoDefect" lay-filter="testDefect"></table>
         </div>
     </div>
 </div>
