@@ -19,41 +19,29 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="维护配置分配非空判断">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="2004e1b6-f4b7-4d3a-8f2e-b00250b9bd5d" name="Default Changelist" comment="修改:运行引导-模板配置,巡检引导,异常修改">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/config/ShiroConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/DefectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/InquiriesDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/InquiriesDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/controller/ScrDailyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/controller/ScrDailyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/mapper/DefectMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/mapper/DefectMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/pojo/Defect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/DefectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/DefectService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/DefectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/service/impl/DefectServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/util/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/util/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/DefectMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/css/defect.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/inquiriesData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/inquiriesData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/maintainConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/guide/js/week/wfgdDaily2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Maintenance.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDaily.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ScrDaily.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2P.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/WfgdDaily2P.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/defect.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/inquiriesData.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/howei/util/DateFormat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/howei/UnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -75,9 +63,9 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="localRepository" value="D:\Maven\MavenRepository" />
+        <option name="localRepository" value="D:\apache-maven-3.8.1\repository" />
         <option name="mavenHome" value="D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.4\plugins\maven\lib\maven3" />
-        <option name="userSettingsFile" value="D:\Maven\apache-maven-3.3.3\conf\settings.xml" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.8.1\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -98,13 +86,14 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://F:/product/guide/src/main/webapp/WEB-INF/jsp/staffhome.jsp" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.gitignore" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hp-hw" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -112,7 +101,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/.idea/workspace.xml" />
   </component>
   <component name="ReactorSettings">
@@ -157,6 +146,20 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.GuideApplication">
+    <configuration name="UnitTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.howei.UnitTest" />
+      <module name="guide" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.howei.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -207,11 +210,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.UnitTest" />
       <item itemvalue="JUnit.UnitTest.upd" />
       <item itemvalue="Spring Boot.GuideApplication" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.UnitTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -414,6 +426,64 @@
       <workItem from="1621393585890" duration="8134000" />
       <workItem from="1621471856619" duration="848000" />
       <workItem from="1621473250795" duration="1092000" />
+      <workItem from="1625460100424" duration="282000" />
+      <workItem from="1625460393855" duration="1804000" />
+      <workItem from="1625462224961" duration="202000" />
+      <workItem from="1625473337057" duration="708000" />
+      <workItem from="1625531199754" duration="911000" />
+      <workItem from="1625548240901" duration="8597000" />
+      <workItem from="1625618109581" duration="4268000" />
+      <workItem from="1625634522142" duration="1145000" />
+      <workItem from="1625638948479" duration="3018000" />
+      <workItem from="1625709795040" duration="2874000" />
+      <workItem from="1625792352653" duration="104000" />
+      <workItem from="1626061184253" duration="6936000" />
+      <workItem from="1626136869302" duration="727000" />
+      <workItem from="1626413290909" duration="6315000" />
+      <workItem from="1626426872745" duration="586000" />
+      <workItem from="1626655156019" duration="644000" />
+      <workItem from="1626657512385" duration="2325000" />
+      <workItem from="1626673730213" duration="1282000" />
+      <workItem from="1626680909952" duration="876000" />
+      <workItem from="1626744833558" duration="1949000" />
+      <workItem from="1626758477373" duration="1118000" />
+      <workItem from="1626764232061" duration="6674000" />
+      <workItem from="1626827331986" duration="325000" />
+      <workItem from="1626828735466" duration="2002000" />
+      <workItem from="1626846040734" duration="5678000" />
+      <workItem from="1626917311849" duration="7347000" />
+      <workItem from="1627001475987" duration="3202000" />
+      <workItem from="1627019158658" duration="19000" />
+      <workItem from="1627021637962" duration="3372000" />
+      <workItem from="1627260483333" duration="336000" />
+      <workItem from="1627262546428" duration="1179000" />
+      <workItem from="1628131340887" duration="12018000" />
+      <workItem from="1628211389839" duration="1289000" />
+      <workItem from="1628214073200" duration="27000" />
+      <workItem from="1628241637419" duration="621000" />
+      <workItem from="1628469084379" duration="8327000" />
+      <workItem from="1628497733354" duration="2438000" />
+      <workItem from="1628556701189" duration="595000" />
+      <workItem from="1628573064588" duration="5217000" />
+      <workItem from="1628642286068" duration="438000" />
+      <workItem from="1628646061516" duration="1635000" />
+      <workItem from="1628662232880" duration="2393000" />
+      <workItem from="1629075828607" duration="14442000" />
+      <workItem from="1629160213537" duration="4343000" />
+      <workItem from="1629248413763" duration="15475000" />
+      <workItem from="1629335410048" duration="9725000" />
+      <workItem from="1629420905621" duration="3152000" />
+      <workItem from="1629449340297" duration="151000" />
+      <workItem from="1629679087153" duration="5187000" />
+      <workItem from="1629686197962" duration="1671000" />
+      <workItem from="1629702216227" duration="6101000" />
+      <workItem from="1629765409139" duration="12378000" />
+      <workItem from="1629939492893" duration="11406000" />
+      <workItem from="1630024684669" duration="10917000" />
+      <workItem from="1630050107047" duration="337000" />
+      <workItem from="1630289183899" duration="4877000" />
+      <workItem from="1630457707402" duration="1606000" />
+      <workItem from="1630562451096" duration="4551000" />
     </task>
     <task id="LOCAL-00001" summary="运行引导系统测试版1.0.0.RELEASE">
       <created>1594887694657</created>
@@ -436,49 +506,120 @@
       <option name="project" value="LOCAL" />
       <updated>1621386979530</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="修改:日志登记-检修日志登记,有选择项目部时工作安排A没为空的异常">
+      <created>1625634760994</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625634760994</updated>
+    </task>
+    <task id="LOCAL-00005" summary="修改:缺陷引导-缺陷登记,工时确认的权限异常&#10;修改:维护引导-维护配置,排序问题">
+      <created>1626071570951</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1626071570951</updated>
+    </task>
+    <task id="LOCAL-00006" summary="修改:缺陷引导-缺陷登记,筛选与本人相关的缺陷记录&#10;修改:维护引导-维护配置,排序筛选">
+      <created>1626657640325</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1626657640325</updated>
+    </task>
+    <task id="LOCAL-00007" summary="修复:缺陷引导-缺陷登记,筛选与本人相关的缺陷记录空指针异常">
+      <created>1626745083657</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1626745083657</updated>
+    </task>
+    <task id="LOCAL-00008" summary="修改:缺陷引导-缺陷登记,缺陷筛选,数据为0的返回">
+      <created>1626846242945</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1626846242945</updated>
+    </task>
+    <task id="LOCAL-00009" summary="修改:缺陷引导-缺陷登记,执行人员下拉框按首拼排序,工时确认真正运行时间修改的异常">
+      <created>1627004829716</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1627004829716</updated>
+    </task>
+    <task id="LOCAL-00010" summary="修改:缺陷引导-缺陷登记,临江公司获取临江项目部缺陷数据">
+      <created>1628152016322</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1628152016322</updated>
+    </task>
+    <task id="LOCAL-00011" summary="修改:缺陷引导-缺陷登记,缺陷处理超时异常后台">
+      <created>1628498051998</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1628498051998</updated>
+    </task>
+    <task id="LOCAL-00012" summary="修改:缺陷引导-缺陷登记,优化缺陷人员系统和设备按名称字符排序&#10;修改:维护引导-维护配置,修改接口Result结果返回,失效登录用户判断,维护点排序&#10;修改:维护引导-维护工作,优化已完成工作的查询速度,新增系统id,设备id,维护点id,维护内容字段">
+      <created>1629083740666</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1629083740666</updated>
+    </task>
+    <task id="LOCAL-00013" summary="修改:缺陷引导-缺陷登记,修复缺陷编号重复的异常">
+      <created>1629265861330</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1629265861330</updated>
+    </task>
+    <task id="LOCAL-00014" summary="修改:数据查询-查询设备,新增缺陷部分的数据&#10;修改:运行引导-模板配置,修改数据返回的接口">
+      <created>1629335820334</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1629335820334</updated>
+    </task>
+    <task id="LOCAL-00015" summary="修改:数据查询-查询设备,修复缺陷部分和维护部分执行人的的数据 &#10;修改:运行引导-模板配置,运行路线添加时增加系统id,设备id,测点类型id,单位id">
+      <created>1629351493155</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1629351493155</updated>
+    </task>
+    <task id="LOCAL-00016" summary="修改:运行引导-巡检引导,添加systemid,equip属性,修改接口返回">
+      <created>1629774760875</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1629774760875</updated>
+    </task>
+    <task id="LOCAL-00017" summary="修改:运行引导-巡检引导,修改查询任务接口数据结构">
+      <created>1629941545469</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1629941545469</updated>
+    </task>
+    <task id="LOCAL-00018" summary="修改:缺陷引导-缺陷登记,新增单个人至多同时操作两个缺陷&#10;修改:数据查询-查询设备,接口修改">
+      <created>1630046374767</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1630046374767</updated>
+    </task>
+    <task id="LOCAL-00019" summary="修改:运行引导-模板配置,巡检引导,异常修改">
+      <created>1630565995428</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1630565995428</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 02s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 22s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 43m 54s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 07s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 45m 31s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 34s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_getUserMap - 2021.04.26 at 09h 49m 51s.xml">
-      <configuration name="UnitTest.getUserMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 58m 09s.xml">
-      <configuration name="UnitTest.upd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_upd - 2021.04.27 at 16h 59m 45s.xml">
-      <configuration name="UnitTest.upd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UnitTest_upd - 2021.04.27 at 17h 01m 15s.xml">
-      <configuration name="UnitTest.upd" configurationId="JUnit" />
-    </history-entry>
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
@@ -498,7 +639,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -509,128 +662,145 @@
     <MESSAGE value="运行引导系统测试版1.0.0.RELEASE" />
     <MESSAGE value="周报及日志修复一些已知bug" />
     <MESSAGE value="维护配置页面和添加非空判断" />
-    <option name="LAST_COMMIT_MESSAGE" value="维护配置页面和添加非空判断" />
+    <MESSAGE value="修改:日志登记-检修日志登记,有选择项目部时工作安排A没为空的异常" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,工时确认的权限异常&#10;修改:维护引导-维护配置,维护配置排序" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,工时确认的权限异常&#10;修改:维护引导-维护配置,排序问题" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,筛选与本人相关的缺陷记录&#10;修改:维护引导-维护配置,排序筛选" />
+    <MESSAGE value="修复:缺陷引导-缺陷登记,筛选与本人相关的缺陷记录空指针异常" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,缺陷筛选,数据为0的返回" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,执行人员下拉框按首拼排序,工时确认真正运行时间修改的异常" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,临江公司获取临江项目部缺陷数据" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,缺陷处理超时异常后台" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,优化缺陷人员系统和设备按名称字符排序&#10;修改:维护引导-维护配置,修改接口Result结果返回,失效登录用户判断,维护点排序&#10;修改:维护引导-维护工作,优化已完成工作的查询速度,新增系统id,设备id,维护点id,维护内容字段" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,修复缺陷编号重复的异常" />
+    <MESSAGE value="修改:数据查询-查询设备,新增缺陷部分的数据&#10;修改:运行引导-模板配置,修改数据返回的接口" />
+    <MESSAGE value="修改:数据查询-查询设备,修复缺陷部分和维护部分执行人的的数据 &#10;修改:运行引导-模板配置,运行路线添加时增加系统id,设备id,测点类型id,单位id" />
+    <MESSAGE value="修改:运行引导-巡检引导,添加systemid,equip属性,修改接口返回" />
+    <MESSAGE value="修改:运行引导-巡检引导,修改查询任务接口数据结构" />
+    <MESSAGE value="修改:缺陷引导-缺陷登记,新增单个人至多同时操作两个缺陷&#10;修改:数据查询-查询设备,接口修改" />
+    <MESSAGE value="修改:运行引导-模板配置,巡检引导,异常修改修改" />
+    <MESSAGE value="修改:运行引导-模板配置,巡检引导,异常修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改:运行引导-模板配置,巡检引导,异常修改" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="906" y="398" key="#Inspections" timestamp="1617695971825">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="-1475" y="384" key="#com.intellij.ide.util.MemberChooser" timestamp="1630562631177">
+      <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="906" y="398" key="#Inspections/0.0.2560.1440@0.0.2560.1440" timestamp="1617695971825" />
-    <state width="441" height="466" key="DebuggerActiveHint" timestamp="1619313140773">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="-1475" y="384" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1630562631177" />
+    <state x="1085" y="384" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1629774279588" />
+    <state x="-2103" y="80" width="1683" height="1210" maximized="true" key="DiffContextDialog" timestamp="1630293393145">
+      <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state width="441" height="466" key="DebuggerActiveHint/0.0.2560.1440@0.0.2560.1440" timestamp="1619313140773" />
-    <state x="92" y="90" width="2376" height="1230" key="DiffContextDialog" timestamp="1621387312430">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="-2103" y="80" width="1683" height="1210" maximized="true" key="DiffContextDialog/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1630293393145" />
+    <state x="34" y="93" width="1683" height="1210" key="DiffContextDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1630043838264" />
+    <state x="1060" y="461" key="FileChooserDialogImpl" timestamp="1630027508204">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="92" y="90" width="2376" height="1230" key="DiffContextDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1621387312430" />
-    <state x="92" y="92" width="2376" height="1256" key="DiffContextDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1619158181198" />
-    <state x="1060" y="474" key="FileChooserDialogImpl" timestamp="1619311583807">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="1060" y="461" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1630027508204" />
+    <state width="2516" height="319" key="GridCell.Tab.0.bottom" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="474" key="FileChooserDialogImpl/0.0.2560.1440@0.0.2560.1440" timestamp="1619311583807" />
-    <state width="2517" height="533" key="GridCell.Tab.0.bottom" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.0.bottom/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327331" />
+    <state width="2516" height="319" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="319" key="GridCell.Tab.0.center" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.0.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
-    <state width="2517" height="533" key="GridCell.Tab.0.center" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.0.center/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327331" />
+    <state width="2516" height="319" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="319" key="GridCell.Tab.0.left" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.0.center/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
-    <state width="2517" height="533" key="GridCell.Tab.0.left" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.0.left/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327331" />
+    <state width="2516" height="319" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="319" key="GridCell.Tab.0.right" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.0.left/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
-    <state width="2517" height="533" key="GridCell.Tab.0.right" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.0.right/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327331" />
+    <state width="2516" height="319" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="319" key="GridCell.Tab.1.bottom" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.0.right/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1620895704696" />
-    <state width="2517" height="533" key="GridCell.Tab.1.bottom" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.1.bottom/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327332" />
+    <state width="2516" height="319" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="319" key="GridCell.Tab.1.center" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.1.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.1.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state width="2517" height="533" key="GridCell.Tab.1.center" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.1.center/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327332" />
+    <state width="2516" height="319" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="319" key="GridCell.Tab.1.left" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.1.center/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.1.center/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state width="2517" height="533" key="GridCell.Tab.1.left" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.1.left/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327331" />
+    <state width="2516" height="319" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="319" key="GridCell.Tab.1.right" timestamp="1630048776920">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.1.left/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.1.left/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state width="2517" height="533" key="GridCell.Tab.1.right" timestamp="1623813388128">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="412" key="GridCell.Tab.1.right/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1629702327332" />
+    <state width="2516" height="319" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1630048776920" />
+    <state width="2516" height="440" key="GridCell.Tab.2.bottom" timestamp="1623745624324">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="533" key="GridCell.Tab.1.right/0.0.2560.1410@0.0.2560.1410" timestamp="1623813388128" />
-    <state width="2517" height="565" key="GridCell.Tab.1.right/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state width="2517" height="349" key="GridCell.Tab.2.bottom" timestamp="1621404363784">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="440" key="GridCell.Tab.2.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1623745624324" />
+    <state width="2516" height="440" key="GridCell.Tab.2.center" timestamp="1623745624324">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.2.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="349" key="GridCell.Tab.2.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1621404363784" />
-    <state width="2517" height="565" key="GridCell.Tab.2.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state width="2517" height="349" key="GridCell.Tab.2.center" timestamp="1621404363784">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="440" key="GridCell.Tab.2.center/0.0.2560.1400@0.0.2560.1400" timestamp="1623745624324" />
+    <state width="2516" height="440" key="GridCell.Tab.2.left" timestamp="1623745624324">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.2.center/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="349" key="GridCell.Tab.2.center/0.0.2560.1410@0.0.2560.1410" timestamp="1621404363784" />
-    <state width="2517" height="565" key="GridCell.Tab.2.center/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state width="2517" height="349" key="GridCell.Tab.2.left" timestamp="1621404363784">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="440" key="GridCell.Tab.2.left/0.0.2560.1400@0.0.2560.1400" timestamp="1623745624324" />
+    <state width="2516" height="440" key="GridCell.Tab.2.right" timestamp="1623745624324">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.2.left/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="349" key="GridCell.Tab.2.left/0.0.2560.1410@0.0.2560.1410" timestamp="1621404363784" />
-    <state width="2517" height="565" key="GridCell.Tab.2.left/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state width="2517" height="349" key="GridCell.Tab.2.right" timestamp="1621404363784">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="2516" height="440" key="GridCell.Tab.2.right/0.0.2560.1400@0.0.2560.1400" timestamp="1623745624324" />
+    <state x="239" y="447" key="IDE.errors.dialog" timestamp="1628152072912">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1877" height="413" key="GridCell.Tab.2.right/0.0.1920.1080@0.0.1920.1080" timestamp="1618980702400" />
-    <state width="2517" height="349" key="GridCell.Tab.2.right/0.0.2560.1410@0.0.2560.1410" timestamp="1621404363784" />
-    <state width="2517" height="565" key="GridCell.Tab.2.right/0.0.2560.1440@0.0.2560.1440" timestamp="1620810112360" />
-    <state x="248" y="123" key="MergeDialog" timestamp="1621411221703">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="239" y="447" key="IDE.errors.dialog/0.0.2560.1400@0.0.2560.1400" timestamp="1628152072912" />
+    <state x="248" y="122" width="2148" height="1156" key="MergeDialog" timestamp="1630033223918">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="248" y="123" key="MergeDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1621411221703" />
-    <state x="1290" y="376" width="998" height="710" key="SettingsEditor" timestamp="1617688206242">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="248" y="122" width="2148" height="1156" key="MergeDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1630033223918" />
+    <state x="434" y="373" width="998" height="708" key="SettingsEditor" timestamp="1629774571065">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1290" y="376" width="998" height="710" key="SettingsEditor/0.0.2560.1440@0.0.2560.1440" timestamp="1617688206242" />
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1621387123809">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="434" y="373" width="998" height="708" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1629774571065" />
+    <state x="-1688" y="433" key="Vcs.Push.Dialog.v2" timestamp="1630566134073">
+      <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410@0.0.2560.1410" timestamp="1621387123809" />
-    <state x="1083" y="620" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1621411105391">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="-1688" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1630566134073" />
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1630048258260" />
+    <state x="-1477" y="616" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1630566549628">
+      <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="1083" y="620" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1410@0.0.2560.1410" timestamp="1621411105391" />
-    <state x="1083" y="633" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1440@0.0.2560.1440" timestamp="1619317701020" />
-    <state x="982" y="182" width="967" height="786" key="find.popup" timestamp="1621474280337">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="-1477" y="616" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1630566549628" />
+    <state x="1083" y="616" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1630289318121" />
+    <state x="805" y="436" width="949" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1626420192022">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="982" y="182" width="967" height="786" key="find.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1621474280337" />
-    <state x="982" y="186" width="967" height="802" key="find.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1619152730541" />
-    <state x="936" y="333" key="run.anything.popup" timestamp="1621404273590">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="805" y="436" width="949" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.2560.1400@0.0.2560.1400" timestamp="1626420192022" />
+    <state x="982" y="181" width="967" height="780" key="find.popup" timestamp="1630566929080">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="936" y="333" key="run.anything.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1621404273590" />
-    <state x="943" y="325" width="672" height="678" key="search.everywhere.popup" timestamp="1619156979164">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="-1578" y="181" width="967" height="804" key="find.popup/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1630562525507" />
+    <state x="982" y="181" width="967" height="780" key="find.popup/0.0.2560.1400/-2560.0.2560.1400@0.0.2560.1400" timestamp="1630566929080" />
+    <state x="983" y="181" width="967" height="884" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1630457713081" />
+    <state x="654" y="310" key="new project wizard" timestamp="1626659104944">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="943" y="325" width="672" height="678" key="search.everywhere.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1619156979164" />
+    <state x="654" y="310" key="new project wizard/0.0.2560.1400@0.0.2560.1400" timestamp="1626659104944" />
+    <state x="975" y="456" key="refactoring.ChangeSignatureDialog" timestamp="1624952412045">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="975" y="456" key="refactoring.ChangeSignatureDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1624952412045" />
+    <state x="936" y="330" width="672" height="677" key="run.anything.popup" timestamp="1624605769968">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="936" y="330" width="672" height="677" key="run.anything.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1624605769968" />
+    <state x="943" y="316" width="672" height="660" key="search.everywhere.popup" timestamp="1628142351008">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="316" width="672" height="660" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1628142351008" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -650,11 +820,28 @@
           <line>65</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/resources/static/guide/js/week/defect.js</url>
+          <line>496</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="10" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/howei/service/DefectService.java</url>
+          <line>10</line>
+          <properties class="com.howei.service.DefectService" method="getDefectList">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/guide$GuideApplication.ic" NAME="GuideApplication Coverage Results" MODIFIED="1623810368343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/guide$GuideApplication.ic" NAME="GuideApplication Coverage Results" MODIFIED="1620269910586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="masterDetails">
     <states>

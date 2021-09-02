@@ -322,7 +322,7 @@ public class DateFormat {
                 if (ss <= 0.5) {
                     result = hour + ss;
                 } else {
-                    result = 8.5;
+                    result = 8.25;
                 }
             }
         } else if (day < 1 && hour <= 1) {
@@ -330,7 +330,7 @@ public class DateFormat {
             double ss = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             result = hour + ss;
         } else {
-            result = 8.5;
+            result = 8.25;
         }
         return result;
     }
