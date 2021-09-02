@@ -23,8 +23,8 @@ public class WorkPerator {
     private String projectDepartment;//项目部
     private int parent;// 父类
     private int dataType;//1为人工，2为ai
-    private int systemId;//系统Id
-    private int equipId;//设备Id
+    private Integer systemId;//系统Id
+    private Integer equipId;//设备Id
 
     // 虚字段
     private int edit;
@@ -205,13 +205,6 @@ public class WorkPerator {
         this.edit = edit;
     }
 
-//    public String getUnitName() {
-//        return unitName;
-//    }
-//
-//    public void setUnitName(String unitName) {
-//        this.unitName = unitName;
-//    }
 
     public String getDepartmentName() {
         return departmentName;
@@ -261,19 +254,19 @@ public class WorkPerator {
         this.dataType = dataType;
     }
 
-    public int getSystemId() {
+    public Integer getSystemId() {
         return systemId;
     }
 
-    public void setSystemId(int systemId) {
+    public void setSystemId(Integer systemId) {
         this.systemId = systemId;
     }
 
-    public int getEquipId() {
+    public Integer getEquipId() {
         return equipId;
     }
 
-    public void setEquipId(int equipId) {
+    public void setEquipId(Integer equipId) {
         this.equipId = equipId;
     }
 }

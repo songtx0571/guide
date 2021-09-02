@@ -94,7 +94,7 @@ public class StaffController {
             return Result.fail(ResultEnum.NO_USER);
         }
 
-        Map<String,Object> resultMap=new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>();
         String userName = user.getUserName();
         String dateTime = DateFormat.getYMD();
         if (StringUtils.isEmpty(departmentId) && !subject.isPermitted("运行专工")) {
@@ -177,12 +177,12 @@ public class StaffController {
         post.setDepartment(Integer.parseInt(department));
 
         boolean bool;
+        Map<String, Object> resultMap = new HashMap<>();
         //没有表示最近没有巡检记录,需要新建
         if (postPerator == null) {
-            crePost(post);
-            return Result.ok();
+            resultMap = crePost(post);
+            return Result.ok(11, resultMap);
         }
-        Map<String, Object> resultMap = new HashMap<>();
         if (postPerator != null) {
             inspectionEndTime = postPerator.getInspectionEndTime();//实际结束时间
             inspectionStaTime = postPerator.getInspectionStaTime();//开始时间
@@ -342,7 +342,7 @@ public class StaffController {
                 String[] strs = s.split(":");
                 Map map = new HashMap();
                 map.put("id", strs[0]);
-                map.put("measuringTypeData",  strs[1]);
+                map.put("measuringTypeData", strs[1]);
                 postPeratorDataService.updPostData(map);
             }
         }

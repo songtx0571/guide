@@ -489,7 +489,7 @@ public class TemplateController {
         if (users == null) {
             return Result.fail(ResultEnum.NO_USER);
         }
-        List<String> list = new ArrayList<>();
+        String departmentId = request.getParameter("departmentId");//系统名称
         String sysName = request.getParameter("sysName");//系统名称
         String equName = request.getParameter("equName");//设备名称
         String systemId = request.getParameter("systemId");//系统id
@@ -514,6 +514,7 @@ public class TemplateController {
             } else {
                 work.setPriority(1);//设置执行循序
             }
+            work.setProjectDepartment(departmentId);
             work.setAiNumber(0);
             work.setCreated(DateFormat.getYMDHMS(new Date()));
             work.setCycle("");

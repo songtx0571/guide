@@ -101,12 +101,15 @@ public class InquiriesDataController {
         }
         if (!StringUtils.isEmpty(systemId)) {
             map.put("systemId", systemId);
+            map.put("sysId", systemId);
         }
         if (!StringUtils.isEmpty(equipId)) {
             map.put("equipId", equipId);
         }
         if (type.contains("1")) {//人工数据
-            map.put("measuringTypeId",measuringTypeId);
+            if (!StringUtils.isEmpty(measuringTypeId)) {
+                map.put("measuringTypeId", measuringTypeId);
+            }
             List<PostPeratorData> list = postPeratorDataService.selByName(map);
             count = list.size();
             if (!StringUtils.isEmpty(page) && !StringUtils.isEmpty(limit)) {
@@ -158,7 +161,6 @@ public class InquiriesDataController {
             return Result.ok(count, list);
         }
         if (type.contains("4")) {
-            map.put("sysId", systemId);
             map.put("type", 4);
             List<Defect> list = defectService.getDefectList(map);
             count = list.size();
