@@ -158,6 +158,7 @@ function showExhibitionList() {
                     }
                 });
             } else if (obj.event == 'edit') {
+                $("#addTemBarDepartmentId").val(data.projectDepartment);
                 $(".temBarDivTable").css("display", "block");
                 $(".addTemBarDiv").css("display", "none");
                 $(".updTemBarDiv").css("display", "none");
@@ -707,6 +708,7 @@ function addTemBar() {
     var dataType = $("#addTemBarTypeHidden").val();
     var sightTypeId = $('#addTemBarSightTypeIdHidden').val();
     var unitTypeId = $('#addTemBarUnitIdHidden').val();
+    var departmentId = Number($("#addTemBarDepartmentId").val());
     temChildId = "";
     if (systemId == "" || equipId == "" || sightType.trim() == "" || unitType.trim() == "") {
         $(".addTemBarSpan").css("display", "block");
@@ -728,7 +730,8 @@ function addTemBar() {
             'sysName': addSystemName,
             'equName': addEquipName,
             'sightTypeId': sightTypeId,
-            'unitTypeId': unitTypeId
+            'unitTypeId': unitTypeId,
+            'departmentId':departmentId
         },
         success: function (data) {
             if (data.code == 0 || data.code == 200) {

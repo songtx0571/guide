@@ -190,8 +190,7 @@ function crePostData(data) {
     $("#tbody").html('');
     var html = '';
     var patrolTask = data.patrolTask;//任务名称
-    var postPeratorId = data.postPeratorId;//任务id 员工模板id
-    $("#postId").val(postPeratorId);
+    $("#postId").val(data.id);
     $("#patrolTask").html(patrolTask);
     var systemId, equipId, equipment;
     workPerators = data.workPerators;

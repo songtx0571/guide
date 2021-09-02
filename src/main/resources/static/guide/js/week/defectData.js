@@ -87,7 +87,7 @@ function showTable(departmentId, month) {
                 , {field: 'realETime', title: '实际检修结束日期', width: 160}
                 , {field: 'workTimeConfirmTime', title: '工时确认时间', width: 160}
                 , {field: 'confirmer1Time', title: '值班确认时间', width: 160}
-                , {field: '', title: '超时', templet(a){
+                , {field: 'timeoutType', title: '超时', templet(a){
                     var timeoutTypeName="";
                     //A认领超时,  B开工超时, C反馈超时,D验收超时, E结束超时, Z缺陷处理超时
                     if(a.timeoutType!=null&&a.timeoutType.indexOf("A")>-1){

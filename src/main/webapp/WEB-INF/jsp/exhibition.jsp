@@ -256,6 +256,7 @@
         </div>
         <%--添加--%>
         <div class="addTemBarDiv">
+            <input type="hidden" id="addTemBarDepartmentId">
             <div>
                 <span>设备名称</span>
                 <input type="hidden" id="addTemBarSysHidden">
