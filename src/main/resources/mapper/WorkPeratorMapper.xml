@@ -82,13 +82,13 @@
         select DISTINCT
         w.id,w.userId,w.created,w.updated,w.createdBy,w.updatedBy,w.equipment,w.priority,w.patrolTask,w.artificialNumber,w.aiNumber,w.cycle,w.parent,w.planTime,
         w1.projectDepartment as projectDepartment,w.`status`,IFNULL(u2.id,u.id) as measuringTypeId,u1.id as
-        unitId,w.unit,w.measuringType,w.dataType,w.equipment,w.systemId,
-        w.equipId
+        unitId,w.unit,w.measuringType,w.dataType,w.equipment,w.systemId, w.equipId,w.measuringTypeId
         from workPerator w
         left join unit u on u.nuit=w.measuringType
         left join unit u1 on u1.nuit=w.unit
         left join workPerator w1 on w1.id=w.parent
-        left join (SELECT ad.* from ai_data_configure ad LEFT JOIN workPerator w2 on w2.equipment=ad.equipment where w2.parent=#{parent}) u2 on u2.measuringType=w.measuringType
+        left join (SELECT ad.* from ai_data_configure ad LEFT JOIN workPerator w2 on w2.equipment=ad.equipment where
+        w2.parent=#{parent}) u2 on u2.measuringType=w.measuringType
         LEFT join (select * from equipment where type=1 )e1 on e1.id=w.systemId
         LEFT join (select * from equipment where type=2 )e2 on e2.id=w.equipId
         where w.parent=#{parent}
@@ -154,12 +154,12 @@
     </select>
 
     <select id="selByParam" resultType="java.util.HashMap" parameterType="java.lang.String">
-        select distinct  systemId,equipId,equipment from workPerator where 1=1 and status='1'
+        select distinct systemId,equipId,equipment from workPerator where 1=1 and status='1'
         <if test="parent!=null and parent!=''">
-            and  parent=#{parent}
+            and parent=#{parent}
         </if>
         <if test="equipment!=null and equipment!=''">
-            and  equipment=#{equipment}
+            and equipment=#{equipment}
         </if>
         <!--group by equipment-->
     </select>

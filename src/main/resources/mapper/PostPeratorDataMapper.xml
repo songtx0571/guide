@@ -41,7 +41,7 @@
         </if>
     </select>
 
-    <update id="updPostData" parameterType="java.util.Map" keyProperty="id" useGeneratedKeys="true">
+    <update id="updPostData" parameterType="java.util.Map">
         update postPerator_data set measuringTypeData=#{measuringTypeData} where id=#{id}
     </update>
 

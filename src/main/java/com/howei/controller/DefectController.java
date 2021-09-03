@@ -363,7 +363,7 @@ public class DefectController {
         if (defectList.size() >= 2) {
             return Result.fail(ResultEnum.DEFECT_TWO_START_EXECUTING);
         }
-        if (id != null) {
+        if (id == null) {
             return Result.fail(ResultEnum.NO_PARAMETERS);
         }
 
