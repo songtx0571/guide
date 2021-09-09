@@ -9,6 +9,8 @@
 	<script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" href="../css/iframe.css" media="screen"/>
 	<link rel="stylesheet" href="../css/tr.css"/>
+	<link rel="stylesheet" href="../js/layui/css/layui.css">
+	<script src="../js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<!--easyui-->
 	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
@@ -35,7 +37,13 @@
 <body>
 <div>
 		<span>
-			年份选择:<input type="text" id="year" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy年',maxDate:'%y'})" class="Wdate"/>
+			年份选择:
+			<div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="entryDate" id="year" style="width: 200px;" readonly=""
+						   placeholder="年">
+                </div>
+			</div>
 			周选择:
 			<input type="text" id="datetime"  onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="Wdate"/>
 			类别选择:<select id='type'>

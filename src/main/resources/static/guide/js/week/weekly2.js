@@ -31,6 +31,19 @@ $(function(){
 			_userName = data.userNumber;
 		}
 	});
+	layui.use('laydate', function () {
+		var laydate = layui.laydate;
+		//点我触发
+		laydate.render({
+			elem: '#year'
+			,type: 'year'
+			, trigger: 'click'
+			,done: function(value){
+				getProject()
+			}
+		});
+	});
+	$("#year").val(Y)
 });
 
 
