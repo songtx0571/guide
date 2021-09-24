@@ -24,6 +24,7 @@ import java.text.Collator;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -854,20 +855,42 @@ public class DefectController {
         }
         Defect defect = defectService.getDefectById(id);
         Integer defectType = defect.getType();
-        if ("A".equals(type) && defectType != 1) {
-            return Result.fail(ResultEnum.DEFECT_NO_CLAIM_TIMEOUT);
+        String partStartTime = defect.getPartStartTime();
+        Double plannedHoursPart = null;
+        if ("A".equals(type)) {
+            plannedHoursPart = defect.getPlannedHoursPart1();
+            boolean isTimeout = getIsTimeout(partStartTime, plannedHoursPart);
+            if (defectType != 1 && !isTimeout) {
+                return Result.fail(ResultEnum.DEFECT_NO_CLAIM_TIMEOUT);
+            }
         }
-        if ("B".equals(type) && defectType != 5) {
-            return Result.fail(ResultEnum.DEFECT_NO_START_TIMEOUT);
+        if ("B".equals(type)) {
+            plannedHoursPart = defect.getPlannedHoursPart5();
+            boolean isTimeout = getIsTimeout(partStartTime, plannedHoursPart);
+            if (defectType != 5 && !isTimeout) {
+                return Result.fail(ResultEnum.DEFECT_NO_CLAIM_TIMEOUT);
+            }
         }
-        if ("C".equals(type) && defectType != 2) {
-            return Result.fail(ResultEnum.DEFECT_NO_FEEDBACK_TIMEOUT);
+        if ("C".equals(type)) {
+            plannedHoursPart = defect.getPlannedHoursPart2();
+            boolean isTimeout = getIsTimeout(partStartTime, plannedHoursPart);
+            if (defectType != 2 && !isTimeout) {
+                return Result.fail(ResultEnum.DEFECT_NO_FEEDBACK_TIMEOUT);
+            }
         }
-        if ("D".equals(type) && defectType != 3) {
-            return Result.fail(ResultEnum.DEFECT_NO_CHECK_TIMEOUT);
+        if ("D".equals(type)) {
+            plannedHoursPart = defect.getPlannedHoursPart3();
+            boolean isTimeout = getIsTimeout(partStartTime, plannedHoursPart);
+            if (defectType != 3 && !isTimeout) {
+                return Result.fail(ResultEnum.DEFECT_NO_CHECK_TIMEOUT);
+            }
         }
-        if ("E".equals(type) && defectType != 7) {
-            return Result.fail(ResultEnum.DEFECT_NO_END_TIMEOUT);
+        if ("E".equals(type)) {
+            plannedHoursPart = defect.getPlannedHoursPart7();
+            boolean isTimeout = getIsTimeout(partStartTime, plannedHoursPart);
+            if (defectType != 7 && !isTimeout) {
+                return Result.fail(ResultEnum.DEFECT_NO_END_TIMEOUT);
+            }
         }
         if ("Z".equals(type) && defectType == 6) {
             return Result.fail(ResultEnum.DEFECT_NO_HANDLE_TIMEOUT);
@@ -882,6 +905,36 @@ public class DefectController {
         defectService.updDefect(defect);
         return Result.ok();
     }
+
+    /**
+     * 是否超时时,true真,false假
+     */
+    private boolean getIsTimeout(String startTime, Double plannedHoursPart) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date nowDate = new Date();
+        Date partStartTime = null;
+        try {
+            partStartTime = sdf.parse(startTime);
+        } catch (ParseException e) {
+            return false;
+        }
+        Date thisDayTimeBegin9 = DateFormat.getThisDayTimeBegin(partStartTime, 1, 9);
+        Date thisDayTimeBegin17 = DateFormat.getThisDayTimeBegin(partStartTime, null, 17);
+        Date nextDayTimeBegin9 = DateFormat.getThisDayTimeBegin(partStartTime, 1, 9);
+        double middleFinalTimestamp = partStartTime.getTime() + plannedHoursPart * 60 * 60 * 1000;
+        if (partStartTime.getTime() < thisDayTimeBegin17.getTime() && middleFinalTimestamp > thisDayTimeBegin17.getTime()) {
+            middleFinalTimestamp += 16 * 60 * 60 * 1000;
+        } else if (partStartTime.getTime() > thisDayTimeBegin17.getTime() && middleFinalTimestamp < nextDayTimeBegin9.getTime()) {
+            middleFinalTimestamp += (nextDayTimeBegin9.getTime() - partStartTime.getTime());
+        } else if (middleFinalTimestamp < thisDayTimeBegin9.getTime()) {
+            middleFinalTimestamp += (thisDayTimeBegin9.getTime() - middleFinalTimestamp);
+        }
+        if (nowDate.getTime() > middleFinalTimestamp) {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 开始或者暂停,延时功能

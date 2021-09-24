@@ -342,11 +342,15 @@ public class DateFormat {
      * @param nHour 时间类型  夜班3:0~8,白班1:8~16,中班2:16~24,
      * @return
      */
-    public static Date getThisDayTimeBegin(Date date, int nDay, int nHour) {
+    public static Date getThisDayTimeBegin(Date date, Integer nDay, Integer nHour) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.DAY_OF_WEEK, nDay);
-        calendar.set(Calendar.HOUR_OF_DAY, nHour);//设置时为0点
+        if (nDay != null) {
+            calendar.add(Calendar.DAY_OF_MONTH, nDay);
+        }
+        if (nHour != null) {
+            calendar.set(Calendar.HOUR_OF_DAY, nHour);//设置时为0点
+        }
         calendar.set(Calendar.MINUTE, 0);//设置分钟为0分
         calendar.set(Calendar.SECOND, 0);//设置秒为0秒
         calendar.set(Calendar.MILLISECOND, 000);
