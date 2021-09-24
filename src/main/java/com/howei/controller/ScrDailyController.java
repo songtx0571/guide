@@ -27,7 +27,7 @@ public class ScrDailyController {
 
 
     @Autowired
-    com.howei.service.ScrDailyService ScrDailyService;
+    ScrDailyService scrDailyService;
 
     @Autowired
     WorkingService workingService;
@@ -131,7 +131,7 @@ public class ScrDailyController {
             successorTime=DateFormat.getYMDHM();
         }
         scrDaily.setSuccessorTime(successorTime);//接班时间
-        int num = ScrDailyService.addSuccessor(scrDaily);
+        int num = scrDailyService.addSuccessor(scrDaily);
 
         datetime=DateFormat.getYMD(datetime);
         //判断此用户当前是否存在正在进行的运行工时
@@ -160,7 +160,7 @@ public class ScrDailyController {
         ScrDaily.setId(id);
         ScrDaily.setDatetime(datetime);
         ScrDaily.setRecorder(name);
-        int num = ScrDailyService.addSuccessor2(ScrDaily);
+        int num = scrDailyService.addSuccessor2(ScrDaily);
         return new JsonResult(num);
     }
 
@@ -174,7 +174,7 @@ public class ScrDailyController {
      */
     @RequestMapping("delSuccessor")
     public JsonResult delSuccessor(int id, String userName, String name,String successorTime) {
-        int num = ScrDailyService.delSuccessor(id, userName, name,successorTime);
+        int num = scrDailyService.delSuccessor(id, userName, name,successorTime);
         return new JsonResult(num);
     }
 
@@ -214,7 +214,7 @@ public class ScrDailyController {
             tradersTime=DateFormat.getYMDHM();
         }
         scrDaily.setTradersTime(tradersTime);//接班时间
-        int num = ScrDailyService.addTrader(scrDaily);
+        int num = scrDailyService.addTrader(scrDaily);
 
         //转化日期：yyyy-mm-dd
         datetime=DateFormat.getYMD(datetime);
@@ -256,7 +256,7 @@ public class ScrDailyController {
      */
     @RequestMapping("delTrader")
     public JsonResult delTrader(int id, String userName, String name,String tradersTime) {
-        int num = ScrDailyService.delTrader(id, userName, name,tradersTime);
+        int num = scrDailyService.delTrader(id, userName, name,tradersTime);
         return new JsonResult(num);
     }
 
@@ -267,13 +267,13 @@ public class ScrDailyController {
             Users users=this.getPrincipal();
             project=users.getDepartmentId();
         }
-        ScrDailyRecord[] ScrDailyRecord = ScrDailyService.getScrDailyRecords(datetime, type, project, other);
+        ScrDailyRecord[] ScrDailyRecord = scrDailyService.getScrDailyRecords(datetime, type, project, other);
         return new JsonResult(ScrDailyRecord);
     }
 
     @RequestMapping("find1")
     public JsonResult find1(int scrDailyId) {
-        ScrDailyRecord[] ScrDailyRecord = ScrDailyService.getScrDailyRecordsByScrDailyId(scrDailyId);
+        ScrDailyRecord[] ScrDailyRecord = scrDailyService.getScrDailyRecordsByScrDailyId(scrDailyId);
         return new JsonResult(ScrDailyRecord);
     }
 
@@ -283,7 +283,7 @@ public class ScrDailyController {
             Users users=this.getPrincipal();
             project=users.getDepartmentId();
         }
-        ScrDaily[] scrDailys = ScrDailyService.getScrDailys(project, other);
+        ScrDaily[] scrDailys = scrDailyService.getScrDailys(project, other);
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < scrDailys.length; i++) {
             String dateTime=scrDailys[i].getDatetime();
@@ -300,13 +300,13 @@ public class ScrDailyController {
             Users users=this.getPrincipal();
             project=users.getDepartmentId();
         }
-        ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
+        ScrDaily scrDaily = scrDailyService.getScrDaily(datetime, type, project, other);
         return new JsonResult(scrDaily);
     }
 
     @RequestMapping("findscrDaily1")
     public JsonResult findscrDaily1(int id) throws ParseException {
-        ScrDaily scrDaily = ScrDailyService.getScrDailyById(id);
+        ScrDaily scrDaily = scrDailyService.getScrDailyById(id);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年M月d日");
         scrDaily.setDatetime(sdf1.format(sdf.parse(scrDaily.getDatetime())));
@@ -365,7 +365,7 @@ public class ScrDailyController {
     @RequestMapping("upd1")
     public ModelAndView upd1(int id, int type) {
         ModelAndView view = new ModelAndView();
-        ScrDailyRecord ScrDailyRecord = ScrDailyService.getScrDailyRecord(id);
+        ScrDailyRecord ScrDailyRecord = scrDailyService.getScrDailyRecord(id);
         view.addObject("ScrDailyRecord", ScrDailyRecord);
         if (type == 2) {
             if ("1".equals(ScrDailyRecord.getContent1())) {
@@ -387,7 +387,7 @@ public class ScrDailyController {
     @RequestMapping("upd")
     public ModelAndView upd(int id, int type) {
         ModelAndView view = new ModelAndView();
-        ScrDailyRecord ScrDailyRecord = ScrDailyService.getScrDailyRecord(id);
+        ScrDailyRecord ScrDailyRecord = scrDailyService.getScrDailyRecord(id);
         view.addObject("ScrDailyRecord", ScrDailyRecord);
         if (type == 2) {
             view.setViewName("ScrDailyupd2");
@@ -403,26 +403,26 @@ public class ScrDailyController {
 
     @RequestMapping("del")
     public JsonResult del(int id) {
-        int num = ScrDailyService.delScrDailyRecord(id);
+        int num = scrDailyService.delScrDailyRecord(id);
         return new JsonResult(num);
     }
 
     @RequestMapping("delScrDailys")
     public JsonResult delScrDailys(int id) {
-        int num = ScrDailyService.delScrDailys(id);
+        int num = scrDailyService.delScrDailys(id);
         return new JsonResult(num);
     }
 
     @RequestMapping("insert")
     public JsonResult insert(ScrDailyRecord ScrDailyRecord) {
-        int num = ScrDailyService.insertScrDailyRecord(ScrDailyRecord);
+        int num = scrDailyService.insertScrDailyRecord(ScrDailyRecord);
         return new JsonResult(num);
     }
 
     @RequestMapping("update")
     public JsonResult update(ScrDailyRecord ScrDailyRecord) {
         System.out.println(ScrDailyRecord);
-        int num = ScrDailyService.updateScrDailyRecord(ScrDailyRecord);
+        int num = scrDailyService.updateScrDailyRecord(ScrDailyRecord);
         return new JsonResult(num);
     }
 
@@ -434,7 +434,7 @@ public class ScrDailyController {
             project=users.getDepartmentId();
         }
         ModelAndView view = new ModelAndView();
-        ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
+        ScrDaily scrDaily = scrDailyService.getScrDaily(datetime, type, project, other);
         view.addObject("scrDaily", scrDaily);
         view.setViewName("scrDailyupd");
         return view;
@@ -447,7 +447,7 @@ public class ScrDailyController {
             projectId=users.getDepartmentId();
         }
         ScrDaily scrDaily = new ScrDaily(id, datetime, projectId, group, type, traders, successor, other);
-        int num = ScrDailyService.changeScrDaily(scrDaily);
+        int num = scrDailyService.changeScrDaily(scrDaily);
         return new JsonResult(num);
     }
 
@@ -473,7 +473,7 @@ public class ScrDailyController {
             type++;
         }
         datetime = sdf1.format(date);
-        ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
+        ScrDaily scrDaily = scrDailyService.getScrDaily(datetime, type, project, other);
         if (scrDaily.getId() == 0) {
             scrDaily.setDatetime(sdf.format(date));
         }
@@ -504,7 +504,7 @@ public class ScrDailyController {
         }
         datetime = sdf1.format(date);
 
-        ScrDaily scrDaily = ScrDailyService.getScrDaily(datetime, type, project, other);
+        ScrDaily scrDaily = scrDailyService.getScrDaily(datetime, type, project, other);
         if (scrDaily.getId() == 0) {
             scrDaily.setDatetime(sdf.format(date));
         }

@@ -24,6 +24,8 @@ public class MaintenanceRecord {
 
     private String Name;
 
+    private double overtime;
+
     public MaintenanceRecord(int id, int maintenanceId, int type, String content) {
         super();
         this.id = id;
@@ -50,7 +52,16 @@ public class MaintenanceRecord {
                 ", defectNumber='" + defectNumber + '\'' +
                 ", userName='" + userName + '\'' +
                 ", Name='" + Name + '\'' +
+                ", overtime=" + overtime +
                 '}';
+    }
+
+    public double getOvertime() {
+        return overtime;
+    }
+
+    public void setOvertime(double overtime) {
+        this.overtime = overtime;
     }
 
     public String getName() {

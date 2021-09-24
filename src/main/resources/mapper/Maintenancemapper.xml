@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.howei.mapper.MaintenanceMapper">
 
-	<select id="getMaintenanceByProject" resultType="com.howei.pojo.Maintenance">
+    <select id="getMaintenanceByProject" resultType="com.howei.pojo.Maintenance">
 		SELECT a.id,a.datetime,project_id projectId,leader,IFNULL(b.num,0) num,IFNULL(attendance,0) attendance,IFNULL(a.totalTime,0) totalTime,
 		(SELECT GROUP_CONCAT(c.userName ORDER BY FIND_IN_SET(c.userNumber,a.leader)) FROM users c WHERE FIND_IN_SET(c.userNumber,a.leader) ) AS leaderName
 		FROM maintenance a 
@@ -10,7 +10,7 @@
 		WHERE a.datetime = #{datetime} AND project_id = #{project}
  	</select>
 
-	<select id="getMaintenanceById" resultType="com.howei.pojo.Maintenance">
+    <select id="getMaintenanceById" resultType="com.howei.pojo.Maintenance">
 		SELECT a.id,a.datetime,project_id projectId,leader,COUNT(b.id) num,IFNULL(attendance,0) attendance,IFNULL(a.totalTime,0) totalTime,
 		(SELECT GROUP_CONCAT(c.userName ORDER BY FIND_IN_SET(c.userNumber,a.leader)) FROM users c WHERE FIND_IN_SET(c.userNumber,a.leader) ) AS leaderName
 		FROM maintenance a
@@ -18,7 +18,7 @@
  		WHERE a.id=#{id} AND b.type = 1 GROUP BY maintenanceId
 	</select>
 
-	<select id="getMaintenances" resultType="com.howei.pojo.Maintenance">
+    <select id="getMaintenances" resultType="com.howei.pojo.Maintenance">
 	SELECT
 	ANY_VALUE(a.id) id,ANY_VALUE(a.datetime) `datetime`,project_id projectId,ANY_VALUE(leader) leader,COUNT(b.id)   num,ANY_VALUE(IFNULL(attendance,0)) attendance,ANY_VALUE(IFNULL(a.totalTime,0)) totalTime,
 	(SELECT GROUP_CONCAT(c.userNumber ORDER BY FIND_IN_SET(c.userNumber,ANY_VALUE(a.leader))) FROM users c WHERE FIND_IN_SET(c.userName,ANY_VALUE(a.leader)) ) AS leaderName
@@ -27,16 +27,16 @@
 	</select>
 
 
-	<select id='getMaintenanceRecords' resultType="com.howei.pojo.MaintenanceRecord">
+    <select id='getMaintenanceRecords' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT a.id	id,b.id maintenanceId,a.type,a.content ,IFNULL(a.datetime,0) `datetime`,IFNULL(a.people,0) people,
-		IFNULL(a.workingHours,0) workingHours,IFNULL(a.defectNumber,0) defectNumber,
+		IFNULL(a.workingHours,0) workingHours,IFNULL(a.defectNumber,0) defectNumber,overtime
 		(SELECT GROUP_CONCAT(c.userName ORDER BY FIND_IN_SET(c.userNumber,a.people)) FROM users c WHERE FIND_IN_SET(c.userNumber,a.people) ) AS peopleName
 		FROM maintenanceRecord a
 		LEFT JOIN maintenance b ON b.id = a.maintenanceId
 		WHERE b.datetime = #{datetime} AND b.project_id = #{project}
 	</select>
 
-	<select id='getMaintenanceRecord' resultType="com.howei.pojo.MaintenanceRecord">
+    <select id='getMaintenanceRecord' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT id,maintenanceId,type,content,IFNULL(datetime,0) datetime,
 		IFNULL(people,0) people,IFNULL(workingHours,0) workingHours,IFNULL(defectNumber,0) defectNumber,
 		(SELECT GROUP_CONCAT(c.userName ORDER BY FIND_IN_SET(c.userNumber,a.people)) FROM users c WHERE FIND_IN_SET(c.userNumber,a.people) ) AS peopleName
@@ -44,7 +44,7 @@
 		WHERE id = #{id}
 	</select>
 
-	<select id='getMaintenanceRecordsByMaintenanceId' resultType="com.howei.pojo.MaintenanceRecord">
+    <select id='getMaintenanceRecordsByMaintenanceId' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT id ,maintenanceId,type,content,IFNULL(datetime,0) datetime,IFNULL(people,0) people,
 		IFNULL(workingHours,0) workingHours,IFNULL(defectNumber,0) defectNumber,
 		(SELECT GROUP_CONCAT(c.userName ORDER BY FIND_IN_SET(c.userNumber,a.people)) FROM users c WHERE FIND_IN_SET(c.userNumber,a.people) ) AS peopleName 
@@ -52,7 +52,7 @@
 		WHERE maintenanceId = #{maintenanceId}
 	</select>
 
-	<select id='getMaintenanceRecordsByMaintenanceId1' resultType="com.howei.pojo.MaintenanceRecord">
+    <select id='getMaintenanceRecordsByMaintenanceId1' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT id ,maintenanceId,type,content,IFNULL(datetime,0) datetime,IFNULL(people,0) people,
 		IFNULL(workingHours,0) workingHours,IFNULL(defectNumber,0) defectNumber,
 		(SELECT GROUP_CONCAT(c.userName ORDER BY FIND_IN_SET(c.userNumber,a.people)) FROM users c WHERE FIND_IN_SET(c.userNumber,a.people) ) AS peopleName 
@@ -60,76 +60,83 @@
 		WHERE type = 1 AND maintenanceId = #{maintenanceId}
 	</select>
 
-	<select id='getAttendance' resultType="java.lang.String">
+    <select id='getAttendance' resultType="java.lang.String">
 		SELECT GROUP_CONCAT(people) FROM  maintenanceRecord WHERE maintenanceId = #{maintenanceId} AND TYPE = 1;
 	</select>
 
-	<update id="updateMaintenanceAttendance">
+    <update id="updateMaintenanceAttendance">
 		UPDATE maintenance SET attendance = #{attendance} WHERE id = #{id}
 	</update>
 
-	<update id="updateMaintenanceTotalTime">
+    <update id="updateMaintenanceTotalTime">
 		UPDATE maintenance SET totalTime = #{totalTime} WHERE id = #{id}
 	</update>
-	<update id="updateMaintenance" parameterType="com.howei.pojo.Maintenance">
+    <update id="updateMaintenance" parameterType="com.howei.pojo.Maintenance">
 		UPDATE maintenance SET leader = #{maintenance.leader}, num = #{maintenance.num},attendance = ${maintenance.attendance} 
 		WHERE id = #{maintenance.id}
 	</update>
 
-	<insert id="insertMaintenance"  parameterType="com.howei.pojo.Maintenance">
+    <insert id="insertMaintenance" parameterType="com.howei.pojo.Maintenance">
 		INSERT ignore INTO maintenance(datetime,project_id,leader,num,attendance)
 		VALUES(#{maintenance.datetime},#{maintenance.projectId},#{maintenance.leader},#{maintenance.num},#{maintenance.attendance})
 			
 	</insert>
 
 
-
-	<insert id="insertMaintenanceRecord" parameterType="com.howei.pojo.MaintenanceRecord">
+    <insert id="insertMaintenanceRecord" parameterType="com.howei.pojo.MaintenanceRecord">
 		INSERT ignore INTO maintenanceRecord(maintenanceId,type,content)
 		VALUES(#{maintenanceRecord.maintenanceId},#{maintenanceRecord.type},#{maintenanceRecord.content})
 	</insert>
 
-	<insert id="insertMaintenanceRecordALL" parameterType="com.howei.pojo.MaintenanceRecord">
+    <insert id="insertMaintenanceRecordALL" parameterType="com.howei.pojo.MaintenanceRecord">
 		INSERT ignore INTO maintenanceRecord(maintenanceId,type,content,datetime,people,workingHours,defectNumber)
 		VALUES(#{maintenanceRecord.maintenanceId},#{maintenanceRecord.type},#{maintenanceRecord.content},
 		#{maintenanceRecord.datetime},#{maintenanceRecord.people},#{maintenanceRecord.workingHours},#{maintenanceRecord.defectNumber})
 	</insert>
 
-	<update  id="updateMaintenanceRecord" parameterType="com.howei.pojo.MaintenanceRecord">
+    <update id="updateMaintenanceRecord" parameterType="com.howei.pojo.MaintenanceRecord">
 		UPDATE maintenanceRecord SET content = #{maintenanceRecord.content} WHERE id = #{maintenanceRecord.id}
 	</update>
-	<update  id="updateMaintenanceRecordALL" parameterType="com.howei.pojo.MaintenanceRecord">
+    <update id="updateMaintenanceRecordALL" parameterType="com.howei.pojo.MaintenanceRecord">
 		UPDATE maintenanceRecord SET content = #{maintenanceRecord.content},people =#{maintenanceRecord.people},
 		defectNumber = #{maintenanceRecord.defectNumber}
 		WHERE id = #{maintenanceRecord.id}
 	</update>
-	<update  id="updateMaintenanceRecordALL1" parameterType="com.howei.pojo.MaintenanceRecord">
-		UPDATE maintenanceRecord SET workingHours = #{maintenanceRecord.workingHours}
-		WHERE id = #{maintenanceRecord.id}
-	</update>
+    <update id="updateMaintenanceRecordALL1" parameterType="com.howei.pojo.MaintenanceRecord">
+        UPDATE maintenanceRecord
+        <set>
+            <if test="maintenanceRecord.workingHours !=null">
+                workingHours = #{maintenanceRecord.workingHours},
+            </if>
+            <if test="maintenanceRecord.overtime !=null">
+                overtime = #{maintenanceRecord.overtime},
+            </if>
+        </set>
+        WHERE id = #{maintenanceRecord.id}
+    </update>
 
-	<delete id="delMaintenance">
+    <delete id="delMaintenance">
 		delete from maintenance where id = #{id}
 	</delete>
-	<delete id="delMaintenanceRecord">
+    <delete id="delMaintenanceRecord">
 		delete from maintenanceRecord where id = #{id}
 	</delete>
-	<delete id="delMaintenanceRecordByMaintenanceId">
+    <delete id="delMaintenanceRecordByMaintenanceId">
 		delete from maintenanceRecord where maintenanceId = = #{maintenanceId}
 	</delete>
 
-	<insert id='insertMaintenanceByLeader'  parameterType="com.howei.pojo.MaintenanceRecord">
+    <insert id='insertMaintenanceByLeader' parameterType="com.howei.pojo.MaintenanceRecord">
 		INSERT ignore INTO maintenance(datetime,project_id,leader)
 		VALUES(#{maintenance.datetime},#{maintenance.projectId},#{maintenance.leader})
 	</insert>
-	<update id='addLeader'  parameterType="com.howei.pojo.MaintenanceRecord">
+    <update id='addLeader' parameterType="com.howei.pojo.MaintenanceRecord">
 		UPDATE maintenance SET leader = #{maintenance.leader} WHERE id = #{maintenance.id}
 	</update>
 
-	<select id="getDefectList" resultType="com.howei.pojo.Defect">
+    <select id="getDefectList" resultType="com.howei.pojo.Defect">
 		select * from defect where company=1 and `type`=4 and DATE_FORMAT(confirmer1Time,'%Y-%m-%d')=DATE_FORMAT(#{date},'%Y-%m-%d') and departmentId=#{departmentId}
 	</select>
-	<select id="getMaintainRecordList" resultMap="maintainRecordMap">
+    <select id="getMaintainRecordList" resultMap="maintainRecordMap">
 		   SELECT
         e.`name` AS system_name,
         e1.`name` AS equipment_name,
@@ -146,25 +153,25 @@
 			and DATE_FORMAT(mr.end_time,'%Y-%m-%d')=DATE_FORMAT(#{date},'%Y-%m-%d')
 			and mr.department_id=#{departmentId}
 	</select>
-	<resultMap id="maintainRecordMap" type="com.howei.pojo.MaintainRecord">
-		<id column="id" property="id"/>
-		<result column="maintain_id" property="maintainId"/>
-		<result column="maintain_record_no" property="maintainRecordNo"/>
-		<result column="department_id" property="departmentId"/>
-		<result column="employee_id" property="employeeId"/>
+    <resultMap id="maintainRecordMap" type="com.howei.pojo.MaintainRecord">
+        <id column="id" property="id"/>
+        <result column="maintain_id" property="maintainId"/>
+        <result column="maintain_record_no" property="maintainRecordNo"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="employee_id" property="employeeId"/>
 
-		<result column="work_feedback" property="workFeedback"/>
-		<result column="start_time" property="startTime"/>
-		<result column="end_time" property="endTime"/>
-		<result column="working_hour" property="workingHour"/>
-		<result column="status" property="status"/>
-		<result column="create_time" property="createTime"/>
-		<result column="update_time" property="updateTime"/>
-		<result column="start_time" property="startTime"/>
+        <result column="work_feedback" property="workFeedback"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="working_hour" property="workingHour"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="start_time" property="startTime"/>
 
-		<result column="system_name" property="systemName"/>
-		<result column="equipment_name" property="equipmentName"/>
-		<result column="unit_name" property="unitName"/>
-	</resultMap>
+        <result column="system_name" property="systemName"/>
+        <result column="equipment_name" property="equipmentName"/>
+        <result column="unit_name" property="unitName"/>
+    </resultMap>
 
 </mapper>
