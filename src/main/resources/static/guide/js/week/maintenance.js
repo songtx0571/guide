@@ -203,7 +203,7 @@ function fill(data){
 		var tr = document.createElement("tr");
 		tr.setAttribute("id", "123");
 		if(data[i].type==1){
-			var td = "<td>"+index1+"</td><td>"+data[i].defectNumber+"</td><td colspan='4'>"+data[i].content+"</td>";
+			var td = "<td>"+index1+"</td><td>"+data[i].defectNumber+"</td><td colspan='3'>"+data[i].content+"</td>";
 			if(data[i].peopleName==null){
 				td += "<td></td>";
 			}else{
@@ -215,7 +215,7 @@ function fill(data){
 				}
 			}
 
-			td += "<td onclick='updWorkingHours("+data[i].id+")'>"+data[i].workingHours+"h</td><td>"+data[i].datetime+"</td>"+
+			td += "<td onclick='updWorkingHours("+data[i].id+")'>"+data[i].workingHours+"h</td><td onclick='updOvertime("+data[i].id+","+data[i].maintenanceId+","+data[i].overtime+")'>"+data[i].overtime+"</td><td>"+data[i].datetime+"</td>"+
 				"<td><img src='../img/week/update.png' onclick='upd("+data[i].id+","+data[i].type+")'/>" +
 				"<img src='../img/week/delete.png' onclick='del("+data[i].id+","+data[i].type+")'/></td>"
 			index1++;
@@ -483,4 +483,43 @@ function updWorkingHours(id){
 		area: ['100%', '100%'],
 		content: '../MaintenanceController/updMaintenanceRecord1?id='+id
 	});
+}
+var updOvertimeId;
+var updOvertimeMaintenanceId;
+//修改工作安排加班工时
+function updOvertime (id,maintenanceId,updOvertimeI) {
+	updOvertimeId = id;
+	updOvertimeMaintenanceId = maintenanceId;
+	$("#overTimeInp").val(updOvertimeI)
+	layer.open({
+		type: 1
+		,title:["检修工时修改",'font-size:20px;font-weight:bold;']
+		,content: $(".updOvertimeDiv")
+		,btnAlign: 'c' //按钮居中
+		,shade: 0.5 //不显示遮罩
+		,area: ['100%', '100%']
+		,yes: function(){}
+	});
+}
+function updOvertimeFun () {
+	var id = updOvertimeId;
+	var type = 1;
+	var overtime = $('#overTimeInp').val();
+	var maintenanceId = updOvertimeMaintenanceId;
+	$.ajax({
+		"type" : 'post',
+		"url": "../MaintenanceController/updateMaintenanceRecord1",
+		"data":{id:id,type:type,overtime:overtime,maintenanceId:maintenanceId},
+		"success":function(Json){
+			layer.alert('添加成功',{icon:1});
+			setTimeout(function(){window.location.href="../MaintenanceController/Maintenance";},500);
+		},
+		"error":function(){
+			layer.alert("系统繁忙");
+		}
+	});
+}
+// 取消
+function back() {
+	layer.closeAll();
 }

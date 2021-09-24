@@ -29,7 +29,7 @@
 
     <select id='getMaintenanceRecords' resultType="com.howei.pojo.MaintenanceRecord">
 		SELECT a.id	id,b.id maintenanceId,a.type,a.content ,IFNULL(a.datetime,0) `datetime`,IFNULL(a.people,0) people,
-		IFNULL(a.workingHours,0) workingHours,IFNULL(a.defectNumber,0) defectNumber,overtime
+		IFNULL(a.workingHours,0) workingHours,IFNULL(a.defectNumber,0) defectNumber,overtime,
 		(SELECT GROUP_CONCAT(c.userName ORDER BY FIND_IN_SET(c.userNumber,a.people)) FROM users c WHERE FIND_IN_SET(c.userNumber,a.people) ) AS peopleName
 		FROM maintenanceRecord a
 		LEFT JOIN maintenance b ON b.id = a.maintenanceId
