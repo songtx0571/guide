@@ -379,6 +379,7 @@ public class DefectController {
                     defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
                     defect.setDelayETime(delayETime);//延期结束时间
                     defect.setDelayReason(delayReason);//延期理由
+                    defect.setTimeoutType("");
                     defectService.updDefect(defect);
                     return Result.ok();
                 } else {
@@ -450,6 +451,7 @@ public class DefectController {
             defect.setRealETime("");//实际检修结束时间
             defect.setRealSTime("");//实际检修开始时间
             defect.setEmpIds("");//执行人员
+            defect.setTimeoutType("");
             //设置认领数据为空
         } else {
             if (empIds != null) {
