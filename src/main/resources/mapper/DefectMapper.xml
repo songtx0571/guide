@@ -50,7 +50,7 @@
                 and de.confirmer1=#{confirmer1}
             </if>
             <if test="empId!=null">
-                and locate(#{empId},de.empIds))
+                and locate(#{empId},de.empIds)
             </if>
             <if test="createTime!=null">
                 and DATE_FORMAT( de.created,'%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d')
