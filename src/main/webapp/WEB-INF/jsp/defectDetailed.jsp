@@ -7,7 +7,7 @@
     <script src="../js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
     <style>
         .detailedInfoDiv table{
-            width: 850px;
+            width: 920px;
             margin: 0 auto;
         }
          .detailedInfoDiv table tr{
@@ -52,40 +52,42 @@
             <th style="padding-right: 8px;box-sizing: border-box;">缺陷编号</th>
             <td id="detailedInfoNumber"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">所属系统</th>
-            <td colspan="4" id="detailedInfoSys"></td>
+            <td colspan="2" id="detailedInfoSys"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">级别</th>
-            <td colspan="2" id="detailedInfoLevel"></td>
-        </tr>
-        <tr>
+            <td id="detailedInfoLevel"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">处理类别</th>
             <td id="detailedInfoMan"></td>
+        </tr>
+        <tr>
+
             <th style="padding-right: 8px;box-sizing: border-box;">创建时间</th>
             <td colspan="2" id="detailedInfoCreateTime"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">创建人</th>
             <td id="detailedInfoCreateName"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">开始时间</th>
             <td id="detailedInfoRealSTime"></td>
+            <th style="padding-right: 8px;box-sizing: border-box;">状态</th>
+            <td id="detailedInfoStatus"></td>
         </tr>
         <tr>
-            <th style="padding-right: 8px;box-sizing: border-box;">状态</th>
-            <td colspan="2" id="detailedInfoStatus"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">延期时间</th>
             <td id="detailedInfoBelayTime"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">延期原由</th>
             <td id="detailedInfoBelay"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">来源</th>
             <td id="detailedInfoSourceType"></td>
-        </tr>
-        <tr>
             <th style="padding-right: 8px;box-sizing: border-box;">消缺人</th>
             <td colspan="2" id="detailedInfoStaff"></td>
+        </tr>
+        <tr>
             <th style="padding-right: 8px;box-sizing: border-box;">实际完成时间</th>
-            <td id="detailedInfoRealETime"></td>
+            <td colspan="2" id="detailedInfoRealETime"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">计划工时</th>
             <td id="detailedInfoPlannedWork"></td>
             <th style="padding-right: 8px;box-sizing: border-box;">实际工时</th>
-            <td  id="detailedInfoRealExecuteTime"></td>
-
+            <td id="detailedInfoRealExecuteTime"></td>
+            <th style="padding-right: 8px;box-sizing: border-box;">加班工时</th>
+            <td id="detailedInfoOvertime"></td>
         </tr>
         <tr>
             <th style="padding-right: 8px;box-sizing: border-box;">缺陷描述</th>
@@ -176,6 +178,7 @@
             $("#detailedInfoCreateTime").text(data.created);//创建时间
             $("#detailedInfoPlannedWork").text(data.plannedWork);//计划工时
             $("#detailedInfoRealExecuteTime").text(data.realExecuteTime);//实际工时
+            $("#detailedInfoOvertime").text(data.overtime);//加班工时
             $("#detailedInfoRealSTime").text(data.realSTime);//开始时间
             if (data.delayReason == 1) {
                 $("#detailedInfoBelay").text('等待备件');//延期原由

@@ -197,7 +197,7 @@ function crePostData(data) {
     systemId = workPerators[0].systemId;//系统Id
     equipId = workPerators[0].equipId;//设备Id
     equipment = workPerators[0].equipment;//系统设备名
-    html += '<div id="equipment0" label="'+systemId+','+equipId+'" style="font-size: 30px;display: inline-block;">' + equipment + '</div>';
+    html += '<div id="equipment0" label="'+systemId+','+equipId+'" style="font-size: 30px;display: inline-block;">第1页/总'+workPerators.length+'页--' + equipment + '</div>';
     $("#foodBody").html(html);
     //打开
     showPatrolTask($("#postId").val(), systemId, equipId)
@@ -317,7 +317,7 @@ function backForward(count) {
     var equipment = workPerators[index].equipment;
     var systemId = workPerators[index].systemId;
     //显示系统和设备
-    $('#foodBody').html('<div id="equipment' + index + '" label="'+systemId+','+equipId+'" style="font-size: 30px;display: inline-block;">' + equipment + '</div>');
+    $('#foodBody').html('<div id="equipment' + index + '" label="'+systemId+','+equipId+'" style="font-size: 30px;display: inline-block;">第'+(index+1)+'页/总'+workPerators.length+'页--' + equipment + '</div>');
     // 渲染当前任务输入列表
     showPatrolTask($("#postId").val(), systemId, equipId);
 }

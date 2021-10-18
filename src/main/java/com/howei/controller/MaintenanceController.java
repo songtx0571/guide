@@ -315,6 +315,7 @@ public class MaintenanceController {
                 map.put("empIdsName", empIdsName);
                 map.put("realExecuteTime", defect.getRealExecuteTime());
                 map.put("confirmer1Time", defect.getConfirmer1Time());
+                map.put("overtime", defect.getOvertime());
                 map.put("type", 0);
                 mapList.add(map);
             }

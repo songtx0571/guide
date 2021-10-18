@@ -59,7 +59,8 @@
             <td width='42%' colspan="4">内容</td>
             <td width='18%'>人员</td>
             <td width="5">工时</td>
-            <td width='15%' colspan="2">完成时间</td>
+            <td width="2">加班工时</td>
+            <td width='15%'>完成时间</td>
         </tr>
         </thead>
         <tbody id='tbody0'></tbody>

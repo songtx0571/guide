@@ -56,7 +56,7 @@
                 and DATE_FORMAT( de.created,'%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d')
             </if>
             <if test="startTime!=null and endTime!=null">
-                and ( de.created between #{startTime} and #{endTime} )
+                and ( de.created between #{startTime} and #{endTime})
             </if>
         </where>
         order by de.created desc
