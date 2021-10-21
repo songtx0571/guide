@@ -293,8 +293,15 @@ public class MaintainController {
         }
         Company company = companyService.getCompanyById(departmentId.toString());
         DecimalFormat df = new DecimalFormat("00000");
-        String maintainRecoreNo = company.getCodeName() + "W" + df.format(count);
-        maintainRecord.setMaintainRecordNo(maintainRecoreNo);
+        String maintainRecordNo = company.getCodeName() + "W" + df.format(count);
+        map.clear();
+        map.put("maintainRecordNo", maintainRecordNo);
+        List<MaintainRecord> maintainRecordByNo = maintainService.getMaintainRecordByMap(map);
+        if (maintainRecordByNo != null && maintainRecordByNo.size() > 0) {
+            return Result.fail("该记录已经存在,请重新分配");
+        }
+
+        maintainRecord.setMaintainRecordNo(maintainRecordNo);
         maintainRecord.setClaimTime(sdf.format(new Date()));
         maintainRecord.setCreateTime(date);
         maintainRecord.setUpdateTime(date);

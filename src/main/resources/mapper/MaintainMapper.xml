@@ -159,6 +159,7 @@
         LEFT JOIN unit u ON u.id = mr.unit_id
         WHERE
         1 = 1
+        <if test="map.maintainRecordNo!=null">and mr.maintain_record_no=#{map.maintainRecordNo}</if>
         <if test="map.departmentId!=null">and mr.department_id=#{map.departmentId}</if>
         <if test="map.id!=null">and mr.id=#{map.id}</if>
         <if test="map.status!=null and map.status==1">
@@ -176,7 +177,7 @@
         <if test="map.employeeIdList!=null">
             and
             <foreach collection="map.employeeIdList" item="employeeId" open="(" close=")" separator=" or">
-                 mr.employee_id like concat("%",#{employeeId},"%")
+                mr.employee_id like concat("%",#{employeeId},"%")
             </foreach>
         </if>
         order by mr.end_time desc ,mr.create_time desc

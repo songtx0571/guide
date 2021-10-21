@@ -594,7 +594,7 @@ public class DefectController {
         Integer logUserEmployeeId = users.getEmployeeId();
         List<String> employeeIdList = new ArrayList<>();
         employeeIdList.add(logUserEmployeeId.toString());
-        List<Employee> rootList = employeeService.getEmployeeByManager(logUserEmployeeId);
+        List<Employee> rootList = employeeService.getEmployeeByManager(0);
         List<Employee> empList = employeeService.getEmployeeByManager(0);
         ListUtils.getChildEmployeeId(rootList, empList, employeeIdList, null);
         if (employeeIdList.size() > 0) {
