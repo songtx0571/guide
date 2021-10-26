@@ -263,7 +263,7 @@ public class MaintenanceController {
         Date date = sdf.parse(datetime);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(calendar.DATE, -1);
+        calendar.add(Calendar.DATE, -1);
         date = calendar.getTime();
         datetime = sdf.format(date);
 
@@ -342,6 +342,6 @@ public class MaintenanceController {
                 mapList.add(map);
             }
         }
-        return new JsonResult( mapList);
+        return new JsonResult(mapList);
     }
 }

@@ -179,12 +179,13 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
     @Override
     public int addLeader(Maintenance maintenance) {
-        if (maintenance.getId() == 0) {
-            int num = maintenancemapper.insertMaintenanceByLeader(maintenance);
-            return num;
+        String datetime = maintenance.getDatetime();
+        int projectId = maintenance.getProjectId();
+        Maintenance maintenanceByProject = this.maintenancemapper.getMaintenanceByProject(datetime, projectId);
+        if (maintenance.getId() == 0 || maintenanceByProject == null) {
+            return maintenancemapper.insertMaintenanceByLeader(maintenance);
         } else {
-            int num = maintenancemapper.addLeader(maintenance);
-            return num;
+            return maintenancemapper.addLeader(maintenance);
         }
     }
 
