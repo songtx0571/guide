@@ -3,10 +3,7 @@ package com.howei.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.howei.pojo.*;
-import com.howei.service.CompanyService;
-import com.howei.service.DefectService;
-import com.howei.service.EmployeeService;
-import com.howei.service.EquipmentService;
+import com.howei.service.*;
 import com.howei.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -38,6 +35,8 @@ import static org.apache.shiro.authz.annotation.Logical.AND;
 @RequestMapping("guide/defect")
 @CrossOrigin
 public class DefectController {
+    @Autowired
+    private KnowledgeService knowledgeService;
 
     @Autowired
     private DefectService defectService;
@@ -1016,6 +1015,26 @@ public class DefectController {
             defectService.updDefect(defect);
             return Result.ok("加时成功,第" + (times + 1) + "次加时,增加" + additionalTime + "小时");
         }
+    }
+
+
+    @GetMapping("/listKnowledge")
+    @ResponseBody
+    public Result getAllKnowledge(
+            @RequestParam(required = false) int type,
+            @RequestParam(required = false) String searchWord
+    ) {
+        Users users = (Users) SecurityUtils.getSubject().getPrincipal();
+        if (users == null) {
+            return Result.fail(ResultEnum.NO_USER);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", type);
+        if (searchWord != null && !"".equals(searchWord.trim())) {
+            map.put("searchWord", "%" + searchWord + "%");
+        }
+        List<Knowledge> knowledgeList = knowledgeService.getByMap(map);
+        return Result.ok(knowledgeList.size(), knowledgeList);
     }
 
 }

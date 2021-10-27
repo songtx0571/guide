@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.howei.mapper.KnowledgeMapper">
+    <resultMap id="baseMap" type="com.howei.pojo.Knowledge">
+        <id property="id" column="id"></id>
+        <result column="employee_id" property="employeeId"></result>
+        <result column="employee_name" property="employeeName"></result>
+        <result column="title" property="title"></result>
+        <result column="keyword" property="keyword"></result>
+        <result column="content" property="content"></result>
+        <result column="title" property="title"></result>
+        <result column="remark" property="remark"></result>
+        <result column="status" property="status"></result>
+        <result column="type" property="type"></result>
+        <result column="heat" property="heat"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="passTime" property="passTime"></result>
+        <collection property="checkedEmployee" resultMap="employeeMap"></collection>
+    </resultMap>
+    <resultMap id="employeeMap" type="map">
+        <result column="kcr_id" property="kcrId"></result>
+        <result column="check_employee_id" property="checkEmployeeId"></result>
+        <result column="check_employee_name" property="checkEmployeeName"></result>
+    </resultMap>
+    <select id="getByMap" resultMap="baseMap">
+        SELECT
+        DATE_FORMAT(k.create_time,"%Y-%m-%d %H:%i:%s") create_time,
+        k.*,
+        kcr.id kcr_id,
+        kcr.employee_id check_employee_id,
+        kcr.employee_name check_employee_name
+        FROM
+        knowledge k
+        JOIN employee e ON k.employee_id = e.id
+        LEFT JOIN knowledge_check_record kcr ON kcr.knowledge_id = k.id
+        WHERE
+        k.type =#{map.type}
+        <if test="employeeId!=null">
+            and k.employee_id = #{ employeeId}
+        </if>
+        <if test="searchWord!=null and searchWord!='' ">
+            and (
+            k.title like #{ searchWord}
+            or
+            k.keyword like #{ searchWord}
+            )
+        </if>
+
+        order by k.heat desc
+
+    </select>
+</mapper>
