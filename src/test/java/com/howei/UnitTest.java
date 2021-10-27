@@ -58,42 +58,43 @@ public class UnitTest {
 
     /**
      * 获取测点类型
+     *
      * @return
      */
     //@Test
     @DisplayName("巡检数据来源")
-    public void test(){
-        String type="2";
-        String postPeratorId="956";
-        String dataType="1";
-        List<Map<String,Object>> list=new ArrayList<>();
-        List<?> unitList=new ArrayList<>();
-        WorkPerator workPerator=workPeratorService.selWorkperator(postPeratorId);
-        Map map1=new HashMap();
-        if(workPerator!=null) {
+    public void test() {
+        String type = "2";
+        String postPeratorId = "956";
+        String dataType = "1";
+        List<Map<String, Object>> list = new ArrayList<>();
+        List<?> unitList = new ArrayList<>();
+        WorkPerator workPerator = workPeratorService.selWorkperator(postPeratorId);
+        Map map1 = new HashMap();
+        if (workPerator != null) {
             //map1.put("department",workPerator.getProjectDepartment());
-            map1.put("department",18);
+            map1.put("department", 18);
         }
-        if(type.equals("1")){
-            map1.put("type",'1');
-        }else if(type.equals("2")){
-            map1.put("type",'2');
+        if (type.equals("1")) {
+            map1.put("type", '1');
+        } else if (type.equals("2")) {
+            map1.put("type", '2');
         }
 
-        if(dataType!=null){
-            if(dataType.equals("0")){//人工数据
-                unitList=unitService.getUnityMap(map1);
-            }else if(dataType.equals("1")){//ai数据
+        if (dataType != null) {
+            if (dataType.equals("0")) {//人工数据
+                unitList = unitService.getUnityMap(map1);
+            } else if (dataType.equals("1")) {//ai数据
                 unitList = dataConfigurationService.getMeasuringType(map1);
             }
         }
-        if(unitList!=null){
-            for(int i=0;i<unitList.size();i++){
-                Unit unit=(Unit)unitList.get(i);
-                Map<String,Object> map=new HashMap<>();
-                map.put("id",unit.getId());
-                map.put("name",unit.getNuit());//获取测点
-                System.out.println("id:"+unit.getId()+"   "+"name:"+unit.getNuit());
+        if (unitList != null) {
+            for (int i = 0; i < unitList.size(); i++) {
+                Unit unit = (Unit) unitList.get(i);
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", unit.getId());
+                map.put("name", unit.getNuit());//获取测点
+                System.out.println("id:" + unit.getId() + "   " + "name:" + unit.getNuit());
                 list.add(map);
             }
         }
@@ -101,12 +102,12 @@ public class UnitTest {
 
     //@Test
     @DisplayName("获取周期")
-    public void a(){
+    public void a() {
         String today = "2021-04-16";
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        Date date1=null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = null;
         try {
-            date1=dateFormat.parse(today);
+            date1 = dateFormat.parse(today);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -141,10 +142,10 @@ public class UnitTest {
         System.out.println(dateEnd);
     }
 
-   // @Test
+    // @Test
     @DisplayName("获取管理用户")
-    public void getUserMap(){
-        Integer employeeId=230;
+    public void getUserMap() {
+        Integer employeeId = 230;
         String empIdStr = "";
         List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
         if (rootList != null) {
@@ -160,61 +161,61 @@ public class UnitTest {
         }
         Map map = new HashMap();
         map.put("empId", empIdStr);
-        List<Map<String,Object>> list=employeeService.getEmpMap(map);
+        List<Map<String, Object>> list = employeeService.getEmpMap(map);
         for (int i = 0; i < list.size(); i++) {
-            Map map2=list.get(i);
+            Map map2 = list.get(i);
             System.out.println(map2.get("text"));
         }
     }
 
-    public String getUsersId(Integer empId,List<Employee> empList){
-        List<String> result=new ArrayList<>();
-        String userId="";
-        String usersId="";
-        for(Employee employee:empList){
-            if(employee.getManager()!=null||employee.getManager()!=0){
-                if(employee.getManager().equals(empId)){
-                    usersId+=employee.getId()+",";
-                    result.add(employee.getId()+"");
+    public String getUsersId(Integer empId, List<Employee> empList) {
+        List<String> result = new ArrayList<>();
+        String userId = "";
+        String usersId = "";
+        for (Employee employee : empList) {
+            if (employee.getManager() != null || employee.getManager() != 0) {
+                if (employee.getManager().equals(empId)) {
+                    usersId += employee.getId() + ",";
+                    result.add(employee.getId() + "");
                 }
             }
         }
-        for(String str:result){
-            String userId1=getUsersId(Integer.parseInt(str),empList);
-            if(userId1!=null&&!userId1.equals("")){
-                userId+=userId1;
+        for (String str : result) {
+            String userId1 = getUsersId(Integer.parseInt(str), empList);
+            if (userId1 != null && !userId1.equals("")) {
+                userId += userId1;
             }
         }
-        if(userId!=null&&!userId.equals("null")){
-            usersId+=userId;
+        if (userId != null && !userId.equals("null")) {
+            usersId += userId;
         }
         return usersId;
     }
 
     //@Test
     @DisplayName("修改工时")
-    public void upd()throws ParseException{
+    public void upd() throws ParseException {
 
-        List<Defect> list=defectService.getDefectList(new HashMap());
-        if(list!=null){
-            for (int i = 0; i <list.size() ; i++) {
-                Defect defect=list.get(i);
-                if(defect!=null){
-                    String sTime=defect.getRealSTime();//开始时间
-                    String eTime=defect.getRealETime();//结束时间
-                    Double planndeTime=defect.getPlannedWork();
-                    if(sTime!=null && eTime!=null && !sTime.equals("") && !eTime.equals("")){
-                        Double bothNH=com.howei.util.DateFormat.getBothNH(sTime,eTime);
-                        if(planndeTime!=null && !planndeTime.equals("")){
-                            if(planndeTime<bothNH){
+        List<Defect> list = defectService.getDefectList(new HashMap());
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                Defect defect = list.get(i);
+                if (defect != null) {
+                    String sTime = defect.getRealSTime();//开始时间
+                    String eTime = defect.getRealETime();//结束时间
+                    Double planndeTime = defect.getPlannedWork();
+                    if (sTime != null && eTime != null && !sTime.equals("") && !eTime.equals("")) {
+                        Double bothNH = com.howei.util.DateFormat.getBothNH(sTime, eTime);
+                        if (planndeTime != null && !planndeTime.equals("")) {
+                            if (planndeTime < bothNH) {
                                 defect.setRealExecuteTime(planndeTime);
-                            }else{
+                            } else {
                                 defect.setRealExecuteTime(bothNH);
                             }
-                        }else{
+                        } else {
                             defect.setRealExecuteTime(bothNH);
                         }
-                        System.out.println("执行记录:"+i+" ;id="+defect.getId());
+                        System.out.println("执行记录:" + i + " ;id=" + defect.getId());
                         defectService.updDefect(defect);
                     }
                 }
@@ -224,16 +225,16 @@ public class UnitTest {
 
     @Test
     @DisplayName("修改工时")
-    public void updEqu(){
-        Integer departmentId=17;
-        Integer type=1;
-        String nameB="氨水储存";//修改前名称
-        String nameA="氨水储存系统";//修改后名称
-        Map map=new HashMap();
-        map.put("departmentId",departmentId);
-        map.put("type",type);
-        map.put("nameB",nameB);
-        map.put("nameA",nameA);
+    public void updEqu() {
+        Integer departmentId = 17;
+        Integer type = 1;
+        String nameB = "氨水储存";//修改前名称
+        String nameA = "氨水储存系统";//修改后名称
+        Map map = new HashMap();
+        map.put("departmentId", departmentId);
+        map.put("type", type);
+        map.put("nameB", nameB);
+        map.put("nameA", nameA);
         /*workPeratorService.getTemplateChildList();
 
         if(result>0){

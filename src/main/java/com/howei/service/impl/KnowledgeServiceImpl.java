@@ -4,10 +4,12 @@ import com.howei.mapper.KnowledgeMapper;
 import com.howei.pojo.Knowledge;
 import com.howei.service.KnowledgeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class KnowledgeServiceImpl implements KnowledgeService {
     @Autowired
     private KnowledgeMapper mapper;
