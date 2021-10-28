@@ -1,5 +1,6 @@
 var path = "/guide";
-// var path = "http://192.168.1.186:8082/guide";
+var documentPage = 0;// 文档库
+var documentData;//文档库数据
 var index = 0;
 var addSystemName = "";
 var addEquipmentName = "";
@@ -143,8 +144,9 @@ function getHis(sysId, euqipmentId) {
     var w = window.innerWidth;
     $("#addDefectDiv table").css("margin-left", "10px");
     var width = ((w - 560) - 20) + "px";
-    $(".addHistory").css("display", "block");
+    $(".addHistoryDiv").css("display", "block");
     $(".addHistory").css("width", width);
+    $(".addHistory").css("display", "block");
     $.ajax({
         type: 'GET',
         url: path + "/defect/getDefectHistiryByEqu",
@@ -178,6 +180,73 @@ function getHis(sysId, euqipmentId) {
             }
         }
     });
+}
+
+//关键字查看
+function getKeyword (word) {
+    var ul = $(".keywordUl");
+    var w = window.innerWidth;
+    $("#addDefectDiv table").css("margin-left", "10px");
+    var width = ((w - 560) - 20) + "px";
+    $(".addHistoryDiv").css("display", "block");
+    $(".keyword").css("display", "block");
+    $(".keyword").css("width", width);
+    $.ajax({
+        type: 'GET',
+        url: path + "/defect/listKnowledge",
+        data: {type: 1,searchWord:word},
+        success: function (data) {
+            if (data.code == 0 || data.code == 200) {
+                data = data.data
+                $(".keywordTitle").html("文档库<span onclick='hideKeyword()' style='display: inline-block;font-weight: bold;float: right;margin-right: 10px;cursor: pointer;'>×</span>");
+                if (data == "") {
+                    ul.html("<li style='text-align: center;line-height: 45px;border: none;font-size: 25px;'>无记录!</li>");
+                } else {
+                    ul.html("");
+                    var li = "";
+                    documentData = data;
+                    for (var i = 0; i < data.length; i++) {
+                        li += "<li onclick='backDocument("+i+")'><span style='cursor: pointer;'>"+data[i].title+"</span></li>";
+                    }
+                    ul.html(li)
+                }
+            } else {
+                layer.alert(data.msg);
+            }
+
+        }
+    });
+
+}
+//隐藏关键字
+function hideKeyword () {
+    $(".keyword").css("display", "none");
+}
+
+//跳转到文档库页面
+function backDocument (i) {
+    var data = documentData[i];
+    $("#title").val(data.title);
+    $("#keyword").val(data.keyword);
+    $("#content").html(data.content);
+    layui.use('layer', function () { //独立版的layer无需执行这一句
+        var layer = layui.layer; //独立版的layer无需执行这一句
+        documentPage = layer.open({
+            type: 1
+            , id: 'documentDiv' //防止重复弹出
+            , content: $(".documentDiv")
+            , btnAlign: 'c' //按钮居中
+            , shade: 0.4 //不显示遮罩
+            , area: ['90%', '90%']
+            , yes: function () {
+            }
+        });
+    });
+}
+
+//关闭
+function cancel1 () {
+    layer.close(documentPage);
 }
 
 //显示日期
@@ -628,7 +697,7 @@ function delTask(task) {
 
 //显示新增页面
 function addDefect() {
-    $(".addHistory").css("display", "none");
+    $(".addHistoryDiv").css("display", "none");
     $.ajax({
         type: 'post',
         url: path + "/defect/getPermission",
@@ -653,6 +722,7 @@ function addDefect() {
                     $('#maintenanceCategoryHidden').val(1);
                     $('#maintenanceCategory').val(1);
                     $('#addAbs').val("");
+                    $("#addKeyword").val("");
                     $('#addSystemHidden').val('-1');
                     $('#addSystem').val('-1');
                     $('#addEquipment').val('-1');
@@ -694,6 +764,7 @@ function insert() {
             defect.equipmentId = Number($('#addEquipmentHidden').val());//设备id
             defect.sysId = Number($('#addSystemHidden').val());//系统id
             defect.abs = $('#addAbs').val();//缺陷描述
+            defect.keyword = $("#addKeyword").val();//缺陷关键词
             defect.bPlc = Json.message;//图片
             defect.createBy = Number($('#addUserId').val());//申请人员ID
             defect.sourceType = 1;//来源类型  1：defect   2:guide
@@ -1277,10 +1348,6 @@ function ajaxFun(data, tips, operation) {
 //取消
 function cancel() {
     layer.closeAll();
-}
-
-function cancel1() {
-    layer.close(index)
 }
 
 //修改缺陷的延时类型

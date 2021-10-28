@@ -93,24 +93,42 @@
     display: none;
 }
 /*历史记录*/
-.addHistory{
+.addHistoryDiv{
     display: none;
     float: left;
 }
-.addHistory .addHistoryTitle{
+.addHistory .addHistoryTitle,.keyword .keywordTitle{
     font-size: 25px;
     margin: 10px 0px 10px 10px;
     border-bottom: 1px solid;
     line-height: 60px;
 }
-.addHistory ul li {
+.addHistory ul li,.keyword ul li {
     line-height: 35px;
     border-bottom: 1px solid;
     border-color: darkgrey;
     margin-left: 10px;
 }
-.addHistory ul li span {
+.addHistory ul li span, .keyword ul li span {
     font-size: 20px;
+}
+/*文档库*/
+.documentDiv{
+    display: none;
+}
+.documentDiv table {
+    width: 98%;
+    margin: 10px auto;
+}
+.documentDiv table caption{
+    font-size: 22px;
+    font-weight: bold;
+}
+.documentDiv table tr{
+    line-height: 50px;
+}
+.documentDiv table tr td:first-child{
+    text-align: right;
 }
 /*layui多选框*/
 .icon-close{
