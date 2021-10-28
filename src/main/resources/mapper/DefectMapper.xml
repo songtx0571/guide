@@ -41,7 +41,7 @@
                 and DATE_FORMAT(de.confirmer1Time,'%Y-%m')=DATE_FORMAT(#{month},'%Y-%m')
             </if>
             <if test="createdBy!=null">
-                and  de.createdBy=#{createdBy}
+                and de.createdBy=#{createdBy}
             </if>
             <if test="claimant!=null">
                 and de.claimant=#{claimant}
@@ -66,8 +66,8 @@
     </select>
 
     <insert id="addDefect" parameterType="com.howei.pojo.Defect" keyProperty="id" useGeneratedKeys="true">
-        insert into defect(company,createdBy,`level`,created,`type`,departmentId,abs,sysId,equipmentId,maintenanceCategory,`year`,bPlc,sourceType) value
-        (#{company},#{createdBy},#{level},#{created},#{type},#{departmentId},#{abs},#{sysId},#{equipmentId},#{maintenanceCategory},#{year},#{bPlc},#{sourceType})
+        insert into defect(company,createdBy,`level`,created,`type`,departmentId,abs,sysId,equipmentId,maintenanceCategory,`year`,bPlc,sourceType,keywords) value
+        (#{company},#{createdBy},#{level},#{created},#{type},#{departmentId},#{abs},#{sysId},#{equipmentId},#{maintenanceCategory},#{year},#{bPlc},#{sourceType},#{keywords})
     </insert>
 
     <update id="updDefect" useGeneratedKeys="true" keyProperty="id" parameterType="com.howei.pojo.Defect">

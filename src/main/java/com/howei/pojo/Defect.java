@@ -58,7 +58,7 @@ public class Defect {
     private String totalStartTime; //总倒计时开始时间
     private String partStartTime; //每一部分倒计时开始时间
     private String pauseTime;//暂停时间
-
+    private String keywords;//关键字
 
 
     //虚字段
@@ -74,6 +74,14 @@ public class Defect {
     private String empIdsName;//执行人员名称
     private String aPlc64;
     private String bPlc64;
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
 
     public Double getTotalPauseSeconds() {
         return totalPauseSeconds;

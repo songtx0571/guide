@@ -35,19 +35,35 @@
         JOIN employee e ON k.employee_id = e.id
         LEFT JOIN knowledge_check_record kcr ON kcr.knowledge_id = k.id
         WHERE
-        k.type =#{map.type}
-        <if test="employeeId!=null">
-            and k.employee_id = #{ employeeId}
-        </if>
+        k.type = 1
         <if test="searchWord!=null and searchWord!='' ">
             and (
-            k.title like #{ searchWord}
+            k.title like #{searchWord}
             or
-            k.keyword like #{ searchWord}
+            k.keyword like #{searchWord}
             )
         </if>
 
         order by k.heat desc
 
+    </select>
+    <select id="getByKeywords" resultType="com.howei.pojo.Knowledge">
+        SELECT
+        DATE_FORMAT(k.create_time,"%Y-%m-%d %H:%i:%s") create_time,
+        k.*,
+        kcr.id kcr_id,
+        kcr.employee_id check_employee_id,
+        kcr.employee_name check_employee_name
+        FROM
+        knowledge k
+        JOIN employee e ON k.employee_id = e.id
+        LEFT JOIN knowledge_check_record kcr ON kcr.knowledge_id = k.id
+        WHERE
+        k.type = 1
+        and
+        <foreach collection="keywords" item="keyword" open="(" close=")">
+            k.keyword like #{keyword}
+        </foreach>
+        order by k.heat desc
     </select>
 </mapper>

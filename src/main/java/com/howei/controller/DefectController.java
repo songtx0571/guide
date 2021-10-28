@@ -1021,19 +1021,21 @@ public class DefectController {
     @GetMapping("/listKnowledge")
     @ResponseBody
     public Result getAllKnowledge(
-            @RequestParam(required = false) int type,
             @RequestParam(required = false) String searchWord
     ) {
         Users users = (Users) SecurityUtils.getSubject().getPrincipal();
         if (users == null) {
             return Result.fail(ResultEnum.NO_USER);
         }
-        Map<String, Object> map = new HashMap<>();
-        map.put("type", type);
-        if (searchWord != null && !"".equals(searchWord.trim())) {
-            map.put("searchWord", "%" + searchWord + "%");
+        List<String> keywords = new ArrayList<>();
+        if (!StringUtils.isEmpty(searchWord)) {
+            String[] searchWords = searchWord.split(" ");
+            for (String s : searchWords) {
+                keywords.add("%" + s + "%");
+
+            }
         }
-        List<Knowledge> knowledgeList = knowledgeService.getByMap(map);
+        List<Knowledge> knowledgeList = knowledgeService.getByKeywords(keywords);
         return Result.ok(knowledgeList.size(), knowledgeList);
     }
 

@@ -18,4 +18,9 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     public List<Knowledge> getByMap(Map<String, Object> map) {
         return mapper.getByMap(map);
     }
+
+    @Override
+    public List<Knowledge> getByKeywords(List<String> keywords) {
+        return mapper.getByKeywords(keywords);
+    }
 }

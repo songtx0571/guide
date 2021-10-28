@@ -10,4 +10,6 @@ import java.util.Map;
 public interface KnowledgeMapper {
 
     List<Knowledge> getByMap(Map<String, Object> map);
+
+    List<Knowledge> getByKeywords(List<String> keywords);
 }
