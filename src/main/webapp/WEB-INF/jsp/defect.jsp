@@ -216,9 +216,15 @@
                 </td>
             </tr>
             <tr>
+                <th>关键词</th>
+                <td colspan="3">
+                    <input id="addKeyword" placeholder="多个关键字以空格分开..." style="text-indent: 10px;width: 92%;height: 38px;border: 1px solid #e6e6e6;" onblur="getKeyword(value)">
+                </td>
+            </tr>
+            <tr>
                 <th>缺陷描述</th>
                 <td colspan="3"><textarea id='addAbs' rows="5" cols="50" maxlength="100"
-                                          style="text-indent: 10px;"></textarea></td>
+                                          style="text-indent: 10px;border:1px solid #e6e6e6;"></textarea></td>
             </tr>
             <tr>
                 <th>缺陷图片</th>
@@ -250,12 +256,61 @@
             </thead>
         </table>
         <!--新增历史记录-->
-        <div class="addHistory">
-            <h2 class="addHistoryTitle"></h2>
-            <ul class="addHistoryUl">
+        <div class="addHistoryDiv">
+            <div class="addHistory">
+                <h2 class="addHistoryTitle"></h2>
+                <ul class="addHistoryUl">
 
-            </ul>
+                </ul>
+            </div>
+            <div class="keyword">
+                <h2 class="keywordTitle"></h2>
+                <ul class="keywordUl">
+
+                </ul>
+            </div>
         </div>
+    </div>
+    <%--文档库--%>
+    <div class="documentDiv">
+        <table>
+            <caption>查看</caption>
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" id="id" name="id" class="id">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>标题：</span></td>
+                <td>
+                    <input type="text" id="title" class="layui-input title" style="width: calc(100% - 65px);margin-left: 6px;">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>关键字：</span>
+                </td>
+                <td>
+                    <input type="text" id="keyword" name="keyword" class="layui-input"
+                           style="width: calc(100% - 65px);margin-left: 6px;">
+                </td>
+            </tr>
+            <tr style="line-height: 25px;">
+                <td>
+                    <span style="line-height: 80px;">内容：</span>
+                </td>
+                <td style="max-width: 480px;">
+                    <div style="width: calc(100% - 65px); text-indent: 10px;border: 1px solid #e6e6e6;margin: 10px 0px 10px 5px;"
+                         id="content"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;padding-top: 20px;box-sizing: border-box;">
+                    <button type="button" class="layui-btn" onclick="cancel1()">取消</button>
+                </td>
+            </tr>
+        </table>
     </div>
     <!-- 认领 -->
     <div class="claimInfoDiv">

@@ -22,7 +22,6 @@ public class Knowledge {
     private String updateTime;
     private String passTime;
 
-    private List<Map> checkedEmployee;
 
 
     @Override
@@ -39,7 +38,6 @@ public class Knowledge {
                 ", type=" + type +
                 ", heat=" + heat +
                 ", createTime=" + createTime +
-                ", checkedEmployee=" + checkedEmployee +
                 ", updateTime=" + updateTime +
                 ", passTime=" + passTime +
                 '}';
@@ -77,13 +75,6 @@ public class Knowledge {
         this.createTime = createTime;
     }
 
-    public List<Map> getCheckedEmployee() {
-        return checkedEmployee;
-    }
-
-    public void setCheckedEmployee(List<Map> checkedEmployee) {
-        this.checkedEmployee = checkedEmployee;
-    }
 
     public Integer getId() {
         return id;
