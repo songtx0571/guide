@@ -378,6 +378,8 @@ public class DefectController {
                     defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
                     defect.setDelayETime(delayETime);//延期结束时间
                     defect.setDelayReason(delayReason);//延期理由
+                    defect.setPartStartTime(delayETime);
+                    defect.setTotalStartTime(delayETime);
                     defect.setTimeoutType("");
                     defectService.updDefect(defect);
                     return Result.ok();
@@ -441,7 +443,7 @@ public class DefectController {
             return Result.fail(ResultEnum.DEFECT_NOT_STARTED);
         }
         //type=6
-        if (type != null && type.equals("6")) {
+        if (type != null && "6".equals(type)) {
             defect.setType(6);//延期中
             defect.setDelayBy(users.getEmployeeId());//申请延期人
             defect.setDelaySTime(DateFormat.getYMDHMS(new Date()));//延期开始时间
@@ -451,6 +453,8 @@ public class DefectController {
             defect.setRealSTime("");//实际检修开始时间
             defect.setEmpIds("");//执行人员
             defect.setTimeoutType("");
+            defect.setPartStartTime(delayETime);
+            defect.setTotalStartTime(delayETime);
             //设置认领数据为空
         } else {
             if (empIds != null) {
@@ -937,87 +941,6 @@ public class DefectController {
     }
 
 
-    /**
-     * 开始或者暂停,延时功能
-     * type为0时,设置该缺陷开始倒计时或者停止倒计时
-     * type为1时,设置该缺陷加时次数,第一次加时1小时,第二次加时0.5小时,第三次加时0.25分钟
-     *
-     * @param id        缺陷id,
-     * @param paramType 修改的类型,0设置开始或者暂停,1设置延期
-     * @return
-     */
-    @GetMapping("/updateStartedOrDelay")
-    public Result startPauseCountDown(
-            @RequestParam Integer id,
-            @RequestParam Integer paramType
-    ) {
-        Subject subject = SecurityUtils.getSubject();
-        Users users = (Users) subject.getPrincipal();
-        if (users == null) {
-            return Result.fail(ResultEnum.NO_USER);
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String msg;
-        Defect defect = defectService.getDefectById(id);
-        Date date = new Date();
-        if (paramType == 0) {
-            Integer isStarted = defect.getIsStarted();
-            if (isStarted == 0) {
-                isStarted = 1;
-                msg = "缺陷暂停成功";
-                String formatDate = sdf.format(date);
-                defect.setPauseTime(formatDate);
-            } else {
-                isStarted = 0;
-                String pauseTime = defect.getPauseTime();
-                Date parsePauseTime;
-                BigDecimal bd = new BigDecimal(0);
-                try {
-                    parsePauseTime = sdf.parse(pauseTime);
-                    bd = new BigDecimal((date.getTime() - parsePauseTime.getTime()) / 1000);
-                } catch (ParseException e) {
-                }
-                Double pauseSeconds = bd.setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
-                defect.setTotalPauseSeconds(pauseSeconds + defect.getTotalPauseSeconds());
-                defect.setPartPauseSeconds(pauseSeconds + defect.getPartPauseSeconds());
-                msg = "缺陷开始成功";
-            }
-            defect.setIsStarted(isStarted);
-            defectService.updDefect(defect);
-            return Result.ok(msg);
-        } else {
-            double additionalTime = 0;
-            Integer times = defect.getCountdownDelayTimes();
-
-            if (times == 0) {
-                additionalTime = 1;
-            } else if (times == 1) {
-                additionalTime = 0.5;
-            } else if (times == 2) {
-                additionalTime = 0.25;
-            } else {
-                return Result.fail("已增加过3次时间,无法继续延时");
-            }
-            Integer type = defect.getType();
-            if (type == 1) {
-                defect.setPlannedHoursPart1(defect.getPlannedHoursPart1() + additionalTime);
-            } else if (type == 5) {
-                defect.setPlannedHoursPart5(defect.getPlannedHoursPart5() + additionalTime);
-            } else if (type == 2) {
-                defect.setPlannedHoursPart2(defect.getPlannedHoursPart2() + additionalTime);
-            } else if (type == 3) {
-                defect.setPlannedHoursPart3(defect.getPlannedHoursPart3() + additionalTime);
-            } else if (type == 7) {
-                defect.setPlannedHoursPart7(defect.getPlannedHoursPart7() + additionalTime);
-            }
-            defect.setPlannedHours(defect.getPlannedHours() + additionalTime);
-            defect.setCountdownDelayTimes(times + 1);
-            defectService.updDefect(defect);
-            return Result.ok("加时成功,第" + (times + 1) + "次加时,增加" + additionalTime + "小时");
-        }
-    }
-
-
     @GetMapping("/listKnowledge")
     @ResponseBody
     public Result getAllKnowledge(
@@ -1035,6 +958,7 @@ public class DefectController {
 
             }
         }
+
         List<Knowledge> knowledgeList = knowledgeService.getByKeywords(keywords);
         return Result.ok(knowledgeList.size(), knowledgeList);
     }
