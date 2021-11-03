@@ -276,7 +276,6 @@ function showTime() {
         laydate.render({
             elem: '#test4'
             , type: 'time'
-            , format: 'HH'
             , trigger: 'click'
             , done: function (value) {
             }
@@ -290,7 +289,6 @@ function showTime() {
         laydate.render({
             elem: '#test6'
             , type: 'time'
-            , format: 'HH'
             , trigger: 'click'
             , done: function (value) {
             }
@@ -304,7 +302,6 @@ function showTime() {
         laydate.render({
             elem: '#test8'
             , type: 'time'
-            , format: 'HH'
             , trigger: 'click'
             , done: function (value) {
             }
@@ -364,7 +361,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                 , {field: 'type', title: '状态', toolbar: '#tbTypeBar', align: 'center', width: 100, sort: true}
                 , {field: 'abs', title: '缺陷描述'}
                 , {field: 'empIdsName', title: '消缺人', width: 150}
-                , {
+                /*, {
                     field: 'totalTime', title: '总倒计时', sort: true, align: 'center',
                     templet: function (a) {
                         if (a.type == 4) {
@@ -531,7 +528,7 @@ function showTable(type, sysId, equipmentId, departmentId) {
                         });
                         return html;
                     }
-                }
+                }*/
                 , {field: 'created', title: '申请时间', align: 'center', minWidth: 120, sort: true}
                 , {field: 'type', title: '状态', toolbar: '#tbStatusBar', align: 'center', width: 180, hide: true}
                 , {fixed: 'right', title: '操作', toolbar: '#tbOperationBar', align: 'center', width: 200}
@@ -722,7 +719,7 @@ function addDefect() {
                     $('#maintenanceCategoryHidden').val(1);
                     $('#maintenanceCategory').val(1);
                     $('#addAbs').val("");
-                    $("#addKeyword").val("");
+                    // $("#addKeyword").val("");
                     $('#addSystemHidden').val('-1');
                     $('#addSystem').val('-1');
                     $('#addEquipment').val('-1');
@@ -764,7 +761,7 @@ function insert() {
             defect.equipmentId = Number($('#addEquipmentHidden').val());//设备id
             defect.sysId = Number($('#addSystemHidden').val());//系统id
             defect.abs = $('#addAbs').val();//缺陷描述
-            defect.keyword = $("#addKeyword").val();//缺陷关键词
+            // defect.keyword = $("#addKeyword").val();//缺陷关键词
             defect.bPlc = Json.message;//图片
             defect.createBy = Number($('#addUserId').val());//申请人员ID
             defect.sourceType = 1;//来源类型  1：defect   2:guide

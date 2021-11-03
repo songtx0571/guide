@@ -215,16 +215,16 @@
                     </form>
                 </td>
             </tr>
-            <tr>
+            <%--<tr>
                 <th>关键词</th>
                 <td colspan="3">
                     <input id="addKeyword" placeholder="多个关键字以空格分开..." style="text-indent: 10px;width: 92%;height: 38px;border: 1px solid #e6e6e6;" onblur="getKeyword(value)">
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <th>缺陷描述</th>
                 <td colspan="3"><textarea id='addAbs' rows="5" cols="50" maxlength="100"
-                                          style="text-indent: 10px;border:1px solid #e6e6e6;"></textarea></td>
+                                          style="text-indent: 10px;border:1px solid #e6e6e6;" onblur="getKeyword(value)"></textarea></td>
             </tr>
             <tr>
                 <th>缺陷图片</th>

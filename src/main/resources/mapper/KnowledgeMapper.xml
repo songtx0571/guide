@@ -62,6 +62,7 @@
         FROM
             knowledge_keyword kk
         right JOIN knowledge k on k.id=kk.knowledge_id
-        where #{searchWord} like concat("%",keyword,"%")
+        where #{searchWord} like concat("%",kk.keyword,"%")
+        and k.type="1"
     </select>
 </mapper>
