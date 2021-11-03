@@ -940,7 +940,6 @@ public class DefectController {
         return false;
     }
 
-
     @GetMapping("/listKnowledge")
     @ResponseBody
     public Result getAllKnowledge(
@@ -950,16 +949,7 @@ public class DefectController {
         if (users == null) {
             return Result.fail(ResultEnum.NO_USER);
         }
-        List<String> keywords = new ArrayList<>();
-        if (!StringUtils.isEmpty(searchWord)) {
-            String[] searchWords = searchWord.split(" ");
-            for (String s : searchWords) {
-                keywords.add("%" + s + "%");
-
-            }
-        }
-
-        List<Knowledge> knowledgeList = knowledgeService.getByKeywords(keywords);
+        List<Knowledge> knowledgeList = knowledgeService.getKkKidBySearchWord(searchWord);
         return Result.ok(knowledgeList.size(), knowledgeList);
     }
 

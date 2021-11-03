@@ -9,4 +9,6 @@ public interface KnowledgeService {
     List<Knowledge> getByMap(Map<String, Object> map);
 
     List<Knowledge> getByKeywords(List<String> keywords);
+
+    List<Knowledge> getKkKidBySearchWord(String searchWord);
 }

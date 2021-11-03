@@ -41,7 +41,7 @@
         order by k.heat desc
 
     </select>
-    <select id="getByKeywords" resultType="com.howei.pojo.Knowledge">
+    <select id="getByKeywords" resultMap="baseMap">
         SELECT
         DATE_FORMAT(k.create_time,"%Y-%m-%d %H:%i:%s") create_time,
         k.*
@@ -54,5 +54,14 @@
             k.keyword like #{keyword}
         </foreach>
         order by k.heat desc
+    </select>
+    <select id="getKkKidBySearchWord" resultMap="baseMap">
+        SELECT
+         DISTINCT
+            k.*
+        FROM
+            knowledge_keyword kk
+        right JOIN knowledge k on k.id=kk.knowledge_id
+        where #{searchWord} like concat("%",keyword,"%")
     </select>
 </mapper>

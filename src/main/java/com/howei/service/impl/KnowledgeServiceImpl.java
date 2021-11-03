@@ -23,4 +23,9 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     public List<Knowledge> getByKeywords(List<String> keywords) {
         return mapper.getByKeywords(keywords);
     }
+
+    @Override
+    public List<Knowledge> getKkKidBySearchWord(String searchWord) {
+        return mapper.getKkKidBySearchWord(searchWord);
+    }
 }
