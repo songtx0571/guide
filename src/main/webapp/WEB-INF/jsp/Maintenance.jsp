@@ -27,6 +27,19 @@
             line-height: 50px;
             outline: none;
         }
+        .maintainDiv{
+            display: none;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .maintainDiv .backBtn {
+            padding: 5px 10px;
+            background: dodgerblue;
+            color: #fff;
+            border: 0px;
+            font-size: 18px;
+            margin: 5px 0;
+        }
     </style>
     <title>检修日志</title>
 </head>
@@ -153,6 +166,65 @@
             <input type="button" value="&nbsp;提&nbsp;&nbsp;交&nbsp;" onclick="updOvertimeFun()"/>
             <input type="button" value="&nbsp;取&nbsp;&nbsp;消&nbsp;" onclick="back()"/>
         </div>
+    </div>
+    <div class="maintainDiv">
+        <table>
+            <tr>
+                <td width="110px">创建时间</td>
+                <td id="selCreateTime"></td>
+            </tr>
+            <tr>
+                <td>开始时间</td>
+                <td id="selStartTime"></td>
+            </tr>
+            <tr>
+                <td>结束时间</td>
+                <td id="selEndTime"></td>
+            </tr>
+            <tr>
+                <td>维护编号</td>
+                <td id="selMaintainRecordNo"></td>
+            </tr>
+            <tr>
+                <td>执行人</td>
+                <td id="selEmployeeName">
+                </td>
+            </tr>
+            <tr>
+                <td>系统</td>
+                <td id="selSysName">
+                </td>
+            </tr>
+            <tr>
+                <td>设备</td>
+                <td id="selEquipmentName">
+                </td>
+            </tr>
+            <tr>
+                <td>维护点</td>
+                <td id="selUnitName">
+                </td>
+            </tr>
+            <tr>
+                <td>预估工时</td>
+                <td id="selPlanedWorkingHour">
+                </td>
+            </tr>
+            <tr>
+                <td>工作内容描述</td>
+                <td id="selWorkContent">
+                </td>
+            </tr>
+            <tr>
+                <td>工作反馈</td>
+                <td id="selWorkFeedback"></td>
+            </tr>
+            <tr>
+                <td style="text-align: center" colspan="2">
+                    <button class="backBtn" onclick="back()">取消</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

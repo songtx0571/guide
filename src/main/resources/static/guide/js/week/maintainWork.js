@@ -45,9 +45,9 @@ function showDepartName() {
 //
 function showMaintainWorkBtn (status) {
     if (status == '1') {
-        showMaintainWork($("#selDepartNameHidden").val(),'1');
+        showMaintainWork('','1');
     } else {
-        showMaintainWork($("#selDepartNameHidden").val(),'2');
+        showMaintainWork('','2');
     }
 }
 //查询数据
@@ -155,7 +155,7 @@ function showMaintainWork(departmentId,status) {
                     dataType: "text",
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
-                        showMaintainWork($("#selDepartNameHidden").val(),'1');
+                        showMaintainWork('','1');
                     }
                 });
             }
@@ -186,7 +186,7 @@ function feedbackMaintainWork () {
         dataType: "text",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            showMaintainWork($("#selDepartNameHidden").val(),'1');
+            showMaintainWork('','1');
             layer.closeAll();
         }
     });

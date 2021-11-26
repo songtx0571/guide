@@ -421,20 +421,21 @@ public class MaintainController {
         Integer employeeId = users.getEmployeeId();
         Integer departmentId = users.getDepartmentId();
 
-        List<String> employeeIdList = new ArrayList<>();
-        employeeIdList.add(employeeId.toString());
-        List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
-
-        List<Employee> empList = employeeService.getEmployeeByManager(0);
-
-        ListUtils.getChildEmployeeId(rootList, empList, employeeIdList, null);
-
-        if (employeeIdList.size() > 0) {
-            map.put("employeeIdList", employeeIdList);
-        }
 
         if (id != null) {
             map.put("id", id);
+        } else {
+            List<String> employeeIdList = new ArrayList<>();
+            employeeIdList.add(employeeId.toString());
+            List<Employee> rootList = employeeService.getEmployeeByManager(employeeId);
+
+            List<Employee> empList = employeeService.getEmployeeByManager(0);
+
+            ListUtils.getChildEmployeeId(rootList, empList, employeeIdList, null);
+
+            if (employeeIdList.size() > 0) {
+                map.put("employeeIdList", employeeIdList);
+            }
         }
         if (status != null) {
             map.put("status", status);
@@ -449,6 +450,8 @@ public class MaintainController {
         List<MaintainRecord> maintainRecordPageList = null;
         if (page != null && limit != null) {
             maintainRecordPageList = maintainRecordTotalList.stream().skip((page - 1) * limit).limit(limit).collect(Collectors.toList());
+        } else {
+            maintainRecordPageList = maintainRecordTotalList;
         }
 
         Map<Integer, String> usersMap = getUsersMap();

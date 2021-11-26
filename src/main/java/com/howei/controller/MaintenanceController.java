@@ -339,6 +339,7 @@ public class MaintenanceController {
                 map.put("realExecuteTime", maintainRecord.getWorkingHour());
                 map.put("confirmer1Time", maintainRecord.getEndTime());
                 map.put("type", 1);
+                map.put("id", maintainRecord.getId());
                 mapList.add(map);
             }
         }

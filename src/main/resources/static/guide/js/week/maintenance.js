@@ -357,7 +357,11 @@ function fillA(datetime,project){
 				tr = "<tr><td colspan='10'>无</td></tr>"
 			} else {
 				for (var i = 0; i < data.length; i ++) {
-					tr += "<tr><td>"+(i+1)+"</td><td style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='4'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>"+data[i].overtime+"</td><td>"+data[i].confirmer1Time+"</td></tr>";
+					if(data[i].type != 1){
+						tr += "<tr><td>"+(i+1)+"</td><td style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='4'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>"+data[i].overtime+"</td><td>"+data[i].confirmer1Time+"</td></tr>";
+					} else {
+						tr += "<tr><td>"+(i+1)+"</td><td style='cursor: pointer;color: red;' onclick='showDetailedInfoDiv("+data[i].id+","+data[i].type+")'>"+data[i].number+"</td><td colspan='4'>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td>/</td><td>"+data[i].confirmer1Time+"</td></tr>";
+					}
 				}
 			}
 			tbody0.innerHTML = tr;
@@ -380,6 +384,39 @@ function showDetailedInfoDiv (id,type) {
 					maxmin: true,
 					content: '../defect/toDefectDetailed?id=' + id
 				});
+			}
+		})
+	} else {
+		$.ajax({
+			type: 'GET',
+			url: "/guide/maintain/getMaintainRecords",
+			data: {id: id},//status 2已完成 1未完成
+			success: function (data) {
+				if (data.code == 0 || data.code == 200) {
+					data = data.data[0];
+					$("#selCreateTime").text(data.createTime);
+					$("#selStartTime").text(data.startTime);
+					$("#selEndTime").text(data.endTime);
+					$("#selMaintainRecordNo").text(data.maintainRecordNo);
+					$("#selEmployeeName").text(data.employeeName);
+					$("#selSysName").text(data.systemName);
+					$("#selEquipmentName").text(data.equipmentName);
+					$("#selUnitName").text(data.unitName);
+					$("#selPlanedWorkingHour").text(data.workingHour);
+					$("#selWorkContent").text(data.workContent);
+					$("#selWorkFeedback").text(data.workFeedback);
+					layer.open({
+						type: 1
+						,id: 'maintainDiv' //防止重复弹出
+						,content: $(".maintainDiv")
+						,btnAlign: 'c' //按钮居中
+						,shade: 0 //不显示遮罩
+						,area: ['100%', '100%']
+						,yes: function(){}
+					});
+				} else {
+					layer.alert(data.msg)
+				}
 			}
 		})
 	}
