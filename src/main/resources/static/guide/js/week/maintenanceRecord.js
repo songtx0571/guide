@@ -69,8 +69,6 @@ function change(id){
 		"data":{id:id},
 		"success":function(Json){
 			var data = Json.data;
-			console.log(data);
-			console.log(data.num);
 			document.getElementById("leader").innerHTML = data.leader;
 			
 			if(data.attendance==-1){
@@ -82,11 +80,41 @@ function change(id){
 			
 			document.getElementById("datetime").innerHTML = data.datetime;
 			sessionStorage.ScrDailyRecordProject = data.projectId;
+			fillA(data.datetime, data.projectId)
 			
 		},
 		"error":function(){
 			layer.alert("系统繁忙");
 		}	
+	});
+}
+
+//填充工作安排A
+function fillA(datetime,project){
+	project = Number(project);
+	$.ajax({
+		"type": 'post',
+		"url": "../MaintenanceController/getDefectList",
+		"data": {date: datetime, departmentId: project},
+		"success": function (Json) {
+			var data = Json.data;
+			var tbody0 = document.getElementById("tbody0");
+			var tr  = "";
+			if (data == null || data.length == 0){
+				tr = "<tr><td colspan='10'>无</td></tr>"
+			} else {
+				var td = "<tr><td rowspan='"+(data.length+1)+"'>工作安排A</td><td>缺陷号</td><td width='42%'>内容</td><td width='18%'>人员</td> <td >工时</td><td colspan='2'>加班工时</td><td colspan='2'>完成时间</td></tr>"
+				for (var i = 0; i < data.length; i ++) {
+					if(data[i].type != 1){
+						data[i].overtime = data[i].overtime.toFixed(2)
+						td += "<tr><td>"+data[i].number+"</td><td>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td colspan='2'>"+data[i].overtime+"</td><td colspan='2'>"+data[i].confirmer1Time+"</td></tr>";
+					} else {
+						td += "<tr><td>"+data[i].number+"</td><td>"+data[i].abs+"</td><td>"+data[i].empIdsName+"</td><td>"+data[i].realExecuteTime+"</td><td colspan='2'>/</td><td colspan='2'>"+data[i].confirmer1Time+"</td></tr>";
+					}
+				}
+			}
+			tbody0.innerHTML = td;
+		}
 	});
 }
 
@@ -124,7 +152,6 @@ function fill(data){
 			tr1.setAttribute("id", "123");
 			var td1 = "<th>"+data[i].defectNumber+"</th><td colspan='3'>"+data[i].content+"</td>";
 			var people = [];
-			console.log(data[i]);
 			if(data[i].peopleName !=null){
 				people = data[i].peopleName.split(/[、，；：:;,.]/);
 				if(people.length>2){

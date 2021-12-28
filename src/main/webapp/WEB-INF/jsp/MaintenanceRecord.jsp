@@ -9,8 +9,6 @@
 <script type="text/javascript"  src="../js/week/jQuery.print.min.js"></script>
 <script type="text/javascript"  src="../word/FileSaver.js"></script>
 <script type="text/javascript"  src="../word/jquery.wordexport.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
 <link rel="stylesheet" href="../css/iframe.css" media="screen"/>
 <link rel="stylesheet" href="../css/tr.css" media="screen"/>
 <link rel="stylesheet" href="../css/print.css" media="screen"/>
@@ -26,9 +24,10 @@
 			<input type="button" value="上一篇" onclick='last()'/>
 			<input type="button" value="下一篇" onclick='next()'/>
 			<input id='print1' onclick="aa()" type="button" value="打印"/>
-			<input id='print1' onclick="exportWord()" type="button" value="导出"/>
+			<input id='print2' onclick="exportWord()" type="button" value="导出"/>
 		</span>
 		<div id='myElementId'>
+			<h2 id='h2'>检修日志</h2>
 		<table style="width: 96%;margin-top: 50px; text-align: center;">
 			<thead >
 				<tr>
@@ -44,6 +43,7 @@
 					<td id='attendance'></td>
 				</tr>
 			</thead>
+			<tbody id="tbody0"></tbody>
 			<tbody id='tbody'>
 			
 			</tbody>
