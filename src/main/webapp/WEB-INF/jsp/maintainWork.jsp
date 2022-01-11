@@ -12,7 +12,7 @@
 <body>
 <div class="warp maintainWork">
     <div class="top">
-    <%--    <shiro:hasPermission name="查询所有部门维护引导">
+        <shiro:hasPermission name="查询所有部门维护引导">
             <form class="layui-form" action="" style="display: inline-block;margin-bottom: 10px;float: left;">
                 <input type="hidden" id="selDepartNameHidden">
                 <div class="layui-form-item">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </form>
-        </shiro:hasPermission>--%>
+        </shiro:hasPermission>
         <div class="layui-inline" style="margin: 0 0 0 20px;float:left;">
             <button class="layui-btn" onclick="showMaintainWorkBtn('2')">已完成</button>
         </div>

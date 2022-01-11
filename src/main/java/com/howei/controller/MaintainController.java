@@ -440,7 +440,7 @@ public class MaintainController {
         if (status != null) {
             map.put("status", status);
         }
-        if (!subject.isPermitted("查询所有部门维护引导")) {
+        if (subject.isPermitted("查询所有部门维护引导")) {
             map.put("departmentId", departmentId);
         }
         List<MaintainRecord> maintainRecordTotalList = maintainService.getMaintainRecordByMap(map);
