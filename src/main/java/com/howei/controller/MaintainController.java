@@ -409,7 +409,8 @@ public class MaintainController {
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer status,
-            @RequestParam(required = false) Integer id
+            @RequestParam(required = false) Integer id,
+            @RequestParam(required = false) Integer departmentId
     ) {
         Subject subject = SecurityUtils.getSubject();
         Users users = (Users) subject.getPrincipal();
@@ -419,7 +420,6 @@ public class MaintainController {
         }
 
         Integer employeeId = users.getEmployeeId();
-        Integer departmentId = users.getDepartmentId();
 
 
         if (id != null) {
@@ -441,6 +441,9 @@ public class MaintainController {
             map.put("status", status);
         }
         if (subject.isPermitted("查询所有部门维护引导")) {
+            map.put("departmentId", departmentId);
+        } else {
+            departmentId = users.getDepartmentId();
             map.put("departmentId", departmentId);
         }
         List<MaintainRecord> maintainRecordTotalList = maintainService.getMaintainRecordByMap(map);
