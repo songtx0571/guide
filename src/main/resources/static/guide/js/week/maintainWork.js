@@ -45,9 +45,9 @@ function showDepartName() {
 //
 function showMaintainWorkBtn (status) {
     if (status == '1') {
-        showMaintainWork('','1');
+        showMaintainWork($("#selDepartNameHidden").val(),'1');
     } else {
-        showMaintainWork('','2');
+        showMaintainWork($("#selDepartNameHidden").val(),'2');
     }
 }
 //查询数据
@@ -77,6 +77,9 @@ function showMaintainWork(departmentId,status) {
                     , {field: 'unitName', title: '维护点', sort: true, align: 'center'}
                     , {field: 'workContent', title: '工作内容', sort: true, align: 'center',width:400}
                     , {field: 'employeeName', title: '执行人', sort: true, align: 'center'}
+                    , {field: 'claimTime', title: '认领时间', sort: true, align: 'center', hide: true}
+                    , {field: 'startTime', title: '开始时间', sort: true, align: 'center', hide: true}
+                    , {field: 'endTime', title: '结束时间', sort: true, align: 'center', hide: true}
                     , {fixed: '', title: '操作', toolbar: '#tbDemoBar', width: 150, align: 'center'}
                 ]]
                 , done: function (res, curr, count) {
@@ -100,6 +103,9 @@ function showMaintainWork(departmentId,status) {
                     , {field: 'endTime', title: '结束时间', sort: true, align: 'center'}
                     , {field: 'workingHour', title: '工作时间', sort: true, align: 'center'}
                     , {field: 'workFeedback', title: '工作反馈', sort: true, align: 'center',width:400}
+                    , {field: 'claimTime', title: '认领时间', sort: true, align: 'center', hide: true}
+                    , {field: 'startTime', title: '开始时间', sort: true, align: 'center', hide: true}
+                    , {field: 'endTime', title: '结束时间', sort: true, align: 'center', hide: true}
                     , {field: 'employeeName', title: '执行人', sort: true, align: 'center'}
                 ]]
                 , done: function (res, curr, count) {

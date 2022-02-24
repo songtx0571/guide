@@ -32,6 +32,7 @@
         <result column="employee_id" property="employeeId"/>
 
         <result column="work_feedback" property="workFeedback"/>
+        <result column="claim_time" property="claimTime"/>
         <result column="start_time" property="startTime"/>
         <result column="end_time" property="endTime"/>
         <result column="working_hour" property="workingHour"/>
