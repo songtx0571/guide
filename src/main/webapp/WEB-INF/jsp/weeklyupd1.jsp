@@ -17,7 +17,7 @@
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea text="${weekly.content1}" id='content1' rows="5" cols="50" maxlength="100">${weekly.content1}</textarea>
+					<textarea text="${weekly.content1}" id='content1' rows="5" cols="50">${weekly.content1}</textarea>
 				</th>
 			</tr>
 			<tr>

@@ -27,7 +27,7 @@
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea id='content2' rows="5" cols="50" maxlength="100"></textarea>
+					<textarea id='content2' rows="5" cols="50"></textarea>
 				</th>
 			</tr>
 			<tr>

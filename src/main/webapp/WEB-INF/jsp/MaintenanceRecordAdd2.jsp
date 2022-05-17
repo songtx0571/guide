@@ -19,7 +19,7 @@
 			<tr>
 				<th id='th1' width='20%'>内容</th>
 				<th  width='80%'>
-					<textarea id='content' rows="5" cols="50" maxlength="100"></textarea>
+					<textarea id='content' rows="5" cols="50"></textarea>
 				</th>
 			</tr>
 			<tr>

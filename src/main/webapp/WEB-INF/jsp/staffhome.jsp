@@ -252,7 +252,7 @@
             </tr>
             <tr>
                 <th>缺陷描述</th>
-                <td colspan="3"><textarea id='addAbs' rows="5" cols="50" maxlength="100" style="margin-bottom: 10px;text-indent: 10px;"></textarea></td>
+                <td colspan="3"><textarea id='addAbs' rows="5" cols="50" style="margin-bottom: 10px;text-indent: 10px;"></textarea></td>
             </tr>
             <tr>
                 <th>缺陷图片</th>

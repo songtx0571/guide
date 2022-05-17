@@ -223,7 +223,7 @@
             </tr>--%>
             <tr>
                 <th>缺陷描述</th>
-                <td colspan="3"><textarea id='addAbs' rows="5" cols="50" maxlength="100"
+                <td colspan="3"><textarea id='addAbs' rows="5" cols="50"
                                           style="text-indent: 10px;border:1px solid #e6e6e6;" onblur="getKeyword(value)"></textarea></td>
             </tr>
             <tr>
@@ -351,8 +351,7 @@
             <tr>
                 <th>缺陷描述</th>
                 <td colspan="5" style="padding-left: 8px;box-sizing: border-box;"><textarea id='claimInfoAbs' rows="5"
-                                                                                            cols="75"
-                                                                                            maxlength="100"></textarea>
+                                                                                            cols="75"></textarea>
                 </td>
             </tr>
             <tr>
@@ -566,7 +565,7 @@
             <tr>
                 <th>缺陷描述</th>
                 <td colspan="4">
-                    <textarea id='feedbackAbs' rows="5" cols="50" maxlength="100"></textarea>
+                    <textarea id='feedbackAbs' rows="5" cols="50"></textarea>
                 </td>
             </tr>
             <tr>
@@ -583,19 +582,19 @@
             <tr>
                 <th>处理措施</th>
                 <td colspan="4">
-                    <textarea id='feedbackMethod' rows="5" cols="50" maxlength="100"></textarea>
+                    <textarea id='feedbackMethod' rows="5" cols="50"></textarea>
                 </td>
             </tr>
             <tr>
                 <th>遗留问题</th>
                 <td colspan="4">
-                    <textarea id='feedbackProblem' rows="5" cols="50" maxlength="100"></textarea>
+                    <textarea id='feedbackProblem' rows="5" cols="50"></textarea>
                 </td>
             </tr>
             <tr>
                 <th>备注</th>
                 <td colspan="4">
-                    <textarea id='feedbackRemark' rows="5" cols="50" maxlength="100"></textarea>
+                    <textarea id='feedbackRemark' rows="5" cols="50"></textarea>
                 </td>
             </tr>
             <tr>
@@ -675,7 +674,7 @@
             <tr>
                 <th>缺陷描述</th>
                 <td colspan="5">
-                    <textarea id='workHoursAbs' rows="5" cols="50" maxlength="100"></textarea>
+                    <textarea id='workHoursAbs' rows="5" cols="50"></textarea>
                 </td>
             </tr>
             <tr>

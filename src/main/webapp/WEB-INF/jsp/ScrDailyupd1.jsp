@@ -31,7 +31,7 @@
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea id='content2' rows="5" cols="50" maxlength="100" text="${ScrDailyRecord.content2}">${ScrDailyRecord.content2}</textarea>
+					<textarea id='content2' rows="5" cols="50" text="${ScrDailyRecord.content2}">${ScrDailyRecord.content2}</textarea>
 				</th>
 			</tr>
 			<tr>

@@ -22,7 +22,7 @@
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea id='content1' rows="5" cols="50" maxlength="100" text="${ScrDailyRecord.content1}">${ScrDailyRecord.content1}</textarea>
+					<textarea id='content1' rows="5" cols="50" text="${ScrDailyRecord.content1}">${ScrDailyRecord.content1}</textarea>
 				</th>
 			</tr>
 			<tr>

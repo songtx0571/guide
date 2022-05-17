@@ -17,7 +17,7 @@
 			<tr>
 				<th id='th1'>内容</th>
 				<th>
-					<textarea id='content' rows="5" cols="50" maxlength="100" text="${requestScope.maintenanceRecord.content}"></textarea>
+					<textarea id='content' rows="5" cols="50" text="${requestScope.maintenanceRecord.content}"></textarea>
 				</th>
 			</tr>
 			<tr>
