@@ -4,6 +4,7 @@ var userName = "";
 $(function () {
     showDepartName();
     showMaintainWork("",'1');
+    $("#selDepartNameHidden").val('')
     $.ajax({
         type: 'GET',
         url: path + "/guide/defect/getLoginUserInfo",
@@ -54,6 +55,9 @@ function showMaintainWorkBtn (status) {
 function showMaintainWork(departmentId,status) {
     if (departmentId == "0") {
         departmentId = "";
+    }
+    if (departmentId == undefined) {
+        departmentId = ''
     }
     var win = $(window).height();
     var height = win - 120;
@@ -118,8 +122,14 @@ function showMaintainWork(departmentId,status) {
             $("#selIdTd").val(data.id);
             $(".selSysNameTd").text(data.systemName);
             $(".selEquipmentNameTd").text(data.equipmentName);
-            $(".selMaintainPointNameTd").text(data.maintainPointName);
-
+            $(".selUnitNameTd").text(data.unitName);
+            if (data.status == 0) {
+                data.status = '待执行'
+            } else if (data.status == 1) {
+                data.status = '执行中'
+            } else {
+                data.status = '已完成'
+            }
             $(".selStatusTd").text(data.status);
             $(".selWorkingHourTd").text(data.workingHour);
             $(".selEndTimeTd").text(data.endTime);

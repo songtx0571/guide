@@ -68,7 +68,7 @@
             </tr>
             <tr>
                 <td>维护点</td>
-                <td class="selMaintainPointNameTd"></td>
+                <td class="selUnitNameTd"></td>
                 <td>状态</td>
                 <td class="selStatusTd"></td>
             </tr>
